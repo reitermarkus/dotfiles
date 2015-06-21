@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# .sh | Dotfiles Setup for Markus Reiter
 
 
 # Set the colours you can use
