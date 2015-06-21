@@ -18,6 +18,12 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow 'RetriesUntilHint
 
 ### Menubar
 
+# Set Clock Format
+defaults write com.apple.menuextra.clock DateFormat          "HH:mm"
+defaults write com.apple.menuextra.clock FlashDateSeparators -bool false
+defaults write com.apple.menuextra.clock IsAnalog            -bool false
+
+# Set Menubar Items
 defaults write com.apple.systemuiserver menuExtras -array "/System/Library/CoreServices/Menu Extras/TimeMachine.menu" "/System/Library/CoreServices/Menu Extras/Bluetooth.menu"  "/System/Library/CoreServices/Menu Extras/AirPort.menu"  "/System/Library/CoreServices/Menu Extras/Battery.menu"  "/System/Library/CoreServices/Menu Extras/Clock.menu"  "/System/Library/CoreServices/Menu Extras/User.menu"
 
 
@@ -73,7 +79,12 @@ defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint    -bool true
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2   -bool true
 
+
+# Reload Menubar and Dock
+killall SystemUIServer Dock
+
+
 ### Locate DB
 
-
+# Start Locate DB Service
 sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist
