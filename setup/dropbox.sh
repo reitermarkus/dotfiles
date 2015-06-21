@@ -40,6 +40,7 @@ link_to_dropbox 'Desktop'
 
 link_to_dropbox 'Library/Fonts'
 link_to_dropbox 'Library/Safari/Extensions'
+link_to_dropbox 'Library/Containers/com.apple.BKAgentService/Data/Documents/iBooks'
 
 link_to_dropbox 'Documents/Backups'
 link_to_dropbox 'Documents/Cinquecento'
