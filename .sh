@@ -222,6 +222,7 @@ if hash fish; then
 
 fi
 
+mkdir -p ~/.config/fish/
 
 
 # Relocate Microsoft folder.
@@ -270,6 +271,7 @@ link_to_dropbox() {
 link_to_dropbox 'Desktop'
 
 link_to_dropbox 'Documents/Backups'
+link_to_dropbox 'Documents/Cinquecento'
 link_to_dropbox 'Documents/Entwicklung'
 link_to_dropbox 'Documents/Fonts'
 link_to_dropbox 'Documents/Notizen'
@@ -279,3 +281,8 @@ link_to_dropbox 'Documents/SketchUp'
 link_to_dropbox 'Documents/Sonstiges'
 
 link_to_dropbox 'Library/Fonts'
+
+if hash mackup; then
+  yes | mackup restore && \
+  yes | mackup backup
+fi
