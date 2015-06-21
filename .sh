@@ -71,6 +71,9 @@ defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
 cecho 'Disabling the Warning when changing a Extension …' $blue
 defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
 
+cecho 'Disabling the Warning when emptying Trash …' $blue
+defaults write com.apple.finder WarnOnEmptyTrash -bool false
+
 
 
 # Dock & Mission Control
