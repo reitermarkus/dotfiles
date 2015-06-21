@@ -37,6 +37,9 @@ echo_install() {
     cecho "Installing $1 …" $blue
 }
 
+echo_error() {
+    cecho "$1" $red
+}
 
 
 # Run “sudo” keep-alive.
@@ -113,11 +116,11 @@ if hash brew; then
   brew update &>/dev/null &
 
   brew_tap_if_missing() {
-    if brew tap "$1" &>/dev/null; then
+    if [[ "$1" == "`brew tap | grep $1`" ]]; then
       cecho "“$1” already tapped." $green
     else
       cecho "Tapping “$1” …" $blue
-      brew tap 'homebrew/dupes'
+      brew tap "$1" || echo_error "Error tapping $1."
     fi
   }
 
@@ -129,7 +132,7 @@ if hash brew; then
       echo_exists "$name"
     else
       echo_install "$name"
-      brew install "$package"
+      brew install "$package" &>/dev/null || echo_error "Error installing $name."
     fi
   }
 
@@ -159,7 +162,7 @@ if hash brew; then
         echo_exists "$name"
       else
         echo_install "$name"
-        brew cask install "$package" --appdir=/Applications
+        brew cask install "$package" --appdir=/Applications &>/dev/null || echo_error "Error installing $name."
       fi
       
       if [ "$3" == "--open" ]; then
@@ -170,6 +173,7 @@ if hash brew; then
       
     }
 
+    brew_cask_if_missing asepsis              'Asepsis'
     brew_cask_if_missing xquartz              'XQuartz'
     brew_cask_if_missing cocoapods            'Cocoapods'
     brew_cask_if_missing launchrocket         'Launchrocket'
