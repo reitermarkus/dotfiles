@@ -19,7 +19,7 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow 'RetriesUntilHint
 ### Menubar
 
 # Set Clock Format
-defaults write com.apple.menuextra.clock DateFormat          "HH:mm"
+defaults write com.apple.menuextra.clock DateFormat          'HH:mm'
 defaults write com.apple.menuextra.clock FlashDateSeparators -bool false
 defaults write com.apple.menuextra.clock IsAnalog            -bool false
 
@@ -55,6 +55,9 @@ defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
 
 # Disable Warning when emptying Trash
 defaults write com.apple.finder WarnOnEmptyTrash -bool false
+
+# Search Current Folder by Defaults
+defaults write com.apple.finder FXDefaultSearchScope 'SCcf'
 
 
 ### Dock & Mission Control
