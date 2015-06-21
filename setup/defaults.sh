@@ -92,7 +92,7 @@ killall SystemUIServer Dock
 # Enable Clicking and Dragging
 defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
 defaults write com.apple.AppleMultitouchTrackpad DragLock -bool false
-defaults write com.apple.AppleMultitouchTrackpad Dragging -bool true
+defaults write com.apple.AppleMultitouchTrackpad Dragging -int 1
 
 # Enable Right-Click
 defaults write com.apple.AppleMultitouchTrackpad TrackpadRightClick -bool true
