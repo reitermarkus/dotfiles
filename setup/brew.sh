@@ -42,7 +42,7 @@ if hash brew; then
     package=$1
     name=$2
 
-    if [ "`brew ls $package`" ]; then
+    if brew ls $package &>/dev/null; then
       echo_exists "$name"
     else
       echo_install "$name"
@@ -72,7 +72,7 @@ if hash brew; then
       package=$1
       name=$2
 
-      if [ "`brew cask ls $package`" ]; then
+      if brew cask ls $package &>/dev/null; then
         echo_exists "$name"
       else
         echo_install "$name"
