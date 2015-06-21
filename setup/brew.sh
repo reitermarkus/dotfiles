@@ -58,12 +58,13 @@ if hash brew; then
   brew_tap_if_missing 'homebrew/x11'
 
   # Install Packages
-  brew_if_missing brew-cask   'Brew Caskroom'
-  brew_if_missing brew-rmtree 'External Command “rmtree”'
-  brew_if_missing git         'Git'
-  brew_if_missing npm         'Node Package Manager'
-  brew_if_missing fish        'Fish Shell'
-  brew_if_missing mackup      'Mackup'
+  brew_if_missing brew-cask         'Brew Caskroom'
+  brew_if_missing brew-rmtree       'External Command “rmtree”'
+  brew_if_missing git               'Git'
+  brew_if_missing npm               'Node Package Manager'
+  brew_if_missing fish              'Fish Shell'
+  brew_if_missing mackup            'Mackup'
+  brew_if_missing terminal-notifier 'Terminal Notifier'
 
 
   if hash brew-cask; then
@@ -87,15 +88,16 @@ if hash brew; then
 
     }
 
-    brew_cask_if_missing asepsis              'Asepsis'
-    brew_cask_if_missing xquartz              'XQuartz'
-    brew_cask_if_missing cocoapods            'Cocoapods'
-    brew_cask_if_missing launchrocket         'Launchrocket'
     brew_cask_if_missing dropbox              'Dropbox'        --open
     brew_cask_if_missing adobe-creative-cloud 'Creative Cloud' --open
-    brew_cask_if_missing sigil                'Sigil'
-    brew_cask_if_missing vmware-fusion        'VMware Fusion'
+    brew_cask_if_missing asepsis              'Asepsis'
+    brew_cask_if_missing cocoapods            'Cocoapods'
+    brew_cask_if_missing launchrocket         'Launchrocket'
     brew_cask_if_missing microsoft-office     'Microsoft Office'
+    brew_cask_if_missing sigil                'Sigil'
+    brew_cask_if_missing transmission         'Transmission'
+    brew_cask_if_missing vmware-fusion        'VMware Fusion'
+    brew_cask_if_missing xquartz              'XQuartz'
 
   fi
 
