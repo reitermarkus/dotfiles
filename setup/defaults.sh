@@ -18,14 +18,33 @@ defaults write com.apple.finder ShowSidebar -bool true
 
 if [ -f ~/Library/Preferences/com.apple.sidebarlists.plist ]; then
 
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c "set networkbrowser:CustomListProperties:com.apple.NetworkBrowser.backToMyMacEnabled 1"
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c "set networkbrowser:CustomListProperties:com.apple.NetworkBrowser.bonjourEnabled 1"
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c "set networkbrowser:CustomListProperties:com.apple.NetworkBrowser.connectedEnabled 1"
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c 'set networkbrowser:CustomListProperties:com.apple.NetworkBrowser.backToMyMacEnabled 1'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c 'set networkbrowser:CustomListProperties:com.apple.NetworkBrowser.bonjourEnabled 1'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c 'set networkbrowser:CustomListProperties:com.apple.NetworkBrowser.connectedEnabled 1'
 
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c "set systemitems:ShowEjectables 1"
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c "set systemitems:ShowHardDisks 1"
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c "set systemitems:ShowRemovable 1"
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c "set systemitems:ShowServers 1"
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c 'set systemitems:ShowEjectables 1'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c 'set systemitems:ShowHardDisks 1'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c 'set systemitems:ShowRemovable 1'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c 'set systemitems:ShowServers 1'
+
+fi
+
+if [ -f ~/Library/Preferences/com.apple.finder.plist ]; then
+
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.finder.plist -c 'set DesktopViewSettings:IconViewSettings:arrangeBy "name"'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.finder.plist -c 'set DesktopViewSettings:IconViewSettings:backgroundColorBlue 1'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.finder.plist -c 'set DesktopViewSettings:IconViewSettings:backgroundColorGreen 1'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.finder.plist -c 'set DesktopViewSettings:IconViewSettings:backgroundColorRed 1'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.finder.plist -c 'set DesktopViewSettings:IconViewSettings:backgroundType 1'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.finder.plist -c 'set DesktopViewSettings:IconViewSettings:gridOffsetX 0'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.finder.plist -c 'set DesktopViewSettings:IconViewSettings:gridOffsetY 0'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.finder.plist -c 'set DesktopViewSettings:IconViewSettings:gridSpacing 100'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.finder.plist -c 'set DesktopViewSettings:IconViewSettings:iconSize 64'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.finder.plist -c 'set DesktopViewSettings:IconViewSettings:labelOnBottom 0'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.finder.plist -c 'set DesktopViewSettings:IconViewSettings:showIconPreview 1'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.finder.plist -c 'set DesktopViewSettings:IconViewSettings:showItemInfo 1'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.finder.plist -c 'set DesktopViewSettings:IconViewSettings:textSize 1'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.finder.plist -c 'set DesktopViewSettings:IconViewSettings:viewOptionsVersion 1'
 
 fi
 
