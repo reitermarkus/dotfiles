@@ -126,7 +126,10 @@ defaults write com.apple.AppleMultitouchTrackpad TrackpadTwoFingerFromRightEdgeS
 defaults write com.apple.AppleMultitouchTrackpad USBMouseStopsTrackpad -integer 0
 
 
+## Software Update
 
+# Check for Software Updates daily
+sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate ScheduleFrequency -int 1
 
 
 ### Locate DB
