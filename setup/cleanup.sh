@@ -1,3 +1,9 @@
+# Show “Library” folder.
+if [ -d ~/Library ]; then
+  chflags nohidden ~/Library
+fi
+
+
 # Hide “opt” folder.
 if [ -d /opt ]; then
   sudo chflags hidden /opt
