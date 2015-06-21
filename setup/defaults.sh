@@ -7,7 +7,28 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow GuestEnabled -boo
 # Finder Appearance and Behaviour
 
 cecho 'Showing Icons for Hard Drives, Servers, and Removable Media on the Desktop …' $blue
+defaults write com.apple.finder ShowHardDrivesOnDesktop -bool true
 defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
+defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
+defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
+
+cecho 'Showing Finder Sidebar …' $blue
+defaults write com.apple.finder ShowSidebar -bool true
+
+
+if [ -f ~/Library/Preferences/com.apple.sidebarlists.plist ]; then
+
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c "set networkbrowser:CustomListProperties:com.apple.NetworkBrowser.backToMyMacEnabled 1"
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c "set networkbrowser:CustomListProperties:com.apple.NetworkBrowser.bonjourEnabled 1"
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c "set networkbrowser:CustomListProperties:com.apple.NetworkBrowser.connectedEnabled 1"
+
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c "set systemitems:ShowEjectables 1"
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c "set systemitems:ShowHardDisks 1"
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c "set systemitems:ShowRemovable 1"
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c "set systemitems:ShowServers 1"
+
+fi
+
 
 cecho 'Disabling the Warning when changing a Extension …' $blue
 defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
