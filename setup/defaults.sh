@@ -1,89 +1,69 @@
-# Login Window
+cecho 'Writing Defaults …' $blue
 
-cecho 'Disabling Guest Account …' $blue
+
+### Login Window
+
+# Disable Guest Account
 sudo defaults write /Library/Preferences/com.apple.loginwindow GuestEnabled -bool false
 
+# Hide the Sleep, Restart and Shut Down buttons
+sudo defaults write /Library/Preferences/com.apple.loginwindow 'PowerOffDisabled' -bool true
+ 
+# Show Input menu in Login Window
+sudo defaults write /Library/Preferences/com.apple.loginwindow 'showInputMenu' -bool true
+ 
+# Hide Password Hints
+sudo defaults write /Library/Preferences/com.apple.loginwindow 'RetriesUntilHint' -int 0
 
-# Finder Appearance and Behaviour
 
-cecho 'Showing Icons for Hard Drives, Servers, and Removable Media on the Desktop …' $blue
+### Desktop and Finder 
+
+# Show Drives and Servers on Desktop
 defaults write com.apple.finder ShowHardDrivesOnDesktop -bool true
 defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
 defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
 defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
 
-cecho 'Showing Finder Sidebar …' $blue
+# Desktop View Settings
+defaults write com.apple.finder.plist DesktopViewSettings -dict IconViewSettings '<dict><key>arrangeBy</key><string>name</string><key>backgroundColorBlue</key><real>1</real><key>backgroundColorGreen</key><real>1</real><key>backgroundColorRed</key><real>1</real><key>backgroundType</key><integer>0</integer><key>gridOffsetX</key><real>0.0</real><key>gridOffsetY</key><real>0.0</real><key>gridSpacing</key><real>100</real><key>iconSize</key><real>64</real><key>labelOnBottom</key><true/><key>showIconPreview</key><true/><key>showItemInfo</key><true/><key>textSize</key><real>12</real><key>viewOptionsVersion</key><integer>1</integer></dict>'
+
+# Show Finder Sidebar
 defaults write com.apple.finder ShowSidebar -bool true
 
+# Show Drives and Servers in Sidebar
+defaults write com.apple.sidebarlists systemitems -dict-add ShowEjectables -bool true
+defaults write com.apple.sidebarlists systemitems -dict-add ShowHardDisks  -bool true
+defaults write com.apple.sidebarlists systemitems -dict-add ShowRemovable  -bool true
+defaults write com.apple.sidebarlists systemitems -dict-add ShowServers    -bool true
 
-if [ -f ~/Library/Preferences/com.apple.sidebarlists.plist ]; then
+# Show Network Devices in Sidebar
+defaults write com.apple.sidebarlists networkbrowser -dict CustomListProperties '<dict><key>com.apple.NetworkBrowser.backToMyMacEnabled</key><true/><key>com.apple.NetworkBrowser.bonjourEnabled</key><true/><key>com.apple.NetworkBrowser.connectedEnabled</key><true/></dict>'
 
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c 'delete :networkbrowser:CustomListProperties:com.apple.NetworkBrowser.backToMyMacEnabled'
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c 'add    :networkbrowser:CustomListProperties:com.apple.NetworkBrowser.backToMyMacEnabled bool true'
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c 'delete :networkbrowser:CustomListProperties:com.apple.NetworkBrowser.bonjourEnabled'
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c 'add    :networkbrowser:CustomListProperties:com.apple.NetworkBrowser.bonjourEnabled bool true'
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c 'delete :networkbrowser:CustomListProperties:com.apple.NetworkBrowser.connectedEnabled'
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c 'add    :networkbrowser:CustomListProperties:com.apple.NetworkBrowser.connectedEnabled bool true'
-
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c "delete :systemitems:ShowRemovable"
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c "add    :systemitems:ShowRemovable bool true"
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c "delete :systemitems:ShowHardDisks"
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c "add    :systemitems:ShowHardDisks bool true"
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c "delete :systemitems:ShowEjectables"
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c "add    :systemitems:ShowEjectables bool true"
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c "delete :systemitems:ShowServers"
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c "add    :systemitems:ShowServers bool true"
-
-fi
-
-if [ -f ~/Library/Preferences/com.apple.finder.plist ]; then
-
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.finder.plist -c 'set DesktopViewSettings:IconViewSettings:arrangeBy "name"'
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.finder.plist -c 'set DesktopViewSettings:IconViewSettings:backgroundColorBlue 1'
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.finder.plist -c 'set DesktopViewSettings:IconViewSettings:backgroundColorGreen 1'
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.finder.plist -c 'set DesktopViewSettings:IconViewSettings:backgroundColorRed 1'
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.finder.plist -c 'set DesktopViewSettings:IconViewSettings:backgroundType 1'
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.finder.plist -c 'set DesktopViewSettings:IconViewSettings:gridOffsetX 0'
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.finder.plist -c 'set DesktopViewSettings:IconViewSettings:gridOffsetY 0'
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.finder.plist -c 'set DesktopViewSettings:IconViewSettings:gridSpacing 100'
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.finder.plist -c 'set DesktopViewSettings:IconViewSettings:iconSize 64'
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.finder.plist -c 'set DesktopViewSettings:IconViewSettings:labelOnBottom 0'
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.finder.plist -c 'set DesktopViewSettings:IconViewSettings:showIconPreview 1'
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.finder.plist -c 'set DesktopViewSettings:IconViewSettings:showItemInfo 1'
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.finder.plist -c 'set DesktopViewSettings:IconViewSettings:textSize 1'
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.finder.plist -c 'set DesktopViewSettings:IconViewSettings:viewOptionsVersion 1'
-
-fi
-
-
-cecho 'Disabling the Warning when changing a Extension …' $blue
+# Disable Warning when changing a Extension
 defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
 
-cecho 'Disabling the Warning when emptying Trash …' $blue
+# Disable Warning when emptying Trash
 defaults write com.apple.finder WarnOnEmptyTrash -bool false
 
 
-# Dock & Mission Control
+### Dock & Mission Control
 
-cecho 'Increasing Mission Control Animation Speed …' $blue
+# Increase Mission Control Animation Speed
 defaults write com.apple.dock expose-animation-duration -float 0.125
 
-cecho 'Hiding Dock automatically …' $blue
+# Automatically hide Dock 
 defaults write com.apple.dock autohide -bool true
 
 
-# Safari
+### Safari
 
-cecho "Changing Safari's In-Page Search to “contains” instead of “starts with” …" $blue
+# Change Safari's In-Page Search to “contains” instead of “starts with”
 defaults write com.apple.Safari FindOnPageMatchesWordStartsOnly -bool false
 
 
-# General User Interface
+### General User Interface
 
-cecho 'Expanding the Save Panel by Default …' $blue
+# Expand Save Panel by Default
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint    -bool true
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2   -bool true
-
-cecho 'Removing Duplicates in “Open With” Menu …' $blue
-/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user &
