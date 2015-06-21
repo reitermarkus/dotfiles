@@ -117,7 +117,7 @@ fi
 if hash brew; then
 
   cecho 'Updating Homebrew …' $blue
-  brew update &>/dev/null &
+  brew update
 
   brew_tap_if_missing() {
     if [[ "$1" == "`brew tap | grep $1`" ]]; then
@@ -136,7 +136,7 @@ if hash brew; then
       echo_exists "$name"
     else
       echo_install "$name"
-      brew install "$package" &>/dev/null || echo_error "Error installing $name."
+      brew install "$package" || echo_error "Error installing $name."
     fi
   }
 
@@ -166,7 +166,7 @@ if hash brew; then
         echo_exists "$name"
       else
         echo_install "$name"
-        brew cask install "$package" --appdir=/Applications &>/dev/null || echo_error "Error installing $name."
+        brew cask install "$package" --appdir=/Applications || echo_error "Error installing $name."
       fi
       
       if [ "$3" == "--open" ]; then
@@ -190,17 +190,17 @@ if hash brew; then
   fi
 
   cecho 'Upgrading Homebrew Packages …' $blue
-  brew upgrade &>/dev/null || cecho 'Error Upgrading Homebrew Packages.' $red
+  brew upgrade || cecho 'Error Upgrading Homebrew Packages.' $red
 
   cecho 'Linking Homebrew Apps …' $blue
-  brew linkapps &>/dev/null || cecho 'Error Linking Homebrew Packages.' $red
+  brew linkapps || cecho 'Error Linking Homebrew Packages.' $red
 
   cecho 'Removing Dead Homebrew Symlinks …' $blue
-  brew prune &>/dev/null || cecho 'Error Removing Dead Homebrew Symlinks.' $red
+  brew prune || cecho 'Error Removing Dead Homebrew Symlinks.' $red
 
   cecho 'Emptying Homebrew Cache …' $blue
-  brew cleanup &>/dev/null || cecho 'Error Emptying Homebrew Cache.' $red
-  brew-cask cleanup &>/dev/null || cecho 'Error Emptying Homebrew Cache.' $red
+  brew cleanup || cecho 'Error Emptying Homebrew Cache.' $red
+  brew-cask cleanup || cecho 'Error Emptying Homebrew Cache.' $red
 
   sudo chown $USER /usr/local/
 
