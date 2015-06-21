@@ -18,14 +18,21 @@ defaults write com.apple.finder ShowSidebar -bool true
 
 if [ -f ~/Library/Preferences/com.apple.sidebarlists.plist ]; then
 
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c 'set networkbrowser:CustomListProperties:com.apple.NetworkBrowser.backToMyMacEnabled 1'
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c 'set networkbrowser:CustomListProperties:com.apple.NetworkBrowser.bonjourEnabled 1'
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c 'set networkbrowser:CustomListProperties:com.apple.NetworkBrowser.connectedEnabled 1'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c 'delete :networkbrowser:CustomListProperties:com.apple.NetworkBrowser.backToMyMacEnabled'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c 'add    :networkbrowser:CustomListProperties:com.apple.NetworkBrowser.backToMyMacEnabled bool true'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c 'delete :networkbrowser:CustomListProperties:com.apple.NetworkBrowser.bonjourEnabled'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c 'add    :networkbrowser:CustomListProperties:com.apple.NetworkBrowser.bonjourEnabled bool true'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c 'delete :networkbrowser:CustomListProperties:com.apple.NetworkBrowser.connectedEnabled'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c 'add    :networkbrowser:CustomListProperties:com.apple.NetworkBrowser.connectedEnabled bool true'
 
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c 'set systemitems:ShowEjectables 1'
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c 'set systemitems:ShowHardDisks 1'
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c 'set systemitems:ShowRemovable 1'
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c 'set systemitems:ShowServers 1'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c "delete :systemitems:ShowRemovable"
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c "add    :systemitems:ShowRemovable bool true"
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c "delete :systemitems:ShowHardDisks"
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c "add    :systemitems:ShowHardDisks bool true"
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c "delete :systemitems:ShowEjectables"
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c "add    :systemitems:ShowEjectables bool true"
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c "delete :systemitems:ShowServers"
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist -c "add    :systemitems:ShowServers bool true"
 
 fi
 
