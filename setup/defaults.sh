@@ -7,13 +7,18 @@ cecho 'Writing Defaults …' $blue
 sudo defaults write /Library/Preferences/com.apple.loginwindow GuestEnabled -bool false
 
 # Hide the Sleep, Restart and Shut Down buttons
-sudo defaults write /Library/Preferences/com.apple.loginwindow 'PowerOffDisabled' -bool true
+sudo defaults write /Library/Preferences/com.apple.loginwindow 'PowerOffDisabled' -bool false
  
 # Show Input menu in Login Window
 sudo defaults write /Library/Preferences/com.apple.loginwindow 'showInputMenu' -bool true
  
 # Hide Password Hints
 sudo defaults write /Library/Preferences/com.apple.loginwindow 'RetriesUntilHint' -int 0
+
+
+### Menubar
+
+defaults write com.apple.systemuiserver menuExtras -array "/System/Library/CoreServices/Menu Extras/TimeMachine.menu" "/System/Library/CoreServices/Menu Extras/Bluetooth.menu"  "/System/Library/CoreServices/Menu Extras/AirPort.menu"  "/System/Library/CoreServices/Menu Extras/Battery.menu"  "/System/Library/CoreServices/Menu Extras/Clock.menu"  "/System/Library/CoreServices/Menu Extras/User.menu"
 
 
 ### Desktop and Finder 
@@ -25,7 +30,7 @@ defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
 defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
 
 # Desktop View Settings
-defaults write com.apple.finder.plist DesktopViewSettings -dict IconViewSettings '<dict><key>arrangeBy</key><string>name</string><key>backgroundColorBlue</key><real>1</real><key>backgroundColorGreen</key><real>1</real><key>backgroundColorRed</key><real>1</real><key>backgroundType</key><integer>0</integer><key>gridOffsetX</key><real>0.0</real><key>gridOffsetY</key><real>0.0</real><key>gridSpacing</key><real>100</real><key>iconSize</key><real>64</real><key>labelOnBottom</key><true/><key>showIconPreview</key><true/><key>showItemInfo</key><true/><key>textSize</key><real>12</real><key>viewOptionsVersion</key><integer>1</integer></dict>'
+defaults write com.apple.finder.plist DesktopViewSettings -dict IconViewSettings '<dict><key>arrangeBy</key><string>name</string><key>backgroundColorBlue</key><real>1</real><key>backgroundColorGreen</key><real>1</real><key>backgroundColorRed</key><real>1</real><key>backgroundType</key><integer>0</integer><key>gridOffsetX</key><real>0.0</real><key>gridOffsetY</key><real>0.0</real><key>gridSpacing</key><real>100</real><key>iconSize</key><real>64</real><key>labelOnBottom</key><false/><key>showIconPreview</key><true/><key>showItemInfo</key><true/><key>textSize</key><real>12</real><key>viewOptionsVersion</key><integer>1</integer></dict>'
 
 # Show Finder Sidebar
 defaults write com.apple.finder ShowSidebar -bool true
@@ -67,3 +72,8 @@ defaults write com.apple.Safari FindOnPageMatchesWordStartsOnly -bool false
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint    -bool true
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2   -bool true
+
+### Locate DB
+
+
+sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist
