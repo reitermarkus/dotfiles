@@ -22,14 +22,14 @@ cecho() {
 }
 
 
-# Run “sudo” keep-alive.
-sudo -v
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
-
-
 # Clone Git Repo
 cecho "Cloning Git Repository …" $blue
 git_dir="/tmp/dotfiles"; rm -rf "$git_dir" && git clone https://github.com/reitermarkus/dotfiles.git "$git_dir" &>/dev/null
+
+
+# Run “sudo” keep-alive.
+sudo -v
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 
 # Login Message in Terminal
