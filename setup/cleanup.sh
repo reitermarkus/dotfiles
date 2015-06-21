@@ -1,6 +1,6 @@
 # Hide “opt” folder.
 if [ -d /opt ]; then
-  chflags hidden /opt
+  sudo chflags hidden /opt
 fi
 
 
