@@ -3,6 +3,7 @@ if status --is-login
 
   # Greeting
 
+  touch ~/.hushlogin
   set --erase fish_greeting
 
 

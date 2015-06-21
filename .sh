@@ -32,10 +32,6 @@ sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 
-# Login Message in Terminal
-touch ~/.hushlogin
-
-
 # Run Scripts
 source "$git_dir/setup/defaults.sh"
 source "$git_dir/setup/brew.sh"
