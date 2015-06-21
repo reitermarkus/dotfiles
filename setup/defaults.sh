@@ -84,7 +84,61 @@ defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2   -bool true
 killall SystemUIServer Dock
 
 
+### Trackpad
+
+# Enable Clicking and Dragging
+defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
+defaults write com.apple.AppleMultitouchTrackpad DragLock -bool false
+defaults write com.apple.AppleMultitouchTrackpad Dragging -bool true
+
+# Enable Right-Click
+defaults write com.apple.AppleMultitouchTrackpad TrackpadRightClick -bool true
+defaults write com.apple.AppleMultitouchTrackpad TrackpadCornerSecondaryClick -integer 0
+
+
+
+# Scrolling Options
+defaults write com.apple.AppleMultitouchTrackpad TrackpadScroll -bool true
+defaults write com.apple.AppleMultitouchTrackpad TrackpadHorizScroll -integer 1
+defaults write com.apple.AppleMultitouchTrackpad TrackpadMomentumScroll -bool true
+
+# Pinch, Rotate and Swipe Gestures
+defaults write com.apple.AppleMultitouchTrackpad TrackpadFiveFingerPinchGesture       -integer 2
+defaults write com.apple.AppleMultitouchTrackpad TrackpadFourFingerHorizSwipeGesture  -integer 2
+defaults write com.apple.AppleMultitouchTrackpad TrackpadFourFingerPinchGesture       -integer 2
+defaults write com.apple.AppleMultitouchTrackpad TrackpadFourFingerVertSwipeGesture   -integer 2
+defaults write com.apple.AppleMultitouchTrackpad TrackpadHandResting                  -bool    true
+defaults write com.apple.AppleMultitouchTrackpad TrackpadPinch                        -integer 1
+defaults write com.apple.AppleMultitouchTrackpad TrackpadRotate                       -integer 1
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag              -bool    false
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerHorizSwipeGesture -integer 2
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerTapGesture        -integer 2
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerVertSwipeGesture  -integer 2
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingersRightClick       -integer 0
+
+# Zoom with Two-Finger Double Tap
+defaults write com.apple.AppleMultitouchTrackpad TrackpadTwoFingerDoubleTapGesture 1
+
+# Show Notification Center with Two-Finger Swipe from Right
+defaults write com.apple.AppleMultitouchTrackpad TrackpadTwoFingerFromRightEdgeSwipeGesture = 3
+
+# Don't disable Trackpad when using a Mouse
+defaults write com.apple.AppleMultitouchTrackpad USBMouseStopsTrackpad -integer 0
+
+
+
+
+
 ### Locate DB
 
 # Start Locate DB Service
 sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist
+
+
+
+
+
+
+
+
+
