@@ -1,3 +1,7 @@
+# Hide “opt” folder.
+if [ -d /opt ]; then
+  chflags hidden /opt
+fi
 
 
 # Relocate Microsoft folder.
