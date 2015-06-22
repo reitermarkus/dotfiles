@@ -24,7 +24,7 @@ cecho() {
 
 # Clone Git Repo
 cecho "Cloning Git Repository …" $blue
-git_dir="/tmp/dotfiles"; rm -rf "$git_dir" && git clone https://github.com/reitermarkus/dotfiles.git "$git_dir" &>/dev/null
+rm -rf /tmp/dotfiles && git clone https://github.com/reitermarkus/dotfiles.git /tmp/dotfiles
 
 
 # Run “sudo” keep-alive.
