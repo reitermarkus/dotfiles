@@ -5,6 +5,8 @@ cecho 'Writing Defaults …' $blue
 
 # Disable Guest Account
 sudo defaults write /Library/Preferences/com.apple.loginwindow GuestEnabled -bool false
+sudo rm -rf /Users/Guest
+
 
 # Hide the Sleep, Restart and Shut Down buttons
 sudo defaults write /Library/Preferences/com.apple.loginwindow 'PowerOffDisabled' -bool false
@@ -24,7 +26,7 @@ defaults write com.apple.menuextra.clock FlashDateSeparators -bool false
 defaults write com.apple.menuextra.clock IsAnalog            -bool false
 
 # Set Menubar Items
-defaults write com.apple.systemuiserver menuExtras -array "/System/Library/CoreServices/Menu Extras/TimeMachine.menu" "/System/Library/CoreServices/Menu Extras/Bluetooth.menu"  "/System/Library/CoreServices/Menu Extras/AirPort.menu"  "/System/Library/CoreServices/Menu Extras/Battery.menu"  "/System/Library/CoreServices/Menu Extras/Clock.menu"  "/System/Library/CoreServices/Menu Extras/User.menu"
+defaults write com.apple.systemuiserver menuExtras -array '/System/Library/CoreServices/Menu Extras/TimeMachine.menu' '/System/Library/CoreServices/Menu Extras/Bluetooth.menu' '/System/Library/CoreServices/Menu Extras/AirPort.menu' '/System/Library/CoreServices/Menu Extras/Battery.menu' '/System/Library/CoreServices/Menu Extras/Clock.menu' '/System/Library/CoreServices/Menu Extras/User.menu'
 
 
 ### Desktop and Finder 
