@@ -1,6 +1,3 @@
-#!/bin/sh
-
-
 # Install Xcode Command Line Tools
 xcode-select --install
 
@@ -60,6 +57,7 @@ if hash brew; then
   # Add Homebrew Taps
   brew_tap_if_missing 'beeftornado/rmtree'
   brew_tap_if_missing 'caskroom/cask'
+  brew_tap_if_missing 'caskroom/versions'
   brew_tap_if_missing 'homebrew/head-only'
   brew_tap_if_missing 'homebrew/dupes'
   brew_tap_if_missing 'homebrew/versions'
