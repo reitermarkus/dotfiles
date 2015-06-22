@@ -82,6 +82,9 @@ defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint    -bool true
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2   -bool true
 
+# Disable Font Smoothing globally
+defaults write -g AppleFontSmoothing -int 0
+
 
 # Reload Menubar and Dock
 killall SystemUIServer Dock
