@@ -10,12 +10,6 @@ if [ -d /opt ]; then
 fi
 
 
-# Delete Microsoft Office Installer.
-if [ -f /opt/homebrew-cask/Caskroom/microsoft-office/latest/Office\ Installer.pkg ]; then
-  rm /opt/homebrew-cask/Caskroom/microsoft-office/latest/Office\ Installer.pkg
-fi
-
-
 # Relocate Microsoft folder.
 if [ -d ~/Documents/Microsoft*/ ]; then
   cecho 'Moving Microsoft folder to Library …' $blue

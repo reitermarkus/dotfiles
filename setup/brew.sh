@@ -96,14 +96,15 @@ if hash brew; then
     brew_cask_if_missing cocoapods            'Cocoapods'
     brew_cask_if_missing coda                 'Coda'
     brew_cask_if_missing dropbox              'Dropbox'        --open
+    brew_cask_if_missing hazel                'Hazel'
     brew_cask_if_missing kaleidoscope         'Kaleidoscope'
     brew_cask_if_missing launchrocket         'Launchrocket'
-    brew_cask_if_missing microsoft-office     'Microsoft Office'
     brew_cask_if_missing sigil                'Sigil'
     brew_cask_if_missing transmission         'Transmission'
     brew_cask_if_missing tower                'Tower'
     brew_cask_if_missing vmware-fusion        'VMware Fusion'
     brew_cask_if_missing xquartz              'XQuartz'
+    brew_cask_if_missing microsoft-office     'Microsoft Office' && if [ -f /opt/homebrew-cask/Caskroom/microsoft-office/latest/Office\ Installer.pkg ]; then rm /opt/homebrew-cask/Caskroom/microsoft-office/latest/Office\ Installer.pkg; fi
 
   fi
 
