@@ -17,7 +17,7 @@ echo_install() {
 }
 
 echo_error() {
-  cecho "$1" $red
+  cecho $1 $red
   return
 }
 
