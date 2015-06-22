@@ -17,7 +17,7 @@ echo_install() {
 }
 
 echo_error() {
-  cecho $1 $red
+  cecho "$1" $red
   return
 }
 
@@ -86,13 +86,13 @@ if hash brew; then
       else
         echo_install "$name"
         brew cask install "$package" --appdir=/Applications || echo_error "Error installing $name."
-      fi
 
-      if [ "$3" == "--open" ]; then
-	    until open -a "$name" -gj &>/dev/null; do
-		  sleep 0.1
-		done
-      fi &
+        if [ "$3" == "--open" ]; then
+	      until open -a "$name" -gj &>/dev/null; do
+	    	  sleep 0.1
+	    	done
+        fi &
+      fi
 
     }
 
