@@ -43,14 +43,11 @@ if hash brew; then
   }
 
   brew_if_missing() {
-    package=$1
-    name=$2
-
-    if brew ls $package &>/dev/null; then
-      echo_exists "$name"
+    if ! brew ls $1 &>/dev/null; then
+      echo_install "$2"
+      brew install $1
     else
-      echo_install "$name"
-      brew install $package || echo_error "Error installing $name."
+      echo_exists "$2"
     fi
   }
 
@@ -83,7 +80,7 @@ if hash brew; then
         echo_exists "$name"
       else
         echo_install "$name"
-        brew cask install "$package" --appdir=/Applications || echo_error "Error installing $name."
+        brew cask install "$package" --appdir=/Applications
 
         if [ "$3" == "--open" ]; then
 	      until open -a "$name" -gj &>/dev/null; do
@@ -94,11 +91,11 @@ if hash brew; then
 
     }
 
-    brew_cask_if_missing dropbox              'Dropbox'        --open
     brew_cask_if_missing adobe-creative-cloud 'Creative Cloud' --open
     brew_cask_if_missing asepsis              'Asepsis'
     brew_cask_if_missing cocoapods            'Cocoapods'
     brew_cask_if_missing coda                 'Coda'
+    brew_cask_if_missing dropbox              'Dropbox'        --open
     brew_cask_if_missing kaleidoscope         'Kaleidoscope'
     brew_cask_if_missing launchrocket         'Launchrocket'
     brew_cask_if_missing microsoft-office     'Microsoft Office'
@@ -111,17 +108,17 @@ if hash brew; then
   fi
 
   cecho 'Upgrading Homebrew Packages …' $blue
-  brew upgrade || echo_error 'Error Upgrading Homebrew Packages.'
+  brew upgrade
 
   cecho 'Linking Homebrew Apps …' $blue
-  brew linkapps || echo_error 'Error Linking Homebrew Packages.'
+  brew linkapps
 
   cecho 'Removing Dead Homebrew Symlinks …' $blue
-  brew prune || echo_error 'Error Removing Dead Homebrew Symlinks.'
+  brew prune
 
   cecho 'Emptying Homebrew Cache …' $blue
-  brew cleanup || echo_error 'Error Emptying Homebrew Cache.'
-  brew-cask cleanup || echo_error 'Error Emptying Homebrew Cache.'
+  brew cleanup
+  brew-cask cleanup
 
   sudo chown $USER /usr/local/
 
