@@ -1,3 +1,8 @@
+#!/bin/sh
+
+
+# Download Xcode from App Store
+
 if [ ! -d /Applications/Xcode.app ]; then
 
   open -gj -a 'App Store' macappstore://itunes.apple.com/app/xcode/id497799835
@@ -35,3 +40,8 @@ if [ ! -d /Applications/Xcode.app ]; then
 else
   cecho 'Xcode already installed.' $green
 fi
+
+
+# Install Xcode Command Line Tools
+
+xcode-select --install

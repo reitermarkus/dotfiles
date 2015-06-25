@@ -1,7 +1,3 @@
-# Install Xcode Command Line Tools
-xcode-select --install
-
-
 # Homebrew Installation Messages
 echo_exists() {
   cecho "$1 already installed." $green
