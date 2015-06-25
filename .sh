@@ -34,6 +34,7 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # Run Scripts
 source "$git_dir/setup/defaults.sh"
+source "$git_dir/setup/xcode.sh"
 source "$git_dir/setup/brew.sh"
 source "$git_dir/setup/fish.sh"
 source "$git_dir/setup/dropbox.sh"
