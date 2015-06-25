@@ -1,3 +1,15 @@
+#!/bin/sh
+
+
+# Check if Dropbox has finishes syncing.
+
+if ! [ "`osascript -e 'tell application "System Events" to (name of processes) contains \"Dropbox\"'`" == "true" ]; then
+  open -gj -a Dropbox
+fi
+
+until osascript -e 'tell application "System Events" to tell application process "Dropbox" to get help of menu bar item 1 of menu bar 2' | grep Aktualisiert &>/dev/null; do :; done
+
+
 # Create Symlinks for Dropbox folders.
 
 link_to_dropbox() {
@@ -7,7 +19,6 @@ link_to_dropbox() {
   else
     exit 1
   fi
-
 
   if [[ -z $2 ]]; then
     dropbox_dir="$dropbox_dir/$1"
