@@ -7,6 +7,7 @@ if ! [ "`osascript -e 'tell application "System Events" to (name of processes) c
   open -gj -a Dropbox
 fi
 
+cecho 'Waiting for Dropbox to finish syncing …' $blue
 until osascript -e 'tell application "System Events" to tell application process "Dropbox" to get help of menu bar item 1 of menu bar 2' | grep Aktualisiert &>/dev/null; do :; done
 
 
