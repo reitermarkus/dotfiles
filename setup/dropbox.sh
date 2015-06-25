@@ -2,8 +2,12 @@
 
 link_to_dropbox() {
 
-  user_dir='~'
-  dropbox_dir=Dropbox
+  if [ -f ~/.dropbox/info.json ]; then
+    dropbox_dir=`cat ~/.dropbox/info.json | python -m json.tool | sed -n -e '/"path":/ s/^.*"\(.*\)".*/\1/p' | sed 's#/*$##'`
+  else
+    exit 1
+  fi
+
 
   if [[ -z $2 ]]; then
     dropbox_dir="$dropbox_dir/$1"
@@ -13,7 +17,6 @@ link_to_dropbox() {
     local_dir="$2"
   fi
 
-  dropbox_dir="~/$dropbox_dir"
   local_dir="~/$local_dir"
 
   eval dropbox_dir_full=$dropbox_dir
@@ -57,5 +60,5 @@ link_to_dropbox 'Documents/Sonstiges'
 if hash mackup; then
   cecho "Relinking “mackup” …" $blue
   yes | mackup restore
-  yes | mackup backup || echo
+  yes | mackup backup || echo \r
 fi
