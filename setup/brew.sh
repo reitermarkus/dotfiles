@@ -1,17 +1,14 @@
 # Homebrew Installation Messages
 echo_exists() {
   cecho "$1 already installed." $green
-  return
 }
 
 echo_install() {
   cecho "Installing $1 …" $blue
-  return
 }
 
 echo_error() {
   cecho "$1" $red
-  return
 }
 
 
@@ -90,6 +87,7 @@ if hash brew; then
     brew_cask_if_missing adobe-creative-cloud   'Creative Cloud' --open
     brew_cask_if_missing asepsis                'Asepsis'
     brew_cask_if_missing a-better-finder-rename 'A Better Finder Rename'
+    brew_cask_if_missing boom                   'Boom' --open
     brew_cask_if_missing cocoapods              'Cocoapods'
     brew_cask_if_missing coda                   'Coda'
     brew_cask_if_missing dropbox                'Dropbox' --open
