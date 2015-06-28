@@ -15,7 +15,7 @@ appstore_install() {
 
       tell application process "App Store"
 
-        repeat 100 times
+        repeat 600 times
           if button 1 of group 1 of group 1 of UI element 1 of scroll area 1 of group 1 of group 1 of window 1 exists then
             if description of button 1 of group 1 of group 1 of UI element 1 of scroll area 1 of group 1 of group 1 of window 1 contains "Install" then
               click button 1 of group 1 of group 1 of UI element 1 of scroll area 1 of group 1 of group 1 of window 1
@@ -23,7 +23,7 @@ appstore_install() {
               return true
             end if
           else
-            delay 0.2
+            delay 0.1
           end if
         end repeat
 
