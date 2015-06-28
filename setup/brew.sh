@@ -1,3 +1,11 @@
+#!/bin/sh
+
+
+# Install Xcode Command Line Tools
+
+xcode-select --install 2>/dev/null
+
+
 # Homebrew Installation Messages
 echo_exists() {
   cecho "$1 already installed." $green

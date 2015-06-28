@@ -21,6 +21,8 @@ link_to_dropbox() {
     exit 1
   fi
 
+  dropbox_dir=$dropbox_dir/Sync/~
+
   if [[ -z $2 ]]; then
     dropbox_dir="$dropbox_dir/$1"
     local_dir="$1"
@@ -35,8 +37,6 @@ link_to_dropbox() {
   eval local_dir_full=$local_dir
 
   mkdir -p "$dropbox_dir_full"; mkdir -p "$local_dir_full"
-  touch $dropbox_dir_full/.DS_Store
-
 
   if [[ -L "$dropbox_dir_full" ]]; then
     cecho "$local_dir already linked to Dropbox." $green
@@ -50,6 +50,7 @@ link_to_dropbox() {
   fi
 
 }
+
 
 link_to_dropbox 'Desktop'
 
@@ -70,6 +71,15 @@ link_to_dropbox 'Documents/Sonstiges'
 
 # Relink “mackup”.
 if hash mackup; then
+
+  eval mackupcfg=~/.mackup.cfg
+  rm   $mackupcfg
+  echo '[storage]' > $mackupcfg
+  echo 'engine = dropbox' >> $mackupcfg
+  echo 'directory = Sync/~' >> $mackupcfg
+
+  yes | mackup restore
+
   cecho "Relinking “mackup” …" $blue
   yes | mackup restore
   yes | mackup backup || echo \r

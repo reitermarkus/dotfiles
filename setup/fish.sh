@@ -1,3 +1,6 @@
+#!/bin/sh
+
+
 # Change shell to “fish”.
 
 if hash fish; then

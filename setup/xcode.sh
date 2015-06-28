@@ -10,9 +10,9 @@ if [ ! -d /Applications/Xcode.app ]; then
 
   XCODE_INSTALLED=`osascript <<EOF
   tell application "System Events"
-	
+
     tell application process "App Store"
-		
+
       repeat 100 times
         if button 1 of group 1 of group 1 of UI element 1 of scroll area 1 of group 1 of group 1 of window 1 exists then
           if description of button 1 of group 1 of group 1 of UI element 1 of scroll area 1 of group 1 of group 1 of window 1 is equal to "Install, Xcode, Free" then
@@ -26,7 +26,7 @@ if [ ! -d /Applications/Xcode.app ]; then
 
       tell application "App Store" to quit
       return false
-	
+
     end tell
   end tell
   EOF`
@@ -40,8 +40,3 @@ if [ ! -d /Applications/Xcode.app ]; then
 else
   cecho 'Xcode already installed.' $green
 fi
-
-
-# Install Xcode Command Line Tools
-
-xcode-select --install
