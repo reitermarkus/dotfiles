@@ -72,15 +72,15 @@ link_to_dropbox 'Documents/Sonstiges'
 # Relink “mackup”.
 if hash mackup; then
 
+  cecho "Relinking “mackup” …" $blue
+
   eval mackupcfg=~/.mackup.cfg
-  rm   $mackupcfg
+  rm   $mackupcfg &>/dev/null
   echo '[storage]' > $mackupcfg
   echo 'engine = dropbox' >> $mackupcfg
   echo 'directory = Sync/~' >> $mackupcfg
 
-  yes | mackup restore
-
-  cecho "Relinking “mackup” …" $blue
+  yes | mackup restore &>/dev/null
   yes | mackup restore
   yes | mackup backup || echo \r
 fi
