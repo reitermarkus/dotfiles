@@ -19,7 +19,6 @@ appstore_install() {
           if button 1 of group 1 of group 1 of UI element 1 of scroll area 1 of group 1 of group 1 of window 1 exists then
             if description of button 1 of group 1 of group 1 of UI element 1 of scroll area 1 of group 1 of group 1 of window 1 contains "Install" then
               click button 1 of group 1 of group 1 of UI element 1 of scroll area 1 of group 1 of group 1 of window 1
-              delay 5
               return true
             end if
           else
@@ -38,6 +37,11 @@ appstore_install() {
       cecho "Error installing $appname." $red
     else
       cecho "Installing $appname …" $blue
+      timeout=0
+      until [ -d "/Applications/$appname*appdownload" ] || [ -d "/Applications/$appname.app" ] || [ $timeout -eq 60 ]; do
+        let timeout=timeout+1
+        sleep 0.5
+      done
     fi
 
   else
