@@ -23,6 +23,20 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow 'showInputMenu' -
 sudo defaults write /Library/Preferences/com.apple.loginwindow 'RetriesUntilHint' -int 0
 
 
+### Languages
+
+# Set System Languages
+defaults write -g AppleLanguages -array 'de-AT' 'de' 'en'
+
+# Use Metric Units
+defaults write -g AppleLocale -string 'de_AT@currency=EUR'
+defaults write -g AppleMeasurementUnits -string 'Centimeters'
+defaults write -g AppleMetricUnits -bool true
+
+# Disable Auto Correction
+defaults write -g NSAutomaticSpellingCorrectionEnabled -bool false
+
+
 ### Menubar
 
 # Set Clock Format
