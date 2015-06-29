@@ -6,6 +6,12 @@
 cecho 'Writing Defaults …' $blue
 
 
+### Startup
+
+# Enable Verbose Boot
+sudo nvram boot-args='-v'
+
+
 ### Login Window
 
 # Disable Guest Account
