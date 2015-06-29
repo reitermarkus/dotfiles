@@ -94,6 +94,9 @@ defaults write com.apple.dock expose-animation-duration -float 0.125
 # Automatically hide Dock
 defaults write com.apple.dock autohide -bool true
 
+# Translucent Icons of hidden Applications
+defaults write com.apple.dock showhidden -bool true
+
 
 ### Safari
 
