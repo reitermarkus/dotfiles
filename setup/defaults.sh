@@ -195,3 +195,19 @@ fi
 defaults delete com.apple.Terminal 'Window Settings'
 defaults write com.apple.Terminal 'Window Settings' -dict-add Basic '<dict><key>BackgroundAlphaInactive</key><real>0.75</real><key>BackgroundBlur</key><real>1</real><key>BackgroundBlurInactive</key><real>1</real><key>BackgroundColor</key><data>YnBsaXN0MDDUAQIDBAUGFRZYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKMHCA9VJG51bGzTCQoLDA0OV05TV2hpdGVcTlNDb2xvclNwYWNlViRjbGFzc0YxIDAuOQAQBIAC0hAREhNaJGNsYXNzbmFtZVgkY2xhc3Nlc1dOU0NvbG9yohIUWE5TT2JqZWN0XxAPTlNLZXllZEFyY2hpdmVy0RcYVHJvb3SAAQgRGiMtMjc7QUhQXWRrbW90f4iQk5yusbYAAAAAAAABAQAAAAAAAAAZAAAAAAAAAAAAAAAAAAAAuA==</data><key>BackgroundSettingsForInactiveWindows</key><true/><key>Font</key><data>YnBsaXN0MDDUAQIDBAUGGBlYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKQHCBESVSRudWxs1AkKCwwNDg8QVk5TU2l6ZVhOU2ZGbGFnc1ZOU05hbWVWJGNsYXNzI0AmAAAAAAAAEBCA			AoADXU1lbmxvLVJlZ3VsYXLSExQVFlokY2xhc3NuYW1lWCRjbGFzc2VzVk5TRm9udKIVF1hOU09iamVjdF8QD05TS2V5ZWRBcmNoaXZlctEaG1Ryb290gAEIERojLTI3PEJLUltiaXJ0dniGi5afpqmyxMfMAAAAAAAAAQEAAAAAAAAAHAAAAAAAAAAAAAAAAAAAAM4=</data><key>FontWidthSpacing</key><real>1.004032258064516</real><key>FontAntialias</key><true/><key>FontWidthSpacing</key><real>1.004032258064516</real><key>ShowActiveProcessInTitle</key><true/><key>ShowCommandKeyInTitle</key><false/><key>ShowDimensionsInTitle</key><false/><key>ShowRepresentedURLInTitle</key><true/><key>ShowRepresentedURLPathInTitle</key><false/><key>ShowShellCommandInTitle</key><false/><key>ShowTTYNameInTitle</key><false/><key>ShowWindowSettingsNameInTitle</key><false/><key>name</key><string>Standard</string><key>shellExitAction</key><integer>1</integer><key>ProfileCurrentVersion</key><real>2.04</real><key>name</key><string>Basic</string></dict>'
 defaults write com.apple.Terminal 'Default Window Settings' Basic
+
+
+### Safari
+
+# Don't open “safe” Downloads
+defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
+
+# Enable Developer Menu
+defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
+
+
+# Set “DuckDuckGo” as Default Search Provider
+defaults write com.apple.Safari SearchProviderIdentifier 'com.duckduckgo'
+
+# Enable Search Suggestions
+defaults write com.apple.Safari SuppressSearchSuggestions -bool false
