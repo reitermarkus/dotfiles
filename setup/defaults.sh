@@ -182,7 +182,12 @@ sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate ScheduleFreque
 ### Locate DB
 
 # Start Locate DB Service
-sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist &>/dev/null && cecho 'Enabling Locate DB …' $blue || cecho 'Locate DB alread enabled.' $green
+if sudo launchctl list com.apple.locate &>/dev/null; then
+  cecho 'Locate DB alread enabled.' $green
+else
+  cecho 'Enabling Locate DB …' $blue
+  sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist
+fi
 
 
 ### Terminal
