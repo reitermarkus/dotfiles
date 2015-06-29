@@ -37,6 +37,12 @@ defaults write -g AppleMetricUnits -bool true
 defaults write -g NSAutomaticSpellingCorrectionEnabled -bool false
 
 
+### Date & Time
+
+# Set Time Zone
+sudo systemsetup -settimezone 'Europe/Vienna' > /dev/null
+
+
 ### Menubar
 
 # Set Clock Format
