@@ -1,7 +1,8 @@
 #!/bin/sh
-
+echo $0
 
 # Set the colours you can use
+
 black='\033[0;30m'
 white='\033[0;37m'
 red='\033[0;31m'
@@ -13,10 +14,12 @@ cyan='\033[0;36m'
 
 
 # Resets the style
+
 reset=`tput sgr0`
 
 
 # Colored “echo”
+
 cecho() {
   echo "${2}${1}${reset}"
   return
@@ -24,12 +27,14 @@ cecho() {
 
 
 # Clone Repository
+
 git_dir=/tmp/dotfiles
 cecho 'Cloning Git Repository …' $blue
 rm -rf /tmp/dotfiles && git clone https://github.com/reitermarkus/dotfiles.git $git_dir
 
 
 # Run “sudo” keep-alive.
+
 sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
@@ -47,6 +52,7 @@ EOF
 
 
 # Run Scripts
+
 source "$git_dir/setup/defaults.sh"
 source "$git_dir/setup/app-store.sh"
 source "$git_dir/setup/brew.sh"

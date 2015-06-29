@@ -16,28 +16,28 @@ appstoreInstall() {
     open -gj $appUrl && cecho "Opening $appName in App Store …" $blue
 
     appInstallSuccessful=$(osascript <<EOF
-    tell application "System Events"
+tell application "System Events"
 
-      tell application process "App Store"
+  tell application process "App Store"
 
-        repeat 300 times
-          if button 1 of group 1 of group 1 of UI element 1 of scroll area 1 of group 1 of group 1 of window 1 exists then
-            if description of button 1 of group 1 of group 1 of UI element 1 of scroll area 1 of group 1 of group 1 of window 1 contains "Install" then
-              delay 5
-              click button 1 of group 1 of group 1 of UI element 1 of scroll area 1 of group 1 of group 1 of window 1
-              return true
-            end if
-          else
-            delay 0.1
-          end if
-        end repeat
+    repeat 300 times
+      if button 1 of group 1 of group 1 of UI element 1 of scroll area 1 of group 1 of group 1 of window 1 exists then
+        if description of button 1 of group 1 of group 1 of UI element 1 of scroll area 1 of group 1 of group 1 of window 1 contains "Install" then
+          delay 5
+          click button 1 of group 1 of group 1 of UI element 1 of scroll area 1 of group 1 of group 1 of window 1
+          return true
+        end if
+      else
+        delay 0.1
+      end if
+    end repeat
 
-        tell application "App Store" to quit
-        return false
+    tell application "App Store" to quit
+    return false
 
-      end tell
-    end tell
-    EOF)
+  end tell
+end tell
+EOF)
 
     if [ "$appInstallSuccessful" == "false" ]; then
       cecho "Error installing $appName." $red

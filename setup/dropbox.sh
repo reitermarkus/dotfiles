@@ -70,6 +70,7 @@ link_to_dropbox 'Documents/Sonstiges'
 
 
 # Relink “mackup”.
+
 if hash mackup; then
 
   cecho "Relinking “mackup” …" $blue
