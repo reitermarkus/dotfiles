@@ -83,7 +83,10 @@ defaults write com.apple.finder WarnOnEmptyTrash -bool false
 defaults write com.apple.finder FXDefaultSearchScope 'SCcf'
 
 
-### Dock & Mission Control
+### Dock, Dashboard & Mission Control
+
+# Disable Dashboard
+defaults write com.apple.dashboard enabled-state -int 1
 
 # Increase Mission Control Animation Speed
 defaults write com.apple.dock expose-animation-duration -float 0.125
