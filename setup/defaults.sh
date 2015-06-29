@@ -154,10 +154,10 @@ defaults write com.apple.AppleMultitouchTrackpad TrackpadFiveFingerPinchGesture 
 defaults write com.apple.AppleMultitouchTrackpad TrackpadFourFingerHorizSwipeGesture  -int 2
 defaults write com.apple.AppleMultitouchTrackpad TrackpadFourFingerPinchGesture       -int 2
 defaults write com.apple.AppleMultitouchTrackpad TrackpadFourFingerVertSwipeGesture   -int 2
-defaults write com.apple.AppleMultitouchTrackpad TrackpadHandResting                  -bool    true
+defaults write com.apple.AppleMultitouchTrackpad TrackpadHandResting                  -bool true
 defaults write com.apple.AppleMultitouchTrackpad TrackpadPinch                        -int 1
 defaults write com.apple.AppleMultitouchTrackpad TrackpadRotate                       -int 1
-defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag              -bool    false
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag              -bool false
 defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerHorizSwipeGesture -int 2
 defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerTapGesture        -int 2
 defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerVertSwipeGesture  -int 2
@@ -183,7 +183,7 @@ sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate ScheduleFreque
 
 # Start Locate DB Service
 if sudo launchctl list com.apple.locate &>/dev/null; then
-  cecho 'Locate DB alread enabled.' $green
+  cecho 'Locate DB already enabled.' $green
 else
   cecho 'Enabling Locate DB …' $blue
   sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist
