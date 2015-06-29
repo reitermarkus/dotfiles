@@ -1,16 +1,21 @@
 #!/bin/sh
 
 
-appstore_install() {
+appstoreInstall() {
 
-  appid="$1"
-  appname="$2"
+  appJson=$(echo $(curl -fsSL "https://itunes.apple.com/lookup?id=$1"))
 
-  if [ ! -d "/Applications/$appname.app" ]; then
+  appName=$(echo $appJson | python -mjson.tool | sed -n -e '/"trackName":/ s/^.*"\(.*\)".*/\1/p')
+  appUrl="macappstore://itunes.apple.com/app/id$(echo $appJson | python -mjson.tool | sed -n -e '/"trackId":/ s/^.*": \(.*\),.*/\1/p')"
+  bundleId=$(echo $appJson | python -mjson.tool | sed -n -e '/"bundleId":/ s/^.*"\(.*\)".*/\1/p')
+  appPath() { mdfind kMDItemCFBundleIdentifier==$bundleId; }
+  appDownload="$appName".appdownload
 
-    open -gj -a 'App Store' "macappstore://itunes.apple.com/app/$appid"
+  if [ "$(appPath)" == '' ]; then
 
-    app_install_successful=`osascript <<EOF
+    open -gj $appUrl && cecho "Opening $appName in App Store …" $blue
+
+    appInstallSuccessful=$(osascript <<EOF
     tell application "System Events"
 
       tell application process "App Store"
@@ -19,8 +24,6 @@ appstore_install() {
           if button 1 of group 1 of group 1 of UI element 1 of scroll area 1 of group 1 of group 1 of window 1 exists then
             if description of button 1 of group 1 of group 1 of UI element 1 of scroll area 1 of group 1 of group 1 of window 1 contains "Install" then
               delay 5
-              click button 1 of group 1 of group 1 of UI element 1 of scroll area 1 of group 1 of group 1 of window 1
-              delay 1
               click button 1 of group 1 of group 1 of UI element 1 of scroll area 1 of group 1 of group 1 of window 1
               return true
             end if
@@ -34,21 +37,26 @@ appstore_install() {
 
       end tell
     end tell
-    EOF`
+    EOF)
 
-    if [ "$app_install_successful" == "false" ]; then
-      cecho "Error installing $appname." $red
+    if [ "$appInstallSuccessful" == "false" ]; then
+      cecho "Error installing $appName." $red
     else
-      cecho "Installing $appname …" $blue
       timeout=0
-      until [ -d "/Applications/$appname*appdownload" ] || [ -d "/Applications/$appname.app" ] || [ $timeout -eq 60 ]; do
+      until [ -d "/Applications/$appDownload" ] || [ "$(appPath)" != '' ] || [ $timeout -eq 60 ]; do
         let timeout=timeout+1
         sleep 0.5
       done
+      if [ $timeout -lt 60 ]; then
+        cecho "Downloading $appName …" $blue
+      else
+        cecho "$appName download timed out." $red
+      fi
+
     fi
 
   else
-    cecho "$appname already installed." $green
+    cecho "$appName already installed." $green
   fi
 
 }
@@ -56,28 +64,35 @@ appstore_install() {
 
 # Install Apps
 
-appstore_install id420212497 Byword
-appstore_install id924726344 Deliveries
-appstore_install id480664966 Fusio
-appstore_install id482898991 LiveReload
-appstore_install id419891002 RapidClick
-appstore_install id880001334 Reeder
+# Byword
+  appstoreInstall 420212497
 
+# Deliveries
+  appstoreInstall 924726344
 
-# iWork
+# Fusio
+  appstoreInstall 480664966
 
-appstore_install id409183694 Keynote
-appstore_install id409203825 Numbers
-appstore_install id409201541 Pages
+# Gemini
+  appstoreInstall 463541543
 
+# Keynote
+  appstoreInstall 409183694
+
+# LiveReload
+  appstoreInstall 482898991
+
+# Numbers
+  appstoreInstall 409203825
+
+# Pages
+  appstoreInstall 409201541
+
+# RapidClick
+  appstoreInstall 419891002
+
+# Reeder
+  # appstoreInstall 880001334
 
 # Xcode
-
-appstore_install id497799835 Xcode
-
-
-
-
-
-
-#
+  appstoreInstall 497799835
