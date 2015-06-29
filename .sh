@@ -1,5 +1,5 @@
 #!/bin/sh
-echo $0
+
 
 # Set the colours you can use
 
@@ -28,9 +28,13 @@ cecho() {
 
 # Clone Repository
 
-git_dir=/tmp/dotfiles
-cecho 'Cloning Git Repository …' $blue
-rm -rf /tmp/dotfiles && git clone https://github.com/reitermarkus/dotfiles.git $git_dir
+dotfiles_dir=$(cd "$(dirname "$0")"; pwd)
+
+if [[ "$0" != *.sh ]]; then
+  dotfiles_dir=/tmp/dotfiles
+  cecho 'Cloning Git Repository …' $blue
+  rm -rf $dotfiles_dir && git clone https://github.com/reitermarkus/dotfiles.git $dotfiles_dir
+fi
 
 
 # Run “sudo” keep-alive.
@@ -39,7 +43,7 @@ sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 
-# Grant Terminal access to Assistive Features
+# Grant Assistive Access to Terminal and “osascript”.
 
 sudo python <<EOF
 import sqlite3
@@ -53,9 +57,9 @@ EOF
 
 # Run Scripts
 
-source "$git_dir/setup/defaults.sh"
-source "$git_dir/setup/app-store.sh"
-source "$git_dir/setup/brew.sh"
-source "$git_dir/setup/fish.sh"
-source "$git_dir/setup/dropbox.sh"
-source "$git_dir/setup/cleanup.sh"
+source "$dotfiles_dir/setup/defaults.sh"
+source "$dotfiles_dir/setup/app-store.sh"
+source "$dotfiles_dir/setup/brew.sh"
+source "$dotfiles_dir/setup/fish.sh"
+source "$dotfiles_dir/setup/dropbox.sh"
+source "$dotfiles_dir/setup/cleanup.sh"
