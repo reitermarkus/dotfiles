@@ -50,6 +50,7 @@ if hash brew; then
   # Install Packages
   brew_if_missing brew-cask         'Brew Caskroom'
   brew_if_missing brew-rmtree       'External Command “rmtree”'
+  brew_if_missing duck              'Cyberduck CLI'
   brew_if_missing git               'Git'
   brew_if_missing npm               'Node Package Manager'
   brew_if_missing fish              'Fish Shell'
@@ -86,6 +87,7 @@ if hash brew; then
     brew_cask_if_missing boom                   'Boom' --open
     brew_cask_if_missing cocoapods              'Cocoapods'
     brew_cask_if_missing coda                   'Coda'
+    brew_cask_if_missing cyberduck              'Cyberduck'
     brew_cask_if_missing dropbox                'Dropbox' --open
     brew_cask_if_missing hazel                  'Hazel'
     brew_cask_if_missing imageoptim             'ImageOptim'
