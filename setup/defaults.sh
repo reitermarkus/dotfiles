@@ -16,6 +16,8 @@ sudo nvram boot-args='-v'
 
 # Disable Guest Account
 sudo defaults write /Library/Preferences/com.apple.loginwindow GuestEnabled -bool false
+sudo defaults write /Library/Preferences/com.apple.AppleFileServer guestAccess -bool false
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server AllowGuestAccess -bool false
 sudo rm -rf /Users/Guest
 
 
