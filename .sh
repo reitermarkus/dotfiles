@@ -26,6 +26,21 @@ cecho() {
 }
 
 
+# Installation Messages
+
+echo_exists() {
+  cecho "$1 already installed." $green
+}
+
+echo_install() {
+  cecho "Installing $1 …" $blue
+}
+
+echo_error() {
+  cecho "$1" $red
+}
+
+
 # Clone Repository
 
 dotfiles_dir=$(cd "$(dirname "$0")"; pwd)

@@ -6,20 +6,6 @@
 xcode-select --install 2>/dev/null
 
 
-# Homebrew Installation Messages
-echo_exists() {
-  cecho "$1 already installed." $green
-}
-
-echo_install() {
-  cecho "Installing $1 …" $blue
-}
-
-echo_error() {
-  cecho "$1" $red
-}
-
-
 # Install Homebrew
 
 if hash brew; then
@@ -69,6 +55,7 @@ if hash brew; then
   brew_if_missing fish              'Fish Shell'
   brew_if_missing mackup            'Mackup'
   brew_if_missing terminal-notifier 'Terminal Notifier'
+  brew_if_missing ruby              'Ruby'
 
 
   if hash brew-cask; then
@@ -84,9 +71,9 @@ if hash brew; then
         brew cask install "$package" --appdir=/Applications
 
         if [ "$3" == "--open" ]; then
-	      until open -a "$name" -gj &>/dev/null; do
-	    	  sleep 0.1
-	    	done
+          until open -a "$name" -gj &>/dev/null; do
+            sleep 0.1
+          done
         fi &
       fi
 
@@ -103,7 +90,9 @@ if hash brew; then
     brew_cask_if_missing imageoptim             'ImageOptim'
     brew_cask_if_missing kaleidoscope           'Kaleidoscope'
     brew_cask_if_missing launchrocket           'Launchrocket'
+    brew_cask_if_missing mavcim                 'MacVim'
     brew_cask_if_missing sigil                  'Sigil'
+    brew_cask_if_missing textmate               'Textmate'
     brew_cask_if_missing transmission           'Transmission'
     brew_cask_if_missing tower                  'Tower'
     brew_cask_if_missing vlc-nightly            'VLC Media Player'
