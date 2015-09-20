@@ -81,7 +81,7 @@ if hash brew; then
     }
 
     brew_cask_if_missing adobe-creative-cloud   'Creative Cloud' --open
-    brew_cask_if_missing asepsis                'Asepsis'
+    # brew_cask_if_missing asepsis                'Asepsis'
     brew_cask_if_missing a-better-finder-rename 'A Better Finder Rename'
     brew_cask_if_missing boom                   'Boom' --open
     brew_cask_if_missing cocoapods              'Cocoapods'
