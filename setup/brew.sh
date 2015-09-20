@@ -54,6 +54,7 @@ if hash brew; then
   brew_if_missing npm               'Node Package Manager'
   brew_if_missing fish              'Fish Shell'
   brew_if_missing mackup            'Mackup'
+  brew_if_missing mavcim            'MacVim'
   brew_if_missing terminal-notifier 'Terminal Notifier'
   brew_if_missing ruby              'Ruby'
 
@@ -90,7 +91,6 @@ if hash brew; then
     brew_cask_if_missing imageoptim             'ImageOptim'
     brew_cask_if_missing kaleidoscope           'Kaleidoscope'
     brew_cask_if_missing launchrocket           'Launchrocket'
-    brew_cask_if_missing mavcim                 'MacVim'
     brew_cask_if_missing sigil                  'Sigil'
     brew_cask_if_missing textmate               'Textmate'
     brew_cask_if_missing transmission           'Transmission'
