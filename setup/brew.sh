@@ -39,6 +39,7 @@ if hash brew; then
   }
 
   # Add Homebrew Taps
+  brew_tap_if_missing 'reitermarkus/tap'
   brew_tap_if_missing 'beeftornado/rmtree'
   brew_tap_if_missing 'caskroom/cask'
   brew_tap_if_missing 'caskroom/versions'
@@ -55,7 +56,7 @@ if hash brew; then
   brew_if_missing npm               'Node Package Manager'
   brew_if_missing fish              'Fish Shell'
   brew_if_missing mackup            'Mackup'
-  brew_if_missing mavcim            'MacVim'
+  brew_if_missing macvim            'MacVim'
   brew_if_missing terminal-notifier 'Terminal Notifier'
   brew_if_missing ruby              'Ruby'
 
@@ -86,11 +87,14 @@ if hash brew; then
     brew_cask_if_missing a-better-finder-rename 'A Better Finder Rename'
     brew_cask_if_missing boom                   'Boom' --open
     brew_cask_if_missing cocoapods              'Cocoapods'
-    brew_cask_if_missing coda                   'Coda'
     brew_cask_if_missing cyberduck              'Cyberduck'
     brew_cask_if_missing dropbox                'Dropbox' --open
     brew_cask_if_missing hazel                  'Hazel'
     brew_cask_if_missing imageoptim             'ImageOptim'
+    brew_cask_if_missing iconvert               'iConvert'
+    brew_cask_if_missing ihelp                  'iHelp'
+    brew_cask_if_missing ilearn                 'iLearn'
+    brew_cask_if_missing itest                  'iTest'
     brew_cask_if_missing kaleidoscope           'Kaleidoscope'
     brew_cask_if_missing launchrocket           'Launchrocket'
     brew_cask_if_missing sigil                  'Sigil'
@@ -98,7 +102,6 @@ if hash brew; then
     brew_cask_if_missing transmission           'Transmission'
     brew_cask_if_missing tower                  'Tower'
     brew_cask_if_missing vlc-nightly            'VLC Media Player'
-    brew_cask_if_missing vmware-fusion          'VMware Fusion'
     brew_cask_if_missing xquartz                'XQuartz'
     brew_cask_if_missing microsoft-office       'Microsoft Office' && if [ -f /opt/homebrew-cask/Caskroom/microsoft-office/latest/Office\ Installer.pkg ]; then rm /opt/homebrew-cask/Caskroom/microsoft-office/latest/Office\ Installer.pkg; fi
 
