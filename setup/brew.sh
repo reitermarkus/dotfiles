@@ -56,54 +56,76 @@ if hash brew; then
   brew_if_missing npm               'Node Package Manager'
   brew_if_missing fish              'Fish Shell'
   brew_if_missing mackup            'Mackup'
-  brew_if_missing macvim            'MacVim'
   brew_if_missing terminal-notifier 'Terminal Notifier'
   brew_if_missing ruby              'Ruby'
 
 
   if hash brew-cask; then
-
+    
     brew_cask_if_missing() {
-      package=$1
-      name=$2
+      _usage() { echo "Usage: brew_cask_if_missing -p <packages> [-n <name>] [-o]" 1>&2; exit; }
+    
+      appdir=/Applications
+      name=''
+      open=0
 
+      local OPTIND
+      while getopts ":p:n:oa:" o; do
+        case "${o}" in
+          p) package="${OPTARG}";;
+          n) name="${OPTARG}";;
+          o) open=1;;
+          a) appdir="${OPTARG}";;
+          *) _usage;;
+        esac
+      done
+      shift $((OPTIND-1))
+      
+      if [ "$name" == '' ]; then
+        name=$(brew cask abv $package | head -2 | tail -1)
+      
+        if brew cask abv $package | grep '.app (app)' &>/dev/null; then
+          name=$(brew cask abv $package | grep '.app (app)' | sed -E 's/^\ \ (.*)\.app.*$/\1/g' | sed -E 's/.*\///')
+        fi
+      fi
+      
       if brew cask ls $package &>/dev/null; then
         echo_exists "$name"
       else
-        echo_install "$name"
-        brew cask install "$package" --appdir=/Applications
-
-        if [ "$3" == "--open" ]; then
+        echo_install "${name}"
+        mkdir -p "$appdir"
+        brew cask install $package --appdir="$appdir" --force
+      
+        if [ ! -z "$name" ] && [ "$open" == 1 ]; then
+          sleep 1
           until open -a "$name" -gj &>/dev/null; do
             sleep 0.1
           done
-        fi &
+        fi
       fi
-
     }
 
-    brew_cask_if_missing adobe-creative-cloud   'Creative Cloud' --open
-    # brew_cask_if_missing asepsis                'Asepsis'
-    brew_cask_if_missing a-better-finder-rename 'A Better Finder Rename'
-    brew_cask_if_missing boom                   'Boom' --open
-    brew_cask_if_missing cocoapods              'Cocoapods'
-    brew_cask_if_missing cyberduck              'Cyberduck'
-    brew_cask_if_missing dropbox                'Dropbox' --open
-    brew_cask_if_missing hazel                  'Hazel'
-    brew_cask_if_missing imageoptim             'ImageOptim'
-    brew_cask_if_missing iconvert               'iConvert'
-    brew_cask_if_missing ihelp                  'iHelp'
-    brew_cask_if_missing ilearn                 'iLearn'
-    brew_cask_if_missing itest                  'iTest'
-    brew_cask_if_missing kaleidoscope           'Kaleidoscope'
-    brew_cask_if_missing launchrocket           'Launchrocket'
-    brew_cask_if_missing sigil                  'Sigil'
-    brew_cask_if_missing textmate               'Textmate'
-    brew_cask_if_missing transmission           'Transmission'
-    brew_cask_if_missing tower                  'Tower'
-    brew_cask_if_missing vlc-nightly            'VLC Media Player'
-    brew_cask_if_missing xquartz                'XQuartz'
-    brew_cask_if_missing microsoft-office       'Microsoft Office' && if [ -f /opt/homebrew-cask/Caskroom/microsoft-office/latest/Office\ Installer.pkg ]; then rm /opt/homebrew-cask/Caskroom/microsoft-office/latest/Office\ Installer.pkg; fi
+    brew_cask_if_missing -op adobe-creative-cloud -n 'Creative Cloud'
+    brew_cask_if_missing -p a-better-finder-rename      
+    brew_cask_if_missing -op boom
+    brew_cask_if_missing -p cocoapods           
+    brew_cask_if_missing -p cyberduck                
+    brew_cask_if_missing -op dropbox
+    brew_cask_if_missing -p hazel                      
+    brew_cask_if_missing -p imageoptim                   
+    brew_cask_if_missing -p 'iconvert ihelp ilearn itest' -n 'Global Caché Test Suite' -a /Applications/iTach
+    brew_cask_if_missing -p kaleidoscope             
+    brew_cask_if_missing -p launchrocket           
+    brew_cask_if_missing -p sigil                       
+    brew_cask_if_missing -p textmate                     
+    brew_cask_if_missing -p transmission              
+    brew_cask_if_missing -p tower                     
+    brew_cask_if_missing -p vlc-nightly                
+    brew_cask_if_missing -p xquartz                    
+    brew_cask_if_missing -p microsoft-office \
+      && if [ -f /opt/homebrew-cask/Caskroom/microsoft-office/latest/Office\ Installer.pkg ]; then
+           rm /opt/homebrew-cask/Caskroom/microsoft-office/latest/Office\ Installer.pkg
+         fi
 
   fi
 
