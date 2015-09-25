@@ -51,7 +51,6 @@ if hash brew; then
   # Install Packages
   brew_if_missing brew-cask         'Brew Caskroom'
   brew_if_missing brew-rmtree       'External Command “rmtree”'
-  brew_if_missing duck              'Cyberduck CLI'
   brew_if_missing git               'Git'
   brew_if_missing npm               'Node Package Manager'
   brew_if_missing fish              'Fish Shell'
@@ -114,6 +113,7 @@ if hash brew; then
     brew_cask_if_missing -p hazel                      
     brew_cask_if_missing -p imageoptim                   
     brew_cask_if_missing -p 'iconvert ihelp ilearn itest' -n 'Global Caché Test Suite' -a /Applications/iTach
+    brew_cask_if_missing -p java                 
     brew_cask_if_missing -p kaleidoscope             
     brew_cask_if_missing -p launchrocket           
     brew_cask_if_missing -p sigil                       
@@ -126,6 +126,9 @@ if hash brew; then
       && if [ -f /opt/homebrew-cask/Caskroom/microsoft-office/latest/Office\ Installer.pkg ]; then
            rm /opt/homebrew-cask/Caskroom/microsoft-office/latest/Office\ Installer.pkg
          fi
+    
+    # Depends on Java.
+    brew_if_missing duck 'Cyberduck CLI'
 
   fi
 
