@@ -41,21 +41,25 @@ echo_error() {
 }
 
 
-# Clone Repository
+# Run “sudo” keep-alive.
 
-dotfiles_dir=$(cd "$(dirname "$0")"; pwd)
+sudo -v
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+
+# Check if Mac has an internal Battery.
+is_macbook=$(ioreg -l | grep DesignCapacity &>/dev/null && echo true || echo false)
+
+
+# Clone Repository
 
 if [[ "$0" != *.sh ]]; then
   dotfiles_dir=/tmp/dotfiles
   cecho 'Cloning Git Repository …' $blue
   rm -rf $dotfiles_dir && git clone https://github.com/reitermarkus/dotfiles.git $dotfiles_dir
+else
+  dotfiles_dir=$(cd "$(dirname "$0")"; pwd)
 fi
-
-
-# Run “sudo” keep-alive.
-
-sudo -v
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 
 # Grant Assistive Access to Terminal and “osascript”.

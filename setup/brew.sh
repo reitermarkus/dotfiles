@@ -17,24 +17,24 @@ fi
 
 if hash brew; then
 
+  taps=$(brew tap &)
+  brews=$(brew ls &)
+  casks=$(brew-cask ls &)
+
   cecho 'Updating Homebrew …' $blue
   brew update
-	
-	taps=$(brew tap)
 
   brew_tap_if_missing() {
-		if printf -- '%s\n' "${taps[@]}" | grep "^$1$" &>/dev/null; then
+    if printf -- '%s\n' "${taps[@]}" | grep "^$1$" &>/dev/null; then
       cecho "“$1” already tapped." $green
     else
       cecho "Tapping “$1” …" $blue
       brew tap "$1" || echo_error "Error tapping $1."
     fi
   }
-	
-	brews=$(brew ls)
 
   brew_if_missing() {
-		if printf -- '%s\n' "${brews[@]}" | grep "^$1$" &>/dev/null; then
+    if printf -- '%s\n' "${brews[@]}" | grep "^$1$" &>/dev/null; then
       echo_exists "$2"
     else
       echo_install "$2"
@@ -62,8 +62,6 @@ if hash brew; then
   brew_if_missing terminal-notifier 'Terminal Notifier'
   brew_if_missing ruby              'Ruby'
 
-  casks=$(brew-cask ls)
-
   if hash brew-cask; then
     
     brew_cask_if_missing() {
@@ -84,14 +82,14 @@ if hash brew; then
         esac
       done
       shift $((OPTIND-1))
-			
-			info=$(brew-cask abv $package)
+      
+      info=$(brew-cask abv $package)
       
       if [ "$name" == '' ]; then
         if printf -- '%s\n' "${info[@]}" | grep '.app (app)' &>/dev/null; then
           name=$(printf -- '%s\n' "${info[@]}" | grep '.app (app)' | sed -E 's/^\ \ (.*)\.app.*$/\1/g' | sed -E 's/.*\///')
-				else
-	        name=$(printf -- '%s\n' "${info[@]}" | head -2 | tail -1)
+        else
+          name=$(printf -- '%s\n' "${info[@]}" | head -2 | tail -1)
         fi
       fi
       
@@ -111,6 +109,7 @@ if hash brew; then
       fi
     }
 
+	  # Install Casks
     brew_cask_if_missing -op adobe-creative-cloud -n Creative\ Cloud
     brew_cask_if_missing -p a-better-finder-rename      
     brew_cask_if_missing -op boom
@@ -125,7 +124,8 @@ if hash brew; then
     brew_cask_if_missing -p itest -a /Applications/iTach
     brew_cask_if_missing -p java                 
     brew_cask_if_missing -p kaleidoscope             
-    brew_cask_if_missing -p launchrocket           
+    brew_cask_if_missing -p launchrocket
+    [[ $is_macbook ]] && brew_cask_if_missing -p netspot
     brew_cask_if_missing -p sigil                       
     brew_cask_if_missing -p textmate                     
     brew_cask_if_missing -p transmission              
