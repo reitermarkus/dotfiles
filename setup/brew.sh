@@ -122,9 +122,9 @@ if hash brew; then
     brew_cask_if_missing -p tower                     
     brew_cask_if_missing -p vlc-nightly                
     brew_cask_if_missing -p xquartz                    
-    brew_cask_if_missing -p microsoft-office \
-      && if [ -f /opt/homebrew-cask/Caskroom/microsoft-office/latest/Office\ Installer.pkg ]; then
-           rm /opt/homebrew-cask/Caskroom/microsoft-office/latest/Office\ Installer.pkg
+    brew_cask_if_missing -p microsoft-office-365 \
+      && if [ -f /opt/homebrew-cask/Caskroom/microsoft-office-365/latest/Microsoft_Office_2016_Installer.pkg ]; then
+           rm /opt/homebrew-cask/Caskroom/microsoft-office-365/latest/Microsoft_Office_2016_Installer.pkg
          fi
     
     # Depends on Java.
