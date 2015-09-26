@@ -3,9 +3,7 @@
 
 # Show “Library” folder.
 
-if [ -d ~/Library ]; then
-  chflags nohidden ~/Library
-fi
+chflags nohidden ~/Library
 
 
 # Hide “opt” folder.

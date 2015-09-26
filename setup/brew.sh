@@ -19,22 +19,26 @@ if hash brew; then
 
   cecho 'Updating Homebrew …' $blue
   brew update
+	
+	taps=$(brew tap)
 
   brew_tap_if_missing() {
-    if [[ "$1" == "`brew tap | grep $1`" ]]; then
+		if printf -- '%s\n' "${taps[@]}" | grep "^$1$" &>/dev/null; then
       cecho "“$1” already tapped." $green
     else
       cecho "Tapping “$1” …" $blue
       brew tap "$1" || echo_error "Error tapping $1."
     fi
   }
+	
+	brews=$(brew ls)
 
   brew_if_missing() {
-    if ! brew ls $1 &>/dev/null; then
+		if printf -- '%s\n' "${brews[@]}" | grep "^$1$" &>/dev/null; then
+      echo_exists "$2"
+    else
       echo_install "$2"
       brew install $1
-    else
-      echo_exists "$2"
     fi
   }
 
@@ -52,12 +56,13 @@ if hash brew; then
   brew_if_missing brew-cask         'Brew Caskroom'
   brew_if_missing brew-rmtree       'External Command “rmtree”'
   brew_if_missing git               'Git'
-  brew_if_missing npm               'Node Package Manager'
+  brew_if_missing node              'Node Package Manager'
   brew_if_missing fish              'Fish Shell'
   brew_if_missing mackup            'Mackup'
   brew_if_missing terminal-notifier 'Terminal Notifier'
   brew_if_missing ruby              'Ruby'
 
+  casks=$(brew-cask ls)
 
   if hash brew-cask; then
     
@@ -79,21 +84,23 @@ if hash brew; then
         esac
       done
       shift $((OPTIND-1))
+			
+			info=$(brew-cask abv $package)
       
       if [ "$name" == '' ]; then
-        name=$(brew cask abv $package | head -2 | tail -1)
-      
-        if brew cask abv $package | grep '.app (app)' &>/dev/null; then
-          name=$(brew cask abv $package | grep '.app (app)' | sed -E 's/^\ \ (.*)\.app.*$/\1/g' | sed -E 's/.*\///')
+        if printf -- '%s\n' "${info[@]}" | grep '.app (app)' &>/dev/null; then
+          name=$(printf -- '%s\n' "${info[@]}" | grep '.app (app)' | sed -E 's/^\ \ (.*)\.app.*$/\1/g' | sed -E 's/.*\///')
+				else
+	        name=$(printf -- '%s\n' "${info[@]}" | head -2 | tail -1)
         fi
       fi
       
-      if brew cask ls $package &>/dev/null; then
+      if printf -- '%s\n' "${casks[@]}" | grep "^$package$" &>/dev/null; then
         echo_exists "$name"
       else
         echo_install "${name}"
         mkdir -p "$appdir"
-        brew cask install $package --appdir="$appdir" --force
+        brew-cask install $package --appdir="$appdir" --force
       
         if [ ! -z "$name" ] && [ "$open" == 1 ]; then
           sleep 1
@@ -104,7 +111,7 @@ if hash brew; then
       fi
     }
 
-    brew_cask_if_missing -op adobe-creative-cloud -n 'Creative Cloud'
+    brew_cask_if_missing -op adobe-creative-cloud -n Creative\ Cloud
     brew_cask_if_missing -p a-better-finder-rename      
     brew_cask_if_missing -op boom
     brew_cask_if_missing -p cocoapods           
@@ -112,7 +119,10 @@ if hash brew; then
     brew_cask_if_missing -op dropbox
     brew_cask_if_missing -p hazel                      
     brew_cask_if_missing -p imageoptim                   
-    brew_cask_if_missing -p 'iconvert ihelp ilearn itest' -n 'Global Caché Test Suite' -a /Applications/iTach
+    brew_cask_if_missing -p iconvert -a /Applications/iTach
+    brew_cask_if_missing -p ihelp -a /Applications/iTach
+    brew_cask_if_missing -p ilearn -a /Applications/iTach
+    brew_cask_if_missing -p itest -a /Applications/iTach
     brew_cask_if_missing -p java                 
     brew_cask_if_missing -p kaleidoscope             
     brew_cask_if_missing -p launchrocket           
@@ -122,10 +132,7 @@ if hash brew; then
     brew_cask_if_missing -p tower                     
     brew_cask_if_missing -p vlc-nightly                
     brew_cask_if_missing -p xquartz                    
-    brew_cask_if_missing -p microsoft-office-365 \
-      && if [ -f /opt/homebrew-cask/Caskroom/microsoft-office-365/latest/Microsoft_Office_2016_Installer.pkg ]; then
-           rm /opt/homebrew-cask/Caskroom/microsoft-office-365/latest/Microsoft_Office_2016_Installer.pkg
-         fi
+    brew_cask_if_missing -p microsoft-office-365 && mso_installer='/opt/homebrew-cask/Caskroom/microsoft-office365/latest/Microsoft_Office_2016_Installer.pkg' && if [ -f $mso_installer ]; then rm $mso_installer; fi
     
     # Depends on Java.
     brew_if_missing duck 'Cyberduck CLI'

@@ -73,6 +73,7 @@ EOF
 source "$dotfiles_dir/setup/defaults.sh"
 source "$dotfiles_dir/setup/app-store.sh"
 source "$dotfiles_dir/setup/brew.sh"
+source "$dotfiles_dir/setup/node.sh"
 source "$dotfiles_dir/setup/fish.sh"
 source "$dotfiles_dir/setup/dropbox.sh"
 source "$dotfiles_dir/setup/cleanup.sh"
