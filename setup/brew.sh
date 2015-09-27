@@ -55,6 +55,7 @@ if hash brew; then
   # Install Packages
   brew_if_missing brew-cask         'Brew Caskroom'
   brew_if_missing brew-rmtree       'External Command “rmtree”'
+  brew_if_missing dockutil          'Dock Util'
   brew_if_missing git               'Git'
   brew_if_missing node              'Node Package Manager'
   brew_if_missing fish              'Fish Shell'
@@ -116,6 +117,7 @@ if hash brew; then
     brew_cask_if_missing -p cocoapods           
     brew_cask_if_missing -p cyberduck                
     brew_cask_if_missing -op dropbox
+    brew_cask_if_missing -p google-chrome
     brew_cask_if_missing -p hazel                      
     brew_cask_if_missing -p imageoptim                   
     brew_cask_if_missing -p iconvert -a /Applications/iTach
@@ -124,6 +126,7 @@ if hash brew; then
     brew_cask_if_missing -p itest -a /Applications/iTach
     brew_cask_if_missing -p java                 
     brew_cask_if_missing -p kaleidoscope             
+    brew_cask_if_missing -op launchbar
     brew_cask_if_missing -p launchrocket
     [[ $is_macbook ]] && brew_cask_if_missing -p netspot
     brew_cask_if_missing -p sigil                       
@@ -132,7 +135,7 @@ if hash brew; then
     brew_cask_if_missing -p tower                     
     brew_cask_if_missing -p vlc-nightly                
     brew_cask_if_missing -p xquartz                    
-    brew_cask_if_missing -p microsoft-office-365 && mso_installer='/opt/homebrew-cask/Caskroom/microsoft-office365/latest/Microsoft_Office_2016_Installer.pkg' && if [ -f $mso_installer ]; then rm $mso_installer; fi
+    # brew_cask_if_missing -p microsoft-office-365 && mso_installer='/opt/homebrew-cask/Caskroom/microsoft-office365/latest/Microsoft_Office_2016_Installer.pkg' && if [ -f $mso_installer ]; then rm $mso_installer; fi
     
     # Depends on Java.
     brew_if_missing duck 'Cyberduck CLI'

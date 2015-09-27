@@ -5,7 +5,7 @@
 
 npm_install_if_missing() {
   if hash "$1"; then
-    cecho '“$1” already installed.' $green
+    cecho "“$1” already installed." $green
   else
     if hash npm; then
       cecho 'Installing “$1” …'
