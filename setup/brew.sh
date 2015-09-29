@@ -111,7 +111,7 @@ if hash brew; then
     # Install Casks
     brew_cask_if_missing -op adobe-creative-cloud -n Creative\ Cloud
     brew_cask_if_missing -p adobe-illustrator-cc
-    [[ $is_macbook ]] || brew_cask_if_missing -p adobe-indesign-cc
+    [[ $is_mobile ]] || brew_cask_if_missing -p adobe-indesign-cc
     brew_cask_if_missing -p adobe-photoshop-cc
     brew_cask_if_missing -p a-better-finder-rename      
     brew_cask_if_missing -op boom
@@ -129,7 +129,7 @@ if hash brew; then
     brew_cask_if_missing -p kaleidoscope             
     brew_cask_if_missing -op launchbar
     brew_cask_if_missing -p launchrocket
-    [[ $is_macbook ]] && brew_cask_if_missing -p netspot
+    [[ $is_mobile ]] && brew_cask_if_missing -p netspot
     brew_cask_if_missing -p sigil                       
     brew_cask_if_missing -p textmate                     
     brew_cask_if_missing -p transmission              

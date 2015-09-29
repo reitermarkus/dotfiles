@@ -48,7 +48,7 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 
 # Check if Mac has an internal Battery.
-is_macbook=$(ioreg -l | grep DesignCapacity &>/dev/null && echo true || echo false)
+ioreg -l | grep DesignCapacity &>/dev/null && $is_mobile=true
 
 
 # Clone Repository
