@@ -66,20 +66,18 @@ if hash brew; then
   if hash brew-cask; then
     
     brew_cask_if_missing() {
-      _usage() { echo "Usage: brew_cask_if_missing -p <packages> [-n <name>] [-o]" 1>&2; exit; }
     
       appdir=/Applications
       name=''
       open=0
 
       local OPTIND
-      while getopts ":p:n:oa:" o; do
+      while getopts ":p:n:od:" o; do
         case "${o}" in
           p) package="${OPTARG}";;
           n) name="${OPTARG}";;
           o) open=1;;
-          a) appdir="${OPTARG}";;
-          *) _usage;;
+          d) appdir="${OPTARG}";;
         esac
       done
       shift $((OPTIND-1))
@@ -110,8 +108,11 @@ if hash brew; then
       fi
     }
 
-	  # Install Casks
+    # Install Casks
     brew_cask_if_missing -op adobe-creative-cloud -n Creative\ Cloud
+    brew_cask_if_missing -p adobe-illustrator-cc
+    [[ $is_macbook ]] || brew_cask_if_missing -p adobe-indesign-cc
+    brew_cask_if_missing -p adobe-photoshop-cc
     brew_cask_if_missing -p a-better-finder-rename      
     brew_cask_if_missing -op boom
     brew_cask_if_missing -p cocoapods           
@@ -120,10 +121,10 @@ if hash brew; then
     brew_cask_if_missing -p google-chrome
     brew_cask_if_missing -p hazel                      
     brew_cask_if_missing -p imageoptim                   
-    brew_cask_if_missing -p iconvert -a /Applications/iTach
-    brew_cask_if_missing -p ihelp -a /Applications/iTach
-    brew_cask_if_missing -p ilearn -a /Applications/iTach
-    brew_cask_if_missing -p itest -a /Applications/iTach
+    brew_cask_if_missing -p iconvert -d /Applications/iTach
+    brew_cask_if_missing -p ihelp -d /Applications/iTach
+    brew_cask_if_missing -p ilearn -d /Applications/iTach
+    brew_cask_if_missing -p itest -d /Applications/iTach
     brew_cask_if_missing -p java                 
     brew_cask_if_missing -p kaleidoscope             
     brew_cask_if_missing -op launchbar
