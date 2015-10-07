@@ -1,5 +1,6 @@
 #!/bin/sh
 
+cecho 'Installing Command Line Developer Tools …' $blue
 xcode-select --install && osascript <<EOF
 tell application "System Events" to tell application process "Install Command Line Developer Tools"
 	repeat until window 1 exists
