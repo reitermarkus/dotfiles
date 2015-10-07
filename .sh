@@ -75,6 +75,7 @@ EOF
 # Run Scripts
 
 source "$dotfiles_dir/setup/defaults.sh"
+source "$dotfiles_dir/setup/xcode.sh"
 source "$dotfiles_dir/setup/app-store.sh"
 source "$dotfiles_dir/setup/brew.sh"
 source "$dotfiles_dir/setup/node.sh"
