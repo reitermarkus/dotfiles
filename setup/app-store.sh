@@ -97,6 +97,12 @@ EOF)
 # Reeder
   # appstoreInstall 880001334
 
+# RegexToolbox
+  appstoreInstall 954196690
+
+# Repeater
+  appstoreInstall 443370764
+
 # Xcode
   appstoreInstall 497799835
   sudo xcodebuild -license accept
