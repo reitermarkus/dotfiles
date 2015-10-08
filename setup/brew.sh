@@ -143,8 +143,8 @@ if hash brew; then
     # Conversion Tools
     converters_dir=/Applications/Converters.localized
     sudo mkdir -p $converters_dir/.localized
-    echo '"Converters" = "Konvertierungswerkzeuge";' > $converters_dir/.localized/de.strings
-    echo '"Converters" = "Conversion Tools";' > $converters_dir/.localized/en.strings
+    sudo echo '"Converters" = "Konvertierungswerkzeuge";' > $converters_dir/.localized/de.strings
+    sudo echo '"Converters" = "Conversion Tools";' > $converters_dir/.localized/en.strings
     brew_cask_if_missing -p handbrake -d $converters_dir
     brew_cask_if_missing -p makemkv -d $converters_dir
     brew_cask_if_missing -p mkvtools -d $converters_dir
