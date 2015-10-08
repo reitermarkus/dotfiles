@@ -3,12 +3,14 @@
 
 # Check if Dropbox has finishes syncing.
 
-if ! [ "`osascript -e 'tell application "System Events" to (name of processes) contains \"Dropbox\"'`" == "true" ]; then
-  open -gj -a Dropbox
-fi
-
+open -gja Dropbox
 cecho 'Waiting for Dropbox to finish syncing …' $blue
-until osascript -e 'tell application "System Events" to tell application process "Dropbox" to get help of menu bar item 1 of menu bar 2' | grep Aktualisiert 2>&1>/dev/null; do :; done
+until osascript -e 'tell application "System Events" to tell application process "Dropbox" to get help of menu bar item 1 of menu bar 2' | grep Aktualisiert 2>&1>/dev/null; do sleep 1; done
+
+
+# Also move hidden files.
+
+shopt -s dotglob
 
 
 # Create Symlinks for Dropbox folders.
@@ -42,10 +44,12 @@ link_to_dropbox() {
     cecho "$local_dir already linked to Dropbox." $green
   else
     cecho "Linking $local_dir to $dropbox_dir …" $blue
-    if cp -rf "$dropbox_dir_full/*" &>/dev/null; then
-      cp -rf "$dropbox_dir_full/*" "$local_dir_full" && rm -rf "$dropbox_dir_full" && ln -sfn "$local_dir_full" "$dropbox_dir_full"
+    killall Dropbox
+
+    if mv -f "$dropbox_dir_full"/* "$local_dir_full"/ && rmdir "$dropbox_dir_full" && ln -sfn "$local_dir_full" "$dropbox_dir_full"; then
+      open -gja Dropbox
     else
-      rm -rf "$dropbox_dir_full" && ln -sfn "$local_dir_full" "$dropbox_dir_full"
+      echo_error "Error linking $local_dir to $dropbox_dir."
     fi
   fi
 
@@ -54,7 +58,6 @@ link_to_dropbox() {
 
 link_to_dropbox 'Desktop'
 
-link_to_dropbox 'Library/Fonts'
 link_to_dropbox 'Library/Safari/Extensions'
 link_to_dropbox 'Library/Containers/com.apple.BKAgentService/Data/Documents/iBooks'
 
