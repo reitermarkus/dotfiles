@@ -108,30 +108,51 @@ if hash brew; then
     brew_cask_if_missing -p adobe-illustrator-cc
     [[ $is_mobile ]] || brew_cask_if_missing -p adobe-indesign-cc
     brew_cask_if_missing -p adobe-photoshop-cc
-    brew_cask_if_missing -p a-better-finder-rename      
+    brew_cask_if_missing -p a-better-finder-rename
     brew_cask_if_missing -op boom
-    brew_cask_if_missing -p cocoapods           
+    brew_cask_if_missing -p calibre
+    brew_cask_if_missing -p cocoapods
     brew_cask_if_missing -p cyberduck                
     brew_cask_if_missing -op dropbox
+    brew_cask_if_missing -p evernote
+    brew_cask_if_missing -p fritzing
     brew_cask_if_missing -p google-chrome
-    brew_cask_if_missing -p hazel                      
-    brew_cask_if_missing -p imageoptim                   
+    brew_cask_if_missing -p hazel
     brew_cask_if_missing -p iconvert -d /Applications/iTach
     brew_cask_if_missing -p ihelp -d /Applications/iTach
     brew_cask_if_missing -p ilearn -d /Applications/iTach
+    brew_cask_if_missing -p insomniax
     brew_cask_if_missing -p itest -d /Applications/iTach
     brew_cask_if_missing -p java                 
     brew_cask_if_missing -p kaleidoscope             
     brew_cask_if_missing -op launchbar
     brew_cask_if_missing -p launchrocket
     [[ $is_mobile ]] && brew_cask_if_missing -p netspot
-    brew_cask_if_missing -p sigil                       
-    brew_cask_if_missing -p textmate                     
-    brew_cask_if_missing -p transmission              
-    brew_cask_if_missing -p tower                     
-    brew_cask_if_missing -p vlc-nightly                
-    brew_cask_if_missing -p xquartz                    
+    brew_cask_if_missing -p prizmo
+    brew_cask_if_missing -p sigil
+    brew_cask_if_missing -p skype
+    brew_cask_if_missing -p svgcleaner
+    brew_cask_if_missing -p textmate
+    brew_cask_if_missing -p transmission
+    brew_cask_if_missing -p tower
+    brew_cask_if_missing -p vlc-nightly
+    brew_cask_if_missing -p wineskin-winery
+    brew_cask_if_missing -p xquartz
     # brew_cask_if_missing -p microsoft-office-365 && mso_installer='/opt/homebrew-cask/Caskroom/microsoft-office365/latest/Microsoft_Office_2016_Installer.pkg' && if [ -f $mso_installer ]; then rm $mso_installer; fi
+    
+    # Conversion Tools
+    converters_dir=/Applications/Converters.localized
+    sudo mkdir -p $converters_dir/.localized
+    echo '"Converters" = "Konvertierungswerkzeuge";' > $converters_dir/.localized/de.strings
+    echo '"Converters" = "Conversion Tools";' > $converters_dir/.localized/en.strings
+    brew_cask_if_missing -p handbrake -d $converters_dir
+    brew_cask_if_missing -p makemkv -d $converters_dir
+    brew_cask_if_missing -p mkvtools -d $converters_dir
+    brew_cask_if_missing -p xld -d $converters_dir
+    brew_cask_if_missing -p xnconvert -d $converters_dir
+    brew_cask_if_missing -p image2icon -d $converters_dir
+    brew_cask_if_missing -p imageoptim -d $converters_dir
+    
     
     # Depends on Java.
     brew_if_missing duck 'Cyberduck CLI'
@@ -143,6 +164,7 @@ if hash brew; then
 
   cecho 'Linking Homebrew Apps …' $blue
   brew linkapps
+  brew unlinkapps terminal-notifier
 
   cecho 'Removing Dead Homebrew Symlinks …' $blue
   brew prune

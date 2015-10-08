@@ -76,6 +76,9 @@ EOF)
 # Gemini
   appstoreInstall 463541543
 
+# iStudiez Pro
+  appstoreInstall 402989379
+
 # Keynote
   appstoreInstall 409183694
 
