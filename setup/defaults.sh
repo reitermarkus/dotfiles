@@ -1,10 +1,40 @@
 #!/bin/sh
 
 
+# Restart on Power Failure or Freeze
+
+sudo systemsetup -setrestartpowerfailure on &>/dev/null
+sudo systemsetup -setrestartfreeze       on &>/dev/null
+
+
+# Enable Remote Apple Events, Login & Management
+
+sudo systemsetup -setremoteappleevents on &>/dev/null
+sudo systemsetup -setremotelogin       on &>/dev/null
+sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate -configure -access -on -users admin -privs -all -restart -agent -menu &>/dev/null
+
+
+# Show “Library” folder.
+
+chflags nohidden ~/Library
+
+
+# Hide “opt” folder.
+
+sudo mkdir -p /opt
+sudo chflags hidden /opt
+
+
 # Configure Default Settings
 
 cecho 'Writing Defaults …' $blue
 
+function CFPreferencesAppSynchronize() {
+    python - <<END
+from Foundation import CFPreferencesAppSynchronize
+CFPreferencesAppSynchronize('$1')
+END
+}
 
 ### Startup
 
@@ -29,6 +59,11 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow 'showInputMenu' -
 
 # Hide Password Hints
 sudo defaults write /Library/Preferences/com.apple.loginwindow 'RetriesUntilHint' -int 0
+
+
+### Global Preferences
+
+defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool true
 
 
 ### Languages
@@ -133,7 +168,7 @@ defaults write -g AppleFontSmoothing -int 0
 killall SystemUIServer Dock
 
 
-### Trackpad
+### Mouse & Trackpad
 
 # Enable Clicking and Dragging
 defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
@@ -143,6 +178,15 @@ defaults write com.apple.AppleMultitouchTrackpad Dragging -int 1
 # Enable Right-Click
 defaults write com.apple.AppleMultitouchTrackpad TrackpadRightClick -bool true
 defaults write com.apple.AppleMultitouchTrackpad TrackpadCornerSecondaryClick -int 0
+
+defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseButtonMode                 -string 'TwoButton'
+defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseOneFingerDoubleTapGesture  -int 1
+defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseTwoFingerDoubleTapGesture  -int 3
+defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseTwoFingerHorizSwipeGesture -int 2
+defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseMomentumScroll             -int 1
+defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseVerticalScroll             -int 1
+defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseHorizontalScroll           -int 1
+
 
 
 
@@ -209,7 +253,7 @@ defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool 
 
 
 # Set “DuckDuckGo” as Default Search Provider
-defaults write com.apple.Safari SearchProviderIdentifier 'com.duckduckgo'
+defaults write com.apple.Safari SearchProviderIdentifier -string 'com.duckduckgo'
 
 # Enable Search Suggestions
 defaults write com.apple.Safari SuppressSearchSuggestions -bool false
