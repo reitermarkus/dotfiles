@@ -1,6 +1,12 @@
 #!/bin/sh
 
 
+### Startup
+
+# Enable Verbose Boot
+sudo nvram boot-args='-v'
+
+
 # Restart on Power Failure or Freeze
 
 sudo systemsetup -setrestartpowerfailure on &>/dev/null
@@ -36,10 +42,16 @@ CFPreferencesAppSynchronize('$1')
 END
 }
 
-### Startup
 
-# Enable Verbose Boot
-sudo nvram boot-args='-v'
+### Automatic Updates
+
+sudo softwareupdate --schedule on &>/dev/null
+sudo defaults write /Library/Preferences/com.apple.commerce.plist AutoUpdate -bool true
+sudo defaults write /Library/Preferences/com.apple.commerce.plist AutoUpdateRestartRequired -bool true
+sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate.plist AutomaticCheckEnabled -bool true
+sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate.plist AutomaticDownload -bool true
+sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate.plist ConfigDataInstall -bool true
+sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate.plist CriticalUpdateInstall -bool true
 
 
 ### Login Window
@@ -93,11 +105,12 @@ defaults write com.apple.menuextra.clock DateFormat          'HH:mm'
 defaults write com.apple.menuextra.clock FlashDateSeparators -bool false
 defaults write com.apple.menuextra.clock IsAnalog            -bool false
 
-# Set Menubar Items
-defaults write com.apple.systemuiserver menuExtras -array '/System/Library/CoreServices/Menu Extras/TimeMachine.menu' '/System/Library/CoreServices/Menu Extras/Bluetooth.menu' '/System/Library/CoreServices/Menu Extras/AirPort.menu' '/System/Library/CoreServices/Menu Extras/Battery.menu' '/System/Library/CoreServices/Menu Extras/Clock.menu' '/System/Library/CoreServices/Menu Extras/User.menu'
-
 # Show Battery Percentage
 defaults write com.apple.menuextra.battery ShowPercent -bool true
+
+# Set Menubar Items
+defaults write com.apple.systemuiserver menuExtras -array '/System/Library/CoreServices/Menu Extras/TimeMachine.menu' '/System/Library/CoreServices/Menu Extras/Bluetooth.menu' '/System/Library/CoreServices/Menu Extras/AirPort.menu' '/System/Library/CoreServices/Menu Extras/VPN.menu' '/System/Library/CoreServices/Menu Extras/Volume.menu' '/System/Library/CoreServices/Menu Extras/Battery.menu' '/System/Library/CoreServices/Menu Extras/Clock.menu' '/System/Library/CoreServices/Menu Extras/TextInput.menu' '/System/Library/CoreServices/Menu Extras/User.menu'
+
 
 ### Desktop and Finder
 
@@ -131,6 +144,9 @@ defaults write com.apple.finder WarnOnEmptyTrash -bool false
 # Search Current Folder by Defaults
 defaults write com.apple.finder FXDefaultSearchScope 'SCcf'
 
+# Disable the “Are you sure you want to open this application?” Dialog
+defaults write com.apple.LaunchServices LSQuarantine -bool false
+
 
 ### Dock, Dashboard & Mission Control
 
@@ -152,6 +168,18 @@ defaults write com.apple.dock showhidden -bool true
 # Change Safari's In-Page Search to “contains” instead of “starts with”
 defaults write com.apple.Safari FindOnPageMatchesWordStartsOnly -bool false
 
+# Don't open “safe” Downloads
+defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
+
+# Enable Developer Menu
+defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
+
+# Set “DuckDuckGo” as Default Search Provider
+defaults write com.apple.Safari SearchProviderIdentifier -string 'com.duckduckgo'
+
+# Enable Search Suggestions
+defaults write com.apple.Safari SuppressSearchSuggestions -bool false
+
 
 ### General User Interface
 
@@ -164,10 +192,6 @@ defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2   -bool true
 defaults write -g AppleFontSmoothing -int 0
 
 
-# Reload Menubar and Dock
-killall SystemUIServer Dock
-
-
 ### Mouse & Trackpad
 
 # Enable Clicking and Dragging
@@ -178,22 +202,15 @@ defaults write com.apple.AppleMultitouchTrackpad Dragging -int 1
 # Enable Right-Click
 defaults write com.apple.AppleMultitouchTrackpad TrackpadRightClick -bool true
 defaults write com.apple.AppleMultitouchTrackpad TrackpadCornerSecondaryClick -int 0
-
-defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseButtonMode                 -string 'TwoButton'
-defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseOneFingerDoubleTapGesture  -int 1
-defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseTwoFingerDoubleTapGesture  -int 3
-defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseTwoFingerHorizSwipeGesture -int 2
-defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseMomentumScroll             -int 1
-defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseVerticalScroll             -int 1
-defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseHorizontalScroll           -int 1
-
-
-
+defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseButtonMode -string 'TwoButton'
 
 # Scrolling Options
 defaults write com.apple.AppleMultitouchTrackpad TrackpadScroll -bool true
 defaults write com.apple.AppleMultitouchTrackpad TrackpadHorizScroll -int 1
 defaults write com.apple.AppleMultitouchTrackpad TrackpadMomentumScroll -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseMomentumScroll   -int 1
+defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseVerticalScroll   -int 1
+defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseHorizontalScroll -int 1
 
 # Pinch, Rotate and Swipe Gestures
 defaults write com.apple.AppleMultitouchTrackpad TrackpadFiveFingerPinchGesture       -int 2
@@ -208,6 +225,9 @@ defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerHorizSwipeGe
 defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerTapGesture        -int 2
 defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerVertSwipeGesture  -int 2
 defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingersRightClick       -int 0
+defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseOneFingerDoubleTapGesture  -int 1
+defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseTwoFingerDoubleTapGesture  -int 3
+defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseTwoFingerHorizSwipeGesture -int 2
 
 # Zoom with Two-Finger Double Tap
 defaults write com.apple.AppleMultitouchTrackpad TrackpadTwoFingerDoubleTapGesture -int 1
@@ -243,17 +263,6 @@ defaults write com.apple.Terminal 'Window Settings' -dict-add Basic '<dict><key>
 defaults write com.apple.Terminal 'Default Window Settings' Basic
 
 
-### Safari
-
-# Don't open “safe” Downloads
-defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
-
-# Enable Developer Menu
-defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
-
-
-# Set “DuckDuckGo” as Default Search Provider
-defaults write com.apple.Safari SearchProviderIdentifier -string 'com.duckduckgo'
-
-# Enable Search Suggestions
-defaults write com.apple.Safari SuppressSearchSuggestions -bool false
+# Reload Menubar and Dock
+killall Dock
+killall SystemUIServer
