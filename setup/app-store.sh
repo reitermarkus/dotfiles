@@ -40,23 +40,23 @@ end tell
 EOF)
 
     if [ "$appInstallSuccessful" == "false" ]; then
-      cecho "Error installing $appName." $red
+      echo_error "Error installing $appName."
     else
-      timeout=0
-      until [ -d "/Applications/$appDownload" ] || [ "$(appPath)" != '' ] || [ $timeout -eq 60 ]; do
-        let timeout=timeout+1
+      timeout=60
+      until [ -d "/Applications/$appDownload" ] || [ "$(appPath)" != '' ] || [ $timeout -eq 0 ]; do
+        let timeout=timeout-1
         sleep 0.5
       done
-      if [ $timeout -lt 60 ]; then
+      if [ $timeout -gt 0 ]; then
         cecho "Downloading $appName …" $blue
       else
-        cecho "$appName download timed out." $red
+        echo_error "Downloading $appName timed out."
       fi
 
     fi
 
   else
-    cecho "$appName already installed." $green
+    echo_exists "$appName"
   fi
 
 }
