@@ -96,3 +96,4 @@ EOF)
 
 # Xcode
   appstoreInstall 497799835
+  sudo xcodebuild -license accept

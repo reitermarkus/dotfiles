@@ -1,11 +1,6 @@
 #!/bin/sh
 
 
-# Install Xcode Command Line Tools
-
-xcode-select --install 2>/dev/null
-
-
 # Install Homebrew
 
 if hash brew; then

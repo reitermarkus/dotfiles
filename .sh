@@ -51,6 +51,42 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 ioreg -l | grep DesignCapacity &>/dev/null && $is_mobile=true
 
 
+# Grant Assistive Access to Terminal and “osascript”.
+
+sudo sqlite3 <<EOF
+.open '/Library/Application Support/com.apple.TCC/TCC.db'
+insert or replace into access values('kTCCServiceAccessibility','com.apple.Terminal',0,1,1,NULL,NULL);
+insert or replace into access values('kTCCServiceAccessibility','$(which osascript)',1,1,1,NULL,NULL);
+.quit
+EOF
+
+
+# Install Command Line Developer Tools
+
+if [ -d /Library/Developer/CommandLineTools/ ]; then
+  echo_exists 'Command Line Developer Tools'
+else
+  echo_install 'Command Line Developer Tools'
+  xcode-select --install && osascript <<EOF
+tell application "System Events" to tell application process "Install Command Line Developer Tools"
+  repeat until window 1 exists
+    delay 0.1
+  end repeat
+
+  repeat while window 1 exists
+    tell window 1
+      set buttonName to name of button 1
+      if buttonName does not contain "stop" then if buttonName does not contain "cancel" then
+        click button 1
+      end if
+    end tell
+    delay 0.1
+  end repeat
+end tell
+EOF
+fi
+
+
 # Clone Repository
 
 if [[ "$0" != *.sh ]]; then
@@ -62,20 +98,9 @@ else
 fi
 
 
-# Grant Assistive Access to Terminal and “osascript”.
-
-sudo sqlite3 <<EOF
-.open '/Library/Application Support/com.apple.TCC/TCC.db'
-insert or replace into access values('kTCCServiceAccessibility','com.apple.Terminal',0,1,1,NULL,NULL);
-insert or replace into access values('kTCCServiceAccessibility','$(which osascript)',1,1,1,NULL,NULL);
-.quit
-EOF
-
-
 # Run Scripts
 
 source "$dotfiles_dir/setup/defaults.sh"
-source "$dotfiles_dir/setup/xcode.sh"
 source "$dotfiles_dir/setup/app-store.sh"
 source "$dotfiles_dir/setup/brew.sh"
 source "$dotfiles_dir/setup/node.sh"
