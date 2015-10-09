@@ -128,6 +128,7 @@ if hash brew; then
     brew_cask_if_missing -p kaleidoscope
     brew_cask_if_missing -p konica-minolta-bizhub-c220-c280-c360
     brew_cask_if_missing -op launchbar
+    osascript -e 'tell application "System Events" to make login item with properties {path:"'`mdfind -onlyin / kMDItemCFBundleIdentifier==at.obdev.LaunchBar`'", hidden:true}' -e 'return'
     brew_cask_if_missing -p launchrocket
     [[ $is_mobile ]] && brew_cask_if_missing -p netspot
     brew_cask_if_missing -p prizmo
