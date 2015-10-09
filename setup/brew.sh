@@ -59,9 +59,9 @@ if hash brew; then
   brew_if_missing ruby              'Ruby'
 
   if hash brew-cask; then
-    
+
     brew_cask_if_missing() {
-    
+
       appdir=/Applications
       name=''
       open=0
@@ -76,9 +76,9 @@ if hash brew; then
         esac
       done
       shift $((OPTIND-1))
-      
+
       info=$(brew-cask abv $package)
-      
+
       if [ "$name" == '' ]; then
         if printf -- '%s\n' "${info[@]}" | grep '.app (app)' &>/dev/null; then
           name=$(printf -- '%s\n' "${info[@]}" | grep '.app (app)' | sed -E 's/^\ \ (.*)\.app.*$/\1/g' | sed -E 's/.*\///')
@@ -86,14 +86,14 @@ if hash brew; then
           name=$(printf -- '%s\n' "${info[@]}" | head -2 | tail -1)
         fi
       fi
-      
+
       if printf -- '%s\n' "${casks[@]}" | grep "^$package$" &>/dev/null; then
         echo_exists "$name"
       else
         echo_install "${name}"
         mkdir -p "$appdir"
         brew-cask install $package --appdir="$appdir" --force
-      
+
         if [ ! -z "$name" ] && [ "$open" == 1 ]; then
           sleep 1
           until open -a "$name" -gj &>/dev/null; do
@@ -112,7 +112,7 @@ if hash brew; then
     brew_cask_if_missing -op boom
     brew_cask_if_missing -p calibre
     brew_cask_if_missing -p cocoapods
-    brew_cask_if_missing -p cyberduck                
+    brew_cask_if_missing -p cyberduck
     brew_cask_if_missing -op dropbox
     brew_cask_if_missing -p epub-services
     brew_cask_if_missing -p evernote
@@ -141,7 +141,7 @@ if hash brew; then
     brew_cask_if_missing -p wineskin-winery
     brew_cask_if_missing -p xquartz
     # brew_cask_if_missing -p microsoft-office-365 && mso_installer='/opt/homebrew-cask/Caskroom/microsoft-office365/latest/Microsoft_Office_2016_Installer.pkg' && if [ -f $mso_installer ]; then rm $mso_installer; fi
-    
+
     # Conversion Tools
     converters_dir=/Applications/Converters.localized
     mkdir -p $converters_dir/.localized
@@ -154,8 +154,8 @@ if hash brew; then
     brew_cask_if_missing -p xnconvert -d $converters_dir
     brew_cask_if_missing -p image2icon -d $converters_dir
     brew_cask_if_missing -p imageoptim -d $converters_dir
-    
-    
+
+
     # Depends on Java.
     brew_if_missing duck 'Cyberduck CLI'
 

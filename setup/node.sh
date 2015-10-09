@@ -4,7 +4,7 @@
 # Install NPM Packages
 
 npm_install_if_missing() {
-  
+
   if npm -g ls | awk '{ print $NF }' | grep "^$1@" &>/dev/null; then
     echo_exists "$1"
   else

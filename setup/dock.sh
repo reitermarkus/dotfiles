@@ -9,7 +9,7 @@ if hash dockutil; then
   dutil() {
     last=false
     remove_only=false
-    
+
     local OPTIND
     while getopts ":p:n:a:lr" o; do
       case "${o}" in
@@ -21,10 +21,10 @@ if hash dockutil; then
       esac
     done
     shift $((OPTIND-1))
-    
+
     dockutil --remove "$name" --no-restart  &>/dev/null
-    
-    if [ "$remove_only" == false ] && [ -f "$path"/Contents/Info.plist ]; then 
+
+    if [ "$remove_only" == false ] && [ -f "$path"/Contents/Info.plist ]; then
       if [ "$after" == '' ]; then
         cecho "Adding $name to the beginning of the Dock …" $blue
         dockutil --add "$path" --label "$name" --position beginning --no-restart
@@ -32,18 +32,18 @@ if hash dockutil; then
         cecho "Adding $name to Dock (after $after) …" $blue
         if [ "$last" == false ]; then
           dockutil --add "$path" --label "$name" --after "$after" --no-restart
-        else 
+        else
           dockutil --add "$path" --label "$name" --after "$after"
         fi
       fi
-      
+
       after="$name"
     else
       cecho "Removing $name from Dock …" $red
     fi
 
   }
-  
+
   dutil -rn System\ Preferences
   dutil -rn Systemeinstellungen &>/dev/null
   dutil -rn App\ Store
