@@ -64,6 +64,9 @@ EOF)
 
 # Install Apps
 
+# Auction Sniper for eBay
+  appstoreInstall 608292802
+
 # Byword
   appstoreInstall 420212497
 
@@ -106,3 +109,6 @@ EOF)
 # Xcode
   appstoreInstall 497799835
   sudo xcodebuild -license accept
+
+# yRegex
+  appstoreInstall 892115848

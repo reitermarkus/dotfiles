@@ -114,6 +114,7 @@ if hash brew; then
     brew_cask_if_missing -p cocoapods
     brew_cask_if_missing -p cyberduck                
     brew_cask_if_missing -op dropbox
+    brew_cask_if_missing -p epub-services
     brew_cask_if_missing -p evernote
     brew_cask_if_missing -p fritzing
     brew_cask_if_missing -p google-chrome
