@@ -53,6 +53,9 @@ if hash dockutil; then
   dutil -rn Kontakte &>/dev/null
   dutil -rn Calendar
   dutil -rn Kalender &>/dev/null
+  dutil -rn Reminders
+  dutil -rn Erinnerungen &>/dev/null
+  dutil -rn FaceTime
 
   dutil -n Launchpad                  -p /Applications/Launchpad.app
   dutil -n Safari                     -p /Applications/Safari.app

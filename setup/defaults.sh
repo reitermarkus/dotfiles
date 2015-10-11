@@ -81,6 +81,7 @@ defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool true
 ### Languages
 
 # Set System Languages
+sudo defaults write /Library/Preferences/.GlobalPreferences -string de
 defaults write -g AppleLanguages -array 'de-AT' 'de' 'en'
 
 # Use Metric Units
@@ -264,5 +265,4 @@ defaults write com.apple.Terminal 'Default Window Settings' Basic
 
 
 # Reload Menubar and Dock
-killall Dock
-killall SystemUIServer
+killall Dock SystemUIServer &>/dev/null
