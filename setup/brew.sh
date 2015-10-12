@@ -137,7 +137,7 @@ if hash brew; then
     brew_cask_if_missing -p svgcleaner
     brew_cask_if_missing -p textmate
     brew_cask_if_missing -p transmission
-    brew_cask_if_missing -p tower
+    # brew_cask_if_missing -p tower
     brew_cask_if_missing -p vlc-nightly
     brew_cask_if_missing -p wineskin-winery
     brew_cask_if_missing -p xquartz
