@@ -81,7 +81,7 @@ defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool true
 ### Languages
 
 # Set System Languages
-sudo defaults write /Library/Preferences/.GlobalPreferences -string de
+sudo languagesetup -langspec de &>/dev/null
 defaults write -g AppleLanguages -array 'de-AT' 'de' 'en'
 
 # Use Metric Units
