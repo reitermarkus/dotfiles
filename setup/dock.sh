@@ -56,6 +56,8 @@ if hash dockutil; then
   dutil -rn Reminders
   dutil -rn Erinnerungen &>/dev/null
   dutil -rn FaceTime
+  dutil -rn Feedback\ Assistant
+  dutil -rn Feedback-Assistent &>/dev/null
 
   dutil -n Launchpad                  -p /Applications/Launchpad.app
   dutil -n Safari                     -p /Applications/Safari.app
