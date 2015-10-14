@@ -72,6 +72,7 @@ link_to_dropbox 'Documents/Projekte'
 link_to_dropbox 'Documents/Scans'
 link_to_dropbox 'Documents/SketchUp'
 link_to_dropbox 'Documents/Sonstiges'
+link_to_dropbox 'Documents/Uni'
 
 
 # Relink “mackup”.
