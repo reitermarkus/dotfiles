@@ -104,10 +104,10 @@ if hash brew; then
     }
 
     # Install Casks
-    brew_cask_if_missing -op adobe-creative-cloud -n Creative\ Cloud
-    brew_cask_if_missing -p adobe-illustrator-cc
-    [[ $is_mobile ]] || brew_cask_if_missing -p adobe-indesign-cc
-    brew_cask_if_missing -p adobe-photoshop-cc
+    # brew_cask_if_missing -op adobe-creative-cloud -n Creative\ Cloud
+    brew_cask_if_missing -p adobe-illustrator-cc-de
+    [[ $is_mobile ]] || brew_cask_if_missing -p adobe-indesign-cc-de
+    brew_cask_if_missing -p adobe-photoshop-cc-de
     brew_cask_if_missing -p a-better-finder-rename
     brew_cask_if_missing -op boom
     brew_cask_if_missing -p calibre
