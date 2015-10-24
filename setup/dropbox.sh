@@ -91,3 +91,12 @@ if hash mackup; then
   yes | mackup restore
   yes | mackup backup || echo \r
 fi
+
+
+# Local Scripts
+
+eval local_dotfiles='~/Library/Scripts/local-dotfiles.sh'
+if [ -f "$local_dotfiles" ]; then
+  cecho "Running local Scripts …" $blue
+  sh "$local_dotfiles"
+fi
