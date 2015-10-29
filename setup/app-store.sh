@@ -1,21 +1,21 @@
 #!/bin/sh
 
 
-appstoreInstall() {
+appstore_install() {
 
-  appJson=$(echo $(curl -fsSL "https://itunes.apple.com/lookup?id=$1"))
+  app_json=$(echo $(curl -fsSL "https://itunes.apple.com/lookup?id=$1"))
 
-  appName=$(echo $appJson | python -mjson.tool | sed -n -e '/"trackName":/ s/^.*"\(.*\)".*/\1/p')
-  appUrl="macappstore://itunes.apple.com/app/id$(echo $appJson | python -mjson.tool | sed -n -e '/"trackId":/ s/^.*": \(.*\),.*/\1/p')"
-  bundleId=$(echo $appJson | python -mjson.tool | sed -n -e '/"bundleId":/ s/^.*"\(.*\)".*/\1/p')
-  appPath() { mdfind kMDItemCFBundleIdentifier==$bundleId; }
-  appDownload="$appName".appdownload
+  app_name=$(echo $app_json | python -mjson.tool | sed -n -e '/"trackName":/ s/^.*"\(.*\)".*/\1/p')
+  app_url="macappstore://itunes.apple.com/app/id$(echo $app_json | python -mjson.tool | sed -n -e '/"trackId":/ s/^.*": \(.*\),.*/\1/p')"
+  bundle_id=$(echo $app_json | python -mjson.tool | sed -n -e '/"bundleId":/ s/^.*"\(.*\)".*/\1/p')
+  app_path() { mdfind kMDItemCFBundleIdentifier==$bundle_id; }
+  app_download="${app_name}.app_download"
 
-  if [ "$(appPath)" == '' ]; then
+  if [ "$(app_path)" == '' ]; then
 
-    open -gj $appUrl && cecho "Opening $appName in App Store …" $blue
+    open -gj $app_url && cecho "Opening $app_name in App Store …" $blue
 
-    appInstallSuccessful=$(osascript <<EOF
+    app_install_success=$(osascript <<EOF
 tell application "System Events"
 
   tell application process "App Store"
@@ -39,24 +39,24 @@ tell application "System Events"
 end tell
 EOF)
 
-    if [ "$appInstallSuccessful" == "false" ]; then
-      echo_error "Error installing $appName."
+    if [ "$app_install_success" == "false" ]; then
+      echo_error "Error installing ${app_name}."
     else
-      timeout=60
-      until [ -d "/Applications/$appDownload" ] || [ "$(appPath)" != '' ] || [ $timeout -eq 0 ]; do
-        let timeout=timeout-1
+      timeout=30
+      until [ -d "/Applications/$app_download" ] || [ "$(app_path)" != '' ] || [ $timeout -eq 0 ]; do
+        let timeout=timeout-0.5
         sleep 0.5
       done
       if [ $timeout -gt 0 ]; then
-        cecho "Downloading $appName …" $blue
+        cecho "Downloading ${app_name} …" $blue
       else
-        echo_error "Downloading $appName timed out."
+        echo_error "Downloading ${app_name} timed out."
       fi
 
     fi
 
   else
-    echo_exists "$appName"
+    echo_exists "$app_name"
   fi
 
 }
@@ -65,50 +65,57 @@ EOF)
 # Install Apps
 
 # Auction Sniper for eBay
-  appstoreInstall 608292802
+  appstore_install 608292802
 
 # Byword
-  appstoreInstall 420212497
+  appstore_install 420212497
 
 # Deliveries
-  appstoreInstall 924726344
+  appstore_install 924726344
 
 # Fusio
-  appstoreInstall 480664966
+  appstore_install 480664966
 
 # Gemini
-  appstoreInstall 463541543
+  appstore_install 463541543
 
 # iStudiez Pro
-  appstoreInstall 402989379
+  appstore_install 402989379
 
 # Keynote
-  appstoreInstall 409183694
+  appstore_install 409183694
 
 # LiveReload
-  appstoreInstall 482898991
+  appstore_install 482898991
 
 # Numbers
-  appstoreInstall 409203825
+  appstore_install 409203825
 
 # Pages
-  appstoreInstall 409201541
+  appstore_install 409201541
 
 # RapidClick
-  appstoreInstall 419891002
+  appstore_install 419891002
 
 # Reeder
-  # appstoreInstall 880001334
+  # appstore_install 880001334
 
 # RegexToolbox
-  appstoreInstall 954196690
+  appstore_install 954196690
 
 # Repeater
-  # appstoreInstall 443370764
+  # appstore_install 443370764
 
 # Xcode
-  appstoreInstall 497799835
-  sudo xcodebuild -license accept
+  appstore_install 497799835
+
+  if ! xcodebuild -version &>/dev/null; then
+    cecho 'Waiting for Xcode to finish installing …' $blue
+
+    until xcodebuild -version &>/dev/null; do
+      sleep 5
+    done && sudo xcodebuild -license accept &
+  fi
 
 # yRegex
-  appstoreInstall 892115848
+  appstore_install 892115848

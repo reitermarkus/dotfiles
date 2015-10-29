@@ -1,48 +1,48 @@
 #!/bin/sh
 
 
+dutil() {
+
+  last=false
+  local remove_only=false
+
+  local OPTIND
+  while getopts ":p:n:a:lr" o; do
+    case "${o}" in
+      p) path="${OPTARG}";;
+      n) name="${OPTARG}";;
+      a) after="${OPTARG}";;
+      l) last=true;;
+      r) remove_only=true;;
+    esac
+  done
+  shift $((OPTIND-1))
+
+  dockutil --remove "${name}" --no-restart  &>/dev/null
+
+  if [ "${remove_only}" == true ]; then
+    cecho "Removing ${name} from Dock …" $red
+  elif [ -d "${path}" ]; then
+    cecho "Adding ${name} to Dock …" $blue
+
+    local restart=''
+    [[ ${last} == false ]] && restart='--no-restart'
+
+    local position=''
+    [[ -z ${after} ]] && position='--position beginning'
+
+    dockutil --add "${path}" --label "${name}" --after "${after}" ${position} ${restart}
+
+    after="${name}"
+  fi
+
+}
+
+
 if hash dockutil; then
 
+
   cecho 'Rearranging Dock …' $blue
-
-  after=''
-  dutil() {
-    last=false
-    remove_only=false
-
-    local OPTIND
-    while getopts ":p:n:a:lr" o; do
-      case "${o}" in
-        p) path="${OPTARG}";;
-        n) name="${OPTARG}";;
-        a) after="${OPTARG}";;
-        l) last=true;;
-        r) remove_only=true;;
-      esac
-    done
-    shift $((OPTIND-1))
-
-    dockutil --remove "$name" --no-restart  &>/dev/null
-
-    if [ "$remove_only" == false ] && [ -f "$path"/Contents/Info.plist ]; then
-      if [ "$after" == '' ]; then
-        cecho "Adding $name to the beginning of the Dock …" $blue
-        dockutil --add "$path" --label "$name" --position beginning --no-restart
-      else
-        cecho "Adding $name to Dock (after $after) …" $blue
-        if [ "$last" == false ]; then
-          dockutil --add "$path" --label "$name" --after "$after" --no-restart
-        else
-          dockutil --add "$path" --label "$name" --after "$after"
-        fi
-      fi
-
-      after="$name"
-    else
-      cecho "Removing $name from Dock …" $red
-    fi
-
-  }
 
   dutil -rn System\ Preferences
   dutil -rn Systemeinstellungen &>/dev/null
@@ -70,6 +70,7 @@ if hash dockutil; then
   dutil -n iBooks                        -p /Applications/iBooks.app
   dutil -n Pages                         -p /Applications/Pages.app
   dutil -n Numbers                       -p /Applications/Numbers.app
+  dutil -n Xcode                         -p /Applications/Xcode.app
   dutil -n TextMate                      -p /Applications/TextMate.app
   dutil -n Tower                         -p /Applications/Tower.app
   dutil -n Adobe\ Photoshop\ CC\ 2015    -p /Applications/Adobe\ Photoshop\ CC\ 2015/Adobe\ Photoshop\ CC\ 2015.app

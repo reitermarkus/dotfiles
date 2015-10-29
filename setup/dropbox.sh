@@ -3,9 +3,9 @@
 
 # Check if Dropbox has finishes syncing.
 
-open -gja Dropbox
+open -gja 'Dropbox'
 cecho 'Waiting for Dropbox to finish syncing …' $blue
-until osascript -e 'tell application "System Events" to tell application process "Dropbox" to get help of menu bar item 1 of menu bar 2' | grep Aktualisiert 2>&1>/dev/null; do sleep 1; done
+until osascript -e 'tell application "System Events" to tell application process "Dropbox" to get help of menu bar item 1 of menu bar 2' | grep --quiet -E 'Aktualisiert|Up to date'; do sleep 5; done
 
 
 # Also move hidden files.
@@ -17,11 +17,8 @@ shopt -s dotglob
 
 link_to_dropbox() {
 
-  if [ -f ~/.dropbox/info.json ]; then
-    dropbox_dir=`cat ~/.dropbox/info.json | python -m json.tool | sed -n -e '/"path":/ s/^.*"\(.*\)".*/\1/p' | sed 's#/*$##'`
-  else
-    exit 1
-  fi
+  local dropbox_dir=$(sed -E 's/.*\"path\":\ *\"(.*)\",.*/\1/' '~/.dropbox/info.json' 2>/dev/null)
+  [[ -n "${dropbox_dir}" ]] || return 1
 
   dropbox_dir=$dropbox_dir/Sync/~
 
@@ -60,7 +57,6 @@ link_to_dropbox 'Desktop'
 
 link_to_dropbox 'Library/Fonts'
 
-link_to_dropbox 'Library/Safari/Extensions'
 link_to_dropbox 'Library/Containers/com.apple.BKAgentService/Data/Documents/iBooks'
 
 link_to_dropbox 'Documents/Backups'

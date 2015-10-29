@@ -10,157 +10,180 @@ else
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
+
+brew_pour() {
+
+  local cask
+  local name
+  local package
+  local tap
+  local open=false
+
+  local OPTIND
+  while getopts ":c:d:p:t:n:o" o; do
+    case "${o}" in
+      n)    name="${OPTARG}";;
+      c)    cask="${OPTARG}";;
+      d)  appdir="${OPTARG}";;
+      p) package="${OPTARG}";;
+      t)     tap="${OPTARG}";;
+      o)    open=true;;
+    esac
+  done
+  shift $((OPTIND-1))
+
+  if [ -n "${cask}" ]; then
+
+    [ -z "${appdir}" ] && appdir='/Applications'
+
+    local info=$(brew-cask info "${cask}")
+
+    if [ -z "${name}" ]; then
+      if array_contains "${info}" '.app (app)'; then
+        name=$(printf '%s\n' "${info[@]}" | grep '.app (app)' | sed -E 's/^\ \ (.*)\.app.*$/\1/g' | sed -E 's/.*\///')
+      else
+        name=$(printf '%s\n' "${info[@]}" | head -2 | tail -1)
+      fi
+    fi
+
+    if array_contains_exactly "${casks}" "${cask}"; then
+      echo_exists "${name}"
+    else
+      echo_install "${name}"
+
+      mkdir -p "${appdir}"
+      brew-cask uninstall "${cask}" --force
+      brew-cask install "${cask}" --appdir="${appdir}" --force
+
+      if [ -n "${name}" ] && [[ ${open} ]]; then
+        local timeout = 10
+        until open -a "${name}" -gj &>/dev/null || [ "${timeout}" -lt 0 ]; do
+          let timeout=timeout-0.1
+          sleep 0.1
+        done &
+      fi
+    fi
+
+  elif [ -n "${package}" ]; then
+
+    [ -z "${name}" ] && name=${package}
+    if array_contains_exactly "${brews}" "${package}"; then
+      echo_exists "${name}"
+    else
+      echo_install "${name}"
+      brew install "${package}"
+    fi
+
+  elif [ -n "${tap}" ]; then
+
+    [ -z "${name}" ] && name=${tap}
+    if array_contains_exactly "${taps}" "${tap}"; then
+      cecho "${name} is already tapped." $green
+    else
+      cecho "Tapping ${name} …" $blue
+      brew tap "${tap}" || echo_error "Error tapping ${name}."
+    fi
+  fi
+
+}
+
+
 if hash brew; then
+
 
   taps=$(brew tap &)
   brews=$(brew ls &)
   casks=$(brew-cask ls &)
 
+
   cecho 'Updating Homebrew …' $blue
   brew update
 
-  brew_tap_if_missing() {
-    if printf -- '%s\n' "${taps[@]}" | grep "^$1$" &>/dev/null; then
-      cecho "“$1” already tapped." $green
-    else
-      cecho "Tapping “$1” …" $blue
-      brew tap "$1" || echo_error "Error tapping $1."
-    fi
-  }
 
-  brew_if_missing() {
-    if printf -- '%s\n' "${brews[@]}" | grep "^$1$" &>/dev/null; then
-      echo_exists "$2"
-    else
-      echo_install "$2"
-      brew install $1
-    fi
-  }
+  # Homebrew Taps
 
-  # Add Homebrew Taps
-  brew_tap_if_missing 'reitermarkus/tap'
-  brew_tap_if_missing 'beeftornado/rmtree'
-  brew_tap_if_missing 'caskroom/cask'
-  brew_tap_if_missing 'caskroom/versions'
-  brew_tap_if_missing 'homebrew/head-only'
-  brew_tap_if_missing 'homebrew/dupes'
-  brew_tap_if_missing 'homebrew/versions'
-  brew_tap_if_missing 'homebrew/x11'
+  brew_pour -t reitermarkus/tap   -n 'Personal Tap'
 
-  # Install Packages
-  brew_if_missing brew-cask         'Brew Caskroom'
-  brew_if_missing brew-rmtree       'External Command “rmtree”'
-  brew_if_missing dockutil          'Dock Util'
-  brew_if_missing git               'Git'
-  brew_if_missing node              'Node Package Manager'
-  brew_if_missing fish              'Fish Shell'
-  brew_if_missing mackup            'Mackup'
-  brew_if_missing terminal-notifier 'Terminal Notifier'
-  brew_if_missing ruby              'Ruby'
+  brew_pour -t caskroom/cask      -n 'Caskroom'
+  brew_pour -t caskroom/versions  -n 'Caskroom Versions'
+
+  brew_pour -t homebrew/dupes     -n 'Homebrew Dupes'
+  brew_pour -t homebrew/head-only -n 'Homebrew HEAD-Only'
+  brew_pour -t homebrew/versions  -n 'Homebrew Versions'
+  brew_pour -t homebrew/x11       -n 'Homebrew X11'
+
+
+  # Homebrew Packages
+
+  brew_pour -p brew-cask          -n 'Brew Caskroom'
+  brew_pour -p dockutil           -n 'Dock Util'
+  brew_pour -p git                -n 'Git'
+  brew_pour -p node               -n 'Node Package Manager'
+  brew_pour -p fish               -n 'Fish Shell'
+  brew_pour -p mackup             -n 'Mackup'
+  brew_pour -p terminal-notifier  -n 'Terminal Notifier'
+  brew_pour -p ruby               -n 'Ruby'
+
 
   if hash brew-cask; then
 
-    brew_cask_if_missing() {
 
-      appdir=/Applications
-      name=''
-      open=0
+    # Homebrew Casks
 
-      local OPTIND
-      while getopts ":p:n:od:" o; do
-        case "${o}" in
-          p) package="${OPTARG}";;
-          n) name="${OPTARG}";;
-          o) open=1;;
-          d) appdir="${OPTARG}";;
-        esac
-      done
-      shift $((OPTIND-1))
-
-      info=$(brew-cask abv $package)
-
-      if [ "$name" == '' ]; then
-        if printf -- '%s\n' "${info[@]}" | grep '.app (app)' &>/dev/null; then
-          name=$(printf -- '%s\n' "${info[@]}" | grep '.app (app)' | sed -E 's/^\ \ (.*)\.app.*$/\1/g' | sed -E 's/.*\///')
-        else
-          name=$(printf -- '%s\n' "${info[@]}" | head -2 | tail -1)
-        fi
-      fi
-
-      if printf -- '%s\n' "${casks[@]}" | grep "^$package$" &>/dev/null; then
-        echo_exists "$name"
-      else
-        echo_install "${name}"
-        mkdir -p "$appdir"
-        brew-cask install $package --appdir="$appdir" --force
-
-        if [ ! -z "$name" ] && [ "$open" == 1 ]; then
-          sleep 1
-          until open -a "$name" -gj &>/dev/null; do
-            sleep 0.1
-          done
-        fi
-      fi
-    }
-
-    # Install Casks
-    # brew_cask_if_missing -op adobe-creative-cloud -n Creative\ Cloud
-    brew_cask_if_missing -p adobe-illustrator-cc-de
-    [[ $is_mobile ]] || brew_cask_if_missing -p adobe-indesign-cc-de
-    brew_cask_if_missing -p adobe-photoshop-cc-de
-    brew_cask_if_missing -p a-better-finder-rename
-    brew_cask_if_missing -op boom
-    brew_cask_if_missing -p calibre
-    brew_cask_if_missing -p cocoapods
-    brew_cask_if_missing -p cyberduck
-    brew_cask_if_missing -op dropbox
-    brew_cask_if_missing -p epub-services
-    brew_cask_if_missing -p evernote
-    brew_cask_if_missing -p fritzing
-    brew_cask_if_missing -p google-chrome
-    brew_cask_if_missing -p hazel
-    brew_cask_if_missing -p iconvert -d /Applications/iTach
-    brew_cask_if_missing -p ihelp -d /Applications/iTach
-    brew_cask_if_missing -p ilearn -d /Applications/iTach
-    brew_cask_if_missing -p insomniax
-    brew_cask_if_missing -p itest -d /Applications/iTach
-    brew_cask_if_missing -p java
-    brew_cask_if_missing -p kaleidoscope
-    brew_cask_if_missing -p konica-minolta-bizhub-c220-c280-c360-driver
-    brew_cask_if_missing -op launchbar
+    brew_pour -c adobe-illustrator-cc-de
+    [[ $is_mobile ]] || brew_pour -c adobe-indesign-cc-de
+    brew_pour -c adobe-photoshop-cc-de
+    brew_pour -c a-better-finder-rename
+    brew_pour -oc boom
+    brew_pour -c calibre
+    brew_pour -c cocoapods
+    brew_pour -c cyberduck
+    brew_pour -oc dropbox
+    brew_pour -c epub-services
+    brew_pour -c evernote
+    brew_pour -c fritzing
+    brew_pour -c google-chrome
+    brew_pour -c hazel
+    brew_pour -c iconvert -  d /Applications/iTach
+    brew_pour -c ihelp      -d /Applications/iTach
+    brew_pour -c ilearn     -d /Applications/iTach
+    brew_pour -c itest      -d /Applications/iTach
+    brew_pour -c insomniax
+    brew_pour -c java       -n 'Java'
+    brew_pour -c kaleidoscope
+    brew_pour -c konica-minolta-bizhub-c220-c280-c360-driver -n 'Bizhub Driver'
+    brew_pour -oc launchbar
     osascript -e 'tell application "System Events" to make login item with properties {path:"'`mdfind -onlyin / kMDItemCFBundleIdentifier==at.obdev.LaunchBar`'", hidden:true}' -e 'return'
-    brew_cask_if_missing -p launchrocket
-    [[ $is_mobile ]] && brew_cask_if_missing -p netspot
-    brew_cask_if_missing -p prizmo
-    brew_cask_if_missing -p sigil
-    brew_cask_if_missing -p skype
-    brew_cask_if_missing -p svgcleaner
-    brew_cask_if_missing -p textmate
-    brew_cask_if_missing -p transmission
-    # brew_cask_if_missing -p tower
-    brew_cask_if_missing -p vlc-nightly
-    brew_cask_if_missing -p wineskin-winery
-    brew_cask_if_missing -p xquartz
-    # brew_cask_if_missing -p microsoft-office-365 && mso_installer='/opt/homebrew-cask/Caskroom/microsoft-office365/latest/Microsoft_Office_2016_Installer.pkg' && if [ -f $mso_installer ]; then rm $mso_installer; fi
+    brew_pour -c launchrocket
+    [[ $is_mobile ]] && brew_pour -p netspot
+    brew_pour -c prizmo
+    brew_pour -c sigil
+    brew_pour -c skype
+    brew_pour -c svgcleaner
+    brew_pour -c textmate
+    brew_pour -c transmission
+    # brew_pour -c tower
+    brew_pour -c vlc-nightly
+    brew_pour -c wineskin-winery
+    brew_pour -c xquartz
+    # brew_pour -c microsoft-office-365 && mso_installer='/opt/homebrew-cask/Caskroom/microsoft-office365/latest/Microsoft_Office_2016_Installer.pkg' && if [ -f $mso_installer ]; then rm $mso_installer; fi
 
     # Conversion Tools
     converters_dir=/Applications/Converters.localized
     mkdir -p $converters_dir/.localized
     echo '"Converters" = "Konvertierungswerkzeuge";' > $converters_dir/.localized/de.strings
     echo '"Converters" = "Conversion Tools";' > $converters_dir/.localized/en.strings
-    brew_cask_if_missing -p handbrake -d $converters_dir
-    brew_cask_if_missing -p makemkv -d $converters_dir
-    brew_cask_if_missing -p mkvtools -d $converters_dir
-    brew_cask_if_missing -p xld -d $converters_dir
-    brew_cask_if_missing -p xnconvert -d $converters_dir
-    brew_cask_if_missing -p image2icon -d $converters_dir
-    brew_cask_if_missing -p imageoptim -d $converters_dir
+    brew_pour -c handbrake  -d $converters_dir
+    brew_pour -c makemkv    -d $converters_dir
+    brew_pour -c mkvtools   -d $converters_dir
+    brew_pour -c xld        -d $converters_dir
+    brew_pour -c xnconvert  -d $converters_dir
+    brew_pour -c image2icon -d $converters_dir
+    brew_pour -c imageoptim -d $converters_dir
 
-
-    # Depends on Java.
-    brew_if_missing duck 'Cyberduck CLI'
 
   fi
+
 
   cecho 'Upgrading Homebrew Packages …' $blue
   brew upgrade
@@ -173,7 +196,8 @@ if hash brew; then
   brew prune
 
   cecho 'Emptying Homebrew Cache …' $blue
-  brew cleanup
+  brew cleanup --force
+  rm -rf "$(brew --cache)"
   brew-cask cleanup
 
   sudo chown $USER /usr/local/

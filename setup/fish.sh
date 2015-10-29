@@ -5,14 +5,18 @@
 
 if hash fish; then
 
-  if ! cat /etc/shells | grep `which fish` &>/dev/null; then
-    echo `which fish` | sudo tee -a /etc/shells > /dev/null
+  fish_bin=$(which fish)
+
+  # Check if “fish” is in shells file.
+  if ! grep --quiet "${fish_bin}" /etc/shells; then
+    echo "${fish_bin}" | sudo tee -a /etc/shells > /dev/null
   fi
 
-  if [[ ! "$SHELL" == *"/fish" ]]; then
-    chsh -s `which fish`
+  # If current shell is not “fish”, change it.
+  if [[ "${SHELL}" != *"/fish" ]]; then
+    sudo chsh -s "${fish_bin}" "${USER}"
   fi
+
+  mkdir -p "${HOME}/.config/fish/"
 
 fi
-
-mkdir -p ~/.config/fish/
