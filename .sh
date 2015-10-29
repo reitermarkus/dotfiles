@@ -79,7 +79,6 @@ fi
 
 # Clone Repository
 
-echo $(dirname $0)
 
 if [[ "$(basename ${0})" != '.sh' ]]; then
   cecho 'Downloading Github Repository …' $blue
