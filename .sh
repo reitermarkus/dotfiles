@@ -1,13 +1,6 @@
 #!/bin/sh
 
-
-# Colored “echo”.
-
-black='\033[0;30m'; white='\033[0;37m'; red='\033[0;31m'; green='\033[0;32m'; blue='\033[0;34m'; cyan='\033[0;36m'; magenta='\033[0;35m'; yellow='\033[0;33m'; reset=$(tput sgr0);
-cecho() { echo "${2}${1}${reset}"; return; }
-
-
-# Keep-alive “sudo”.
+# Ask for superuser password, and keep “sudo” alive.
 
 sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
@@ -16,7 +9,9 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # Download Repository
 
 if [[ "$(basename ${0})" != '.sh' ]]; then
-  cecho 'Downloading Github Repository …' $blue
+  eval "$(curl -s "https://raw.githubusercontent.com/reitermarkus/dotfiles/HEAD/setup/include/0.0-echo.sh")"
+  echo -b "Downloading Github Repository …"
+
   dotfiles_dir='/tmp/dotfiles-master'
   rm -rf "${dotfiles_dir}"
   curl --progress-bar --location 'https://github.com/reitermarkus/dotfiles/archive/master.zip' | ditto -xk - '/tmp'
@@ -25,44 +20,49 @@ else
 fi
 
 
-# Grant Assistive Access to Terminal and “osascript”.
-
-sudo sqlite3 <<EOF
-.open '/Library/Application Support/com.apple.TCC/TCC.db'
-insert or replace into access values('kTCCServiceAccessibility','com.apple.Terminal',0,1,1,NULL,NULL);
-insert or replace into access values('kTCCServiceAccessibility','$(which osascript)',1,1,1,NULL,NULL);
-.quit
-EOF
-
-
-# Install Command Line Developer Tools
-
-if xcode-select --print-path &>/dev/null; then
-  cecho 'Command Line Developer Tools are already installed.' $green
-else
-  cecho 'Installing Command Line Developer Tools …' $blue
-
-  touch '/tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress'
-  CLDT=$(softwareupdate --list | grep "\*.*Command Line" | head -n 1 | awk -F"*" '{print $2}' | sed -e 's/^ *//' | tr -d '\n')
-  softwareupdate --install "${CLDT}" --verbose | grep '%'
-fi
-
-
 # Check if Mac has an internal Battery.
 
 ioreg -l | grep DesignCapacity &>/dev/null && is_mobile=true
 
 
+trap 'exit 0' SIGINT
+caffeinate &
+
+
+for script in "$dotfiles_dir/setup/include/"*.sh; do
+  source "${script}"
+done
+
+
 # Run Scripts
 
-source "$dotfiles_dir/setup/tools.array.sh"
+enable_assistive_access
+
+install_xcode_clt
+install_xcode
 
 source "$dotfiles_dir/setup/defaults.sh"
-source "$dotfiles_dir/setup/appstore.sh"
-source "$dotfiles_dir/setup/brew.sh"
-source "$dotfiles_dir/setup/node.sh"
-source "$dotfiles_dir/setup/ruby.sh"
-source "$dotfiles_dir/setup/fish.sh"
-source "$dotfiles_dir/setup/dock.sh"
+
+install_brew
+install_brew_taps
+install_brew_packages
+install_brew_cask
+
+install_ruby_gems
+install_npm_packages
+
+set_default_shell_to_fish
+
+install_brew_cask_apps
+install_appstore_apps
+
+
+rearrange_dock
+
 source "$dotfiles_dir/setup/dropbox.sh"
-source "$dotfiles_dir/setup/cleanup.sh"
+
+cleanup
+
+killall caffeinate &>/dev/null
+
+echo -k 'Done.'

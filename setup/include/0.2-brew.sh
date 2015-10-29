@@ -3,13 +3,26 @@
 
 # Install Homebrew
 
-if hash brew; then
-  cecho 'Homebrew is already installed.' $green
-else
-  cecho 'Installing Homebrew …' $blue
-  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-fi
+install_brew() {
 
+  sudo chown "${USER}" /usr/local/
+
+  if hash brew; then
+    echo -g 'Homebrew is already installed.'
+  else
+    echo -b 'Installing Homebrew …'
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  fi
+
+  if hash brew; then
+    echo -b 'Updating Homebrew Packages …'
+    brew update && brew upgrade
+  fi
+
+}
+
+
+# Hombrew Install Function
 
 brew_install() {
 
@@ -17,6 +30,7 @@ brew_install() {
   local name
   local package
   local tap
+  local appdir
   local open=false
 
   local OPTIND
@@ -34,7 +48,7 @@ brew_install() {
 
   if [ -n "${cask}" ]; then
 
-    [ -z "${appdir}" ] && appdir='/Applications'
+    [ -z "${appdir}" ] && appdir=/Applications/
 
     local info=$(brew-cask info "${cask}")
 
@@ -47,9 +61,9 @@ brew_install() {
     fi
 
     if array_contains_exactly "${casks}" "${cask}"; then
-      cecho "${name} is already installed." $green
+      echo -g "${name} is already installed."
     else
-      cecho "Installing ${name} …" $blue
+      echo -b "Installing ${name} …"
 
       mkdir -p "${appdir}"
       brew-cask uninstall "${cask}" --force
@@ -67,68 +81,90 @@ brew_install() {
   elif [ -n "${package}" ]; then
 
     [ -z "${name}" ] && name=${package}
-    if array_contains_exactly "${brews}" "${package}"; then
-      cecho "${name} is already installed." $green
+    if array_contains_exactly "${brew_packages}" "${package}"; then
+      echo -g "${name} is already installed."
     else
-      cecho "Installing ${name} …" $blue
+      echo -b "Installing ${name} …"
       brew install "${package}"
     fi
 
   elif [ -n "${tap}" ]; then
 
     [ -z "${name}" ] && name=${tap}
-    if array_contains_exactly "${taps}" "${tap}"; then
-      cecho "${name} is already tapped." $green
+    if array_contains_exactly "${brew_tap_list}" "${tap}"; then
+      echo -g "${name} is already tapped."
     else
-      cecho "Tapping ${name} …" $blue
-      brew tap "${tap}" || cecho "Error tapping ${name}." $red
+      echo -b "Tapping ${name} …"
+      brew tap "${tap}" || echo -r "Error tapping ${name}."
     fi
   fi
-
 }
 
 
-if hash brew; then
+# Install Homebrew Taps
+
+install_brew_taps() {
+
+  local brew_tap_list
+
+  if brew_tap_list=$(brew tap); then
+
+    brew_install -t reitermarkus/tap   -n 'Personal Tap'
+
+    brew_install -t caskroom/cask      -n 'Caskroom'
+    brew_install -t caskroom/versions  -n 'Caskroom Versions'
+
+    brew_install -t homebrew/dupes     -n 'Homebrew Dupes'
+    brew_install -t homebrew/head-only -n 'Homebrew HEAD-Only'
+    brew_install -t homebrew/versions  -n 'Homebrew Versions'
+    brew_install -t homebrew/x11       -n 'Homebrew X11'
+
+  fi
+}
 
 
-  taps=$(brew tap &)
-  brews=$(brew ls &)
-  casks=$(brew-cask ls &)
+# Homebrew Packages
+
+install_brew_packages() {
+
+  local brew_packages
+
+  if brew_packages=$(brew ls); then
+
+    brew_install -p dockutil           -n 'Dock Util'
+    brew_install -p git                -n 'Git'
+    brew_install -p node               -n 'Node Package Manager'
+    brew_install -p fish               -n 'Fish Shell'
+    brew_install -p mackup             -n 'Mackup'
+    brew_install -p terminal-notifier  -n 'Terminal Notifier'
+    brew_install -p ruby               -n 'Ruby'
+
+  fi
+}
 
 
-  cecho 'Updating Homebrew …' $blue
-  brew update
+# Homebrew Cask
+
+install_brew_cask() {
+
+  local brew_packages
+
+  if brew_packages=$(brew ls); then
+
+    brew_install -p brew-cask          -n 'Brew Caskroom'
+
+    sudo mkdir -p /opt/homebrew-cask/Caskroom
+    sudo chown -R ${USER}:staff /opt/homebrew-cask
+
+  fi
+}
 
 
-  # Homebrew Taps
+# Homebrew Casks
 
-  brew_install -t reitermarkus/tap   -n 'Personal Tap'
+install_brew_cask_apps() {
 
-  brew_install -t caskroom/cask      -n 'Caskroom'
-  brew_install -t caskroom/versions  -n 'Caskroom Versions'
-
-  brew_install -t homebrew/dupes     -n 'Homebrew Dupes'
-  brew_install -t homebrew/head-only -n 'Homebrew HEAD-Only'
-  brew_install -t homebrew/versions  -n 'Homebrew Versions'
-  brew_install -t homebrew/x11       -n 'Homebrew X11'
-
-
-  # Homebrew Packages
-
-  brew_install -p brew-cask          -n 'Brew Caskroom'
-  brew_install -p dockutil           -n 'Dock Util'
-  brew_install -p git                -n 'Git'
-  brew_install -p node               -n 'Node Package Manager'
-  brew_install -p fish               -n 'Fish Shell'
-  brew_install -p mackup             -n 'Mackup'
-  brew_install -p terminal-notifier  -n 'Terminal Notifier'
-  brew_install -p ruby               -n 'Ruby'
-
-
-  if hash brew-cask; then
-
-
-    # Homebrew Casks
+  if casks=$(brew-cask ls); then
 
     brew_install -c adobe-illustrator-cc-de
     [[ $is_mobile ]] || brew_install -c adobe-indesign-cc-de
@@ -153,9 +189,9 @@ if hash brew; then
     brew_install -c kaleidoscope
     brew_install -c konica-minolta-bizhub-c220-c280-c360-driver -n 'Bizhub Driver'
     brew_install -oc launchbar
-    osascript -e 'tell application "System Events" to make login item with properties {path:"'`mdfind -onlyin / kMDItemCFBundleIdentifier==at.obdev.LaunchBar`'", hidden:true}' -e 'return'
+    osascript -e 'tell application "System Events" to make login item with properties {path:"'$(mdfind -onlyin / kMDItemCFBundleIdentifier==at.obdev.LaunchBar)'", hidden:true}' -e 'return'
     brew_install -c launchrocket
-    [[ $is_mobile ]] && brew_install -p netspot
+    brew_install -c netspot
     brew_install -c prizmo
     brew_install -c sigil
     brew_install -c skype
@@ -166,10 +202,11 @@ if hash brew; then
     brew_install -c vlc-nightly
     brew_install -c wineskin-winery
     brew_install -c xquartz
-    # brew_install -c microsoft-office-365 && mso_installer='/opt/homebrew-cask/Caskroom/microsoft-office365/latest/Microsoft_Office_2016_Installer.pkg' && if [ -f $mso_installer ]; then rm $mso_installer; fi
+
 
     # Conversion Tools
-    converters_dir=/Applications/Converters.localized
+
+    converters_dir='/Applications/Converters.localized'
     mkdir -p $converters_dir/.localized
     echo '"Converters" = "Konvertierungswerkzeuge";' > $converters_dir/.localized/de.strings
     echo '"Converters" = "Conversion Tools";' > $converters_dir/.localized/en.strings
@@ -181,25 +218,27 @@ if hash brew; then
     brew_install -c image2icon -d $converters_dir
     brew_install -c imageoptim -d $converters_dir
 
+  fi
+}
+
+
+# Homebrew Cleanup
+
+brew_cleanup() {
+
+  if hash brew; then
+
+    echo -b 'Linking Homebrew Apps …'
+    brew linkapps
+    brew unlinkapps terminal-notifier
+
+    echo -b 'Removing Dead Homebrew Symlinks …'
+    brew prune
+
+    echo -b 'Emptying Homebrew Cache …'
+    brew cleanup --force
+    brew-cask cleanup
+    rm -rfv "$(brew --cache)" | xargs printf "Removing: %s\n"
 
   fi
-
-
-  cecho 'Upgrading Homebrew Packages …' $blue
-  brew upgrade
-
-  cecho 'Linking Homebrew Apps …' $blue
-  brew linkapps
-  brew unlinkapps terminal-notifier
-
-  cecho 'Removing Dead Homebrew Symlinks …' $blue
-  brew prune
-
-  cecho 'Emptying Homebrew Cache …' $blue
-  brew cleanup --force
-  rm -rf "$(brew --cache)"
-  brew-cask cleanup
-
-  sudo chown $USER /usr/local/
-
-fi
+}

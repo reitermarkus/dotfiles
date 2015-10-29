@@ -33,7 +33,7 @@ sudo chflags hidden /opt
 
 # Configure Default Settings
 
-cecho 'Writing Defaults …' $blue
+echo -b 'Writing Defaults …'
 
 function CFPreferencesAppSynchronize() {
     python - <<END
@@ -250,9 +250,9 @@ sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate ScheduleFreque
 
 # Start Locate DB Service
 if sudo launchctl list com.apple.locate &>/dev/null; then
-  cecho 'Locate DB already enabled.' $green
+  echo -g 'Locate DB already enabled.'
 else
-  cecho 'Enabling Locate DB …' $blue
+  echo -b 'Enabling Locate DB …'
   sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist
 fi
 

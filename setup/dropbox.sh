@@ -4,7 +4,7 @@
 # Check if Dropbox has finishes syncing.
 
 open -gja 'Dropbox'
-cecho 'Waiting for Dropbox to finish syncing …' $blue
+echo -b 'Waiting for Dropbox to finish syncing …'
 until osascript -e 'tell application "System Events" to tell application process "Dropbox" to get help of menu bar item 1 of menu bar 2' | grep --quiet -E 'Aktualisiert|Up to date'; do sleep 5; done
 
 
@@ -38,15 +38,15 @@ link_to_dropbox() {
   mkdir -p "$dropbox_dir_full"; mkdir -p "$local_dir_full"
 
   if [[ -L "$dropbox_dir_full" ]]; then
-    cecho "$local_dir already linked to Dropbox." $green
+    echo -g "$local_dir already linked to Dropbox."
   else
-    cecho "Linking $local_dir to $dropbox_dir …" $blue
+    echo -b "Linking $local_dir to $dropbox_dir …"
     killall Dropbox
 
     if mv -f "$dropbox_dir_full"/* "$local_dir_full"/ && rmdir "$dropbox_dir_full" && ln -sfn "$local_dir_full" "$dropbox_dir_full"; then
       open -gja Dropbox
     else
-      cecho "Error linking $local_dir to $dropbox_dir." $red
+      echo -r "Error linking $local_dir to $dropbox_dir."
     fi
   fi
 
@@ -63,6 +63,7 @@ link_to_dropbox 'Documents/Backups'
 link_to_dropbox 'Documents/Cinquecento'
 link_to_dropbox 'Documents/Entwicklung'
 link_to_dropbox 'Documents/Fonts'
+link_to_dropbox 'Documents/Git-Repos'
 link_to_dropbox 'Documents/Notizen'
 link_to_dropbox 'Documents/Projekte'
 link_to_dropbox 'Documents/Scans'
@@ -75,13 +76,13 @@ link_to_dropbox 'Documents/Uni'
 
 if hash mackup; then
 
-  cecho "Relinking “mackup” …" $blue
+  echo -b "Relinking “mackup” …"
 
-  eval mackupcfg=~/.mackup.cfg
-  rm   $mackupcfg &>/dev/null
-  echo '[storage]' > $mackupcfg
-  echo 'engine = dropbox' >> $mackupcfg
-  echo 'directory = Sync/~' >> $mackupcfg
+  cat << EOF > "${HOME}/.mackup.cfg"
+[storage]
+engine = dropbox
+directory = Sync/~
+EOF
 
   yes | mackup restore &>/dev/null
   yes | mackup restore
@@ -93,6 +94,6 @@ fi
 
 eval local_dotfiles='~/Library/Scripts/local-dotfiles.sh'
 if [ -f "$local_dotfiles" ]; then
-  cecho "Running local Scripts …" $blue
+  echo -b "Running local Scripts …"
   sh "$local_dotfiles"
 fi
