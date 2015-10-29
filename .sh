@@ -1,57 +1,28 @@
 #!/bin/sh
 
 
-# Set the colours you can use
+# Colored “echo”.
 
-black='\033[0;30m'
-white='\033[0;37m'
-red='\033[0;31m'
-green='\033[0;32m'
-yellow='\033[0;33m'
-blue='\033[0;34m'
-magenta='\033[0;35m'
-cyan='\033[0;36m'
-
-
-# Resets the style
-
-reset=`tput sgr0`
-
-
-# Colored “echo”
-
-cecho() {
-  echo "${2}${1}${reset}"
-  return
-}
-
-
-# Installation Messages
-
-echo_exists() {
-  cecho "$1 is already installed." $green
-}
-
-echo_install() {
-  cecho "Installing $1 …" $blue
-}
-
-echo_error() {
-  cecho "$1" $red
-}
+black='\033[0;30m'; white='\033[0;37m'; red='\033[0;31m'; green='\033[0;32m'; blue='\033[0;34m'; cyan='\033[0;36m'; magenta='\033[0;35m'; yellow='\033[0;33m'; reset=$(tput sgr0);
+cecho() { echo "${2}${1}${reset}"; return; }
 
 
 # Keep-alive “sudo”.
 
 sudo -v
-while true; do
-  sudo -n true; sleep 60; kill -0 "$$" || exit;
-done 2>/dev/null &
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 
-# Check if Mac has an internal Battery.
+# Download Repository
 
-ioreg -l | grep DesignCapacity &>/dev/null && is_mobile=true
+if [[ "$(basename ${0})" != '.sh' ]]; then
+  cecho 'Downloading Github Repository …' $blue
+  dotfiles_dir='/tmp/dotfiles-master'
+  rm -rf "${dotfiles_dir}"
+  curl --progress-bar --location 'https://github.com/reitermarkus/dotfiles/archive/master.zip' | ditto -xk - '/tmp'
+else
+  dotfiles_dir=$(cd "$(dirname "$0")"; pwd)
+fi
 
 
 # Grant Assistive Access to Terminal and “osascript”.
@@ -77,17 +48,9 @@ else
 fi
 
 
-# Clone Repository
+# Check if Mac has an internal Battery.
 
-
-if [[ "$(basename ${0})" != '.sh' ]]; then
-  cecho 'Downloading Github Repository …' $blue
-  dotfiles_dir='/tmp/dotfiles-master'
-  rm -rf "${dotfiles_dir}"
-  curl --progress-bar --location 'https://github.com/reitermarkus/dotfiles/archive/master.zip' | ditto -xk - '/tmp'
-else
-  dotfiles_dir=$(cd "$(dirname "$0")"; pwd)
-fi
+ioreg -l | grep DesignCapacity &>/dev/null && is_mobile=true
 
 
 # Run Scripts

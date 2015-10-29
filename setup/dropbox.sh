@@ -46,7 +46,7 @@ link_to_dropbox() {
     if mv -f "$dropbox_dir_full"/* "$local_dir_full"/ && rmdir "$dropbox_dir_full" && ln -sfn "$local_dir_full" "$dropbox_dir_full"; then
       open -gja Dropbox
     else
-      echo_error "Error linking $local_dir to $dropbox_dir."
+      cecho "Error linking $local_dir to $dropbox_dir." $red
     fi
   fi
 

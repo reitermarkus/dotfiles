@@ -4,9 +4,9 @@
 # Install Homebrew
 
 if hash brew; then
-  echo_exists 'Homebrew'
+  cecho 'Homebrew is already installed.' $green
 else
-  echo_install 'Homebrew'
+  cecho 'Installing Homebrew …' $blue
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
@@ -47,9 +47,9 @@ brew_install() {
     fi
 
     if array_contains_exactly "${casks}" "${cask}"; then
-      echo_exists "${name}"
+      cecho "${name} is already installed." $green
     else
-      echo_install "${name}"
+      cecho "Installing ${name} …" $blue
 
       mkdir -p "${appdir}"
       brew-cask uninstall "${cask}" --force
@@ -68,9 +68,9 @@ brew_install() {
 
     [ -z "${name}" ] && name=${package}
     if array_contains_exactly "${brews}" "${package}"; then
-      echo_exists "${name}"
+      cecho "${name} is already installed." $green
     else
-      echo_install "${name}"
+      cecho "Installing ${name} …" $blue
       brew install "${package}"
     fi
 
@@ -81,7 +81,7 @@ brew_install() {
       cecho "${name} is already tapped." $green
     else
       cecho "Tapping ${name} …" $blue
-      brew tap "${tap}" || echo_error "Error tapping ${name}."
+      brew tap "${tap}" || cecho "Error tapping ${name}." $red
     fi
   fi
 
