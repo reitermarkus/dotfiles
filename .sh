@@ -79,10 +79,13 @@ fi
 
 # Clone Repository
 
-if [[ "${0}" != *.sh ]]; then
-  dotfiles_dir=/tmp/dotfiles
-  cecho 'Cloning Git Repository …' $blue
-  rm -rf $dotfiles_dir && git clone https://github.com/reitermarkus/dotfiles.git $dotfiles_dir
+echo $(dirname $0)
+
+if [[ "$(basename ${0})" != '.sh' ]]; then
+  cecho 'Downloading Github Repository …' $blue
+  dotfiles_dir='/tmp/dotfiles-master'
+  rm -rf "${dotfiles_dir}"
+  curl --progress-bar --location 'https://github.com/reitermarkus/dotfiles/archive/master.zip' | ditto -xk - '/tmp'
 else
   dotfiles_dir=$(cd "$(dirname "$0")"; pwd)
 fi
@@ -93,10 +96,11 @@ fi
 source "$dotfiles_dir/setup/tools.array.sh"
 
 source "$dotfiles_dir/setup/defaults.sh"
-source "$dotfiles_dir/setup/app-store.sh"
+source "$dotfiles_dir/setup/appstore.sh"
 source "$dotfiles_dir/setup/brew.sh"
 source "$dotfiles_dir/setup/node.sh"
-source "$dotfiles_dir/setup/dock.sh"
+source "$dotfiles_dir/setup/ruby.sh"
 source "$dotfiles_dir/setup/fish.sh"
+source "$dotfiles_dir/setup/dock.sh"
 source "$dotfiles_dir/setup/dropbox.sh"
 source "$dotfiles_dir/setup/cleanup.sh"

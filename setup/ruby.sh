@@ -17,4 +17,4 @@ if hash gem; then
 
   gem_polish bundler Bundler
 
-}
+fi
