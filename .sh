@@ -26,12 +26,13 @@ ioreg -l | grep DesignCapacity &>/dev/null && is_mobile=true
 
 
 trap 'exit 0' SIGINT
-caffeinate &
-
 
 for script in "$dotfiles_dir/setup/include/"*.sh; do
   source "${script}"
 done
+
+
+caffeinate_start
 
 
 # Run Scripts
@@ -63,6 +64,6 @@ source "$dotfiles_dir/setup/dropbox.sh"
 
 cleanup
 
-killall caffeinate &>/dev/null
+caffeinate_stop
 
 echo -k 'Done.'
