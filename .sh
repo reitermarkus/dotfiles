@@ -15,6 +15,11 @@ if [[ "$(basename ${0})" != '.sh' ]]; then
   dotfiles_dir='/tmp/dotfiles-master'
   rm -rf "${dotfiles_dir}"
   curl --progress-bar --location 'https://github.com/reitermarkus/dotfiles/archive/master.zip' | ditto -xk - '/tmp'
+
+  remove_dotfiles_dir() {
+    echo -r 'Removing Dotfiles directory …'
+    rm -rf "${dotfiles_dir}"
+  }
 else
   dotfiles_dir=$(cd "$(dirname "$0")"; pwd)
 fi
@@ -57,13 +62,15 @@ set_default_shell_to_fish
 install_brew_cask_apps
 install_appstore_apps
 
-
 rearrange_dock
 
-source "$dotfiles_dir/setup/dropbox.sh"
+dropbox_link_folders
+mackup_relink
+
+run_local_scripts
+
 
 cleanup
-
 caffeinate_stop
 
 echo -k 'Done.'

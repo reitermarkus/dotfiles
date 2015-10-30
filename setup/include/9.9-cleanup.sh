@@ -31,8 +31,11 @@ link_textmate_to_avian() {
 
 cleanup() {
 
+  echo -r 'Cleaning up …'
+
   brew_cleanup
   link_textmate_to_avian
   relocate_microsoft_preferences
+  if remove_dotfiles_dir &>/dev/null; then remove_dotfiles_dir; fi
 
 }

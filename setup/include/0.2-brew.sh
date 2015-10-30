@@ -228,14 +228,13 @@ brew_cleanup() {
 
   if hash brew; then
 
-    echo -b 'Linking Homebrew Apps …'
-    brew linkapps
-    brew unlinkapps terminal-notifier
+    brew linkapps &>/dev/null
+    brew unlinkapps terminal-notifier &>/dev/null
 
-    echo -b 'Removing Dead Homebrew Symlinks …'
+    echo -r 'Removing Dead Homebrew Symlinks …'
     brew prune
 
-    echo -b 'Emptying Homebrew Cache …'
+    echo -r 'Emptying Homebrew Cache …'
     brew cleanup --force
     brew-cask cleanup
     rm -rfv "$(brew --cache)" | xargs printf "Removing: %s\n"
