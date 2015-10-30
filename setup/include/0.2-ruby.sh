@@ -1,5 +1,6 @@
 #!/bin/sh
 
+
 gem_install() {
 
   local gem
@@ -30,6 +31,10 @@ install_ruby_gems() {
   local ruby_gems
 
   if ruby_gems=$(gem list | awk '{print $1}'); then
+
+    echo -b 'Updating Ruby Gems …'
+    gem update --system
+
 
     # Install Ruby Gems
 
