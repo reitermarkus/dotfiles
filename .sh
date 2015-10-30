@@ -69,6 +69,8 @@ mackup_relink
 
 run_local_scripts
 
+defaults_startup
+defaults_locale
 
 cleanup
 caffeinate_stop

@@ -155,6 +155,7 @@ install_brew_cask() {
 
     sudo mkdir -p /opt/homebrew-cask/Caskroom
     sudo chown -R ${USER}:staff /opt/homebrew-cask
+    sudo chflags hidden /opt
 
   fi
 }

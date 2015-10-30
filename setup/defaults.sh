@@ -1,34 +1,12 @@
 #!/bin/sh
 
 
-### Startup
 
-# Enable Verbose Boot
-sudo nvram boot-args='-v'
-
-
-# Restart on Power Failure or Freeze
-
-sudo systemsetup -setrestartpowerfailure on &>/dev/null
-sudo systemsetup -setrestartfreeze       on &>/dev/null
-
-
-# Enable Remote Apple Events, Login & Management
-
-sudo systemsetup -setremoteappleevents on &>/dev/null
-sudo systemsetup -setremotelogin       on &>/dev/null
-sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate -configure -access -on -users admin -privs -all -restart -agent -menu &>/dev/null
 
 
 # Show “Library” folder.
 
 chflags nohidden ~/Library
-
-
-# Hide “opt” folder.
-
-sudo mkdir -p /opt
-sudo chflags hidden /opt
 
 
 # Configure Default Settings
@@ -38,7 +16,7 @@ echo -b 'Writing Defaults …'
 function CFPreferencesAppSynchronize() {
     python - <<END
 from Foundation import CFPreferencesAppSynchronize
-CFPreferencesAppSynchronize('$1')
+CFPreferencesAppSynchronize('$@')
 END
 }
 
@@ -76,27 +54,6 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow 'RetriesUntilHint
 ### Global Preferences
 
 defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool true
-
-
-### Languages
-
-# Set System Languages
-sudo languagesetup -langspec de &>/dev/null
-defaults write -g AppleLanguages -array 'de-AT' 'de' 'en'
-
-# Use Metric Units
-defaults write -g AppleLocale -string 'de_AT@currency=EUR'
-defaults write -g AppleMeasurementUnits -string 'Centimeters'
-defaults write -g AppleMetricUnits -bool true
-
-# Disable Auto Correction
-defaults write -g NSAutomaticSpellingCorrectionEnabled -bool false
-
-
-### Date & Time
-
-# Set Time Zone
-sudo systemsetup -settimezone 'Europe/Vienna' > /dev/null
 
 
 ### Menubar
