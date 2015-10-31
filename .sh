@@ -37,17 +37,14 @@ for script in "$dotfiles_dir/setup/include/"*.sh; do
 done
 
 
-caffeinate_start
-
-
 # Run Scripts
+
+caffeinate_start
 
 enable_assistive_access
 
 install_xcode_clt
 install_xcode
-
-source "$dotfiles_dir/setup/defaults.sh"
 
 install_brew
 install_brew_taps
@@ -58,6 +55,8 @@ install_ruby_gems
 install_npm_packages
 
 set_default_shell_to_fish
+
+enable_locate
 
 install_brew_cask_apps
 install_appstore_apps
@@ -71,6 +70,17 @@ run_local_scripts
 
 defaults_startup
 defaults_locale
+defaults_loginwindow
+defaults_softwareupdate
+defaults_mouse_trackpad
+defaults_ui_ux
+defaults_dock_finder
+defaults_menubar
+defaults_terminal
+defaults_xcode
+defaults_safari
+
+apply_defaults
 
 cleanup
 caffeinate_stop

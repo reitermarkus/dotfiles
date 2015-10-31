@@ -29,6 +29,11 @@ install_npm_packages() {
 
   local npm_packages
 
+  echo -b 'Updating NPM Packages …'
+  npm update -g
+  npm upgrade -g
+
+
   if npm_packages=$(npm -g list | awk '{print $NF}' | sed 's/@.*$//' | sed '1d;$d'); then
 
     # Install Node Packages
