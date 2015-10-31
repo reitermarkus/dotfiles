@@ -1,1 +1,4 @@
 include = "{$include,.sh}"
+
+[ *defaults_terminal.sh ]
+softWrap = false

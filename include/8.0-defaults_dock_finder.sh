@@ -11,25 +11,48 @@ defaults_dock_finder() {
   chflags nohidden ~/Library
 
   # Show Drives and Servers on Desktop
-  defaults write com.apple.finder ShowHardDrivesOnDesktop -bool true
+  defaults write com.apple.finder ShowHardDrivesOnDesktop         -bool true
   defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
-  defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
-  defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
+  defaults write com.apple.finder ShowRemovableMediaOnDesktop     -bool true
+  defaults write com.apple.finder ShowMountedServersOnDesktop     -bool true
 
   # Desktop View Settings
-  defaults write com.apple.finder.plist DesktopViewSettings -dict IconViewSettings '<dict><key>arrangeBy</key><string>name</string><key>backgroundColorBlue</key><real>1</real><key>backgroundColorGreen</key><real>1</real><key>backgroundColorRed</key><real>1</real><key>backgroundType</key><integer>0</integer><key>gridOffsetX</key><real>0.0</real><key>gridOffsetY</key><real>0.0</real><key>gridSpacing</key><real>100</real><key>iconSize</key><real>64</real><key>labelOnBottom</key><false/><key>showIconPreview</key><true/><key>showItemInfo</key><true/><key>textSize</key><real>12</real><key>viewOptionsVersion</key><integer>1</integer></dict>'
+  defaults write com.apple.finder DesktopViewSettings -dict-add IconViewSettings '''
+    {
+      arrangeBy            = name;
+      backgroundColorBlue  = 1;
+      backgroundColorGreen = 1;
+      backgroundColorRed   = 1;
+      backgroundType       = 0;
+      gridOffsetX          = 0;
+      gridOffsetY          = 0;
+      gridSpacing          = 100;
+      iconSize             = 64;
+      labelOnBottom        = 0;
+      showIconPreview      = 1;
+      showItemInfo         = 1;
+      textSize             = 12;
+      viewOptionsVersion   = 1;
+    }
+  '''
 
   # Show Finder Sidebar
   defaults write com.apple.finder ShowSidebar -bool true
 
   # Show Drives and Servers in Sidebar
   defaults write com.apple.sidebarlists systemitems -dict-add ShowEjectables -bool true
-  defaults write com.apple.sidebarlists systemitems -dict-add ShowHardDisks -bool true
-  defaults write com.apple.sidebarlists systemitems -dict-add ShowRemovable -bool true
-  defaults write com.apple.sidebarlists systemitems -dict-add ShowServers -bool true
+  defaults write com.apple.sidebarlists systemitems -dict-add ShowHardDisks  -bool true
+  defaults write com.apple.sidebarlists systemitems -dict-add ShowRemovable  -bool true
+  defaults write com.apple.sidebarlists systemitems -dict-add ShowServers    -bool true
 
   # Show Network Devices in Sidebar
-  defaults write com.apple.sidebarlists networkbrowser -dict CustomListProperties '<dict><key>com.apple.NetworkBrowser.backToMyMacEnabled</key><true/><key>com.apple.NetworkBrowser.bonjourEnabled</key><true/><key>com.apple.NetworkBrowser.connectedEnabled</key><true/></dict>'
+  defaults write com.apple.sidebarlists networkbrowser -dict-add CustomListProperties '''
+    {
+      com.apple.NetworkBrowser.backToMyMacEnabled = 1;
+      com.apple.NetworkBrowser.bonjourEnabled     = 1;
+      com.apple.NetworkBrowser.connectedEnabled   = 1;
+    }
+  '''
 
   # Disable Warning when changing a Extension
   defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
