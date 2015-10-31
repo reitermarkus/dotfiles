@@ -3,6 +3,10 @@
 
 # Create Symlinks for Dropbox folders.
 
+get_dropbox_dir() {
+  sed -E 's/.*\"path\":\ *\"(.*)\",.*/\1/' "${HOME}/.dropbox/info.json"
+}
+
 link_to_dropbox() {
 
   # Also move hidden files.
@@ -11,7 +15,7 @@ link_to_dropbox() {
   local dropbox_dir
   local local_dir
 
-  local dropbox_dir=$(sed -E 's/.*\"path\":\ *\"(.*)\",.*/\1/' "${HOME}/.dropbox/info.json" 2>/dev/null)
+  local dropbox_dir=$(get_dropbox_dir)
   [[ -n "${dropbox_dir}" ]] || return 1
 
   dropbox_dir="$dropbox_dir/Sync/~/$1"
@@ -81,6 +85,14 @@ dropbox_link_folders() {
   link_to_dropbox 'Documents/SketchUp'
   link_to_dropbox 'Documents/Sonstiges'
   link_to_dropbox 'Documents/Uni'
+
+
+  local favorites='Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.FavoriteItems.sfl'
+  if [ -f "$(get_dropbox_dir)/Sync/~/${favorites}" ]; then
+    rm -f "${HOME}/${favorites}"
+    mv "$(get_dropbox_dir)/Sync/~/${favorites}" "${HOME}/${favorites}"
+    ln -s "${HOME}/${favorites}" "$(get_dropbox_dir)/Sync/~/${favorites}"
+  fi
 
 }
 
