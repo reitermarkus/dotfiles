@@ -9,7 +9,7 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # Download Repository
 
 if [[ "$(basename ${0})" != '.sh' ]]; then
-  eval "$(curl -s "https://raw.githubusercontent.com/reitermarkus/dotfiles/HEAD/setup/include/0.0-echo.sh")"
+  eval "$(curl -s "https://raw.githubusercontent.com/reitermarkus/dotfiles/HEAD/include/0.0-echo.sh")"
   echo -b "Downloading Github Repository …"
 
   dotfiles_dir='/tmp/dotfiles-master'
@@ -32,7 +32,7 @@ ioreg -l | grep DesignCapacity &>/dev/null && is_mobile=true
 
 trap 'exit 0' SIGINT
 
-for script in "$dotfiles_dir/setup/include/"*.sh; do
+for script in "$dotfiles_dir/include/"*.sh; do
   source "${script}"
 done
 
