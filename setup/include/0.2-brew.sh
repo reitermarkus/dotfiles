@@ -238,7 +238,7 @@ brew_cleanup() {
     echo -r 'Emptying Homebrew Cache …'
     brew cleanup --force
     brew-cask cleanup
-    rm -rfv "$(brew --cache)" | xargs printf "Removing: %s\n"
+    rm -rfv "$(brew --cache)/*" | xargs printf "Removing: %s\n"
 
   fi
 }
