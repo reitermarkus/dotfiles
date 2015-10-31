@@ -1,5 +1,6 @@
 #!/bin/sh
 
+
 array_contains() {
   local array="${1}"
   shift

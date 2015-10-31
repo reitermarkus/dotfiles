@@ -1,6 +1,8 @@
 #!/bin/sh
 
 
+# Install Apps from the Mac App Store
+
 appstore_install() {
 
   local app_id="${1}"

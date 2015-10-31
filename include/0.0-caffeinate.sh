@@ -1,5 +1,8 @@
 #!/bin/sh
 
+
+# Suppress Sleep
+
 caffeinate_start() {
   caffeinate &
   caffeinate_PID=$!

@@ -1,6 +1,8 @@
 #!/bin/sh
 
 
+# Install Ruby Gems
+
 gem_install() {
 
   local gem

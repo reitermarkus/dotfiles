@@ -1,6 +1,8 @@
 #!/bin/sh
 
 
+# Rearrange Dock Icons
+
 dutil() {
 
   last=false
