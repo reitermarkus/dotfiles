@@ -83,6 +83,9 @@ defaults_safari
 apply_defaults
 
 cleanup
+
+check_if_xcode_is_installed
+
 caffeinate_stop
 
 echo -k 'Done.'

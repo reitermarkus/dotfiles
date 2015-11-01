@@ -98,5 +98,15 @@ install_xcode() {
 
   appstore_install 497799835 # Xcode
   until sudo xcodebuild -license accept &>/dev/null; do sleep 5; done &
+  wait_for_xcode_pid=${!}
+
+}
+
+check_if_xcode_is_installed() {
+
+  if ps -p ${wait_for_xcode_pid} &>/dev/null; then
+    echo -b "Still waiting for Xcode to install …"
+    wait ${wait_for_xcode_pid} && echo -g 'Xcode installed and license accepted.'
+  fi
 
 }
