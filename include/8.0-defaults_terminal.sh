@@ -14,8 +14,7 @@ defaults_terminal() {
   defaults write com.apple.Terminal 'Default Window Settings' -string 'Solarized Light'
   defaults write com.apple.Terminal 'Startup Window Settings' -string 'Solarized Light'
   defaults write com.apple.Terminal 'Window Settings'       -dict-add 'Solarized Light' '''
-    {
-      name                                 = "Solarized Light";
+    { name                                 =                          "Solarized Light";
       TerminalType                         = "xterm-256color";
       CommandString                        = "";
 
@@ -67,36 +66,36 @@ defaults_terminal() {
 
   # The JSON format above only supports strings and data values, so these have to be added seperately.
 
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:ProfileCurrentVersion" real "2.04"'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:ProfileCurrentVersion"                real "2.04"'
 
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:rowCount"    integer  32'
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:columnCount" integer 120'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:rowCount"                             integer  32'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:columnCount"                          integer 120'
 
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:FontHeightSpacing" real 1'
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:FontWidthSpacing"  real 1.004032258064516'
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:FontAntialias" bool true'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:FontHeightSpacing"                    real 1'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:FontWidthSpacing"                     real 1.004032258064516'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:FontAntialias"                        bool true'
 
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:BlinkText" bool false'
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:DisableANSIColor" bool false'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:UseBoldFonts"                         bool false'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:UseBrightBold"                        bool true'
 
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:BackgroundBlur" real 1'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:BlinkText"                            bool false'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:DisableANSIColor"                     bool false'
+
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:BackgroundBlur"                       real 1'
   /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:BackgroundSettingsForInactiveWindows" bool true'
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:BackgroundAlphaInactive" real 0.7'
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:BackgroundBlurInactive" bool true'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:BackgroundAlphaInactive"              real 0.7'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:BackgroundBlurInactive"               bool true'
 
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:UseBoldFonts" bool false'
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:UseBrightBold" bool true'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:ShowActiveProcessInTitle"             bool true'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:ShowActiveProcessArgumentsInTitle"    bool true'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:ShowCommandKeyInTitle"                bool false'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:ShowDimensionsInTitle"                bool false'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:ShowRepresentedURLInTitle"            bool true'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:ShowRepresentedURLPathInTitle"        bool false'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:ShowShellCommandInTitle"              bool false'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:ShowTTYNameInTitle"                   bool false'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:ShowWindowSettingsNameInTitle"        bool false'
 
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:ShowActiveProcessInTitle" bool true'
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:ShowActiveProcessArgumentsInTitle" bool true'
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:ShowCommandKeyInTitle" bool false'
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:ShowDimensionsInTitle" bool false'
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:ShowRepresentedURLInTitle" bool true'
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:ShowRepresentedURLPathInTitle" bool false'
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:ShowShellCommandInTitle" bool false'
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:ShowTTYNameInTitle" bool false'
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:ShowWindowSettingsNameInTitle" bool false'
-
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:shellExitAction" integer 1'
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:shellExitAction"                      integer 1'
 
 }
