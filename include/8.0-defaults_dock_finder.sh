@@ -17,37 +17,24 @@ defaults_dock_finder() {
   defaults write com.apple.finder ShowMountedServersOnDesktop     -bool true
 
   # Desktop View Settings
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.finder.plist \
-    -c 'Delete :DesktopViewSettings:IconViewSettings:arrangeBy                       ' \
-    -c 'Add    :DesktopViewSettings:IconViewSettings:arrangeBy            string name' \
-    -c 'Delete :DesktopViewSettings:IconViewSettings:backgroundColorBlue             ' \
-    -c 'Add    :DesktopViewSettings:IconViewSettings:backgroundColorBlue       real 1' \
-    -c 'Delete :DesktopViewSettings:IconViewSettings:backgroundColorGreen            ' \
-    -c 'Add    :DesktopViewSettings:IconViewSettings:backgroundColorGreen      real 1' \
-    -c 'Delete :DesktopViewSettings:IconViewSettings:backgroundColorRed              ' \
-    -c 'Add    :DesktopViewSettings:IconViewSettings:backgroundColorRed        real 1' \
-    -c 'Delete :DesktopViewSettings:IconViewSettings:backgroundType                  ' \
-    -c 'Add    :DesktopViewSettings:IconViewSettings:backgroundType         integer 0' \
-    -c 'Delete :DesktopViewSettings:IconViewSettings:gridOffsetX                     ' \
-    -c 'Add    :DesktopViewSettings:IconViewSettings:gridOffsetX               real 0' \
-    -c 'Delete :DesktopViewSettings:IconViewSettings:gridOffsetY                     ' \
-    -c 'Add    :DesktopViewSettings:IconViewSettings:gridOffsetY               real 0' \
-    -c 'Delete :DesktopViewSettings:IconViewSettings:gridSpacing                     ' \
-    -c 'Add    :DesktopViewSettings:IconViewSettings:gridSpacing               real 0' \
-    -c 'Delete :DesktopViewSettings:IconViewSettings:iconSize                        ' \
-    -c 'Add    :DesktopViewSettings:IconViewSettings:iconSize                 real 64' \
-    -c 'Delete :DesktopViewSettings:IconViewSettings:labelOnBottom                   ' \
-    -c 'Add    :DesktopViewSettings:IconViewSettings:labelOnBottom         bool false' \
-    -c 'Delete :DesktopViewSettings:IconViewSettings:showIconPreview                 ' \
-    -c 'Add    :DesktopViewSettings:IconViewSettings:showIconPreview        bool true' \
-    -c 'Delete :DesktopViewSettings:IconViewSettings:showItemInfo                    ' \
-    -c 'Add    :DesktopViewSettings:IconViewSettings:showItemInfo           bool true' \
-    -c 'Delete :DesktopViewSettings:IconViewSettings:textSize                        ' \
-    -c 'Add    :DesktopViewSettings:IconViewSettings:textSize                 real 12' \
-    -c 'Delete :DesktopViewSettings:IconViewSettings:viewOptionsVersion              ' \
-    -c 'Add    :DesktopViewSettings:IconViewSettings:viewOptionsVersion     integer 1' \
-  &>/dev/null \
-  |>/dev/null # Silences “Abort trap: 6” error when more than 14 commands are passed.
+  defaults write com.apple.finder.plist DesktopViewSettings -dict-add IconViewSettings '''
+    <dict>
+      <key>arrangeBy</key><string>name</string>
+      <key>backgroundColorBlue</key><real>1</real>
+      <key>backgroundColorGreen</key><real>1</real>
+      <key>backgroundColorRed</key><real>1</real>
+      <key>backgroundType</key><integer>0</integer>
+      <key>gridOffsetX</key><real>0.0</real>
+      <key>gridOffsetY</key><real>0.0</real>
+      <key>gridSpacing</key><real>100</real>
+      <key>iconSize</key><real>64</real>
+      <key>labelOnBottom</key><false/>
+      <key>showIconPreview</key><true/>
+      <key>showItemInfo</key><true/>
+      <key>textSize</key><real>12</real>
+      <key>viewOptionsVersion</key><integer>1</integer>
+    </dict>
+  '''
 
   # Show Finder Sidebar
   defaults write com.apple.finder ShowSidebar -bool true
@@ -59,14 +46,13 @@ defaults_dock_finder() {
   defaults write com.apple.sidebarlists systemitems -dict-add ShowServers    -bool true
 
   # Show Network Devices in Sidebar
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist \
-    -c 'Delete :networkbrowser:CustomListProperties:com.apple.NetworkBrowser.backToMyMacEnabled          ' \
-    -c 'Add    :networkbrowser:CustomListProperties:com.apple.NetworkBrowser.backToMyMacEnabled bool true' \
-    -c 'Delete :networkbrowser:CustomListProperties:com.apple.NetworkBrowser.bonjourEnabled              ' \
-    -c 'Add    :networkbrowser:CustomListProperties:com.apple.NetworkBrowser.bonjourEnabled     bool true' \
-    -c 'Delete :networkbrowser:CustomListProperties:com.apple.NetworkBrowser.connectedEnabled            ' \
-    -c 'Add    :networkbrowser:CustomListProperties:com.apple.NetworkBrowser.connectedEnabled   bool true' \
-  &>/dev/null
+  defaults write com.apple.sidebarlists networkbrowser -dict-add CustomListProperties '''
+    <dict>
+      <key>com.apple.NetworkBrowser.backToMyMacEnabled</key><true/>
+      <key>com.apple.NetworkBrowser.bonjourEnabled</key><true/>
+      <key>com.apple.NetworkBrowser.connectedEnabled</key><true/>
+    </dict>
+  '''
 
   # Disable Warning when changing a Extension
   defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
