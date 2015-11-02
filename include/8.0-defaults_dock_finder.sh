@@ -35,7 +35,9 @@ defaults_dock_finder() {
   ; killall cfprefsd
 
   # Show Finder Sidebar
-  defaults write com.apple.finder ShowSidebar -bool true
+  defaults write com.apple.finder ShowSidebar       -bool true
+  defaults write com.apple.finder ShowStatusBar     -bool true
+  defaults write com.apple.finder ShowPreviewPane   -bool true
 
   # Show Drives and Servers in Sidebar
   defaults write com.apple.sidebarlists systemitems -dict-add ShowEjectables -bool true
@@ -59,8 +61,23 @@ defaults_dock_finder() {
   # Search Current Folder by Defaults
   defaults write com.apple.finder FXDefaultSearchScope 'SCcf'
 
+  # Use column view in all Finder windows by default.
+  defaults write com.apple.finder FXPreferredViewStyle -string 'clmv'
+
+  # Open new Finder windows with User folder.
+  defaults write com.apple.finder NewWindowTarget -string 'PfHm'
+
   # Disable the “Are you sure you want to open this application?” Dialog
   defaults write com.apple.LaunchServices LSQuarantine -bool false
+
+  # Enable spring-loading directories and decrease default delay.
+  defaults write NSGlobalDomain com.apple.springing.enabled -bool  true
+  defaults write NSGlobalDomain com.apple.springing.delay   -float 0.2
+
+  # Disable Disk Image Verification
+  defaults write com.apple.frameworks.diskimages skip-verify        -bool true
+  defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true
+  defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
 
 
   # Dock, Dashboard & Mission Control
