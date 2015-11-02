@@ -11,7 +11,7 @@ set_default_shell_to_fish() {
 
     # Check if “fish” is in shells file.
     if ! grep --quiet "${fish_bin}" /etc/shells; then
-      echo "${fish_bin}" | sudo tee -a /etc/shells > /dev/null
+      echo "${fish_bin}" | sudo tee -a /etc/shells &>/dev/null
     fi
 
     # If current shell is not “fish”, change it.

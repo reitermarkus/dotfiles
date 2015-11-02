@@ -10,21 +10,21 @@ defaults_locale() {
 
   # Set System Languages
   sudo languagesetup -langspec de &>/dev/null
-  defaults write -g AppleLanguages -array 'de-AT' 'de' 'en'
+  defaults write NSGlobalDomain AppleLanguages -array 'de-AT' 'de' 'en'
 
   # Use Metric Units
-  defaults write -g AppleLocale -string 'de_AT@currency=EUR'
-  defaults write -g AppleMeasurementUnits -string 'Centimeters'
-  defaults write -g AppleMetricUnits -bool true
+  defaults write NSGlobalDomain AppleLocale -string 'de_AT@currency=EUR'
+  defaults write NSGlobalDomain AppleMeasurementUnits -string 'Centimeters'
+  defaults write NSGlobalDomain AppleMetricUnits -bool true
 
   # Disable Auto Correction
-  defaults write -g NSAutomaticSpellingCorrectionEnabled -bool false
+  defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
 
   ### Date & Time
 
   # Set Time Zone
-  sudo systemsetup -settimezone 'Europe/Vienna' > /dev/null
+  sudo systemsetup -settimezone 'Europe/Vienna' &>/dev/null
 
 
 }

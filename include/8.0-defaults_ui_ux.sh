@@ -15,7 +15,7 @@ defaults_ui_ux() {
 
 
   # Disable Font Smoothing
-  defaults write -g AppleFontSmoothing -int 0
+  defaults write NSGlobalDomain AppleFontSmoothing -int 0
 
 
 }
