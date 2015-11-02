@@ -17,24 +17,24 @@ defaults_dock_finder() {
   defaults write com.apple.finder ShowMountedServersOnDesktop     -bool true
 
   # Desktop View Settings
-  defaults write com.apple.finder.plist DesktopViewSettings -dict-add IconViewSettings '''
-    <dict>
-      <key>arrangeBy</key><string>name</string>
-      <key>backgroundColorBlue</key><real>1</real>
-      <key>backgroundColorGreen</key><real>1</real>
-      <key>backgroundColorRed</key><real>1</real>
-      <key>backgroundType</key><integer>0</integer>
-      <key>gridOffsetX</key><real>0.0</real>
-      <key>gridOffsetY</key><real>0.0</real>
-      <key>gridSpacing</key><real>100</real>
-      <key>iconSize</key><real>64</real>
-      <key>labelOnBottom</key><false/>
-      <key>showIconPreview</key><true/>
-      <key>showItemInfo</key><true/>
-      <key>textSize</key><real>12</real>
-      <key>viewOptionsVersion</key><integer>1</integer>
-    </dict>
-  '''
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.finder.plist \
+    -c 'Set :DesktopViewSettings:IconViewSettings:arrangeBy            name' \
+    -c 'Set :DesktopViewSettings:IconViewSettings:backgroundColorBlue  1' \
+    -c 'Set :DesktopViewSettings:IconViewSettings:backgroundColorGreen 1' \
+    -c 'Set :DesktopViewSettings:IconViewSettings:backgroundColorRed   1' \
+    -c 'Set :DesktopViewSettings:IconViewSettings:backgroundType       0' \
+    -c 'Set :DesktopViewSettings:IconViewSettings:gridOffsetX          0' \
+    -c 'Set :DesktopViewSettings:IconViewSettings:gridOffsetY          0' \
+    -c 'Set :DesktopViewSettings:IconViewSettings:gridSpacing          100' \
+    -c 'Set :DesktopViewSettings:IconViewSettings:iconSize             64' \
+    -c 'Set :DesktopViewSettings:IconViewSettings:labelOnBottom        false' \
+    -c 'Set :DesktopViewSettings:IconViewSettings:showIconPreview      true' \
+    -c 'Set :DesktopViewSettings:IconViewSettings:showItemInfo         true' \
+    -c 'Set :DesktopViewSettings:IconViewSettings:textSize             12' \
+    -c 'Set :DesktopViewSettings:IconViewSettings:viewOptionsVersion   1' \
+  &>/dev/null \
+  |>/dev/null # Silences “Abort trap: 6” error when more than 14 commands are passed.
+  killall cfprefsd
 
   # Show Finder Sidebar
   defaults write com.apple.finder ShowSidebar -bool true
@@ -46,13 +46,12 @@ defaults_dock_finder() {
   defaults write com.apple.sidebarlists systemitems -dict-add ShowServers    -bool true
 
   # Show Network Devices in Sidebar
-  defaults write com.apple.sidebarlists networkbrowser -dict-add CustomListProperties '''
-    <dict>
-      <key>com.apple.NetworkBrowser.backToMyMacEnabled</key><true/>
-      <key>com.apple.NetworkBrowser.bonjourEnabled</key><true/>
-      <key>com.apple.NetworkBrowser.connectedEnabled</key><true/>
-    </dict>
-  '''
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist \
+    -c 'Set :networkbrowser:CustomListProperties:com.apple.NetworkBrowser.backToMyMacEnabled true' \
+    -c 'Set :networkbrowser:CustomListProperties:com.apple.NetworkBrowser.bonjourEnabled     true' \
+    -c 'Set :networkbrowser:CustomListProperties:com.apple.NetworkBrowser.connectedEnabled   true' \
+  &>/dev/null
+  killall cfprefsd
 
   # Disable Warning when changing a Extension
   defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
