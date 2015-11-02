@@ -31,9 +31,7 @@ defaults_dock_finder() {
     -c 'Set :DesktopViewSettings:IconViewSettings:showIconPreview      true' \
     -c 'Set :DesktopViewSettings:IconViewSettings:showItemInfo         true' \
     -c 'Set :DesktopViewSettings:IconViewSettings:textSize             12' \
-    -c 'Set :DesktopViewSettings:IconViewSettings:viewOptionsVersion   1' \
-  &>/dev/null \
-  |>/dev/null # Silences “Abort trap: 6” error when more than 14 commands are passed.
+    -c 'Set :DesktopViewSettings:IconViewSettings:viewOptionsVersion   1'
   killall cfprefsd
 
   # Show Finder Sidebar
@@ -49,8 +47,7 @@ defaults_dock_finder() {
   /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist \
     -c 'Set :networkbrowser:CustomListProperties:com.apple.NetworkBrowser.backToMyMacEnabled true' \
     -c 'Set :networkbrowser:CustomListProperties:com.apple.NetworkBrowser.bonjourEnabled     true' \
-    -c 'Set :networkbrowser:CustomListProperties:com.apple.NetworkBrowser.connectedEnabled   true' \
-  &>/dev/null
+    -c 'Set :networkbrowser:CustomListProperties:com.apple.NetworkBrowser.connectedEnabled   true'
   killall cfprefsd
 
   # Disable Warning when changing a Extension
