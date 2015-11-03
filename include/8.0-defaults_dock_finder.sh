@@ -34,6 +34,13 @@ defaults_dock_finder() {
     -c 'Set :DesktopViewSettings:IconViewSettings:viewOptionsVersion   1' \
   ; killall cfprefsd
 
+  # Expand all fields in Info Viewer
+  defaults write com.apple.finder FXInfoPanesExpanded -dict-add Comments   -bool true
+  defaults write com.apple.finder FXInfoPanesExpanded -dict-add MetaData   -bool true
+  defaults write com.apple.finder FXInfoPanesExpanded -dict-add Name       -bool true
+  defaults write com.apple.finder FXInfoPanesExpanded -dict-add OpenWith   -bool true
+  defaults write com.apple.finder FXInfoPanesExpanded -dict-add Privileges -bool true
+
   # Show Finder Sidebar
   defaults write com.apple.finder ShowSidebar       -bool true
   defaults write com.apple.finder ShowStatusBar     -bool true
