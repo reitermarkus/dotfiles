@@ -17,7 +17,7 @@ appstore_install() {
   app_path() { mdfind kMDItemCFBundleIdentifier==${bundle_id}; }
   app_download="/Applications/${app_name}.appdownload"
 
-  if [ "$(app_path)" == '' ]; then
+  if [ "$(app_path)" == '' ] && [ ! -d "${app_download}" ]; then
 
     open -gj "${app_url}" && echo -b "Opening ${app_name} in App Store …"
 
@@ -62,7 +62,9 @@ EOF)
 
     fi
 
-  else
+  elif [ -d "${app_download}" ]; then
+    echo -b "${app_name} already downloading …"
+  elif [ "$(app_path)" != '' ]; then
     echo -g "${app_name} is already installed."
   fi
 
