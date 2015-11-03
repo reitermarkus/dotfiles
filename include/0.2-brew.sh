@@ -131,6 +131,8 @@ install_brew_packages() {
 
   if brew_packages=$(brew ls); then
 
+    brew_install -p bash               -n 'Bourne-Again Shell'
+    brew_install -p bash-completion    -n 'Bash Completion'
     brew_install -p dockutil           -n 'Dock Util'
     brew_install -p git                -n 'Git'
     brew_install -p node               -n 'Node Package Manager'
