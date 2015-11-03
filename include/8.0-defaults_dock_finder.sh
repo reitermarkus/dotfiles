@@ -94,11 +94,15 @@ defaults_dock_finder() {
 
   # Increase Mission Control Animation Speed
   defaults write com.apple.dock expose-animation-duration -float 0.125
+  defaults write com.apple.dock expose-group-apps         -bool true
 
   # Automatically hide Dock
   defaults write com.apple.dock autohide -bool true
 
   # Translucent Icons of hidden Applications
   defaults write com.apple.dock showhidden -bool true
+
+  killall cfprefsd &>/dev/null
+  killall Dock &>/dev/null
 
 }

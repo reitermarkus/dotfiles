@@ -26,4 +26,7 @@ defaults_menubar() {
     '/System/Library/CoreServices/Menu Extras/User.menu' \
   ;
 
+  killall cfprefsd &>/dev/null
+  killall SystemUIServer &>/dev/null
+
 }
