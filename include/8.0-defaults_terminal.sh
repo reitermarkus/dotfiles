@@ -98,6 +98,6 @@ defaults_terminal() {
 
   /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c 'Add ":Window Settings:Solarized Light:shellExitAction"                      integer 1'
 
-  killall cfprefsd
+  killall cfprefsd &>/dev/null
 
 }

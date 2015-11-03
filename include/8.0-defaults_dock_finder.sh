@@ -32,7 +32,7 @@ defaults_dock_finder() {
     -c 'Set :DesktopViewSettings:IconViewSettings:showItemInfo         true' \
     -c 'Set :DesktopViewSettings:IconViewSettings:textSize             12' \
     -c 'Set :DesktopViewSettings:IconViewSettings:viewOptionsVersion   1' \
-  ; killall cfprefsd
+  ; killall cfprefsd &>/dev/null
 
   # Expand all fields in Info Viewer
   defaults write com.apple.finder FXInfoPanesExpanded -dict-add Comments   -bool true
@@ -57,7 +57,7 @@ defaults_dock_finder() {
     -c 'Set :networkbrowser:CustomListProperties:com.apple.NetworkBrowser.backToMyMacEnabled true' \
     -c 'Set :networkbrowser:CustomListProperties:com.apple.NetworkBrowser.bonjourEnabled     true' \
     -c 'Set :networkbrowser:CustomListProperties:com.apple.NetworkBrowser.connectedEnabled   true' \
-  ; killall cfprefsd
+  ; killall cfprefsd &>/dev/null
 
   # Disable Warning when changing a Extension
   defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false

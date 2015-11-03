@@ -10,6 +10,9 @@ apply_defaults() {
   # Reload Dock
   killall Dock &>/dev/null
 
+  # Reload Preferences
+  killall cfprefsd &>/dev/null
+
   # Reload Menubar
   killall SystemUIServer &>/dev/null
 
