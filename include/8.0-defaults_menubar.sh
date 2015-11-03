@@ -13,6 +13,9 @@ defaults_menubar() {
   # Show Battery Percentage
   defaults write com.apple.menuextra.battery ShowPercent -bool true
 
+  # Only show Icon for “Switch Account” Menu
+  defaults write NSGlobalDomain userMenuExtraStyle -int 2
+
   # Set Menubar Items
   defaults write com.apple.systemuiserver menuExtras -array \
     '/System/Library/CoreServices/Menu Extras/TimeMachine.menu' \
