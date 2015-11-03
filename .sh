@@ -54,7 +54,7 @@ install_brew_cask
 install_ruby_gems
 install_npm_packages
 
-set_default_shell_to_fish
+install_fish_shell
 
 enable_locate
 

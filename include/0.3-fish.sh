@@ -3,7 +3,7 @@
 
 # Change shell to “fish”.
 
-set_default_shell_to_fish() {
+install_fish_shell() {
 
   if hash fish; then
 
@@ -15,7 +15,7 @@ set_default_shell_to_fish() {
     fi
 
     # If current shell is not “fish”, change it.
-    if [[ "${SHELL}" != *"/fish" ]]; then
+    if [[ "${SHELL}" != "${fish_bin}" ]]; then
       sudo chsh -s "${fish_bin}" "${USER}"
     fi
 
