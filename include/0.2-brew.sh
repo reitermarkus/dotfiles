@@ -179,6 +179,7 @@ install_brew_cask_apps() {
     brew_install -c epub-services
     brew_install -c evernote
     brew_install -c fritzing
+    brew_install -c functionflip
     brew_install -c google-chrome
     brew_install -c hazel
     brew_install -c iconvert -  d /Applications/iTach

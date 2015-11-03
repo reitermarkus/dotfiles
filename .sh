@@ -72,6 +72,7 @@ defaults_startup
 defaults_locale
 defaults_loginwindow
 defaults_softwareupdate
+defaults_keyboard
 defaults_mouse_trackpad
 defaults_ui_ux
 defaults_dock_finder
