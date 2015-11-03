@@ -15,7 +15,7 @@ appstore_install() {
   app_url="macappstore://itunes.apple.com/app/id$(echo $app_json | sed -e 's/.*"trackId"://g' | sed -e 's/,.*//g')"
   bundle_id=$(echo $app_json | sed -e 's/.*"bundleId":"//g' | sed -e 's/",.*//g')
   app_path() { mdfind kMDItemCFBundleIdentifier==${bundle_id}; }
-  app_download="${app_name}.app_download"
+  app_download="/Applications/${app_name}.appdownload"
 
   if [ "$(app_path)" == '' ]; then
 
@@ -49,7 +49,7 @@ EOF)
     else
 
       local timeout=30
-      until [ -d "/Applications/$app_download" ] || [ "$(app_path)" != '' ] || [ $timeout -eq 0 ]; do
+      until [ -d "${app_download}" ] || [ "$(app_path)" != '' ] || [ $timeout -eq 0 ]; do
         ((timeout--))
         sleep 1
       done
