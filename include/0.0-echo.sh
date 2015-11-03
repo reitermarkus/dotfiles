@@ -27,11 +27,11 @@ echo() {
 
   string="${@}"
 
-  if [ $bold == true ]; then
+  if [ ${bold} == true ]; then
     string="$(tput bold)${string}$(tput sgr0)"
   fi
 
-  if [ -n $color ]; then
+  if [ "${color}" != '' ]; then
     string="${color}${string}$(tput sgr0)"
   fi
 
