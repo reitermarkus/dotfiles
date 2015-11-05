@@ -60,7 +60,7 @@ brew_install() {
       fi
     fi
 
-    if array_contains_exactly "${casks}" "${cask}"; then
+    if array_contains_exactly "${brew_casks}" "${cask}"; then
       echo -g "${name} is already installed."
     else
       echo -b "Installing ${name} …"
@@ -167,10 +167,12 @@ install_brew_cask() {
 
 install_brew_cask_apps() {
 
-  if casks=$(brew-cask ls); then
+  local brew_casks
+
+  if brew_casks=$(brew-cask ls); then
 
     brew_install -c adobe-illustrator-cc-de
-    [[ $is_mobile ]] || brew_install -c adobe-indesign-cc-de
+    is_desktop && brew_install -c adobe-indesign-cc-de
     brew_install -c adobe-photoshop-cc-de
     brew_install -c a-better-finder-rename
     brew_install -oc boom
@@ -193,7 +195,7 @@ install_brew_cask_apps() {
     brew_install -c kaleidoscope
     brew_install -c konica-minolta-bizhub-c220-c280-c360-driver -n 'Bizhub Driver'
     brew_install -oc launchbar
-    osascript -e 'tell application "System Events" to make login item with properties {path:"'$(mdfind -onlyin / kMDItemCFBundleIdentifier==at.obdev.LaunchBar)'", hidden:true}' -e 'return'
+      osascript -e 'tell application "System Events" to make login item with properties {path:"'$(mdfind -onlyin / kMDItemCFBundleIdentifier==at.obdev.LaunchBar)'", hidden:true}' -e 'return'
     brew_install -c launchrocket
     brew_install -c netspot
     brew_install -c prizmo
