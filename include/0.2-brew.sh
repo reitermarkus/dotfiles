@@ -197,6 +197,7 @@ install_brew_cask_apps() {
     brew_install -oc launchbar
       osascript -e 'tell application "System Events" to make login item with properties {path:"'$(mdfind -onlyin / kMDItemCFBundleIdentifier==at.obdev.LaunchBar)'", hidden:true}' -e 'return'
     brew_install -c launchrocket
+    brew_install -c mou
     brew_install -c netspot
     brew_install -c prizmo
     brew_install -c sigil
