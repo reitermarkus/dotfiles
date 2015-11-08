@@ -29,6 +29,13 @@ link_textmate_to_avian() {
 }
 
 
+remove_unneeded_dictionaries() {
+  find -E /Library/Dictionaries -depth 1 -iregex \
+    '.*(Chinese|Dutch|French|française|Hindi|Japanese|Daijirin|Korean|Norwegian|Portuguese|Russian|Spanish|Española|Swedish|Thai|Turkish).*' \
+    -print0 | xargs -0 sudo rm -rf
+}
+
+
 cleanup() {
 
   echo -r 'Cleaning up …'
@@ -36,6 +43,9 @@ cleanup() {
   brew_cleanup
   link_textmate_to_avian
   relocate_microsoft_preferences
+
+  remove_unneeded_dictionaries
+
   if remove_dotfiles_dir &>/dev/null; then remove_dotfiles_dir; fi
 
 }
