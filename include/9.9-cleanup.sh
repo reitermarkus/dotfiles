@@ -36,6 +36,11 @@ remove_unneeded_dictionaries() {
 }
 
 
+remove_system_migration_quarantine() {
+  sudo rm -rf /Library/SystemMigration/History/*
+}
+
+
 cleanup() {
 
   echo -r 'Cleaning up …'
@@ -45,6 +50,7 @@ cleanup() {
   relocate_microsoft_preferences
 
   remove_unneeded_dictionaries
+  remove_system_migration_quarantine
 
   if remove_dotfiles_dir &>/dev/null; then remove_dotfiles_dir; fi
 
