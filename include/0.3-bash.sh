@@ -31,7 +31,7 @@ install_bash_shell() {
     fi
 
     # Import Bash Completion into ~/.bashrc
-    local bashrc_source_bash_completion='hash brew && [[ -f "$(brew --prefix)/etc/bash_completion" ]] && source "$(brew --prefix)/etc/bash_completion"'
+    local bashrc_source_bash_completion='hash brew && test -f "$(brew --prefix)/etc/bash_completion" && source "$(brew --prefix)/etc/bash_completion"'
     if ! grep --quiet "${bashrc_source_bash_completion}" "${HOME}/.bashrc"; then
       echo "${bashrc_source_bash_completion}" >> "${HOME}/.bashrc"
     fi
