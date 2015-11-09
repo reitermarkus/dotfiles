@@ -81,6 +81,7 @@ defaults_menubar
 defaults_terminal
 defaults_xcode
 defaults_safari
+defaults_third_party_apps
 
 apply_defaults
 
