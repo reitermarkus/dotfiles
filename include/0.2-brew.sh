@@ -206,6 +206,7 @@ install_brew_cask_apps() {
     brew_install -c skype
     brew_install -c svgcleaner
     brew_install -c textmate
+    brew_install -c texshop
     brew_install -c transmission
     brew_install -c tower
     brew_install -c vlc-nightly
