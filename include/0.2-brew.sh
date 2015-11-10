@@ -69,10 +69,11 @@ brew_install() {
       brew-cask uninstall "${cask}" --force
       brew-cask install "${cask}" --appdir="${appdir}" --force
 
-      if [ -n "${name}" ] && [[ ${open} ]]; then
-        local timeout = 10
-        until open -a "${name}" -gj &>/dev/null || [ "${timeout}" -lt 0 ]; do
-          let timeout=timeout-0.1
+      if [ "${open}" == true ] && [ -n "${name}" ]; then
+        local timeout=15
+        let timeout*=10
+        until open -jga "${name}" &>/dev/null || [ "${timeout}" -lt 0 ]; do
+          let timeout--
           sleep 0.1
         done &
       fi
