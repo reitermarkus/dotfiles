@@ -60,7 +60,7 @@ brew_install() {
       fi
     fi
 
-    if array_contains_exactly "${brew_casks}" "${cask}"; then
+    if array_contains_exactly "${brew_casks}" "$(basename ${cask})"; then
       echo -g "${name} is already installed."
     else
       echo -b "Installing ${name} …"
@@ -81,7 +81,7 @@ brew_install() {
   elif [ -n "${package}" ]; then
 
     [ -z "${name}" ] && name=${package}
-    if array_contains_exactly "${brew_packages}" "${package}"; then
+    if array_contains_exactly "${brew_packages}" "$(basename ${package})"; then
       echo -g "${name} is already installed."
     else
       echo -b "Installing ${name} …"
@@ -171,6 +171,7 @@ install_brew_cask_apps() {
 
   if brew_casks=$(brew-cask ls); then
 
+    brew_install -oc reitermarkus/tap/adobe-creative-cloud -n 'Creative Cloud'
     brew_install -c adobe-illustrator-cc-de
     is_desktop && brew_install -c adobe-indesign-cc-de
     brew_install -c adobe-photoshop-cc-de
