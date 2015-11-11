@@ -37,12 +37,12 @@ remove_unneeded_cask_files() {
   rm -rf "${caskroom}"/adobe-*-cc*/latest/*/
 
   # Remove PKG installers.
-  find "${caskroom}" -iname '*.pkg' -print0 | xargs -0 rm -rf
+  find "${caskroom}" -iname '*.pkg' -print0 | xargs -0 rm -r
 
   # Remove invisible files.
   find -E "${caskroom}" -iregex \
      '.*/(\.background|\.com\.apple\.timemachine\.supported|\.DS_Store|\.DocumentRevisions|\.fseventsd|\.VolumeIcon\.icns|\.TemporaryItems|\.Trash).*' \
-      -print0 | xargs -0 rm -rf
+      -print0 | xargs -0 rm -r
 
   # Remove empty directories, but leave empty “version” directories.
   find /opt/homebrew-cask/Caskroom/* -empty -maxdepth 2 -print0 | xargs -0 rmdir
@@ -53,7 +53,7 @@ remove_unneeded_cask_files() {
 remove_unneeded_dictionaries() {
   find -E /Library/Dictionaries -depth 1 -iregex \
     '.*(Chinese|Dutch|French|française|Hindi|Japanese|Daijirin|Korean|Norwegian|Portuguese|Russian|Spanish|Española|Swedish|Thai|Turkish).*' \
-    -print0 | xargs -0 sudo rm -rf
+    -print0 | xargs -0 sudo rm -r
 }
 
 
