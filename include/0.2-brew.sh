@@ -183,6 +183,7 @@ install_brew_cask_apps() {
     brew_install -c a-better-finder-rename
     brew_install -oc boom
     brew_install -c calibre
+    brew_install -c chromium
     brew_install -c cocoapods
     brew_install -c cyberduck
     brew_install -oc dropbox
@@ -190,7 +191,6 @@ install_brew_cask_apps() {
     brew_install -c evernote
     brew_install -c fritzing
     brew_install -c functionflip
-    brew_install -c google-chrome
     brew_install -c hazel
     brew_install -c iconvert -  d /Applications/iTach
     brew_install -c ihelp      -d /Applications/iTach
