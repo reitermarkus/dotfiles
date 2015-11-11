@@ -67,7 +67,11 @@ brew_install() {
 
       mkdir -p "${appdir}"
       brew-cask uninstall "${cask}" --force
-      brew-cask install "${cask}" --appdir="${appdir}" --force
+      brew-cask install "${cask}" --force \
+        --appdir="${appdir}" \
+        --prefpanedir=/Library/PreferencePanes \
+        --qlplugindir=/Library/QuickLook \
+        --screen_saverdir=/Library/Screen\ Savers
 
       if [ "${open}" == true ] && [ -n "${name}" ]; then
         local timeout=15
