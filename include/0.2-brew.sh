@@ -66,8 +66,8 @@ brew_install() {
       echo -b "Installing ${name} …"
 
       mkdir -p "${appdir}"
-      brew-cask uninstall "${cask}" --force
-      brew-cask install "${cask}" --force \
+      sudo brew-cask uninstall "${cask}" --force
+      sudo brew-cask install "${cask}" --force \
         --appdir="${appdir}" \
         --prefpanedir=/Library/PreferencePanes \
         --qlplugindir=/Library/QuickLook \
