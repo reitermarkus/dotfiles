@@ -29,6 +29,27 @@ link_textmate_to_avian() {
 }
 
 
+remove_unneeded_cask_files() {
+
+  local caskroom=/opt/homebrew-cask/Caskroom
+
+  # Remove Adobe CC installers.
+  rm -rf "${caskroom}"/adobe-*-cc*/latest/*/
+
+  # Remove PKG installers.
+  find "${caskroom}" -iname '*.pkg' -print0 | xargs -0 rm -rf
+
+  # Remove invisible files.
+  find -E "${caskroom}" -iregex \
+     '.*/(\.background|\.com\.apple\.timemachine\.supported|\.DS_Store|\.DocumentRevisions|\.fseventsd|\.VolumeIcon\.icns|\.TemporaryItems|\.Trash).*' \
+      -print0 | xargs -0 rm -rf
+
+  # Remove empty directories, but leave empty “version” directories.
+  find /opt/homebrew-cask/Caskroom/* -empty -maxdepth 2 -print0 | xargs -0 rmdir
+
+}
+
+
 remove_unneeded_dictionaries() {
   find -E /Library/Dictionaries -depth 1 -iregex \
     '.*(Chinese|Dutch|French|française|Hindi|Japanese|Daijirin|Korean|Norwegian|Portuguese|Russian|Spanish|Española|Swedish|Thai|Turkish).*' \
@@ -49,6 +70,7 @@ cleanup() {
   link_textmate_to_avian
   relocate_microsoft_preferences
 
+  remove_unneeded_cask_files
   remove_unneeded_dictionaries
   remove_system_migration_quarantine
 
