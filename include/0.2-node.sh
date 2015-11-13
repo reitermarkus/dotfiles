@@ -23,7 +23,7 @@ npm_install() {
     echo -g "${name} is already installed."
   else
     echo -b "Installing ${name} …"
-    npm install -g "${package}"
+    npm -g install "${package}"
   fi
 
 }
@@ -33,15 +33,13 @@ install_npm_packages() {
   local npm_packages
 
   echo -b 'Updating Node Packages …'
-  npm update -g
-  npm upgrade -g
-
+  npm -g update
+  npm -g upgrade
 
   if npm_packages=$(npm -g list | awk '{print $NF}' | sed 's/@.*$//' | sed '1d;$d'); then
 
     # Install Node Packages
-
-    brew-cask ls imageoptim &>/dev/null && npm_install -p imageoptim
+    brew-cask ls imageoptim &>/dev/null && npm_install -p imageoptim-cli
     npm_install -p svgexport
 
   fi
