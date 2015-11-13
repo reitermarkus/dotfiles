@@ -5,6 +5,8 @@
 
 defaults_loginwindow() {
 
+  echo -b 'Setting Defaults for Login Window …'
+
   # Disable Guest Account
   sudo defaults write /Library/Preferences/com.apple.loginwindow GuestEnabled -bool false
   sudo defaults write /Library/Preferences/com.apple.AppleFileServer guestAccess -bool false

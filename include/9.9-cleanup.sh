@@ -9,6 +9,7 @@ relocate_microsoft_preferences() {
     echo -b 'Moving Microsoft folder to Library …'
     mv ~/Documents/Microsoft*/ ~/Library/Preferences/
   fi
+
 }
 
 
@@ -26,6 +27,7 @@ link_textmate_to_avian() {
       ln -s "${textmate_dir}" "${avian_dir}"
     fi
   fi
+
 }
 
 
@@ -51,14 +53,18 @@ remove_unneeded_cask_files() {
 
 
 remove_unneeded_dictionaries() {
+
+  echo -r 'Removing unneeded Dictionaries …'
   find -E /Library/Dictionaries -depth 1 -iregex \
     '.*(Chinese|Dutch|French|française|Hindi|Japanese|Daijirin|Korean|Norwegian|Portuguese|Russian|Spanish|Española|Swedish|Thai|Turkish).*' \
     -print0 | xargs -0 sudo rm -rf | xargs -0 printf 'Removing: %s\n'
+
 }
 
 
 remove_coresymbolicationd_cache() {
 
+  echo -r 'Emptying CoreSymbolication Cache …'
   sudo rm -rfv /System/Library/Caches/com.apple.coresymbolicationd/data | xargs -0 printf 'Removing: %s\n'
 
 }

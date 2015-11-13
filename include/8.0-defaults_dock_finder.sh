@@ -5,6 +5,8 @@
 
 defaults_dock_finder() {
 
+  echo -b 'Setting Defaults for Dock & Finder …'
+
   # Desktop and Finder
 
   # Show “Library” folder.

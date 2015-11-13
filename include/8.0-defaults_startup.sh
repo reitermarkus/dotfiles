@@ -5,6 +5,8 @@
 
 defaults_startup() {
 
+  echo -b 'Setting Defaults for Startup …'
+
   # Enable Verbose Boot
   sudo nvram boot-args='-v'
 

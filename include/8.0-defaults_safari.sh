@@ -5,6 +5,8 @@
 
 defaults_safari() {
 
+  echo -b 'Setting Defaults for Safari …'
+
   # Change Safari's In-Page Search to “contains” instead of “starts with”
   defaults write com.apple.Safari FindOnPageMatchesWordStartsOnly -bool false
 

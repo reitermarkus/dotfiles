@@ -34,7 +34,7 @@ link_to_dropbox() {
   else
     echo -b "Linking ${local_dir} to ${dropbox_dir} …"
 
-    killall Dropbox
+    killall Dropbox &>/dev/null
 
     rmdir "$dropbox_dir_full" "$local_dir_full" &>/dev/null
     rm -f "$local_dir_full"
