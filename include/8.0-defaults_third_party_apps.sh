@@ -9,6 +9,14 @@ defaults_third_party_apps() {
   defaults write com.junecloud.mac.Deliveries JUNMenuBarMode  -bool true
   defaults write com.junecloud.mac.Deliveries JUNStartAtLogin -bool true
 
+  # Parallels Desktop
+  cd '/Applications/Parallels Desktop.app/Contents/Resources/' &>/dev/null && {
+    echo -b 'Replacing the default Parallels Desktop icon …'
+    sudo curl --progress-bar --location 'https://github.com/reitermarkus/mirror/raw/master/Parallels.icns' -O
+    sudo touch '/Applications/Parallels Desktop.app'
+    cd - &>/dev/null
+  }
+
   # Tower
   defaults write com.fournova.Tower2 GTUserDefaultsGitBinary -string "$(which git)"
 
