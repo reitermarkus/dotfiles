@@ -39,15 +39,15 @@ remove_unneeded_cask_files() {
   rm -rf "${caskroom}"/adobe-*-cc*/latest/*/
 
   # Remove PKG installers.
-  find "${caskroom}" -iname '*.pkg' -print0 | xargs -0 rm -rfv | xargs -0 printf 'Removing: %s\n'
+  find "${caskroom}" -iname '*.pkg' -print0 | xargs -0 rm -rfv | xargs -0 printf 'Removing: %s'
 
   # Remove invisible files.
   find -E "${caskroom}" -iregex \
      '.*/(\.background|\.com\.apple\.timemachine\.supported|\.DS_Store|\.DocumentRevisions|\.fseventsd|\.VolumeIcon\.icns|\.TemporaryItems|\.Trash).*' \
-      -print0 | xargs -0 rm -rfv | xargs printf 'Removing: %s\n'
+      -print0 | xargs -0 rm -rfv | xargs printf 'Removing: %s'
 
   # Remove empty directories, but leave “version” directories.
-  find "${caskroom}" -depth 3 -empty -print0 | xargs -0 rm -rfv | xargs -0 printf 'Removing: %s\n'
+  find "${caskroom}" -depth 3 -empty -print0 | xargs -0 rm -rfv | xargs -0 printf 'Removing: %s'
 
 }
 
@@ -57,7 +57,7 @@ remove_unneeded_dictionaries() {
   echo -r 'Removing unneeded Dictionaries …'
   find -E /Library/Dictionaries -depth 1 -iregex \
     '.*(Chinese|Dutch|French|française|Hindi|Japanese|Daijirin|Korean|Norwegian|Portuguese|Russian|Spanish|Española|Swedish|Thai|Turkish).*' \
-    -print0 | xargs -0 sudo rm -rf | xargs -0 printf 'Removing: %s\n'
+    -print0 | xargs -0 sudo rm -rf | xargs -0 printf 'Removing: %s'
 
 }
 
@@ -65,7 +65,7 @@ remove_unneeded_dictionaries() {
 remove_coresymbolicationd_cache() {
 
   echo -r 'Emptying CoreSymbolication Cache …'
-  sudo rm -rfv /System/Library/Caches/com.apple.coresymbolicationd/data | xargs -0 printf 'Removing: %s\n'
+  sudo rm -rfv /System/Library/Caches/com.apple.coresymbolicationd/data | xargs -0 printf 'Removing: %s'
 
 }
 
