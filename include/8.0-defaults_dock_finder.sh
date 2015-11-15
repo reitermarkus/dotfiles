@@ -91,6 +91,15 @@ defaults_dock_finder() {
 
   # Dock, Dashboard & Mission Control
 
+  # Desktop Picture
+  defaults write com.apple.systempreferences DSKDesktopPrefPane """
+    {
+      UserFolderPaths = (
+        '${HOME}/Library/Desktop Pictures',
+      );
+    }
+  """
+
   # Disable Dashboard
   defaults write com.apple.dashboard enabled-state -int 1
 
