@@ -5,7 +5,7 @@
 
 defaults_mouse_trackpad() {
 
-  echo -b 'Setting Defaults for Mouse & Trackpad …'
+  echo -b 'Setting defaults for Mouse & Trackpad …'
 
   # Enable Clicking and Dragging
   defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true

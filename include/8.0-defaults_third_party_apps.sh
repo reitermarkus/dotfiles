@@ -50,7 +50,7 @@ replace_keka_archive_icons() {
 
     rm -rf "${tmp_dir}"
 
-    echo -b 'Replacing Keka Archive Icons …'
+    echo -b 'Replacing the default Keka archive icons …'
     curl --progress-bar --location "https://github.com/reitermarkus/${repo}/archive/master.zip" | ditto -xk - '/tmp'
 
     cd "${tmp_dir}" && {

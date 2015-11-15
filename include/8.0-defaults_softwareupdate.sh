@@ -5,7 +5,7 @@
 
 defaults_softwareupdate() {
 
-  echo -b 'Setting Defaults for Software Update …'
+  echo -b 'Setting defaults for Software Update …'
 
   # Automatic Updates
   sudo defaults write /Library/Preferences/com.apple.commerce AutoUpdate -bool true

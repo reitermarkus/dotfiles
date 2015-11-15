@@ -22,10 +22,7 @@ dutil() {
 
   dockutil --remove "${name}" --no-restart  &>/dev/null
 
-  if [ "${remove_only}" == true ]; then
-    echo -r "Removing ${name} from Dock …"
-  elif [ -d "${path}" ]; then
-    echo -b "Adding ${name} to Dock …"
+  if [ "${remove_only}" == false ] && [ -d "${path}" ]; then
 
     local restart=''
     [[ ${last} == false ]] && restart='--no-restart'
@@ -36,6 +33,7 @@ dutil() {
     dockutil --add "${path}" --label "${name}" --after "${after}" ${position} ${restart}
 
     after="${name}"
+
   fi
 
 }

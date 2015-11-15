@@ -5,7 +5,7 @@
 
 defaults_dock_finder() {
 
-  echo -b 'Setting Defaults for Dock & Finder …'
+  echo -b 'Setting defaults for Dock & Finder …'
 
   # Desktop and Finder
 

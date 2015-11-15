@@ -5,7 +5,7 @@
 
 defaults_keyboard() {
 
-  echo -b 'Setting Defaults for Keyboard …'
+  echo -b 'Setting defaults for Keyboard …'
 
   # Use FunctionFlip to set F4 to open Notification Center.
 

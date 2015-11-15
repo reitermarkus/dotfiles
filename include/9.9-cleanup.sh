@@ -64,7 +64,7 @@ remove_unneeded_dictionaries() {
 
 remove_coresymbolicationd_cache() {
 
-  echo -r 'Emptying CoreSymbolication Cache …'
+  echo -r 'Emptying CoreSymbolication cache …'
   sudo rm -rfv /System/Library/Caches/com.apple.coresymbolicationd/data | xargs -0 printf 'Removing: %s'
 
 }

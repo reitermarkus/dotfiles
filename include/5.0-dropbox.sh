@@ -123,7 +123,7 @@ run_local_scripts() {
 
   eval local_dotfiles='~/Library/Scripts/local-dotfiles.sh'
   if [ -f "$local_dotfiles" ]; then
-    echo -b "Running local Scripts …"
+    echo -b "Running local scripts …"
     sh "$local_dotfiles"
   fi
 

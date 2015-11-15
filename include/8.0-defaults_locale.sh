@@ -5,7 +5,7 @@
 
 defaults_locale() {
 
-  echo -b 'Setting Defaults for Localization …'
+  echo -b 'Setting defaults for Localization …'
 
   ### Languages
 

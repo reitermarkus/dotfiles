@@ -5,7 +5,7 @@
 
 defaults_menubar() {
 
-  echo -b 'Setting Defaults for Menubar …'
+  echo -b 'Setting defaults for Menubar …'
 
   # Set Clock Format
   defaults write com.apple.menuextra.clock DateFormat          'HH:mm'

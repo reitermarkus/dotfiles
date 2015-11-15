@@ -5,7 +5,7 @@
 
 defaults_terminal() {
 
-  echo -b 'Setting Defaults for Terminal …'
+  echo -b 'Setting defaults for Terminal …'
 
   defaults write com.apple.Terminal 'HasMigratedDefaults'       -bool true
   defaults write com.apple.Terminal 'SecureKeyboardEntry'       -bool true

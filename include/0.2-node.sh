@@ -32,7 +32,7 @@ install_npm_packages() {
 
   local npm_packages
 
-  echo -b 'Updating Node Packages …'
+  echo -b 'Updating Node packages …'
   npm -g update
   npm -g upgrade
 

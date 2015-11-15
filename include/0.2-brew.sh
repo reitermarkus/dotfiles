@@ -15,7 +15,7 @@ install_brew() {
   fi
 
   if hash brew; then
-    echo -b 'Updating Homebrew Packages …'
+    echo -b 'Updating Homebrew packages …'
     brew update && brew upgrade
   fi
 
@@ -246,10 +246,10 @@ brew_cleanup() {
     brew linkapps &>/dev/null
     brew unlinkapps terminal-notifier &>/dev/null
 
-    echo -r 'Removing Dead Homebrew Symlinks …'
+    echo -r 'Removing dead Homebrew symlinks …'
     brew prune
 
-    echo -r 'Emptying Homebrew Cache …'
+    echo -r 'Emptying Homebrew cache …'
     brew cleanup --force
     brew-cask cleanup
     rm -rfv "$(brew --cache)/*" | xargs printf "Removing: %s\n"

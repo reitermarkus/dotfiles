@@ -5,7 +5,7 @@
 
 defaults_ui_ux() {
 
-  echo -b 'Setting Defaults for User Interface …'
+  echo -b 'Setting defaults for User Interface …'
 
   # Expand Save Panel by Default
   defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
