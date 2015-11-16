@@ -66,8 +66,8 @@ brew_install() {
       echo -b "Installing ${name} …"
 
       mkdir -p "${appdir}"
-      sudo brew-cask uninstall "${cask}" --force
-      sudo brew-cask install "${cask}" --force \
+      brew-cask uninstall "${cask}" --force
+      brew-cask install "${cask}" --force \
         --appdir="${appdir}" \
         --prefpanedir=/Library/PreferencePanes \
         --qlplugindir=/Library/QuickLook \
@@ -158,11 +158,26 @@ install_brew_cask() {
 
   if brew_packages=$(brew ls); then
 
-    brew_install -p brew-cask          -n 'Brew Caskroom'
-
+    # Create Caskroom and Permissions
     sudo mkdir -p /opt/homebrew-cask/Caskroom
-    sudo chown -R ${USER}:staff /opt/homebrew-cask
+    sudo chown root:wheel /opt
+    sudo chown -R root:admin /opt/homebrew-cask
+    sudo chmod -R g+w /opt/homebrew-cask
     sudo chflags hidden /opt
+
+    # Set Permissions for Library folders.
+    sudo chown -R root:admin /Library/LaunchAgents
+    sudo chmod -R g+w /Library/LaunchAgents
+    sudo chown -R root:admin /Library/LaunchDaemons
+    sudo chmod -R g+w /Library/LaunchDaemons
+    sudo chown -R root:admin /Library/PreferencePanes
+    sudo chmod -R g+w /Library/PreferencePanes
+    sudo chown -R root:admin /Library/QuickLook
+    sudo chmod -R g+w /Library/QuickLook
+    sudo chown -R root:admin /Library/Screen\ Savers
+    sudo chmod -R g+w /Library/Screen\ Savers
+
+    brew_install -p brew-cask -n 'Brew Caskroom'
 
   fi
 }
@@ -171,6 +186,8 @@ install_brew_cask() {
 # Homebrew Casks
 
 install_brew_cask_apps() {
+
+  sudo chown -R :admin /opt/homebrew-cask
 
   local brew_casks
 
