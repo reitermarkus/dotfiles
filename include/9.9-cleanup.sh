@@ -31,6 +31,13 @@ link_textmate_to_avian() {
 }
 
 
+# Remove Adobe Patch Files.
+remove_adobe_patchfiles() {
+  rm -rf /Applications/Adobe/AdobePatchFiles
+  rmdir /Applications/Adobe
+}
+
+
 remove_unneeded_cask_files() {
 
   local caskroom=/opt/homebrew-cask/Caskroom
@@ -78,6 +85,7 @@ cleanup() {
   link_textmate_to_avian
   relocate_microsoft_preferences
 
+  remove_adobe_patchfiles
   remove_unneeded_cask_files
   remove_unneeded_dictionaries
   remove_coresymbolicationd_cache
