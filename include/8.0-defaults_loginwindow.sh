@@ -22,5 +22,12 @@ defaults_loginwindow() {
   # Hide Password Hints
   sudo defaults write /Library/Preferences/com.apple.loginwindow 'RetriesUntilHint' -int 0
 
+  # Show Login Text
+  if is_laptop; then
+    sudo defaults write /Library/Preferences/com.apple.loginwindow.plist LoginwindowText \
+      "If found, please contact the owner:"\n"me@reitermark.us"\n"@reitermarkus"
+  else
+    sudo defaults write /Library/Preferences/com.apple.loginwindow.plist LoginwindowText ""
+  fi
 
 }
