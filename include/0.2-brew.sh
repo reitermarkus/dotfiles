@@ -162,6 +162,8 @@ install_brew_packages() {
     brew_install -p node               -n 'Node Package Manager'
     brew_install -p fish               -n 'Fish Shell'
     brew_install -p mackup             -n 'Mackup'
+    brew_install -p python             -n 'Python 2'; if hash pip;  then pip  install --upgrade pip setuptools; fi
+    brew_install -p python3            -n 'Python 3'; if hash pip3; then pip3 install --upgrade pip setuptools; fi
     brew_install -p terminal-notifier  -n 'Terminal Notifier'
     brew_install -p ruby               -n 'Ruby'
 
@@ -244,6 +246,7 @@ install_brew_cask_apps() {
     brew_install -c mou
     brew_install -c netspot
     brew_install -c prizmo
+    brew_install -c pycharm-edu
     brew_install -c rcdefaultapp
     brew_install -c save-hollywood
     brew_install -c sigil
