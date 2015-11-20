@@ -244,6 +244,7 @@ install_brew_cask_apps() {
     brew_install -c mou
     brew_install -c netspot
     brew_install -c prizmo
+    brew_install -c save-hollywood
     brew_install -c sigil
     brew_install -c skype
     brew_install -c svgcleaner
