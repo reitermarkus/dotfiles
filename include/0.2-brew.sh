@@ -144,6 +144,8 @@ upgrade_brew_packages() {
     brew update && brew upgrade
   fi
 
+  brew linkapps &>/dev/null
+
 }
 
 
@@ -166,6 +168,14 @@ install_brew_packages() {
     brew_install -p python3            -n 'Python 3'; if hash pip3; then pip3 install --upgrade pip setuptools; fi
     brew_install -p terminal-notifier  -n 'Terminal Notifier'
     brew_install -p ruby               -n 'Ruby'
+
+    # Unlink Apps
+    brew unlinkapps \
+      python \
+      python3 \
+      qt \
+      terminal-notifier \
+    &>/dev/null
 
   fi
 }
@@ -284,9 +294,6 @@ install_brew_cask_apps() {
 brew_cleanup() {
 
   if hash brew; then
-
-    brew linkapps &>/dev/null
-    brew unlinkapps terminal-notifier &>/dev/null
 
     echo -r 'Removing dead Homebrew symlinks …'
     brew prune
