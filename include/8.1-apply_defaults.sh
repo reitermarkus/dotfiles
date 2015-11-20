@@ -10,4 +10,6 @@ apply_defaults() {
   # Reload Preferences
   killall cfprefsd &>/dev/null
 
+  sudo chown -R "${USER}":staff ~/Library/Preferences
+
 }

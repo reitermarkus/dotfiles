@@ -21,6 +21,19 @@ defaults_keyboard() {
     open -jga FunctionFlip
   fi
 
+  # Austrian Keyboard Layout
+
+  defaults delete com.apple.HIToolbox AppleInputSourceHistory &>/dev/null
+  defaults delete com.apple.HIToolbox AppleSavedCurrentInputSource &>/dev/null
+  defaults write  com.apple.HIToolbox AppleCurrentKeyboardLayoutInputSourceID -string 'com.apple.keylayout.Austrian'
+  defaults write  com.apple.HIToolbox AppleEnabledInputSources -array '''
+    <dict>
+      <key>InputSourceKind</key><string>Keyboard Layout</string>
+      <key>KeyboardLayout ID</key><integer>92</integer>
+      <key>KeyboardLayout Name</key><string>Austrian</string>
+    </dict>
+  '''
+
   killall cfprefsd &>/dev/null
 
 }
