@@ -14,11 +14,6 @@ install_brew() {
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   fi
 
-  if hash brew; then
-    echo -b 'Updating Homebrew packages …'
-    brew update && brew upgrade
-  fi
-
 }
 
 
@@ -28,16 +23,16 @@ brew_install() {
 
   local cask
   local name
+  local appdir
   local package
   local tap
-  local appdir
   local open=false
 
   local OPTIND
   while getopts ":c:d:p:t:n:o" o; do
     case "${o}" in
-      n)    name="${OPTARG}";;
       c)    cask="${OPTARG}";;
+      n)    name="${OPTARG}";;
       d)  appdir="${OPTARG}";;
       p) package="${OPTARG}";;
       t)     tap="${OPTARG}";;
@@ -50,14 +45,13 @@ brew_install() {
 
     [ -z "${appdir}" ] && appdir=/Applications/
 
-    local info=$(brew-cask info "${cask}")
-
     if [ -z "${name}" ]; then
-      if array_contains "${info}" '.app (app)'; then
-        name=$(printf '%s\n' "${info[@]}" | grep '.app (app)' | sed -E 's/^\ \ (.*)\.app.*$/\1/g' | sed -E 's/.*\///')
-      else
-        name=$(printf '%s\n' "${info[@]}" | head -2 | tail -1)
-      fi
+      OIFS=$IFS
+      IFS=';'
+      for caskname in $(brew-cask _stanza name "${cask}" | sed 's/", "/\;/g' | tr -d '["]'); do
+        name="${caskname}"
+      done
+      IFS=$OIFS
     fi
 
     if array_contains_exactly "${brew_casks}" "$(basename ${cask})"; then
@@ -73,13 +67,26 @@ brew_install() {
         --qlplugindir=/Library/QuickLook \
         --screen_saverdir=/Library/Screen\ Savers
 
-      if [ "${open}" == true ] && [ -n "${name}" ]; then
-        local timeout=15
-        let timeout*=10
-        until open -jga "${name}" &>/dev/null || [ "${timeout}" -lt 0 ]; do
-          let timeout--
-          sleep 0.1
-        done &
+      if [ "${open}" == true ]; then
+        IFS=';'
+
+        local apps=($(brew-cask _stanza app "${cask}" | sed 's/", "/\;/g' | tr -d '["]'))
+
+        if [ -z "${apps}" ]; then
+          apps="${name}"
+        fi
+
+        for app in ${apps[*]}; do
+          echo -b "Opening ${app} …"
+          local timeout=15
+          let timeout*=10
+          until open -jga "$(sed 's/\.app\$//' <<< "${app}")" &>/dev/null || [ "${timeout}" -lt 0 ]; do
+            let timeout--
+            sleep 0.1
+          done &
+        done
+
+        IFS=$OIFS
       fi
     fi
 
@@ -128,7 +135,19 @@ install_brew_taps() {
 }
 
 
-# Homebrew Packages
+# Upgrade Hombrew Packages
+
+upgrade_brew_packages() {
+
+  if hash brew; then
+    echo -b 'Upgrading existing Homebrew packages …'
+    brew update && brew upgrade
+  fi
+
+}
+
+
+# Install Homebrew Packages
 
 install_brew_packages() {
 
@@ -150,7 +169,7 @@ install_brew_packages() {
 }
 
 
-# Homebrew Cask
+# Install Homebrew Cask
 
 install_brew_cask() {
 
@@ -161,21 +180,22 @@ install_brew_cask() {
     # Create Caskroom and Permissions
     sudo mkdir -p /opt/homebrew-cask/Caskroom
     sudo chown root:wheel /opt
-    sudo chown -R root:admin /opt/homebrew-cask
-    sudo chmod -R g+w /opt/homebrew-cask
+    sudo chmod -R u=rwx,go=rx /opt
+    sudo chown -R root:admin  /opt/homebrew-cask
+    sudo chmod -R ug=rwx,o=rx /opt/homebrew-cask
     sudo chflags hidden /opt
 
     # Set Permissions for Library folders.
-    sudo chown -R root:admin /Library/LaunchAgents
-    sudo chmod -R g+w /Library/LaunchAgents
-    sudo chown -R root:admin /Library/LaunchDaemons
-    sudo chmod -R g+w /Library/LaunchDaemons
-    sudo chown -R root:admin /Library/PreferencePanes
-    sudo chmod -R g+w /Library/PreferencePanes
-    sudo chown -R root:admin /Library/QuickLook
-    sudo chmod -R g+w /Library/QuickLook
-    sudo chown -R root:admin /Library/Screen\ Savers
-    sudo chmod -R g+w /Library/Screen\ Savers
+    sudo chown -R root:admin  /Library/LaunchAgents
+    sudo chmod -R ug=rwx,o=rx /Library/LaunchAgents
+    sudo chown -R root:admin  /Library/LaunchDaemons
+    sudo chmod -R ug=rwx,o=rx /Library/LaunchDaemons
+    sudo chown -R root:admin  /Library/PreferencePanes
+    sudo chmod -R ug=rwx,o=rx /Library/PreferencePanes
+    sudo chown -R root:admin  /Library/QuickLook
+    sudo chmod -R ug=rwx,o=rx /Library/QuickLook
+    sudo chown -R root:admin  /Library/Screen\ Savers
+    sudo chmod -R ug=rwx,o=rx /Library/Screen\ Savers
 
     brew_install -p brew-cask -n 'Brew Caskroom'
 
@@ -183,7 +203,7 @@ install_brew_cask() {
 }
 
 
-# Homebrew Casks
+# Install Homebrew Casks
 
 install_brew_cask_apps() {
 

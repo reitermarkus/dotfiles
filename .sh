@@ -48,6 +48,7 @@ install_xcode
 
 install_brew
 install_brew_taps
+upgrade_brew_packages
 install_brew_packages
 install_brew_cask
 
