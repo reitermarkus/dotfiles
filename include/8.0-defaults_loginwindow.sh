@@ -25,9 +25,12 @@ defaults_loginwindow() {
   # Show Login Text
   if is_laptop; then
     sudo defaults write /Library/Preferences/com.apple.loginwindow.plist LoginwindowText \
-      "If found, please contact the owner:"\n"me@reitermark.us"\n"@reitermarkus"
+      "If found, please contact the owner:\nme@reitermark.us\n@reitermarkus"
   else
     sudo defaults write /Library/Preferences/com.apple.loginwindow.plist LoginwindowText ""
   fi
+
+  # Apply Login Text on FileVault Pre-Boot Screen
+  sudo rm -f /System/Library/Caches/com.apple.corestorage/EFILoginLocalizations/preferences.efires
 
 }
