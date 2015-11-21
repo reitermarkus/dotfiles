@@ -72,7 +72,6 @@ dropbox_link_folders() {
   link_to_dropbox 'Documents/Entwicklung'
   link_to_dropbox 'Documents/Fonts'
   link_to_dropbox 'Documents/Git-Repos'
-  link_to_dropbox 'Documents/Notizen'
   link_to_dropbox 'Documents/Projekte'
   link_to_dropbox 'Documents/Scans'
   link_to_dropbox 'Documents/SketchUp'
