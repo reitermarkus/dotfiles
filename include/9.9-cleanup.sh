@@ -34,7 +34,7 @@ link_textmate_to_avian() {
 # Remove Adobe Patch Files.
 remove_adobe_patchfiles() {
   rm -rf /Applications/Adobe/AdobePatchFiles
-  rmdir /Applications/Adobe
+  rmdir /Applications/Adobe &>/dev/null
 }
 
 
