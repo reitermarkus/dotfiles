@@ -32,7 +32,7 @@ ioreg -l | grep DesignCapacity &>/dev/null && is_mobile=true
 
 trap 'exit 0' SIGINT
 
-for script in "$dotfiles_dir/include/"*.sh; do
+for script in "${dotfiles_dir}/include/"*.sh; do
   source "${script}"
 done
 
