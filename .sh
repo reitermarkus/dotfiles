@@ -70,19 +70,15 @@ mackup_relink
 
 run_local_scripts
 
-defaults_startup
-defaults_locale
-defaults_loginwindow
-defaults_softwareupdate
-defaults_keyboard
-defaults_mouse_trackpad
-defaults_ui_ux
-defaults_dock_finder
-defaults_menubar
-defaults_terminal
-defaults_xcode
-defaults_safari
-defaults_third_party_apps
+pids=()
+
+for defaults in startup locale loginwindow softwareupdate keyboard mouse_trackpad ui_ux dock_finder menubar terminal xcode safari third_party_apps; do
+  defaults_${defaults} & pids+=(${!})
+done
+
+for pid in ${pids[*]}; do
+  wait ${pid}
+done
 
 apply_defaults
 
