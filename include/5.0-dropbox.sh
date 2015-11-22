@@ -4,7 +4,7 @@
 # Create Symlinks for Dropbox folders.
 
 get_dropbox_dir() {
-  sed -E 's/.*\"path\":\ *\"(.*)\",.*/\1/' "${HOME}/.dropbox/info.json"
+  python -c "import json; print(json.load(open('$HOME/.dropbox/info.json'))['personal']['path'])"
 }
 
 link_to_dropbox() {
