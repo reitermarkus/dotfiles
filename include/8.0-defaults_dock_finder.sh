@@ -91,21 +91,25 @@ defaults_dock_finder() {
 
   # Dock, Dashboard & Mission Control
 
-  # Desktop Picture
+  # Desktop Picture Paths
+  desktop_pictures_dir="${HOME}/Library/Desktop Pictures"
   defaults write com.apple.systempreferences DSKDesktopPrefPane """
     {
       UserFolderPaths = (
-        '${HOME}/Library/Desktop Pictures',
+        '${desktop_pictures_dir}',
       );
     }
   """
+
+  # Set Desktop Picture
+  sqlite3 "${HOME}/Library/Application Support/Dock/desktoppicture.db" "update data set value = '${desktop_pictures_dir}/current'"
 
   # Disable Dashboard
   defaults write com.apple.dashboard enabled-state -int 1
 
   # Increase Mission Control Animation Speed
   defaults write com.apple.dock expose-animation-duration -float 0.125
-  defaults write com.apple.dock expose-group-apps         -bool true
+  defaults write com.apple.dock expose-group-apps         -bool  true
 
   # Automatically hide Dock
   defaults write com.apple.dock autohide -bool true
