@@ -6,7 +6,21 @@ import os, sys, json, time, urllib
 
 
 # Unicode Characters
+
 elipsis = unichr(0x2026)
+
+
+# Terminal Colors
+
+c_red     = '\033[0;31m'
+c_green   = '\033[0;32m'
+c_blue    = '\033[0;34m'
+c_white   = '\033[0;37m'
+c_cyan    = '\033[0;36m'
+c_magenta = '\033[0;35m'
+c_yellow  = '\033[0;33m'
+c_black   = '\033[0;30m'
+c_reset   = '\033[0;00m'
 
 
 def fetch_json(app_ids):
@@ -56,28 +70,28 @@ def close_appstore():
 def install_app(name, bundle_id, mas_url):
 
   if is_app_installed(bundle_id):
-    print('%s is already installed.' % name)
+    print('%s%s is already installed.%s' % (c_green, name, c_reset))
   else:
 
     close_appstore()
 
-    print('Opening %s in App Store %s' % (name, elipsis))
+    print('%sOpening %s in App Store %s%s' % (c_blue, name, elipsis, c_reset))
 
     open_appstore(mas_url)
 
-    print('Installing %s from App Store %s' % (name, elipsis))
+    print('%sInstalling %s from App Store %s%s' % (c_blue, name, elipsis, c_reset))
 
     timeout = time.time() + 30
-    while not (is_app_downloading(name) or is_app_installed(bundle_id)) and time.time() < timeout:
+    while not (is_app_downloading(name) or is_app_installed(bundle_id)) and timeout > time.time():
       click_install_button()
       time.sleep(1)
 
     if is_app_downloading(name):
-      print('%s is downloading %s' % (name, elipsis))
+      print('%s%s is downloading %s%s' % (c_blue, name, elipsis, c_reset))
     elif is_app_installed(bundle_id):
-      print('%s installed.' % name)
+      print('%s%s installed.%s' % (c_green, name, c_reset))
     else:
-      print('Error installing %s.' % name)
+      print('%sError installing %s.%s' % (c_red, name, c_reset))
 
     close_appstore()
 
