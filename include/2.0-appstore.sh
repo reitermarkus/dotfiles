@@ -16,6 +16,7 @@ install_appstore_apps() {
 
   apps=(
     608292802 # Auction Sniper for eBay
+    417375580 # BetterSnapTool
     420212497 # Byword
     924726344 # Deliveries
     480664966 # Fusio
