@@ -189,7 +189,7 @@ install_brew_cask() {
 
   if brew_packages=$(brew ls); then
 
-    # Create Caskroom and Permissions
+    # Create Caskroom and set Permissions
     sudo mkdir -p /opt/homebrew-cask/Caskroom
     sudo chown root:wheel /opt
     sudo chmod -R u=rwx,go=rx /opt
@@ -198,18 +198,10 @@ install_brew_cask() {
     sudo chflags hidden /opt
 
     # Set Permissions for Library folders.
-    sudo chown -R root:admin  /Library/LaunchAgents
-    sudo chmod -R ug=rwx,o=rx /Library/LaunchAgents
-    sudo chown -R root:admin  /Library/LaunchDaemons
-    sudo chmod -R ug=rwx,o=rx /Library/LaunchDaemons
-    sudo chown -R root:admin  /Library/PreferencePanes
-    sudo chmod -R ug=rwx,o=rx /Library/PreferencePanes
-    sudo chown -R root:admin  /Library/QuickLook
-    sudo chmod -R ug=rwx,o=rx /Library/QuickLook
-    sudo chown -R root:admin  /Library/Screen\ Savers
-    sudo chmod -R ug=rwx,o=rx /Library/Screen\ Savers
+    sudo chown -R root:admin  /Library/LaunchAgents /Library/LaunchDaemons /Library/PreferencePanes /Library/QuickLook /Library/Screen\ Savers
+    sudo chmod -R ug=rwx,o=rx /Library/LaunchAgents /Library/LaunchDaemons /Library/PreferencePanes /Library/QuickLook /Library/Screen\ Savers
 
-    brew_install -p brew-cask -n 'Brew Caskroom'
+    brew_install -p brew-cask -n 'Homebrew Cask'
 
   fi
 }
@@ -218,8 +210,6 @@ install_brew_cask() {
 # Install Homebrew Casks
 
 install_brew_cask_apps() {
-
-  sudo chown -R :admin /opt/homebrew-cask
 
   local brew_casks
 
@@ -241,12 +231,12 @@ install_brew_cask_apps() {
     brew_install -c fritzing
     brew_install -c functionflip
     brew_install -c hazel
-    brew_install -c iconvert -  d /Applications/iTach
-    brew_install -c ihelp      -d /Applications/iTach
-    brew_install -c ilearn     -d /Applications/iTach
-    brew_install -c itest      -d /Applications/iTach
+    brew_install -c iconvert -d /Applications/iTach
+    brew_install -c ihelp    -d /Applications/iTach
+    brew_install -c ilearn   -d /Applications/iTach
+    brew_install -c itest    -d /Applications/iTach
     brew_install -c insomniax
-    brew_install -c java       -n 'Java'
+    brew_install -c java -n 'Java'
     brew_install -c kaleidoscope
     brew_install -c keka
     brew_install -c konica-minolta-bizhub-c220-c280-c360-driver -n 'Bizhub Driver'
