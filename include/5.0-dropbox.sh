@@ -56,7 +56,22 @@ dropbox_link_folders() {
   # Check if Dropbox has finished syncing.
 
   echo -b 'Waiting for Dropbox to finish syncing …'
-  until osascript -e 'tell application "System Events" to tell application process "Dropbox" to get help of menu bar item 1 of menu bar 2' | grep --quiet -E 'Aktualisiert|Up to date'; do
+
+  # Get Dropbox Localizations
+  dropbox_garcon="$(mdfind -onlyin / kMDItemCFBundleIdentifier==com.getdropbox.dropbox | head -1)/Contents/PlugIns/garcon.appex/Contents/Resources"
+  dropbox_localizations=''
+
+  if [ -d "${dropbox_garcon}" ]; then
+    for lang in "${dropbox_garcon}"/*.lproj; do
+      dropbox_localizations+="$(python -c "# encoding=utf8
+import sys, json; reload(sys); sys.setdefaultencoding('utf8'); print(json.loads(u'$(plutil -convert json "${lang}/garcon.strings" -o - | sed "s/\'/\\\'/g")')['BadgeTooltipUptodate'])")|"
+    done
+
+    dropbox_localizations="$(sed 's/|$//' <<< "${dropbox_localizations}")"
+  fi
+
+  until osascript -e 'tell application "System Events" to tell application process "Dropbox" to get help of menu bar item 1 of menu bar 2' 2>/dev/null | tail -1 | grep --quiet -E "${dropbox_localizations}"; do
+
     open -gja 'Dropbox'
     sleep 5
   done
