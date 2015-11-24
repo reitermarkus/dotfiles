@@ -37,6 +37,7 @@ defaults_third_party_apps() {
   # Parallels Desktop
   if app_installed com.parallels.desktop.console; then
     replace_parallels_icon &
+  fi
 
   # Tower
   if app_installed com.fournova.Tower2; then
