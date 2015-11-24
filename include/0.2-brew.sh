@@ -251,7 +251,6 @@ install_brew_cask_apps() {
     brew_install -c keka
     brew_install -c konica-minolta-bizhub-c220-c280-c360-driver -n 'Bizhub Driver'
     brew_install -oc launchbar
-      osascript -e 'tell application "System Events" to make login item with properties {path:"'$(mdfind -onlyin / kMDItemCFBundleIdentifier==at.obdev.LaunchBar)'", hidden:true}' -e 'return'
     brew_install -c launchrocket
     brew_install -c mou
     brew_install -c netspot
