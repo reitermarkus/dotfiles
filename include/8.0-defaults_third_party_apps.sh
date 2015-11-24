@@ -73,8 +73,7 @@ replace_keka_archive_icons() {
 
     rm -rf "${tmp_dir}"
 
-    echo -b 'Replacing the default Keka archive icons …'
-    curl --progress-bar --location "https://github.com/reitermarkus/${repo}/archive/master.zip" | ditto -xk - '/tmp'
+    curl --quiet --location "https://github.com/reitermarkus/${repo}/archive/master.zip" | ditto -xk - '/tmp'
 
     cd "${tmp_dir}" && {
 
@@ -123,8 +122,7 @@ replace_parallels_icon() {
 
   if cd '/Applications/Parallels Desktop.app/Contents/Resources/' &>/dev/null; then
 
-    echo -b 'Replacing the default Parallels Desktop icon …'
-    sudo curl --progress-bar --location 'https://github.com/reitermarkus/mirror/raw/master/Parallels.icns' -O
+    sudo curl --quiet --location 'https://github.com/reitermarkus/mirror/raw/master/Parallels.icns' -O
     sudo touch '/Applications/Parallels Desktop.app'
 
     cd -
