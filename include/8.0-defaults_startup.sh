@@ -7,6 +7,9 @@ defaults_startup() {
 
   echo -b 'Setting defaults for Startup …'
 
+  # Disable Boot Sound
+  sudo nvram SystemAudioVolume=" "
+
   # Enable Verbose Boot
   sudo nvram boot-args='-v'
 
