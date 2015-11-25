@@ -81,6 +81,7 @@ import sys, json; reload(sys); sys.setdefaultencoding('utf8'); print(json.loads(
   link_to_dropbox 'Library/Containers/com.apple.BKAgentService/Data/Documents/iBooks'
   link_to_dropbox 'Library/Fonts'
   link_to_dropbox 'Library/Desktop Pictures'
+  link_to_dropbox 'Library/User Pictures'
 
   link_to_dropbox 'Documents/Backups'
   link_to_dropbox 'Documents/Cinquecento'
