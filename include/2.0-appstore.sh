@@ -3,7 +3,7 @@
 
 # Install Apps from the Mac App Store
 
-appstore_install() {
+appstore_cli() {
 
   python "${dotfiles_dir}/scripts/appstore-cli.py" ${@}
 
@@ -13,6 +13,8 @@ appstore_install() {
 # Install App Store Applications
 
 install_appstore_apps() {
+
+  appstore_cli update
 
   apps=(
     608292802 # Auction Sniper for eBay
@@ -32,7 +34,7 @@ install_appstore_apps() {
     892115848 # yRegex
   )
 
-  appstore_install "${apps[*]}"
+  appstore_cli install "${apps[*]}"
 
 }
 
@@ -41,7 +43,7 @@ install_appstore_apps() {
 
 install_xcode() {
 
-  appstore_install 497799835 # Xcode
+  appstore_cli install 497799835 # Xcode
   until sudo xcodebuild -license accept &>/dev/null; do sleep 5; done &
   wait_for_xcode_pid=${!}
 

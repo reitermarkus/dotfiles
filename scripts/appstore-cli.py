@@ -55,10 +55,15 @@ def click_install_button():
   return not os.system('osascript -e \'tell application "System Events" to tell application process "App Store" to tell window 1 to tell group 1 to tell group 1 to tell scroll area 1 to tell UI element 1 to tell group 1 to tell group 1 to if description of button 1 contains "Install" then click button 1\' &>/dev/null')
 
 
+def is_appstore_open():
+
+  return not os.system('ps -U "$USER" | grep --quiet "[A]pp Store"')
+
+
 def open_appstore(mas_url='macappstore://showUpdatesPage'):
 
   # Open App Store with URL
-  os.system('open -gj "%s" &>/dev/null' % mas_url)
+  os.system('open -gj "macappstore://itunes.apple.com/genre/id39"; sleep 1; open -gj "%s"' % mas_url)
 
 
 def close_appstore():
@@ -73,9 +78,7 @@ def install_app(name, bundle_id, mas_url):
     print('%s%s is already installed.%s' % (c_green, name, c_reset))
   else:
 
-    close_appstore()
-
-    print('%sOpening %s in App Store %s%s' % (c_blue, name, elipsis, c_reset))
+    leave_appstore_open = is_appstore_open()
 
     open_appstore(mas_url)
 
@@ -93,7 +96,8 @@ def install_app(name, bundle_id, mas_url):
     else:
       print('%sError installing %s.%s' % (c_red, name, c_reset))
 
-    close_appstore()
+    if not leave_appstore_open:
+      close_appstore()
 
 
 def install_apps(apps):
@@ -107,9 +111,46 @@ def install_apps(apps):
     install_app(name, bundle_id, mas_url)
 
 
+def click_update_button():
+
+  # Shell exits with 0 if click was successful, so this has to be negated.
+  return not os.system('osascript -e \'tell application "System Events" to tell application process "App Store" to tell window 1 to tell group 1 to tell group 1 to tell scroll area 1 to tell UI element 1 to tell group 1 to click button 1\' &>/dev/null')
+
+
+def install_updates():
+
+  print('%sSearching for App Store Updates %s%s' % (c_blue, elipsis, c_reset))
+
+  leave_appstore_open = is_appstore_open()
+
+  open_appstore('macappstore://showUpdatesPage')
+
+  timeout = time.time() + 10
+  updates_available = click_update_button()
+  while not updates_available and timeout > time.time():
+    updates_available = click_update_button()
+    time.sleep(1)
+
+  if updates_available:
+    print('%sInstalling Updates from App Store %s%s' % (c_blue, elipsis, c_reset))
+  else:
+    print('%sNo Updates available.%s' % (c_green, c_reset))
+
+  if not leave_appstore_open:
+    close_appstore()
+
+
 def main():
 
-  install_apps(sys.argv[1:])
+  if not sys.argv[1:]:
+    print("Error: No arguments provided.")
+    sys.exit(1)
+
+  if sys.argv[1] == 'update':
+    install_updates()
+
+  elif sys.argv[1] == 'install':
+    install_apps(sys.argv[2:])
 
 
 if __name__ == '__main__':
