@@ -30,6 +30,9 @@ defaults_loginwindow() {
     sudo defaults write /Library/Preferences/com.apple.loginwindow.plist LoginwindowText ""
   fi
 
+  # Save open Windows on Logout.
+  defaults write com.apple.loginwindow TALLogoutSavesState -bool true
+
   # Apply Login Text on FileVault Pre-Boot Screen
   sudo rm -f /System/Library/Caches/com.apple.corestorage/EFILoginLocalizations/preferences.efires
 
