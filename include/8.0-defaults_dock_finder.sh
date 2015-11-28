@@ -117,13 +117,16 @@ defaults_dock_finder() {
   # Translucent Icons of hidden Applications
   defaults write com.apple.dock showhidden -bool true
 
-  # Start Screensaver after
+  # Password after Screensaver
+  defaults write com.apple.screensaver askForPassword -bool true
+
+  # Set Screensaver and Password Delay
   if is_laptop; then
-    # 1 Minute
-    defaults -currentHost write com.apple.screensaver idleTime -integer 60
+    defaults -currentHost write com.apple.screensaver idleTime -int 60
+    defaults write com.apple.screensaver askForPasswordDelay   -int 5
   else
-    # 5 Minutes
-    defaults -currentHost write com.apple.screensaver idleTime -integer 300
+    defaults -currentHost write com.apple.screensaver idleTime -int 300
+    defaults write com.apple.screensaver askForPasswordDelay   -int 300
   fi
 
   # Don't show Clock on Screensaver
