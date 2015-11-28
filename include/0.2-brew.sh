@@ -215,11 +215,12 @@ install_brew_cask_apps() {
 
   if brew_casks=$(brew-cask ls); then
 
+    brew_install -c a-better-finder-rename
     brew_install -oc reitermarkus/tap/adobe-creative-cloud -n 'Creative Cloud'
     brew_install -c adobe-illustrator-cc-de
     is_desktop && brew_install -c adobe-indesign-cc-de
     brew_install -c adobe-photoshop-cc-de
-    brew_install -c a-better-finder-rename
+    brew_install -c aerial
     brew_install -oc boom
     brew_install -c calibre
     brew_install -c chromium

@@ -5,6 +5,18 @@
 
 defaults_third_party_apps() {
 
+  # Aerial Screensaver
+  if app_installed com.JohnCoates.Aerial && is_desktop; then
+    defaults -currentHost write com.JohnCoates.Aerial differentDisplays -bool true
+    defaults -currentHost write com.apple.screensaver moduleDict -dict-add moduleName -string 'Aerial'
+    defaults -currentHost write com.apple.screensaver moduleDict -dict-add path       -string "$(mdfind -onlyin / kMDItemCFBundleIdentifier==com.JohnCoates.Aerial)"
+    defaults -currentHost write com.apple.screensaver moduleDict -dict-add type      -integer 0
+  else
+    defaults -currentHost write com.apple.screensaver moduleDict -dict-add moduleName -string 'Arabesque'
+    defaults -currentHost write com.apple.screensaver moduleDict -dict-add path       -string '/System/Library/Screen Savers/Arabesque.qtz'
+    defaults -currentHost write com.apple.screensaver moduleDict -dict-add type      -integer 1
+  fi
+
   # BetterSnapTool
   if app_installed com.hegenberg.BetterSnapTool; then
     add_app_to_tcc com.hegenberg.BetterSnapTool
