@@ -89,7 +89,7 @@ defaults_dock_finder() {
   defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
 
 
-  # Dock, Dashboard & Mission Control
+  # Dock, Dashboard, Mission Control & Screensaver
 
   # Desktop Picture Paths
   desktop_pictures_dir="${HOME}/Library/Desktop Pictures"
@@ -116,6 +116,18 @@ defaults_dock_finder() {
 
   # Translucent Icons of hidden Applications
   defaults write com.apple.dock showhidden -bool true
+
+  # Start Screensaver after
+  if is_laptop; then
+    # 1 Minute
+    defaults -currentHost write com.apple.screensaver idleTime -integer 60
+  else
+    # 5 Minutes
+    defaults -currentHost write com.apple.screensaver idleTime -integer 300
+  fi
+
+  # Don't show Clock on Screensaver
+  defaults -currentHost write com.apple.screensaver showClock -bool false
 
   killall cfprefsd &>/dev/null
   killall Dock &>/dev/null
