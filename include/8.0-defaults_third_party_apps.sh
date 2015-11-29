@@ -148,9 +148,8 @@ replace_keka_archive_icons() {
 
       rm -f  "${keka_resources}/extract.png"
 
-      rm -rf "${tmp_dir}"
       cd - &>/dev/null
-
+      rm -rf "${tmp_dir}"
     }
   fi
 }
@@ -163,7 +162,7 @@ replace_parallels_icon() {
     sudo curl --silent --location 'https://github.com/reitermarkus/mirror/raw/master/Parallels.icns' -O
     sudo touch '/Applications/Parallels Desktop.app'
 
-    cd -
+    cd - &>/dev/null
   fi
 
 }
