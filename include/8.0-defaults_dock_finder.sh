@@ -123,7 +123,7 @@ defaults_dock_finder() {
   # Set Screensaver and Password Delay
   if is_laptop; then
     defaults -currentHost write com.apple.screensaver idleTime -int 60
-    defaults write com.apple.screensaver askForPasswordDelay   -int 5
+    defaults write com.apple.screensaver askForPasswordDelay   -int 15
   else
     defaults -currentHost write com.apple.screensaver idleTime -int 300
     defaults write com.apple.screensaver askForPasswordDelay   -int 300
