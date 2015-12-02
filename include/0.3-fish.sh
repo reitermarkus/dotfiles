@@ -5,9 +5,9 @@
 
 install_fish_shell() {
 
-  if hash fish; then
+  local fish_bin
 
-    fish_bin=$(which fish)
+  if fish_bin="$(which fish)"; then
 
     # Check if “fish” is in shells file.
     if ! grep --quiet "${fish_bin}" /etc/shells; then
@@ -15,8 +15,9 @@ install_fish_shell() {
     fi
 
     # If current shell is not “fish”, change it.
-    if [[ "${SHELL}" != "${fish_bin}" ]]; then
-      sudo chsh -s "${fish_bin}" "${USER}"
+    if [ "${SHELL}" != "${fish_bin}" ]; then
+      echo -b "Changing Shell to Fish …"
+      sudo chsh -s "${fish_bin}" "${USER}" &>/dev/null
     fi
 
     mkdir -p "${HOME}/.config/fish/"
