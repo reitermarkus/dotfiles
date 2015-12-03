@@ -14,7 +14,7 @@ defaults_loginwindow() {
   sudo rm -rf /Users/Guest
 
   # Automatically log out the Guest when idle.
-  install_launchdaemon_logout_guest_on_idle
+  install_launchagent_logout_guest_on_idle
 
   # Show the Sleep, Restart and Shut Down Buttons
   sudo defaults write /Library/Preferences/com.apple.loginwindow 'PowerOffDisabled' -bool false
@@ -61,10 +61,10 @@ defaults_loginwindow() {
 }
 
 
-install_launchdaemon_logout_guest_on_idle() {
+install_launchagent_logout_guest_on_idle() {
 
   launchd_name='com.apple.LogoutGuestOnIdle'
-  launchd_plist="/Library/LaunchDaemons/${launchd_name}.plist"
+  launchd_plist="/Library/LaunchAgents/${launchd_name}.plist"
 
   sudo rm -f "${launchd_plist}"
 
@@ -78,7 +78,7 @@ install_launchdaemon_logout_guest_on_idle() {
           <string>
             GUI_USER="$(stat -f %Su /dev/console)";
             if [ "$GUI_USER" == "Guest" ] &amp;&amp; [ "$(ioreg -c IOHIDSystem | awk "/HIDIdleTime/ {print \$NF/1000000000; exit}" | sed -E "s/(\,|\.).*//")" -ge 300 ]; then
-              ps awwwux | awk "/$GUI_USER/ &amp;&amp; /[l]oginwindow/ { print \$2 }" | xargs kill -9;
+              "/System/Library/CoreServices/Menu Extras/User.menu/Contents/Resources/CGSession" -suspend
             fi
           </string>
         </array>
@@ -92,8 +92,5 @@ install_launchdaemon_logout_guest_on_idle() {
 
   sudo chown root:admin "${launchd_plist}"
   sudo chmod 755 "${launchd_plist}"
-
-  sudo launchctl unload "${launchd_plist}" &>/dev/null
-  sudo launchctl load "${launchd_plist}"
 
 }
