@@ -79,6 +79,9 @@ defaults_dock_finder() {
   # Disable the “Are you sure you want to open this application?” Dialog
   defaults write com.apple.LaunchServices LSQuarantine -bool false
 
+  # Turn off Gatekeeper
+  sudo spctl --master-disable
+
   # Enable spring-loading directories and decrease default delay.
   defaults write NSGlobalDomain com.apple.springing.enabled -bool  true
   defaults write NSGlobalDomain com.apple.springing.delay   -float 0.2
