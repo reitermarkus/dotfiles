@@ -1,9 +1,15 @@
 #!/bin/sh
 
+
 # Ask for superuser password, and keep “sudo” alive.
 
 sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+
+# Prevent System Sleep
+
+caffeinate -u -w $$ &
 
 
 # Download Repository
@@ -37,9 +43,8 @@ for script in "${dotfiles_dir}/include/"*.sh; do
 done
 
 
-# Run Scripts
 
-caffeinate_start
+# Run Scripts
 
 enable_assistive_access
 
@@ -85,7 +90,5 @@ apply_defaults
 cleanup
 
 check_if_xcode_is_installed
-
-caffeinate_stop
 
 echo -k 'Done.'
