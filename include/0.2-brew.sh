@@ -60,7 +60,7 @@ brew_install() {
       echo -b "Installing ${name} …"
 
       mkdir -p "${appdir}"
-      brew-cask uninstall "${cask}" --force
+      brew-cask uninstall "${cask}" --force &>/dev/null
       brew-cask install "${cask}" --force \
         --appdir="${appdir}" \
         --prefpanedir=/Library/PreferencePanes \
