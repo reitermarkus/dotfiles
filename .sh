@@ -8,7 +8,7 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # Download Repository
 
-if [[ "$(basename ${0})" != '.sh' ]]; then
+if [ "$(basename "${0}")" != '.sh' ]; then
   eval "$(curl -s "https://raw.githubusercontent.com/reitermarkus/dotfiles/HEAD/include/0.0-echo.sh")"
   echo -b "Downloading Github Repository …"
 
