@@ -55,11 +55,13 @@ defaults_dock_finder() {
   defaults write com.apple.sidebarlists systemitems -dict-add ShowServers    -bool true
 
   # Show Network Devices in Sidebar
-  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.sidebarlists.plist \
-    -c 'Set :networkbrowser:CustomListProperties:com.apple.NetworkBrowser.backToMyMacEnabled true' \
-    -c 'Set :networkbrowser:CustomListProperties:com.apple.NetworkBrowser.bonjourEnabled     true' \
-    -c 'Set :networkbrowser:CustomListProperties:com.apple.NetworkBrowser.connectedEnabled   true' \
-  ; killall cfprefsd &>/dev/null
+  defaults write com.apple.sidebarlists.plist networkbrowser -dict-add CustomListProperties '''
+    <dict>
+      <key>backToMyMacEnabled</key><true/>
+      <key>bonjourEnabled</key><true/>
+      <key>connectedEnabled</key><true/>
+    </dict>
+  '''; killall cfprefsd &>/dev/null
 
   # Disable Warning when changing a Extension
   defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
