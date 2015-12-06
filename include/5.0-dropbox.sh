@@ -111,7 +111,7 @@ import sys, json; reload(sys); sys.setdefaultencoding('utf8'); print(json.loads(
 
 mackup_relink() {
 
-  if hash mackup; then
+  if type mackup &>/dev/null; then
 
     echo -b "Relinking “mackup” …"
 

@@ -7,7 +7,7 @@ install_brew() {
 
   sudo chown "${USER}" /usr/local/
 
-  if hash brew; then
+  if type brew &>/dev/null; then
     echo -g 'Homebrew is already installed.'
   else
     echo -b 'Installing Homebrew …'
@@ -139,7 +139,7 @@ install_brew_taps() {
 
 upgrade_brew_packages() {
 
-  if hash brew; then
+  if type brew &>/dev/null; then
     echo -b 'Upgrading existing Homebrew packages …'
     brew update && brew upgrade
   fi
@@ -164,8 +164,8 @@ install_brew_packages() {
     brew_install -p node               -n 'Node Package Manager'
     brew_install -p fish               -n 'Fish Shell'
     brew_install -p mackup             -n 'Mackup'
-    brew_install -p python             -n 'Python 2'; if hash pip;  then pip  install --upgrade pip setuptools; fi
-    brew_install -p python3            -n 'Python 3'; if hash pip3; then pip3 install --upgrade pip setuptools; fi
+    brew_install -p python             -n 'Python 2'; if type pip &>/dev/null;  then pip  install --upgrade pip setuptools; fi
+    brew_install -p python3            -n 'Python 3'; if type pip3 &>/dev/null; then pip3 install --upgrade pip setuptools; fi
     brew_install -p terminal-notifier  -n 'Terminal Notifier'
     brew_install -p ruby               -n 'Ruby'
 
@@ -283,7 +283,7 @@ install_brew_cask_apps() {
 
 brew_cleanup() {
 
-  if hash brew; then
+  if type brew &>/dev/null; then
 
     echo -r 'Removing dead Homebrew symlinks …'
     brew prune

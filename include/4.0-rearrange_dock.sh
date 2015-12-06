@@ -41,7 +41,7 @@ dutil() {
 
 rearrange_dock() {
 
-  if hash dockutil; then
+  if type dockutil &>/dev/null; then
 
     echo -b 'Rearranging Dock …'
 
