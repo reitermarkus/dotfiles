@@ -13,7 +13,7 @@ trap '' SIGTSTP
 
 # Prevent System Sleep
 
-caffeinate -u -w $$ &
+caffeinate -dimu -w $$ &
 
 
 # Download Repository
