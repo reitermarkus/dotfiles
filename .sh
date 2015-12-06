@@ -7,6 +7,10 @@ sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 
+# Disable Ctrl-Z
+trap '' SIGTSTP
+
+
 # Prevent System Sleep
 
 caffeinate -u -w $$ &
@@ -31,17 +35,15 @@ else
 fi
 
 
-# Check if Mac has an internal Battery.
-
-ioreg -l | grep DesignCapacity &>/dev/null && is_mobile=true
-
-
-trap 'exit 0' SIGINT
+# Load Functions
 
 for script in "${dotfiles_dir}/include/"*.sh; do
   source "${script}"
 done
 
+
+# Trap Ctrl-C
+trap 'echo -r "Aborting …"; exit 1' SIGINT
 
 
 # Run Scripts
