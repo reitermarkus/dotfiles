@@ -25,7 +25,7 @@ defaults_third_party_apps() {
   else
     defaults -currentHost write com.apple.screensaver moduleDict -dict-add moduleName -string 'Arabesque'
     defaults -currentHost write com.apple.screensaver moduleDict -dict-add path       -string '/System/Library/Screen Savers/Arabesque.qtz'
-    defaults -currentHost write com.apple.screensaver moduleDict -dict-add type      -int 1
+    defaults -currentHost write com.apple.screensaver moduleDict -dict-add type          -int 1
   fi
 
   # BetterSnapTool
