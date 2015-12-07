@@ -7,6 +7,9 @@ defaults_ui_ux() {
 
   echo -b 'Setting defaults for User Interface …'
 
+  # Enable Dark Mode
+  defaults write NSGlobalDomain AppleInterfaceStyle -string Dark
+
   # Expand Save Panel by Default
   defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode  -bool true
   defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
