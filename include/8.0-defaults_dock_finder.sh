@@ -116,6 +116,9 @@ defaults_dock_finder() {
   defaults write com.apple.dock expose-animation-duration -float 0.125
   defaults write com.apple.dock expose-group-apps         -bool  true
 
+  # Minimize Windows behind Dock Icon
+  defaults write com.apple.dock minimize-to-application -bool  true
+
   # Automatically hide Dock
   defaults write com.apple.dock autohide -bool true
 
