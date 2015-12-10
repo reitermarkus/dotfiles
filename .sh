@@ -55,9 +55,7 @@ install_xcode
 
 install_brew
 install_brew_taps
-upgrade_brew_packages
-install_brew_packages
-install_brew_cask
+install_brew_formulae
 
 install_ruby_gems
 install_npm_packages

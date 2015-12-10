@@ -48,7 +48,7 @@ brew_install() {
     if [ -z "${name}" ]; then
       OIFS=$IFS
       IFS=';'
-      for caskname in $(brew-cask _stanza name "${cask}" | sed 's/", "/\;/g' | tr -d '["]'); do
+      for caskname in $(brew cask _stanza name "${cask}" | sed 's/", "/\;/g' | tr -d '["]'); do
         name="${caskname}"
       done
       IFS=$OIFS
@@ -60,8 +60,8 @@ brew_install() {
       echo -b "Installing ${name} …"
 
       mkdir -p "${appdir}"
-      brew-cask uninstall "${cask}" --force &>/dev/null
-      brew-cask install "${cask}" --force \
+      brew cask uninstall "${cask}" --force &>/dev/null
+      brew cask install "${cask}" --force \
         --appdir="${appdir}" \
         --prefpanedir=/Library/PreferencePanes \
         --qlplugindir=/Library/QuickLook \
@@ -70,7 +70,7 @@ brew_install() {
       if [ "${open}" == true ]; then
         IFS=';'
 
-        local apps=($(brew-cask _stanza app "${cask}" | sed 's/", "/\;/g' | tr -d '["]'))
+        local apps=($(brew cask _stanza app "${cask}" | sed 's/", "/\;/g' | tr -d '["]'))
 
         if [ -z "${apps}" ]; then
           apps="${name}"
@@ -137,7 +137,7 @@ install_brew_taps() {
 
 # Upgrade Hombrew Packages
 
-upgrade_brew_packages() {
+upgrade_brew_formulae() {
 
   if type brew &>/dev/null; then
     echo -b 'Upgrading existing Homebrew packages …'
@@ -151,7 +151,9 @@ upgrade_brew_packages() {
 
 # Install Homebrew Packages
 
-install_brew_packages() {
+install_brew_formulae() {
+  
+  upgrade_brew_formulae
 
   local brew_packages
 
@@ -183,7 +185,7 @@ install_brew_packages() {
 
 # Install Homebrew Cask
 
-install_brew_cask() {
+fix_caskroom_permissions() {
 
   local brew_packages
 
@@ -201,8 +203,6 @@ install_brew_cask() {
     sudo chown -R root:admin  /Library/LaunchAgents /Library/LaunchDaemons /Library/PreferencePanes /Library/QuickLook /Library/Screen\ Savers
     sudo chmod -R ug=rwx,o=rx /Library/LaunchAgents /Library/LaunchDaemons /Library/PreferencePanes /Library/QuickLook /Library/Screen\ Savers
 
-    brew_install -p brew-cask -n 'Homebrew Cask'
-
   fi
 }
 
@@ -210,10 +210,14 @@ install_brew_cask() {
 # Install Homebrew Casks
 
 install_brew_cask_apps() {
+  
+  fix_caskroom_permissions  
 
   local brew_casks
 
-  if brew_casks=$(brew-cask ls); then
+  if brew_casks=$(brew cask ls); then
+    
+    brew uninstall --force brew-cask
 
     brew_install -c a-better-finder-rename
     brew_install -oc reitermarkus/tap/adobe-creative-cloud -n 'Creative Cloud'
@@ -290,7 +294,7 @@ brew_cleanup() {
 
     echo -r 'Emptying Homebrew cache …'
     brew cleanup --force
-    brew-cask cleanup
+    brew cask cleanup
     rm -rfv "$(brew --cache)/*" | xargs printf "Removing: %s\n"
 
   fi
