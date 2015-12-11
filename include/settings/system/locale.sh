@@ -1,16 +1,10 @@
-#!/bin/sh
-
-
-# Localization Defaults
-
 defaults_locale() {
 
+  # Localization
   echo -b 'Setting defaults for Localization …'
 
-  ### Languages
-
   # Set System Languages
-  sudo languagesetup -langspec de &>/dev/null
+  sudo languagesetup -langspec de 1>/dev/null
   defaults write NSGlobalDomain AppleLanguages -array 'de-AT' 'de' 'en'
 
   # Use Metric Units
@@ -21,11 +15,7 @@ defaults_locale() {
   # Disable Auto Correction
   defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
-
-  ### Date & Time
-
   # Set Time Zone
-  sudo systemsetup -settimezone 'Europe/Vienna' &>/dev/null
-
+  sudo systemsetup -settimezone 'Europe/Vienna' 1>/dev/null
 
 }

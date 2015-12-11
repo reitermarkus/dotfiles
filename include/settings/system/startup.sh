@@ -1,10 +1,6 @@
-#!/bin/sh
-
-
-# Startup Defaults
-
 defaults_startup() {
 
+  # Startup
   echo -b 'Setting defaults for Startup …'
 
   # Disable Boot Sound

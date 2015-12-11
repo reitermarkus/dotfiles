@@ -1,10 +1,6 @@
-#!/bin/sh
-
-
-# Install Homebrew
-
 install_brew() {
 
+  # Install Homebrew
   sudo chown "${USER}" /usr/local/
 
   if type brew &>/dev/null; then
@@ -88,6 +84,7 @@ brew_install() {
 
         IFS=$OIFS
       fi
+
     fi
 
   elif [ -n "${package}" ]; then
@@ -109,14 +106,15 @@ brew_install() {
       echo -b "Tapping ${name} …"
       brew tap "${tap}" || echo -r "Error tapping ${name}."
     fi
+
   fi
+
 }
 
 
-# Install Homebrew Taps
-
 install_brew_taps() {
 
+  # Homebrew Taps
   local brew_tap_list
 
   if brew_tap_list=$(brew tap); then
@@ -132,15 +130,15 @@ install_brew_taps() {
     brew_install -t homebrew/x11       -n 'Homebrew X11'
 
   fi
+
 }
 
 
-# Upgrade Hombrew Packages
-
 upgrade_brew_formulae() {
 
+  # Upgrade Hombrew Formulae
   if type brew &>/dev/null; then
-    echo -b 'Upgrading existing Homebrew packages …'
+    echo -b 'Upgrading existing Homebrew formulae …'
     brew update && brew upgrade
   fi
 
@@ -149,15 +147,13 @@ upgrade_brew_formulae() {
 }
 
 
-# Install Homebrew Packages
 
 install_brew_formulae() {
-  
+
   upgrade_brew_formulae
 
-  local brew_packages
-
-  if brew_packages=$(brew ls); then
+  # Install Homebrew Formulae
+  if local brew_packages=$(brew ls); then
 
     brew_install -p bash               -n 'Bourne-Again Shell'
     brew_install -p bash-completion    -n 'Bash Completion'
@@ -180,16 +176,14 @@ install_brew_formulae() {
     &>/dev/null
 
   fi
+
 }
 
 
-# Install Homebrew Cask
-
 fix_caskroom_permissions() {
 
-  local brew_packages
-
-  if brew_packages=$(brew ls); then
+  # Fix Caskroom Permissions
+  if local brew_packages=$(brew ls); then
 
     # Create Caskroom and set Permissions
     sudo mkdir -p /opt/homebrew-cask/Caskroom
@@ -204,19 +198,17 @@ fix_caskroom_permissions() {
     sudo chmod -R ug=rwx,o=rx /Library/LaunchAgents /Library/LaunchDaemons /Library/PreferencePanes /Library/QuickLook /Library/Screen\ Savers
 
   fi
+
 }
 
 
-# Install Homebrew Casks
-
 install_brew_cask_apps() {
-  
-  fix_caskroom_permissions  
 
-  local brew_casks
+  fix_caskroom_permissions
 
-  if brew_casks=$(brew cask ls); then
-    
+  # Install Homebrew Casks
+  if local brew_casks=$(brew cask ls); then
+
     brew uninstall --force brew-cask
 
     brew_install -c a-better-finder-rename
@@ -249,7 +241,7 @@ install_brew_cask_apps() {
     brew_install -c mou
     brew_install -c netspot
     brew_install -c prizmo
-    brew_install -c pycharm-edu
+    brew_install -c pycharm
     brew_install -c rcdefaultapp
     brew_install -c save-hollywood
     brew_install -c sigil
@@ -267,26 +259,26 @@ install_brew_cask_apps() {
 
     # Conversion Tools
 
-    converters_dir='/Applications/Converters.localized'
-    mkdir -p $converters_dir/.localized
-    echo '"Converters" = "Konvertierungswerkzeuge";' > $converters_dir/.localized/de.strings
-    echo '"Converters" = "Conversion Tools";' > $converters_dir/.localized/en.strings
-    brew_install -c handbrake  -d $converters_dir
-    brew_install -c makemkv    -d $converters_dir
-    brew_install -c mkvtools   -d $converters_dir
-    brew_install -c xld        -d $converters_dir
-    brew_install -c xnconvert  -d $converters_dir
-    brew_install -c image2icon -d $converters_dir
-    brew_install -c imageoptim -d $converters_dir
+    local converters_dir='/Applications/Converters.localized'
+    mkdir -p "${converters_dir}/.localized"
+    echo '"Converters" = "Konvertierungswerkzeuge";' > "${converters_dir}/.localized/de.strings"
+    echo '"Converters" = "Conversion Tools";' > "${converters_dir}/.localized/en.strings"
+    brew_install -c handbrake  -d "${converters_dir}"
+    brew_install -c makemkv    -d "${converters_dir}"
+    brew_install -c mkvtools   -d "${converters_dir}"
+    brew_install -c xld        -d "${converters_dir}"
+    brew_install -c xnconvert  -d "${converters_dir}"
+    brew_install -c image2icon -d "${converters_dir}"
+    brew_install -c imageoptim -d "${converters_dir}"
 
   fi
+
 }
 
 
-# Homebrew Cleanup
-
 brew_cleanup() {
 
+  # Homebrew Cleanup
   if type brew &>/dev/null; then
 
     echo -r 'Removing dead Homebrew symlinks …'
@@ -298,4 +290,22 @@ brew_cleanup() {
     rm -rfv "$(brew --cache)/*" | xargs printf "Removing: %s\n"
 
   fi
+
+  # Remove unneeded Caskroom files.
+  local caskroom=/opt/homebrew-cask/Caskroom
+
+  # Remove Adobe CC installers.
+  rm -rfv "${caskroom}"/adobe-*-cc*/latest/*/ | xargs -0 printf 'Removing: %s\n'
+
+  # Remove PKG installers.
+  find "${caskroom}" -iname '*.pkg' -print0 | xargs -0 rm -rfv | xargs -0 printf 'Removing: %s\n'
+
+  # Remove invisible files.
+  find -E "${caskroom}" -iregex \
+       '.*/(\.background|\.com\.apple\.timemachine\.supported|\.DS_Store|\.DocumentRevisions|\.fseventsd|\.VolumeIcon\.icns|\.TemporaryItems|\.Trash).*' \
+        -print0 | xargs -0 rm -rfv | xargs -0 printf 'Removing: %s\n'
+
+  # Remove empty directories, but leave “version” directories.
+  find "${caskroom}" -depth 3 -empty -print0 | xargs -0 rm -rfv | xargs -0 printf 'Removing: %s\n'
+
 }

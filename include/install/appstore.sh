@@ -49,6 +49,7 @@ install_xcode() {
 
 }
 
+
 check_if_xcode_is_installed() {
 
   if ps -p ${wait_for_xcode_pid} &>/dev/null; then

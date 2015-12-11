@@ -1,5 +1,9 @@
-#!/bin/sh
+defaults_dropbox() {
 
+  # Dropbox
+  add_login_item com.getdropbox.dropbox hidden
+
+}
 
 # Create Symlinks for Dropbox folders.
 

@@ -1,11 +1,6 @@
-#!/bin/sh
-
-
-# Mouse & Trackpad Defaults
-
 defaults_mouse_trackpad() {
 
-  echo -b 'Setting defaults for Mouse & Trackpad …'
+  # Mouse & Trackpad
 
   # Enable User Preferences
   defaults write com.apple.AppleMultitouchTrackpad                  UserPreferences -bool true
@@ -119,7 +114,6 @@ defaults_mouse_trackpad() {
   defaults -currentHost write NSGlobalDomain        com.apple.trackpad.fiveFingerPinchSwipeGesture -int  2
   defaults write com.apple.AppleMultitouchTrackpad                  TrackpadFiveFingerPinchGesture -int  2
   defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadFiveFingerPinchGesture -int  2
-
 
   killall cfprefsd &>/dev/null
 

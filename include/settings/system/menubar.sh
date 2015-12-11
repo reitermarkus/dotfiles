@@ -1,10 +1,6 @@
-#!/bin/sh
-
-
-# Menubar Defaults
-
 defaults_menubar() {
 
+  # Menubar
   echo -b 'Setting defaults for Menubar …'
 
   # Set Clock Format

@@ -1,10 +1,6 @@
-#!/bin/sh
-
-
-# Software Update
-
 defaults_softwareupdate() {
 
+  # Software Update
   echo -b 'Setting defaults for Software Update …'
 
   # Automatic Updates

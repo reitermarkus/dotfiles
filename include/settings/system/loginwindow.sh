@@ -1,10 +1,6 @@
-#!/bin/sh
-
-
-# Login Window Defaults
-
 defaults_loginwindow() {
 
+  # Login Window
   echo -b 'Setting defaults for Login Window …'
 
   # Disable Guest Account
@@ -63,8 +59,8 @@ defaults_loginwindow() {
 
 install_launchagent_logout_guest_on_idle() {
 
-  launchd_name='com.apple.LogoutGuestOnIdle'
-  launchd_plist="/Library/LaunchAgents/${launchd_name}.plist"
+  local launchd_name='com.apple.LogoutGuestOnIdle'
+  local launchd_plist="/Library/LaunchAgents/${launchd_name}.plist"
 
   sudo rm -f "${launchd_plist}"
 

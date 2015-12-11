@@ -1,10 +1,6 @@
-#!/bin/sh
+defaults_locate_db() {
 
-
-# Enable Locate DB
-
-enable_locate() {
-
+  # Locate Database
   if sudo launchctl list com.apple.locate &>/dev/null; then
     echo -g 'Locate DB already enabled.'
   else

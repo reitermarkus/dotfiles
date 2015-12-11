@@ -4,23 +4,13 @@
 # Check if app is installed.
 
 app_installed() {
-  apps_installed "${@}"
-}
 
+  if [ -d "$(mdfind -onlyin / "kMDItemCFBundleIdentifier==${@}" | head -1)" ]; then
+    return 0
+  else
+    return 1
+  fi
 
-# Check if apps are installed.
-
-apps_installed() {
-
-  local result=0
-
-  for bundle_id in ${@}; do
-    if [ ! -d "$(mdfind -onlyin / "kMDItemCFBundleIdentifier==${bundle_id}" | head -1)" ]; then
-      result=1
-    fi
-  done
-
-  return ${result}
 }
 
 
@@ -50,9 +40,11 @@ add_login_item() {
 
 add_app_to_tcc() {
 
-  for bundle_id in "${@}"; do
-    sudo sqlite3 '/Library/Application Support/com.apple.TCC/TCC.db' \
+  if app_installed "${1}"; then
+    for bundle_id in "${@}"; do
+      sudo sqlite3 '/Library/Application Support/com.apple.TCC/TCC.db' \
       "insert or replace into access values('kTCCServiceAccessibility','${bundle_id}',0,1,1,NULL,NULL);"
-  done
+    done
+  fi
 
 }

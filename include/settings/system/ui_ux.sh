@@ -1,10 +1,6 @@
-#!/bin/sh
-
-
-# User Interface & User Experience Defaults
-
 defaults_ui_ux() {
 
+  # User Interface & User Experience
   echo -b 'Setting defaults for User Interface …'
 
   # Enable Dark Mode

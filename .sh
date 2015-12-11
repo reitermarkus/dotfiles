@@ -19,7 +19,7 @@ caffeinate -dimu -w $$ &
 # Download Repository
 
 if [ "$(basename "${0}")" != '.sh' ]; then
-  eval "$(curl -s "https://raw.githubusercontent.com/reitermarkus/dotfiles/HEAD/include/0.0-echo.sh")"
+  eval "$(curl --silent --location "https://raw.githubusercontent.com/reitermarkus/dotfiles/HEAD/include/functions/echo.sh")"
   echo -b "Downloading Github Repository …"
 
   dotfiles_dir='/tmp/dotfiles-master'
@@ -37,13 +37,11 @@ fi
 
 # Load Functions
 
-for script in "${dotfiles_dir}/include/"*.sh; do
-  source "${script}"
-done
+eval $(find "${dotfiles_dir}/include" -iname '*.sh' -exec echo . '{};' \;)
 
 
 # Trap Ctrl-C
-trap 'echo -r "Aborting …"; exit 1' SIGINT
+trap 'echo -r "\nAborting …"; exit 1' SIGINT
 
 
 # Run Scripts
@@ -60,15 +58,8 @@ install_brew_formulae
 install_ruby_gems
 install_npm_packages
 
-install_bash_shell
-install_fish_shell
-
-enable_locate
-
 install_brew_cask_apps
 install_appstore_apps
-
-rearrange_dock
 
 dropbox_link_folders
 mackup_relink
@@ -77,7 +68,34 @@ run_local_scripts
 
 pids=()
 
-for defaults in startup locale loginwindow softwareupdate keyboard mouse_trackpad ui_ux dock_finder menubar terminal xcode safari third_party_apps; do
+for defaults in \
+  startup \
+  locale \
+  locate_db \
+  loginwindow \
+  softwareupdate \
+  keyboard \
+  mouse_trackpad \
+  ui_ux \
+  finder \
+  dock \
+  menubar \
+  bash \
+  bettersnaptool \
+  boom \
+  fish \
+  deliveries \
+  hazel \
+  keka \
+  launchbar \
+  parallels_desktop \
+  safari \
+  savehollywood \
+  terminal \
+  tower \
+  transmission \
+  xcode
+do
   defaults_${defaults} & pids+=(${!})
 done
 
