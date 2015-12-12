@@ -1,7 +1,7 @@
 defaults_bettersnaptool() {
 
   # BetterSnapTool
-  if app_installed com.hegenberg.BetterSnapTool; then
+  if is_app_installed com.hegenberg.BetterSnapTool; then
     add_app_to_tcc com.hegenberg.BetterSnapTool
     add_login_item com.hegenberg.BetterSnapTool hidden
 

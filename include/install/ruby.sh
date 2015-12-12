@@ -1,8 +1,3 @@
-#!/bin/sh
-
-
-# Install Ruby Gems
-
 gem_install() {
 
   local gem
@@ -30,16 +25,13 @@ gem_install() {
 
 install_ruby_gems() {
 
-  local ruby_gems
-
-  if ruby_gems=$(gem list | awk '{print $1}'); then
+  # Install Ruby Gems
+  if local ruby_gems=$(gem list | awk '{print $1}'); then
 
     echo -b 'Updating Ruby Gems …'
     gem update --system
 
-
     # Install Ruby Gems
-
     gem_install -g bundler -n Bundler
 
   fi

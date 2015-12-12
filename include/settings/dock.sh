@@ -137,6 +137,8 @@ set_dock_icons() {
     add_to_dock -p '/Applications/Adobe Photoshop CC 2015/Adobe Photoshop CC 2015.app'
     add_to_dock -p '/Applications/Adobe Illustrator CC 2015/Adobe Illustrator.app' -n 'Adobe Illustrator CC 2015'
 
+    killall Dock &>/dev/null
+
   fi
 
 }

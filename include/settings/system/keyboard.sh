@@ -9,7 +9,7 @@ defaults_keyboard() {
 
   # Use FunctionFlip to set F4 to open Notification Center.
 
-  if app_installed com.kevingessner.FunctionFlip; then
+  if is_app_installed com.kevingessner.FunctionFlip; then
     add_app_to_tcc 'com.kevingessner.FFHelperApp'
 
     defaults write com.kevingessner.FunctionFlip startAtLogin -bool true

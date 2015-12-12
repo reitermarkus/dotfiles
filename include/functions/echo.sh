@@ -1,10 +1,6 @@
-#!/bin/sh
-
-
-# Colored “echo”.
-
 echo() {
 
+  # Colored “echo”.
   local color=''
   local string=''
   local bold=false

@@ -1,8 +1,3 @@
-#!/bin/sh
-
-
-# Install Node Packages
-
 npm_install() {
 
   local package
@@ -30,13 +25,12 @@ npm_install() {
 
 install_npm_packages() {
 
-  local npm_packages
+  # Install Node Packages
+  if local npm_packages=$(npm -g list | awk '{print $NF}' | sed 's/@.*$//' | sed '1d;$d'); then
 
-  echo -b 'Updating Node packages …'
-  npm -g update
-  npm -g upgrade
-
-  if npm_packages=$(npm -g list | awk '{print $NF}' | sed 's/@.*$//' | sed '1d;$d'); then
+    echo -b 'Updating Node packages …'
+    npm -g update
+    npm -g upgrade
 
     # Install Node Packages
     brew-cask ls imageoptim &>/dev/null && npm_install -p imageoptim-cli

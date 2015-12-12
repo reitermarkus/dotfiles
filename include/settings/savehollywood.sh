@@ -1,7 +1,7 @@
 defaults_savehollywood() {
 
   # SaveHollywood Screensaver
-  if app_installed fr.whitebox.SaveHollywood && has_enough_space; then
+  if is_app_installed fr.whitebox.SaveHollywood && has_enough_space; then
     defaults -currentHost write com.apple.screensaver moduleDict -dict-add moduleName -string 'SaveHollywood'
     defaults -currentHost write com.apple.screensaver moduleDict -dict-add path       -string "$(mdfind -onlyin / kMDItemCFBundleIdentifier==fr.whitebox.SaveHollywood)"
     defaults -currentHost write com.apple.screensaver moduleDict -dict-add type       -int    0
