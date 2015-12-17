@@ -58,7 +58,7 @@ defaults_dock() {
 
 
   killall cfprefsd &>/dev/null
-  killall Dock &>/dev/null
+  killall -HUP Dock &>/dev/null
 
 }
 
@@ -119,25 +119,25 @@ set_dock_icons() {
 
     unset after
 
-    add_to_dock -p '/Applications/Launchpad.app'
-    add_to_dock -p '/Applications/Safari.app'
-    add_to_dock -p '/Applications/Mail.app'
-    add_to_dock -p '/Applications/Reeder.app'
-    add_to_dock -p '/Applications/Notes.app' -n 'Notizen'
-    add_to_dock -p '/Applications/Messages.app' -n 'Nachrichten'
-    add_to_dock -p '/Applications/iTunes.app'
-    add_to_dock -p '/Applications/Photos.app' -n 'Fotos'
-    add_to_dock -p '/Applications/iBooks.app'
-    add_to_dock -p '/Applications/Pages.app'
-    add_to_dock -p '/Applications/Numbers.app'
-    add_to_dock -p '/Applications/Xcode.app'
-    add_to_dock -p '/Applications/Terminal.app'
-    add_to_dock -p '/Applications/TextMate.app'
-    add_to_dock -p '/Applications/Tower.app'
-    add_to_dock -p '/Applications/Adobe Photoshop CC 2015/Adobe Photoshop CC 2015.app'
-    add_to_dock -p '/Applications/Adobe Illustrator CC 2015/Adobe Illustrator.app' -n 'Adobe Illustrator CC 2015'
+    add_to_dock                                -p '/Applications/Launchpad.app'
+    add_to_dock                                -p '/Applications/Safari.app'
+    add_to_dock                                -p '/Applications/Mail.app'
+    add_to_dock                                -p '/Applications/Reeder.app'
+    add_to_dock -n 'Notizen'                   -p '/Applications/Notes.app'
+    add_to_dock -n 'Nachrichten'               -p '/Applications/Messages.app'
+    add_to_dock                                -p '/Applications/iTunes.app'
+    add_to_dock -n 'Fotos'                     -p '/Applications/Photos.app'
+    add_to_dock                                -p '/Applications/iBooks.app'
+    add_to_dock                                -p '/Applications/Pages.app'
+    add_to_dock                                -p '/Applications/Numbers.app'
+    add_to_dock                                -p '/Applications/Xcode.app'
+    add_to_dock                                -p '/Applications/Utilities/Terminal.app'
+    add_to_dock                                -p '/Applications/TextMate.app'
+    add_to_dock                                -p '/Applications/Tower.app'
+    add_to_dock                                -p '/Applications/Adobe Photoshop CC 2015/Adobe Photoshop CC 2015.app'
+    add_to_dock -n 'Adobe Illustrator CC 2015' -p '/Applications/Adobe Illustrator CC 2015/Adobe Illustrator.app'
 
-    killall Dock &>/dev/null
+    killall -HUP Dock &>/dev/null
 
   fi
 
