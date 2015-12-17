@@ -66,8 +66,6 @@ mackup_relink
 
 run_local_scripts
 
-pids=()
-
 for defaults in \
   startup \
   locale \
@@ -96,11 +94,7 @@ for defaults in \
   transmission \
   xcode
 do
-  defaults_${defaults} & pids+=(${!})
-done
-
-for pid in ${pids[*]}; do
-  wait ${pid}
+  defaults_${defaults}
 done
 
 apply_defaults
