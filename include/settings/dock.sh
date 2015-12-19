@@ -130,14 +130,13 @@ set_dock_icons() {
     add_to_dock                                -p '/Applications/iBooks.app'
     add_to_dock                                -p '/Applications/Pages.app'
     add_to_dock                                -p '/Applications/Numbers.app'
+    add_to_dock                                -p '/Applications/Parallels Desktop.app'
     add_to_dock                                -p '/Applications/Xcode.app'
     add_to_dock                                -p '/Applications/Utilities/Terminal.app'
     add_to_dock                                -p '/Applications/TextMate.app'
     add_to_dock                                -p '/Applications/Tower.app'
     add_to_dock                                -p '/Applications/Adobe Photoshop CC 2015/Adobe Photoshop CC 2015.app'
     add_to_dock -n 'Adobe Illustrator CC 2015' -p '/Applications/Adobe Illustrator CC 2015/Adobe Illustrator.app'
-
-    killall -HUP Dock &>/dev/null
 
   fi
 
