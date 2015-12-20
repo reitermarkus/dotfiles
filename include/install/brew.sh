@@ -155,6 +155,7 @@ install_brew_formulae() {
   # Install Homebrew Formulae
   if local brew_packages=$(brew ls); then
 
+    is_desktop && brew_install -p apcupsd -n 'APCUPSD'
     brew_install -p bash               -n 'Bourne-Again Shell'
     brew_install -p bash-completion    -n 'Bash Completion'
     brew_install -p dockutil           -n 'Dock Util'
