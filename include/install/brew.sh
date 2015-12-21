@@ -245,6 +245,7 @@ install_brew_cask_apps() {
     brew_install -c pycharm
     brew_install -c rcdefaultapp
     brew_install -c save-hollywood
+    is_desktop && brew_install -c simple-sync
     brew_install -c sshfs
     brew_install -c sigil
     brew_install -c skype
