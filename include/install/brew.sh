@@ -119,8 +119,6 @@ install_brew_taps() {
 
   if brew_tap_list=$(brew tap); then
 
-    brew_install -t reitermarkus/tap   -n 'Personal Tap'
-
     brew_install -t caskroom/cask      -n 'Caskroom'
     brew_install -t caskroom/versions  -n 'Caskroom Versions'
 
@@ -128,6 +126,8 @@ install_brew_taps() {
     brew_install -t homebrew/head-only -n 'Homebrew HEAD-Only'
     brew_install -t homebrew/versions  -n 'Homebrew Versions'
     brew_install -t homebrew/x11       -n 'Homebrew X11'
+
+    brew_install -t reitermarkus/tap   -n 'Personal Tap'
 
   fi
 
