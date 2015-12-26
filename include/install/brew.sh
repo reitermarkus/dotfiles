@@ -228,6 +228,7 @@ install_brew_cask_apps() {
     brew_install -c fritzing
     brew_install -c functionflip
     brew_install -c hazel
+    brew_install -c hex-fiend
     brew_install -c iconvert -d /Applications/iTach
     brew_install -c ihelp    -d /Applications/iTach
     brew_install -c ilearn   -d /Applications/iTach
