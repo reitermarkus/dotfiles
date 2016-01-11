@@ -46,7 +46,7 @@ defaults_loginwindow() {
   if [ -f "${HOME}/Library/User Pictures/${USER}"* ]; then
     sudo cp -f "${HOME}/Library/User Pictures/${USER}"* "${USER_PICTURE}"
   else
-    sudo curl -o "${USER_PICTURE}" --silent --location "http://gravatar.com/avatar/$(md5 -s $(git config --global user.email) | awk '{print $NF}').png?s=256"
+    sudo curl -o "${USER_PICTURE}" --silent --location "http://gravatar.com/avatar/$(md5 -s "$(git config --global user.email)" | awk '{print $NF}').png?s=256"
   fi
 
   dscl . append "${HOME}" Picture "${USER_PICTURE}"
@@ -64,7 +64,7 @@ install_launchagent_logout_guest_on_idle() {
 
   sudo rm -f "${launchd_plist}"
 
-  sudo echo '''
+  echo '''
     <plist>
       <dict>
         <key>ProgramArguments</key>
@@ -80,7 +80,7 @@ install_launchagent_logout_guest_on_idle() {
         </array>
       </dict>
     </plist>
-  ''' > "${launchd_plist}"
+  ''' | sudo tee "${launchd_plist}" &>/dev/null
 
   sudo defaults write "${launchd_plist}" Label -string "${launchd_name}"
   sudo defaults write "${launchd_plist}" RunAtLoad -bool true

@@ -16,12 +16,6 @@ cleanup() {
     '.*(Chinese|Dutch|French|française|Hindi|Japanese|Daijirin|Korean|Norwegian|Portuguese|Russian|Spanish|Española|Swedish|Thai|Turkish).*' \
     -print0 | xargs -0 sudo rm -rf | xargs -0 printf 'Removing: %s\n'
 
-  # Relocate Microsoft folder.
-  if [ -d ~/Documents/Microsoft*/ ]; then
-    echo -b 'Moving Microsoft folder to Library …'
-    mv ~/Documents/Microsoft*/ ~/Library/Preferences/
-  fi
-
-  if remove_dotfiles_dir &>/dev/null; then remove_dotfiles_dir; fi
+  if type remove_dotfiles_dir &>/dev/null; then remove_dotfiles_dir; fi
 
 }

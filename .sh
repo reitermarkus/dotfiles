@@ -8,7 +8,7 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 
 # Disable Ctrl-Z
-trap '' SIGTSTP
+trap '' TSTP
 
 
 # Prevent System Sleep
@@ -31,17 +31,17 @@ if [ "$(basename "${0}")" != '.sh' ]; then
     rm -rf "${dotfiles_dir}"
   }
 else
-  dotfiles_dir=$(cd "$(dirname "$0")"; pwd)
+  dotfiles_dir=$(cd "$(dirname "$0")" || exit; pwd)
 fi
 
 
 # Load Functions
 
-eval $(find "${dotfiles_dir}/include" -iname '*.sh' -exec echo . '{};' \;)
+eval "$(find "${dotfiles_dir}/include" -iname '*.sh' -exec echo . '{};' \;)"
 
 
 # Trap Ctrl-C
-trap 'echo -r "\nAborting …"; exit 1' SIGINT
+trap 'echo -r "\nAborting …"; exit 1' INT
 
 
 # Run Scripts

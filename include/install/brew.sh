@@ -50,7 +50,7 @@ brew_install() {
       IFS=$OIFS
     fi
 
-    if array_contains_exactly "${brew_casks}" "$(basename ${cask})"; then
+    if array_contains_exactly "${brew_casks}" "$(basename "${cask}")"; then
       echo -g "${name} is already installed."
     else
       echo -b "Installing ${name} …"
@@ -68,7 +68,7 @@ brew_install() {
 
         local apps=($(brew cask _stanza app "${cask}" | sed 's/", "/\;/g' | tr -d '["]'))
 
-        if [ -z "${apps}" ]; then
+        if [ -z "${apps[@]}" ]; then
           apps="${name}"
         fi
 
@@ -90,7 +90,7 @@ brew_install() {
   elif [ -n "${package}" ]; then
 
     [ -z "${name}" ] && name=${package}
-    if array_contains_exactly "${brew_packages}" "$(basename ${package})"; then
+    if array_contains_exactly "${brew_packages}" "$(basename "${package}")"; then
       echo -g "${name} is already installed."
     else
       echo -b "Installing ${name} …"
@@ -291,7 +291,11 @@ brew_cleanup() {
     echo -r 'Emptying Homebrew cache …'
     brew cleanup --force
     brew cask cleanup
-    rm -rfv "$(brew --cache)/*" | xargs printf "Removing: %s\n"
+
+    if brew_cache="$(brew --cache)"; then
+      # :? makes sure that this doesn't expand to /* and delete the entire system
+      rm -rfv "${brew_cache:?}/"* | xargs printf "Removing: %s\n"
+    fi
 
   fi
 

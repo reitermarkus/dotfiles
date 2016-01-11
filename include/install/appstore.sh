@@ -1,7 +1,7 @@
 appstore() {
 
   # Install Apps from the Mac App Store
-  python "${dotfiles_dir}/scripts/appstore.py" ${@}
+  python "${dotfiles_dir}/scripts/appstore.py" "${@}"
 
 }
 
@@ -30,7 +30,7 @@ install_appstore_apps() {
     892115848 # yRegex
   )
 
-  appstore install "${apps[*]}"
+  appstore install "${apps[@]}"
 
 }
 
