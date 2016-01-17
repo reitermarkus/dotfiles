@@ -245,6 +245,8 @@ install_brew_cask_apps() {
     brew_install -c netspot
     brew_install -c prizmo
     brew_install -c pycharm
+    brew_install -c qlmarkdown
+    brew_install -c qlstephen
     brew_install -c rcdefaultapp
     brew_install -c save-hollywood
     is_desktop && brew_install -c simple-sync
