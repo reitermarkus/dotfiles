@@ -75,6 +75,7 @@ for defaults in \
   keyboard \
   mouse_trackpad \
   ui_ux \
+  crash_reporter \
   finder \
   dock \
   menubar \
