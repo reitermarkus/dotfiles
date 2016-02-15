@@ -87,7 +87,6 @@ for defaults in \
   hazel \
   keka \
   launchbar \
-  parallels_desktop \
   safari \
   savehollywood \
   terminal \
