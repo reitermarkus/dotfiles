@@ -249,10 +249,12 @@ install_brew_cask_apps() {
     brew_install -c qlstephen
     brew_install -c rcdefaultapp
     brew_install -c save-hollywood
-    is_desktop && brew_install -c simple-sync
-    brew_install -c sshfs
+    brew_install -c sequel-pro
     brew_install -c sigil
+    is_desktop && brew_install -c simple-sync
     brew_install -c skype
+    brew_install -c sqlitebrowser
+    brew_install -c sshfs
     brew_install -c svgcleaner
     brew_install -c textmate
     brew_install -c texshop
