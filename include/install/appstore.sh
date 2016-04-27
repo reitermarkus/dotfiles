@@ -27,6 +27,7 @@ install_appstore_apps() {
     419891002 # RapidClick
     954196690 # RegexToolbox
     443370764 # Repeater
+    747648890 # Telegram
     892115848 # yRegex
   )
 
