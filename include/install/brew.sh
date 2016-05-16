@@ -264,6 +264,7 @@ install_brew_cask_apps() {
     brew_install -c tower
     brew_install -c unicodechecker
     brew_install -c vlc-nightly
+    brew_install -c whatsapp
     brew_install -c wineskin-winery
     brew_install -c xquartz
 
