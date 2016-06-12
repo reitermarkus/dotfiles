@@ -4,7 +4,7 @@ defaults_bash() {
   local bash_bin="$(which bash)"
 
   # If “bash” isn't in shells file, add it.
-  if ! grep --quiet "${bash_bin}" /etc/shells; then
+  if ! /usr/bin/grep --quiet "${bash_bin}" /etc/shells; then
     echo "${bash_bin}" | sudo tee -a /etc/shells &>/dev/null
   fi
 
@@ -12,13 +12,13 @@ defaults_bash() {
   local bashrc="${HOME}/.bashrc"
   local profile="${HOME}/.profile"
 
-  touch "${bash_profile}" "${bashrc}" "${profile}"
+  /usr/bin/touch "${bash_profile}" "${bashrc}" "${profile}"
 
   add_to_config() {
     local config="${1}"
     local line="${2}"
 
-    if ! grep --quiet "${line}" "${config}"; then
+    if ! /usr/bin/grep --quiet "${line}" "${config}"; then
       echo "${line}" >> "${config}"
     fi
   }

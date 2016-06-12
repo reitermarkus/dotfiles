@@ -13,7 +13,7 @@ trap '' TSTP
 
 # Prevent System Sleep
 
-caffeinate -dimu -w $$ &
+/usr/bin/caffeinate -dimu -w $$ &
 
 
 # Download Repository
@@ -23,25 +23,25 @@ if [ "$(basename "${0}")" != '.sh' ]; then
   echo -b "Downloading Github Repository …"
 
   dotfiles_dir='/tmp/dotfiles-master'
-  rm -rf "${dotfiles_dir}"
-  curl --progress-bar --location 'https://github.com/reitermarkus/dotfiles/archive/master.zip' | ditto -xk - '/tmp'
+  /bin/rm -rf "${dotfiles_dir}"
+  /usr/bin/curl --progress-bar --location 'https://github.com/reitermarkus/dotfiles/archive/master.zip' | ditto -xk - '/tmp'
 
   remove_dotfiles_dir() {
     echo -r 'Removing Dotfiles directory …'
-    rm -rf "${dotfiles_dir}"
+    /bin/rm -rf "${dotfiles_dir}"
   }
 else
-  dotfiles_dir=$(cd "$(dirname "$0")" || exit; pwd)
+  dotfiles_dir=$(cd "$(/usr/bin/dirname "$0")" || exit; pwd)
 fi
 
 
 # Load Functions
 
-eval "$(find "${dotfiles_dir}/include" -iname '*.sh' -exec echo . '{};' \;)"
+eval "$(/usr/bin/find "${dotfiles_dir}/include" -iname '*.sh' -exec echo . '{};' \;)"
 
 
 # Trap Ctrl-C
-trap 'echo -r "\nAborting …"; exit 1' INT
+trap 'trap "" INT; echo -r "\nAborting …"; cleanup; exit 1' INT
 
 
 # Run Scripts

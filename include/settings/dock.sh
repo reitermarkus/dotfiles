@@ -4,13 +4,13 @@ defaults_dock() {
   echo -b 'Setting defaults for Dock …'
 
   # Minimize Windows behind Dock Icon
-  defaults write com.apple.dock minimize-to-application -bool  true
+  /usr/bin/defaults write com.apple.dock minimize-to-application -bool  true
 
   # Automatically hide Dock
-  defaults write com.apple.dock autohide -bool true
+  /usr/bin/defaults write com.apple.dock autohide -bool true
 
   # Translucent Icons of hidden Applications
-  defaults write com.apple.dock showhidden -bool true
+  /usr/bin/defaults write com.apple.dock showhidden -bool true
 
   # Rearrange Dock Icons
   set_dock_icons
@@ -19,46 +19,46 @@ defaults_dock() {
   # Mission Control
 
   # Disable Dashboard
-  defaults write com.apple.dashboard enabled-state -int 1
+  /usr/bin/defaults write com.apple.dashboard enabled-state -int 1
 
   # Increase Mission Control Animation Speed
-  defaults write com.apple.dock expose-animation-duration -float 0.125
-  defaults write com.apple.dock expose-group-apps         -bool  true
+  /usr/bin/defaults write com.apple.dock expose-animation-duration -float 0.125
+  /usr/bin/defaults write com.apple.dock expose-group-apps         -bool  true
 
 
   # Desktop
 
   desktop_pictures_dir="${HOME}/Library/Desktop Pictures"
-  defaults write com.apple.systempreferences DSKDesktopPrefPane """
+  /usr/bin/defaults write com.apple.systempreferences DSKDesktopPrefPane """
     {
       UserFolderPaths = (
         '${desktop_pictures_dir}',
       );
     }
   """
-  sqlite3 "${HOME}/Library/Application Support/Dock/desktoppicture.db" "update data set value = '${desktop_pictures_dir}/current'"
+  /usr/bin/sqlite3 "${HOME}/Library/Application Support/Dock/desktoppicture.db" "update data set value = '${desktop_pictures_dir}/current'"
 
 
   # Screensaver
 
   # Password after Screensaver
-  defaults write com.apple.screensaver askForPassword -bool true
+  /usr/bin/defaults write com.apple.screensaver askForPassword -bool true
 
   # Set Screensaver and Password Delay
   if is_laptop; then
-    defaults -currentHost write com.apple.screensaver idleTime -int 120
-    defaults write com.apple.screensaver askForPasswordDelay   -int 60
+    /usr/bin/defaults -currentHost write com.apple.screensaver idleTime -int 120
+    /usr/bin/defaults write com.apple.screensaver askForPasswordDelay   -int 60
   else
-    defaults -currentHost write com.apple.screensaver idleTime -int 300
-    defaults write com.apple.screensaver askForPasswordDelay   -int 300
+    /usr/bin/defaults -currentHost write com.apple.screensaver idleTime -int 300
+    /usr/bin/defaults write com.apple.screensaver askForPasswordDelay   -int 300
   fi
 
   # Don't show Clock on Screensaver
-  defaults -currentHost write com.apple.screensaver showClock -bool false
+  /usr/bin/defaults -currentHost write com.apple.screensaver showClock -bool false
 
 
-  killall cfprefsd &>/dev/null
-  killall -HUP Dock &>/dev/null
+  /usr/bin/killall cfprefsd &>/dev/null
+  /usr/bin/killall -HUP Dock &>/dev/null
 
 }
 
@@ -83,7 +83,7 @@ set_dock_icons() {
       shift $((OPTIND-1))
 
       if [ "${name}" == "" ]; then
-        name="$(basename "${path%.*}")"
+        name="$(/usr/bin/basename "${path%.*}")"
       fi
 
       if [ -z "${after}" ]; then

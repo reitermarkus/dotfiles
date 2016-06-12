@@ -26,7 +26,7 @@ gem_install() {
 install_ruby_gems() {
 
   # Install Ruby Gems
-  if local ruby_gems=$(gem list | awk '{print $1}'); then
+  if local ruby_gems=$(gem list | /usr/bin/awk '{print $1}'); then
 
     echo -b 'Updating Ruby Gems …'
     gem update --system

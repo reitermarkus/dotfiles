@@ -9,9 +9,9 @@ add_login_item() {
   fi
 
   if is_app_installed "${bundle_id}"; then
-    osascript \
+    /usr/bin/osascript \
       -e 'tell application "System Events"' \
-      -e "make login item with properties {path:\"$(mdfind -onlyin / kMDItemCFBundleIdentifier=="${bundle_id}")\", hidden:${hidden}}" \
+      -e "make login item with properties {path:\"$(/usr/bin/mdfind -onlyin / kMDItemCFBundleIdentifier=="${bundle_id}")\", hidden:${hidden}}" \
       -e 'end tell' \
       -e 'return'
   fi

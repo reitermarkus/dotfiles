@@ -7,16 +7,16 @@ defaults_terminal() {
 
   echo -b 'Setting defaults for Terminal …'
 
-  defaults write com.apple.Terminal 'HasMigratedDefaults'       -bool true
-  defaults write com.apple.Terminal 'SecureKeyboardEntry'       -bool true
-  defaults write com.apple.Terminal 'Shell'                   -string ''
-  defaults write com.apple.Terminal 'CopyAttributesProfile'   -string ''
+  /usr/bin/defaults write com.apple.Terminal 'HasMigratedDefaults'       -bool true
+  /usr/bin/defaults write com.apple.Terminal 'SecureKeyboardEntry'       -bool true
+  /usr/bin/defaults write com.apple.Terminal 'Shell'                   -string ''
+  /usr/bin/defaults write com.apple.Terminal 'CopyAttributesProfile'   -string ''
 
   # Theme
-  defaults write com.apple.Terminal 'Default Window Settings' -string 'Solarized Light'
-  defaults write com.apple.Terminal 'Startup Window Settings' -string 'Solarized Light'
-  defaults write com.apple.Terminal 'Window Settings'       -dict-add 'Solarized Light' '''
-    { name                        =                                   "Solarized Light";
+  /usr/bin/defaults write com.apple.Terminal 'Default Window Settings' -string 'Solarized Light'
+  /usr/bin/defaults write com.apple.Terminal 'Startup Window Settings' -string 'Solarized Light'
+  /usr/bin/defaults write com.apple.Terminal 'Window Settings'       -dict-add 'Solarized Light' '''
+    { name                        =                                            "Solarized Light";
       TerminalType                = "xterm-256color";
       CommandString               = "";
 
@@ -97,6 +97,6 @@ defaults_terminal() {
     /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.Terminal.plist -c "Add :'Window Settings:Solarized Light':${cmd}"
   done
 
-  killall cfprefsd &>/dev/null
+  /usr/bin/killall cfprefsd &>/dev/null
 
 }

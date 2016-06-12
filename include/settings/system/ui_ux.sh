@@ -4,21 +4,21 @@ defaults_ui_ux() {
   echo -b 'Setting defaults for User Interface …'
 
   # Enable Dark Mode
-  defaults write NSGlobalDomain AppleInterfaceStyle -string Dark
+  /usr/bin/defaults write NSGlobalDomain AppleInterfaceStyle -string Dark
 
   # Expand Save Panel by Default
-  defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode  -bool true
-  defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
-  defaults write NSGlobalDomain PMPrintingExpandedStateForPrint     -bool true
-  defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2    -bool true
+  /usr/bin/defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode  -bool true
+  /usr/bin/defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
+  /usr/bin/defaults write NSGlobalDomain PMPrintingExpandedStateForPrint     -bool true
+  /usr/bin/defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2    -bool true
 
   # Keep Open Windows on Quit
-  defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool true
+  /usr/bin/defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool true
 
   # Disable Font Smoothing
-  defaults write NSGlobalDomain AppleFontSmoothing -int 0
+  /usr/bin/defaults write NSGlobalDomain AppleFontSmoothing -int 0
 
   # Enable Help Viewer Non-Floating Mode
-  defaults write com.apple.helpviewer DevMode -bool true
+  /usr/bin/defaults write com.apple.helpviewer DevMode -bool true
 
 }

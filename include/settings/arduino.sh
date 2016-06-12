@@ -5,7 +5,7 @@ defaults_arduino() {
   arduino_sketchbook_dir="${HOME}/Documents/Arduino"
 
   echo "sketchbook.path=${arduino_sketchbook_dir}" >> "${arduino_preferences}"
-  mkdir -p "${arduino_sketchbook_dir}"
+  /bin/mkdir  -p "${arduino_sketchbook_dir}"
 
   echo "editor.languages.current=de_DE" >> "${arduino_preferences}"
   echo "editor.linenumbers=true"        >> "${arduino_preferences}"
@@ -22,11 +22,11 @@ add_boardmanager_url() {
 
   new_url="${1}"
 
-  touch "${preferences}"
+  /usr/bin/touch "${preferences}"
 
-  if ! grep "${new_url}" "${preferences}"; then
+  if ! /usr/bin/grep "${new_url}" "${preferences}"; then
 
-    current_urls="$(grep "${boardmanager_urls_var}" "${preferences}" | sed -E "s|${boardmanager_urls_var}=(.*)|\1|")"
+    current_urls="$(/usr/bin/grep "${boardmanager_urls_var}" "${preferences}" | /usr/bin/sed -E "s|${boardmanager_urls_var}=(.*)|\1|")"
 
     if [ "${current_urls}" != '' ]; then
       current_urls="${current_urls},"

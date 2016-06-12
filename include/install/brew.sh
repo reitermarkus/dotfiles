@@ -1,13 +1,13 @@
 install_brew() {
 
   # Install Homebrew
-  sudo chown "${USER}" /usr/local/
+  sudo /usr/sbin/chown "${USER}" /usr/local/
 
   if type brew &>/dev/null; then
     echo -g 'Homebrew is already installed.'
   else
     echo -b 'Installing Homebrew …'
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   fi
 
 }
@@ -44,18 +44,18 @@ brew_install() {
     if [ -z "${name}" ]; then
       OIFS=$IFS
       IFS=';'
-      for caskname in $(brew cask _stanza name "${cask}" | sed 's/", "/\;/g' | tr -d '["]'); do
+      for caskname in $(brew cask _stanza name "${cask}" | /usr/bin/sed 's/", "/\;/g' | tr -d '["]'); do
         name="${caskname}"
       done
       IFS=$OIFS
     fi
 
-    if array_contains_exactly "${brew_casks}" "$(basename "${cask}")"; then
+    if array_contains_exactly "${brew_casks}" "$(/usr/bin/basename "${cask}")"; then
       echo -g "${name} is already installed."
     else
       echo -b "Installing ${name} …"
 
-      mkdir -p "${appdir}"
+      /bin/mkdir  -p "${appdir}"
       brew cask uninstall "${cask}" --force &>/dev/null
       brew cask install "${cask}" --force \
         --appdir="${appdir}" \
@@ -66,7 +66,7 @@ brew_install() {
       if [ "${open}" == true ]; then
         IFS=';'
 
-        local apps=($(brew cask _stanza app "${cask}" | sed 's/", "/\;/g' | tr -d '["]'))
+        local apps=($(brew cask _stanza app "${cask}" | /usr/bin/sed 's/", "/\;/g' | tr -d '["]'))
 
         if [ -z "${apps[@]}" ]; then
           apps="${name}"
@@ -76,9 +76,9 @@ brew_install() {
           echo -b "Opening ${app} …"
           local timeout=15
           let timeout*=10
-          until open -jga "$(sed 's/\.app\$//' <<< "${app}")" &>/dev/null || [ "${timeout}" -lt 0 ]; do
+          until /usr/bin/open -jga "$(/usr/bin/sed 's/\.app\$//' <<< "${app}")" &>/dev/null || [ "${timeout}" -lt 0 ]; do
             let timeout--
-            sleep 0.1
+            /bin/sleep 0.1
           done &
         done
 
@@ -90,7 +90,7 @@ brew_install() {
   elif [ -n "${package}" ]; then
 
     [ -z "${name}" ] && name=${package}
-    if array_contains_exactly "${brew_packages}" "$(basename "${package}")"; then
+    if array_contains_exactly "${brew_packages}" "$(/usr/bin/basename "${package}")"; then
       echo -g "${name} is already installed."
     else
       echo -b "Installing ${name} …"
@@ -189,16 +189,16 @@ fix_caskroom_permissions() {
   if local brew_packages=$(brew ls); then
 
     # Create Caskroom and set Permissions
-    sudo mkdir -p /opt/homebrew-cask/Caskroom
-    sudo chown root:wheel /opt
-    sudo chmod -R u=rwx,go=rx /opt
-    sudo chown -R root:admin  /opt/homebrew-cask
-    sudo chmod -R ug=rwx,o=rx /opt/homebrew-cask
+    sudo /bin/mkdir  -p /opt/homebrew-cask/Caskroom
+    sudo /usr/sbin/chown root:wheel /opt
+    sudo /bin/chmod -R u=rwx,go=rx /opt
+    sudo /usr/sbin/chown -R root:admin  /opt/homebrew-cask
+    sudo /bin/chmod -R ug=rwx,o=rx /opt/homebrew-cask
     sudo chflags hidden /opt
 
     # Set Permissions for Library folders.
-    sudo chown -R root:admin  /Library/LaunchAgents /Library/LaunchDaemons /Library/PreferencePanes /Library/QuickLook /Library/Screen\ Savers
-    sudo chmod -R ug=rwx,o=rx /Library/LaunchAgents /Library/LaunchDaemons /Library/PreferencePanes /Library/QuickLook /Library/Screen\ Savers
+    sudo /usr/sbin/chown -R root:admin  /Library/LaunchAgents /Library/LaunchDaemons /Library/PreferencePanes /Library/QuickLook /Library/Screen\ Savers
+    sudo /bin/chmod -R ug=rwx,o=rx /Library/LaunchAgents /Library/LaunchDaemons /Library/PreferencePanes /Library/QuickLook /Library/Screen\ Savers
 
   fi
 
@@ -253,7 +253,7 @@ install_brew_cask_apps() {
     brew_install -c save-hollywood
     brew_install -c sequel-pro
     brew_install -c sigil
-    is_desktop && brew_install -c simple-sync
+    is_desktop && brew_install -c simple-hub
     brew_install -c skype
     brew_install -c sqlitebrowser
     brew_install -c sshfs
@@ -272,7 +272,7 @@ install_brew_cask_apps() {
     # Conversion Tools
 
     local converters_dir='/Applications/Converters.localized'
-    mkdir -p "${converters_dir}/.localized"
+    /bin/mkdir  -p "${converters_dir}/.localized"
     echo '"Converters" = "Konvertierungswerkzeuge";' > "${converters_dir}/.localized/de.strings"
     echo '"Converters" = "Conversion Tools";' > "${converters_dir}/.localized/en.strings"
     brew_install -c handbrake  -d "${converters_dir}"
@@ -302,7 +302,7 @@ brew_cleanup() {
 
     if brew_cache="$(brew --cache)"; then
       # :? makes sure that this doesn't expand to /* and delete the entire system
-      rm -rfv "${brew_cache:?}/"* | xargs printf "Removing: %s\n"
+      /bin/rm -rfv "${brew_cache:?}/"* | /usr/bin/xargs printf "Removing: %s\n"
     fi
 
   fi
@@ -311,17 +311,17 @@ brew_cleanup() {
   local caskroom=/opt/homebrew-cask/Caskroom
 
   # Remove Adobe CC installers.
-  rm -rfv "${caskroom}"/adobe-*-cc*/latest/*/ | xargs -0 printf 'Removing: %s\n'
+  /bin/rm -rfv "${caskroom}"/adobe-*-cc*/latest/*/ | /usr/bin/xargs -0 printf 'Removing: %s\n'
 
   # Remove PKG installers.
-  find "${caskroom}" -iname '*.pkg' -print0 | xargs -0 rm -rfv | xargs -0 printf 'Removing: %s\n'
+  /usr/bin/find "${caskroom}" -iname '*.pkg' -print0 | /usr/bin/xargs -0 /bin/rm -rfv | /usr/bin/xargs -0 printf 'Removing: %s\n'
 
   # Remove invisible files.
-  find -E "${caskroom}" -iregex \
+  /usr/bin/find -E "${caskroom}" -iregex \
        '.*/(\.background|\.com\.apple\.timemachine\.supported|\.DS_Store|\.DocumentRevisions|\.fseventsd|\.VolumeIcon\.icns|\.TemporaryItems|\.Trash).*' \
-        -print0 | xargs -0 rm -rfv | xargs -0 printf 'Removing: %s\n'
+        -print0 | /usr/bin/xargs -0 /bin/rm -rfv | /usr/bin/xargs -0 printf 'Removing: %s\n'
 
   # Remove empty directories, but leave “version” directories.
-  find "${caskroom}" -depth 3 -empty -print0 | xargs -0 rm -rfv | xargs -0 printf 'Removing: %s\n'
+  /usr/bin/find "${caskroom}" -depth 3 -empty -print0 | /usr/bin/xargs -0 /bin/rm -rfv | /usr/bin/xargs -0 printf 'Removing: %s\n'
 
 }

@@ -2,7 +2,7 @@ array_contains() {
   local array="${1}"
   shift
 
-  printf '%s\0' "${array[@]}" | grep --quiet "${*}" && return 0
+  printf '%s\0' "${array[@]}" | /usr/bin/grep --quiet "${*}" && return 0
   return 1
 }
 

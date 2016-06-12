@@ -31,7 +31,6 @@ echo() {
     string="${color}${string}$(tput sgr0)"
   fi
 
-
   builtin echo "${string}"
 
 }

@@ -6,10 +6,10 @@ defaults_finder() {
   chflags nohidden "${HOME}/Library"
 
   # Show Drives and Servers on Desktop
-  defaults write com.apple.finder ShowHardDrivesOnDesktop         -bool true
-  defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
-  defaults write com.apple.finder ShowRemovableMediaOnDesktop     -bool true
-  defaults write com.apple.finder ShowMountedServersOnDesktop     -bool true
+  /usr/bin/defaults write com.apple.finder ShowHardDrivesOnDesktop         -bool true
+  /usr/bin/defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
+  /usr/bin/defaults write com.apple.finder ShowRemovableMediaOnDesktop     -bool true
+  /usr/bin/defaults write com.apple.finder ShowMountedServersOnDesktop     -bool true
 
   # Desktop View Settings
   /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.finder.plist \
@@ -27,67 +27,67 @@ defaults_finder() {
     -c 'Set :DesktopViewSettings:IconViewSettings:showItemInfo         true' \
     -c 'Set :DesktopViewSettings:IconViewSettings:textSize             12' \
     -c 'Set :DesktopViewSettings:IconViewSettings:viewOptionsVersion   1' \
-  ; killall cfprefsd &>/dev/null
+  ; /usr/bin/killall cfprefsd &>/dev/null
 
   # Info Viewer Fields
-  defaults write com.apple.finder FXInfoPanesExpanded -dict-add General    -bool true
-  defaults write com.apple.finder FXInfoPanesExpanded -dict-add MetaData   -bool false
-  defaults write com.apple.finder FXInfoPanesExpanded -dict-add Name       -bool true
-  defaults write com.apple.finder FXInfoPanesExpanded -dict-add OpenWith   -bool true
-  defaults write com.apple.finder FXInfoPanesExpanded -dict-add Comments   -bool false
-  defaults write com.apple.finder FXInfoPanesExpanded -dict-add Preview    -bool false
-  defaults write com.apple.finder FXInfoPanesExpanded -dict-add Privileges -bool true
+  /usr/bin/defaults write com.apple.finder FXInfoPanesExpanded -dict-add General    -bool true
+  /usr/bin/defaults write com.apple.finder FXInfoPanesExpanded -dict-add MetaData   -bool false
+  /usr/bin/defaults write com.apple.finder FXInfoPanesExpanded -dict-add Name       -bool true
+  /usr/bin/defaults write com.apple.finder FXInfoPanesExpanded -dict-add OpenWith   -bool true
+  /usr/bin/defaults write com.apple.finder FXInfoPanesExpanded -dict-add Comments   -bool false
+  /usr/bin/defaults write com.apple.finder FXInfoPanesExpanded -dict-add Preview    -bool false
+  /usr/bin/defaults write com.apple.finder FXInfoPanesExpanded -dict-add Privileges -bool true
 
   # Show Finder Sidebar
-  defaults write com.apple.finder ShowSidebar       -bool true
-  defaults write com.apple.finder ShowStatusBar     -bool true
-  defaults write com.apple.finder ShowPreviewPane   -bool true
+  /usr/bin/defaults write com.apple.finder ShowSidebar       -bool true
+  /usr/bin/defaults write com.apple.finder ShowStatusBar     -bool true
+  /usr/bin/defaults write com.apple.finder ShowPreviewPane   -bool true
 
   # Show Drives and Servers in Sidebar
-  defaults write com.apple.sidebarlists systemitems -dict-add ShowEjectables -bool true
-  defaults write com.apple.sidebarlists systemitems -dict-add ShowHardDisks  -bool true
-  defaults write com.apple.sidebarlists systemitems -dict-add ShowRemovable  -bool true
-  defaults write com.apple.sidebarlists systemitems -dict-add ShowServers    -bool true
+  /usr/bin/defaults write com.apple.sidebarlists systemitems -dict-add ShowEjectables -bool true
+  /usr/bin/defaults write com.apple.sidebarlists systemitems -dict-add ShowHardDisks  -bool true
+  /usr/bin/defaults write com.apple.sidebarlists systemitems -dict-add ShowRemovable  -bool true
+  /usr/bin/defaults write com.apple.sidebarlists systemitems -dict-add ShowServers    -bool true
 
   # Show Network Devices in Sidebar
-  defaults write com.apple.sidebarlists networkbrowser -dict-add CustomListProperties '''
+  /usr/bin/defaults write com.apple.sidebarlists networkbrowser -dict-add CustomListProperties '''
     <dict>
       <key>backToMyMacEnabled</key><true/>
       <key>bonjourEnabled</key><true/>
       <key>connectedEnabled</key><true/>
     </dict>
-  '''; killall cfprefsd &>/dev/null
+  '''; /usr/bin/killall cfprefsd &>/dev/null
 
   # Disable Warning when changing a Extension
-  defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+  /usr/bin/defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
 
   # Disable Warning when emptying Trash
-  defaults write com.apple.finder WarnOnEmptyTrash -bool false
+  /usr/bin/defaults write com.apple.finder WarnOnEmptyTrash -bool false
 
   # Search Current Folder by Defaults
-  defaults write com.apple.finder FXDefaultSearchScope 'SCcf'
+  /usr/bin/defaults write com.apple.finder FXDefaultSearchScope 'SCcf'
 
   # Use column view in all Finder windows by default.
-  defaults write com.apple.finder FXPreferredViewStyle -string 'clmv'
+  /usr/bin/defaults write com.apple.finder FXPreferredViewStyle -string 'clmv'
 
   # Open new Finder windows with User folder.
-  defaults write com.apple.finder NewWindowTarget -string 'PfHm'
+  /usr/bin/defaults write com.apple.finder NewWindowTarget -string 'PfHm'
 
   # Disable the “Are you sure you want to open this application?” Dialog
-  defaults write com.apple.LaunchServices LSQuarantine -bool false
+  /usr/bin/defaults write com.apple.LaunchServices LSQuarantine -bool false
 
   # Disable Gatekeeper
   sudo spctl --master-disable
 
   # Enable spring-loading directories and decrease default delay.
-  defaults write NSGlobalDomain com.apple.springing.enabled -bool  true
-  defaults write NSGlobalDomain com.apple.springing.delay   -float 0.2
+  /usr/bin/defaults write NSGlobalDomain com.apple.springing.enabled -bool  true
+  /usr/bin/defaults write NSGlobalDomain com.apple.springing.delay   -float 0.2
 
   # Disable Disk Image Verification
-  defaults write com.apple.frameworks.diskimages skip-verify        -bool true
-  defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true
-  defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
+  /usr/bin/defaults write com.apple.frameworks.diskimages skip-verify        -bool true
+  /usr/bin/defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true
+  /usr/bin/defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
 
-  killall cfprefsd &>/dev/null
+  /usr/bin/killall cfprefsd &>/dev/null
 
 }

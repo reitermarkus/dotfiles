@@ -1,6 +1,6 @@
 apply_defaults() {
 
-  killall cfprefsd &>/dev/null
-  sudo chown -R "${USER}:staff" ~/Library/Preferences
+  /usr/bin/killall cfprefsd &>/dev/null
+  sudo /usr/sbin/chown -R "${USER}:staff" ~/Library/Preferences
 
 }

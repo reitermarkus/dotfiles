@@ -1,5 +1,5 @@
 is_laptop() {
-  ioreg -c IOPlatformExpertDevice -r -d 1 | grep '"model"' | grep --quiet 'Book'
+  /usr/sbin/ioreg -c IOPlatformExpertDevice -r -d 1 | /usr/bin/grep --quiet '"model".*Book'
 }
 
 

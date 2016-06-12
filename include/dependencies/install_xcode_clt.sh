@@ -5,9 +5,9 @@ install_xcode_clt() {
   else
     echo -b 'Installing Command Line Developer Tools …'
 
-    touch '/tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress'
-    local CLDT=$(softwareupdate --list | grep "\*.*Command Line" | head -1 | sed -E 's/^[\t \*]*(.*)[\t ]*$/\1/' | tr -d '\n')
-    softwareupdate --verbose --install "${CLDT}" | grep '%'
+    /usr/bin/touch '/tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress'
+    local CLDT=$(softwareupdate --list | /usr/bin/grep "\*.*Command Line" | /usr/bin/head -1 | /usr/bin/sed -E 's/^[\t \*]*(.*)[\t ]*$/\1/' | tr -d '\n')
+    softwareupdate --verbose --install "${CLDT}" | /usr/bin/grep '%'
   fi
 
 }

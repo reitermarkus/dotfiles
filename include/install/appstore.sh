@@ -1,7 +1,7 @@
 appstore() {
 
   # Install Apps from the Mac App Store
-  python "${dotfiles_dir}/scripts/appstore.py" "${@}"
+  "${dotfiles_dir}/scripts/appstore.py" "${@}"
 
 }
 
@@ -41,7 +41,7 @@ install_appstore_apps() {
 install_xcode() {
 
   appstore install 497799835 # Xcode
-  until sudo xcodebuild -license accept &>/dev/null; do sleep 5; done &
+  until sudo xcodebuild -license accept &>/dev/null; do /bin/sleep 5; done &
   wait_for_xcode_pid=${!}
 
 }

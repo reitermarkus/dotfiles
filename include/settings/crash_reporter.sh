@@ -1,6 +1,6 @@
 defaults_crash_reporter() {
 
   # Crash Reporter
-  defaults write com.apple.CrashReporter UseUNC 1
+  /usr/bin/defaults write com.apple.CrashReporter UseUNC 1
 
 }
