@@ -166,8 +166,9 @@ install_brew_formulae() {
     brew_install -p mackup             -n 'Mackup'
     brew_install -p python             -n 'Python 2'; if type pip2 &>/dev/null; then pip2 install --upgrade pip setuptools; fi
     brew_install -p python3            -n 'Python 3'; if type pip3 &>/dev/null; then pip3 install --upgrade pip setuptools; fi
-    brew_install -p terminal-notifier  -n 'Terminal Notifier'
     brew_install -p ruby               -n 'Ruby'
+    brew_install -p terminal-notifier  -n 'Terminal Notifier'
+    brew_install -p trash              -n 'Trash'
     brew_install -p valgrind           -n 'Valgrind'
 
     # Unlink Apps
