@@ -190,12 +190,7 @@ fix_caskroom_permissions() {
   if local brew_packages=$(brew ls); then
 
     # Create Caskroom and set Permissions
-    sudo /bin/mkdir  -p /opt/homebrew-cask/Caskroom
-    sudo /usr/sbin/chown root:wheel /opt
-    sudo /bin/chmod -R u=rwx,go=rx /opt
-    sudo /usr/sbin/chown -R root:admin  /opt/homebrew-cask
-    sudo /bin/chmod -R ug=rwx,o=rx /opt/homebrew-cask
-    sudo chflags hidden /opt
+    /bin/mkdir -p /usr/local/Caskroom
 
     # Set Permissions for Library folders.
     sudo /usr/sbin/chown -R root:admin  /Library/LaunchAgents /Library/LaunchDaemons /Library/PreferencePanes /Library/QuickLook /Library/Screen\ Savers
