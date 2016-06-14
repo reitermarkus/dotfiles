@@ -305,7 +305,7 @@ brew_cleanup() {
   fi
 
   # Remove unneeded Caskroom files.
-  local caskroom=/opt/homebrew-cask/Caskroom
+  local caskroom=/usr/local/Caskroom
 
   # Remove Adobe CC installers.
   /bin/rm -rfv "${caskroom}"/adobe-*-cc*/latest/*/ | /usr/bin/xargs -0 printf 'Removing: %s\n'
