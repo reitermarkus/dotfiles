@@ -211,59 +211,59 @@ install_brew_cask_apps() {
 
     brew uninstall --force brew-cask
 
-    brew_install -c a-better-finder-rename
-    brew_install -oc reitermarkus/tap/adobe-creative-cloud -n 'Creative Cloud'
-    brew_install -c adobe-illustrator-cc-de
-    is_desktop && brew_install -c adobe-indesign-cc-de
-    brew_install -c adobe-photoshop-cc-de
-    brew_install -c arduino-nightly
-    brew_install -oc boom
-    brew_install -c calibre
-    brew_install -c chromium
-    brew_install -c cocoapods
-    brew_install -c cyberduck
-    brew_install -oc dropbox
-    brew_install -c epub-services
-    brew_install -c evernote
-    brew_install -c fritzing
-    brew_install -c functionflip
-    brew_install -c hazel
-    brew_install -c hex-fiend
-    brew_install -c iconvert -d /Applications/iTach
-    brew_install -c ihelp    -d /Applications/iTach
-    brew_install -c ilearn   -d /Applications/iTach
-    brew_install -c itest    -d /Applications/iTach
-    brew_install -c insomniax
-    brew_install -c java -n 'Java'
-    brew_install -c kaleidoscope
-    brew_install -c keka
+    brew_install -c a-better-finder-rename                      -n 'A Better Finder Rename'
+    brew_install -oc reitermarkus/tap/adobe-creative-cloud      -n 'Creative Cloud'
+    brew_install -c adobe-illustrator-cc-de                     -n 'Adobe Illustrator CC'
+    is_desktop && brew_install -c adobe-indesign-cc-de          -n 'Adobe InDesign CC'
+    brew_install -c adobe-photoshop-cc-de                       -n 'Adobe Photoshop CC'
+    brew_install -c arduino-nightly                             -n 'Arduino IDE'
+    brew_install -oc boom                                       -n 'Boom'
+    brew_install -c calibre                                     -n 'Calibre'
+    brew_install -c chromium                                    -n 'Chromium'
+    brew_install -c cocoapods                                   -n 'CocoaPods'
+    brew_install -c cyberduck                                   -n 'Cyberduck'
+    brew_install -oc dropbox                                    -n 'Dropbox'
+    brew_install -c epub-services                               -n 'EPUB Services'
+    brew_install -c evernote                                    -n 'Evernote'
+    brew_install -c fritzing                                    -n 'Fritzing'
+    brew_install -c functionflip                                -n 'FunctionFlip'
+    brew_install -c hazel                                       -n 'Hazel'
+    brew_install -c hex-fiend                                   -n 'Hex Fiend'
+    brew_install -c iconvert -d /Applications/iTach             -n 'iConvert'
+    brew_install -c ihelp    -d /Applications/iTach             -n 'iHelp'
+    brew_install -c ilearn   -d /Applications/iTach             -n 'iLearn'
+    brew_install -c itest    -d /Applications/iTach             -n 'iTest'
+    brew_install -c insomniax                                   -n 'InsomniaX'
+    brew_install -c java                                        -n 'Java'
+    brew_install -c kaleidoscope                                -n 'Kaleidoscope'
+    brew_install -c keka                                        -n 'Keka'
     brew_install -c konica-minolta-bizhub-c220-c280-c360-driver -n 'Bizhub Driver'
-    brew_install -oc launchbar
-    brew_install -c launchrocket
-    brew_install -c mou
-    brew_install -c netspot
-    brew_install -c prizmo
-    brew_install -c pycharm
-    brew_install -c qlmarkdown
-    brew_install -c qlstephen
-    brew_install -c rcdefaultapp
-    brew_install -c save-hollywood
-    brew_install -c sequel-pro
-    brew_install -c sigil
-    is_desktop && brew_install -c simple-hub
-    brew_install -c skype
-    brew_install -c sqlitebrowser
-    brew_install -c sshfs
-    brew_install -c svgcleaner
-    brew_install -c textmate
-    brew_install -c texshop
-    brew_install -c transmission
-    brew_install -c tower
-    brew_install -c unicodechecker
-    brew_install -c vlc-nightly
-    brew_install -c whatsapp
-    brew_install -c wineskin-winery
-    brew_install -c xquartz
+    brew_install -oc launchbar                                  -n 'LaunchBar'
+    brew_install -c launchrocket                                -n 'LaunchRocket'
+    brew_install -c mou                                         -n 'Mou'
+    brew_install -c netspot                                     -n 'NetSpot'
+    brew_install -c prizmo                                      -n 'Prizmo'
+    brew_install -c pycharm                                     -n 'PyCharm'
+    brew_install -c qlmarkdown                                  -n 'QLMarkDown'
+    brew_install -c qlstephen                                   -n 'QLStephen'
+    brew_install -c rcdefaultapp                                -n 'RCDefaultApp'
+    brew_install -c save-hollywood                              -n 'SaveHollywood'
+    brew_install -c sequel-pro                                  -n 'Sequel Pro'
+    brew_install -c sigil                                       -n 'Sigil'
+    is_desktop && brew_install -c simple-hub                    -n 'Simple Hub'
+    brew_install -c skype                                       -n 'Skype'
+    brew_install -c sqlitebrowser                               -n 'SqliteBrowser'
+    brew_install -c sshfs                                       -n 'SSHFS'
+    brew_install -c svgcleaner                                  -n 'SVGCleaner'
+    brew_install -c textmate                                    -n 'TextMate'
+    brew_install -c texshop                                     -n 'TexShop'
+    brew_install -c transmission                                -n 'Transmission'
+    brew_install -c tower                                       -n 'Tower'
+    brew_install -c unicodechecker                              -n 'UnicodeChecker'
+    brew_install -c vlc-nightly                                 -n 'VLC'
+    brew_install -c whatsapp                                    -n 'WhatsApp'
+    brew_install -c wineskin-winery                             -n 'Wineskin Winery'
+    brew_install -c xquartz                                     -n 'XQuartz'
 
 
     # Conversion Tools
