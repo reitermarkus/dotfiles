@@ -164,6 +164,7 @@ install_brew_formulae() {
     brew_install -p node               -n 'Node Package Manager'
     brew_install -p fish               -n 'Fish Shell'
     brew_install -p mackup             -n 'Mackup'
+    brew_install -p mas                -n 'Mac App Store CLI'
     brew_install -p python             -n 'Python 2'; if type pip2 &>/dev/null; then pip2 install --upgrade pip setuptools; fi
     brew_install -p python3            -n 'Python 3'; if type pip3 &>/dev/null; then pip3 install --upgrade pip setuptools; fi
     brew_install -p ruby               -n 'Ruby'
