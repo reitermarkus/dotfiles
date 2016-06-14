@@ -1,57 +1,49 @@
-appstore() {
+mas_install() {
 
-  # Install Apps from the Mac App Store
-  "${dotfiles_dir}/scripts/appstore.py" "${@}"
+  local id="${1}"
+  local name="${2}"
 
-}
-
-
-# Install App Store Applications
-
-install_appstore_apps() {
-
-  appstore update
-
-  apps=(
-    608292802 # Auction Sniper for eBay
-    417375580 # BetterSnapTool
-    420212497 # Byword
-    924726344 # Deliveries
-    480664966 # Fusio
-    463541543 # Gemini
-    402989379 # iStudiez Pro
-    409183694 # Keynote
-    482898991 # LiveReload
-    409203825 # Numbers
-    409201541 # Pages
-    419891002 # RapidClick
-    954196690 # RegexToolbox
-    443370764 # Repeater
-    747648890 # Telegram
-    892115848 # yRegex
-  )
-
-  appstore install "${apps[@]}"
+  if ! mas list | grep --quiet "${id}"; then
+    echo -b "Installing ${name} …"
+    mas install "${id}"
+  else
+    echo -g "${name} is already installed."
+  fi
 
 }
 
 
-# Install Xcode
+# App Store Install Function
 
-install_xcode() {
+install_mas_apps() {
 
-  appstore install 497799835 # Xcode
-  until sudo xcodebuild -license accept &>/dev/null; do /bin/sleep 5; done &
-  wait_for_xcode_pid=${!}
+  if type mas &>/dev/null; then
 
-}
+    mas signin 'me@reitermark.us' "${PASSWORD}"
 
+    echo -b 'Updating App Store Applications …'
+    mas upgrade
 
-check_if_xcode_is_installed() {
+    mas_install 608292802 'Auction Sniper for eBay'
+    mas_install 417375580 'BetterSnapTool'
+    mas_install 420212497 'Byword'
+    mas_install 924726344 'Deliveries'
+    mas_install 480664966 'Fusio'
+    mas_install 463541543 'Gemini'
+    mas_install 402989379 'iStudiez Pro'
+    mas_install 409183694 'Keynote'
+    mas_install 482898991 'LiveReload'
+    mas_install 409203825 'Numbers'
+    mas_install 409201541 'Pages'
+    mas_install 419891002 'RapidClick'
+    mas_install 954196690 'RegexToolbox'
+    mas_install 443370764 'Repeater'
+    mas_install 747648890 'Telegram'
+    mas_install 497799835 'Xcode'
+    mas_install 892115848 'yRegex'
 
-  if ps -p ${wait_for_xcode_pid} &>/dev/null; then
-    echo -b "Still waiting for Xcode to install …"
-    wait ${wait_for_xcode_pid} && echo -g 'Xcode installed and license accepted.'
+    sudo xcodebuild -license accept &>/dev/null
+
   fi
 
 }

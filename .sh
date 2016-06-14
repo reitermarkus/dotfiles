@@ -3,8 +3,11 @@
 
 # Ask for superuser password, and keep “sudo” alive.
 
-sudo -v
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+read -s -p "Password: " PASSWORD
+echo
+
+echo "${PASSWORD}" | sudo -v -S &>/dev/null
+while true; do sudo -n true; /bin/sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 
 # Disable Ctrl-Z
@@ -49,7 +52,6 @@ trap 'trap "" INT; echo -r "\nAborting …"; cleanup; exit 1' INT
 enable_assistive_access
 
 install_xcode_clt
-install_xcode
 
 install_brew
 install_brew_taps
@@ -59,7 +61,7 @@ install_ruby_gems
 install_npm_packages
 
 install_brew_cask_apps
-install_appstore_apps
+install_mas_apps
 
 dropbox_link_folders
 mackup_relink
@@ -100,7 +102,5 @@ done
 apply_defaults
 
 cleanup
-
-check_if_xcode_is_installed
 
 echo -k 'Done.'
