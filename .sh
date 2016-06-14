@@ -68,35 +68,37 @@ mackup_relink
 
 run_local_scripts
 
-for defaults in \
-  startup \
-  locale \
-  locate_db \
-  loginwindow \
-  softwareupdate \
-  keyboard \
-  mouse_trackpad \
-  ui_ux \
-  crash_reporter \
-  finder \
-  dock \
-  menubar \
-  bash \
-  bettersnaptool \
-  boom \
-  fish \
-  deliveries \
-  hazel \
-  keka \
-  launchbar \
-  safari \
-  savehollywood \
-  terminal \
-  tower \
-  transmission \
+defaults=(
+  startup
+  locale
+  locate_db
+  loginwindow
+  softwareupdate
+  keyboard
+  mouse_trackpad
+  ui_ux
+  crash_reporter
+  finder
+  dock
+  menubar
+  bash
+  bettersnaptool
+  boom
+  fish
+  deliveries
+  hazel
+  keka
+  launchbar
+  safari
+  savehollywood
+  terminal
+  tower
+  transmission
   xcode
-do
-  defaults_${defaults}
+)
+
+for default in "${defaults[@]}";do
+  defaults_${default}
 done
 
 apply_defaults
