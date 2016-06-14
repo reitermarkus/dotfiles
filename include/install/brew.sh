@@ -42,12 +42,12 @@ brew_install() {
     [ -z "${appdir}" ] && appdir=/Applications/
 
     if [ -z "${name}" ]; then
-      OIFS=$IFS
+      OIFS=${IFS}
       IFS=';'
       for caskname in $(brew cask _stanza name "${cask}" | /usr/bin/sed 's/", "/\;/g' | tr -d '["]'); do
         name="${caskname}"
       done
-      IFS=$OIFS
+      IFS=${OIFS}
     fi
 
     if array_contains_exactly "${brew_casks}" "$(/usr/bin/basename "${cask}")"; then
@@ -82,7 +82,7 @@ brew_install() {
           done &
         done
 
-        IFS=$OIFS
+        IFS=${OIFS}
       fi
 
     fi
@@ -141,9 +141,9 @@ upgrade_brew_formulae() {
   if type brew &>/dev/null; then
     echo -b 'Upgrading existing Homebrew formulae …'
     brew update && brew upgrade
-  fi
 
-  brew linkapps &>/dev/null
+    brew linkapps &>/dev/null
+  fi
 
 }
 
