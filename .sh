@@ -19,7 +19,7 @@ trap '' TSTP
 # Download Repository
 
 if [ "$(basename "${0}")" != '.sh' ]; then
-  eval "$(curl --silent --location "https://raw.githubusercontent.com/reitermarkus/dotfiles/HEAD/include/functions/echo.sh")"
+  eval "$(/usr/bin/curl --silent --location "https://raw.githubusercontent.com/reitermarkus/dotfiles/HEAD/include/functions/echo.sh")"
   echo -b "Downloading Github Repository …"
 
   dotfiles_dir='/tmp/dotfiles-master'
