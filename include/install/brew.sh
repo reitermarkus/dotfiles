@@ -10,6 +10,30 @@ install_brew() {
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   fi
 
+  echo -b 'Installing Homebrew Update Daemon …'
+  cat <<EOF > ~/Library/LaunchAgents/sh.brew.updater.plist
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>StartInterval</key>
+  <integer>21600</integer>
+  <key>Label</key>
+  <string>sh.brew.updater</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>-c</string>
+    <string>"$(which brew)" update -v &amp;&amp; "$(which brew)" upgrade -v</string>
+  </array>
+  <key>RunAtLoad</key>
+  <true/>
+</dict>
+</plist>
+EOF
+
+  launchctl load ~/Library/LaunchAgents/sh.brew.updater.plist &>/dev/null
+
 }
 
 
