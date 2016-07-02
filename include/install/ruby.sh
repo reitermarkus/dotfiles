@@ -37,9 +37,9 @@ install_ruby_gems() {
   <string>org.rubygems.updater</string>
   <key>ProgramArguments</key>
   <array>
-    <string>/bin/bash</string>
-    <string>-c</string>
-    <string>"$(which gem)" update -V &amp;&amp; "$(which gem)" cleanup</string>
+    <string>$(which gem)</string>
+    <string>update</string>
+    <string>-V</string>
   </array>
   <key>RunAtLoad</key>
   <true/>
