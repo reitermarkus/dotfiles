@@ -89,6 +89,7 @@ defaults=(
   hazel
   keka
   launchbar
+  rapidclick
   safari
   savehollywood
   terminal
