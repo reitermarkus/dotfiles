@@ -242,7 +242,7 @@ install_brew_cask_apps() {
     brew_install -c konica-minolta-bizhub-c220-c280-c360-driver -n 'Bizhub Driver'
     brew_install -oc launchbar                                  -n 'LaunchBar'
     brew_install -c launchrocket                                -n 'LaunchRocket'
-    brew_install -c mou                                         -n 'Mou'
+    brew_install -c macdown                                     -n 'MacDown'
     brew_install -c netspot                                     -n 'NetSpot'
     brew_install -c prizmo                                      -n 'Prizmo'
     brew_install -c pycharm                                     -n 'PyCharm'
