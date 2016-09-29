@@ -245,7 +245,6 @@ install_brew_cask_apps() {
     brew_install -c macdown                                     -n 'MacDown'
     brew_install -c netspot                                     -n 'NetSpot'
     brew_install -c prizmo                                      -n 'Prizmo'
-    brew_install -c pycharm                                     -n 'PyCharm'
     brew_install -c qlmarkdown                                  -n 'QLMarkDown'
     brew_install -c qlstephen                                   -n 'QLStephen'
     brew_install -c rcdefaultapp                                -n 'RCDefaultApp'
