@@ -222,7 +222,6 @@ install_brew_cask_apps() {
     brew_install -oc boom                                       -n 'Boom'
     brew_install -c calibre                                     -n 'Calibre'
     brew_install -c chromium                                    -n 'Chromium'
-    brew_install -c cocoapods                                   -n 'CocoaPods'
     brew_install -c cyberduck                                   -n 'Cyberduck'
     brew_install -oc dropbox                                    -n 'Dropbox'
     brew_install -c epub-services                               -n 'EPUB Services'
