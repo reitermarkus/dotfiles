@@ -10,7 +10,7 @@ cleanup() {
 
   # Remove Adobe Patch Files.
   /bin/rm -rf /Applications/Adobe/AdobePatchFiles
-  /bin/rmdir /Applications/Adobe &>/dev/null
+  /bin/rmdir --ignore-fail-on-non-empty /Applications/Adobe
 
   echo -r 'Emptying CoreSymbolication cache …'
   sudo /bin/rm -rfv /System/Library/Caches/com.apple.coresymbolicationd/data | /usr/bin/xargs -0 printf 'Removing: %s\n'
