@@ -37,9 +37,10 @@ link_to_dropbox() {
 
       /usr/bin/killall Dropbox &>/dev/null
 
+      /bin/rm -f "${dropbox_dir}"/**/.DS_Store
       /bin/rmdir "${dropbox_dir}" &>/dev/null
       /bin/rm -f "${dropbox_dir}" "${local_dir}" &>/dev/null
-      /bin/mkdir  -p "${local_dir}"
+      /bin/mkdir -p "${local_dir}"
 
       if [ -d "${dropbox_dir}" ]; then
         /bin/mv -f "${dropbox_dir}"/* "${local_dir}"/
