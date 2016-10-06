@@ -68,11 +68,14 @@ dropbox_link_folders() {
 
   if [ -d "${dropbox_garcon}" ]; then
     for lang in "${dropbox_garcon}"/*.lproj; do
-      dropbox_localizations+="$(python -c "# encoding=utf8
-import sys, json; reload(sys); sys.setdefaultencoding('utf8'); print(json.loads(u'$(plutil -convert json "${lang}/garcon.strings" -o - | /usr/bin/sed "s/\'/\\\'/g")')['BadgeTooltipUptodate'])")|"
-    done
 
-    dropbox_localizations="$(/usr/bin/sed 's/|$//' <<< "${dropbox_localizations}")"
+      if [ "${dropbox_localizations}" != '' ]; then
+        dropbox_localizations+='|'
+      fi
+
+      dropbox_localizations+="$(/usr/bin/plutil -convert json -o - "${lang}/garcon.strings" | /usr/bin/ruby -e "require 'json'; print JSON.parse(STDIN.read)['BadgeTooltipUptodate']")"
+
+    done
   fi
 
   until /usr/bin/osascript -e 'tell application "System Events" to tell application process "Dropbox" to get help of menu bar item 1 of menu bar 2' 2>/dev/null | /usr/bin/tail -1 | /usr/bin/grep --quiet -E "${dropbox_localizations}"; do
