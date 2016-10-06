@@ -3,12 +3,8 @@
 
 # Ask for superuser password, and keep “sudo” alive.
 
-read -s -p "Password: " PASSWORD
-echo
-
-echo "${PASSWORD}" | sudo -v -S &>/dev/null
-while true; do sudo -n true; /bin/sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
-
+/usr/bin/sudo -v || exit 1
+while true; do /usr/bin/sudo -n -v; /bin/sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # Disable Ctrl-Z
 trap '' TSTP

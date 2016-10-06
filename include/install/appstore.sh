@@ -19,8 +19,6 @@ install_mas_apps() {
 
   if type mas &>/dev/null; then
 
-    mas signin 'me@reitermark.us' "${PASSWORD}"
-
     echo -b 'Updating App Store Applications …'
     mas upgrade
 
