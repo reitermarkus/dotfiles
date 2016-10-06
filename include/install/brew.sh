@@ -214,7 +214,7 @@ install_brew_cask_apps() {
     brew uninstall --force brew-cask
 
     brew_install -c a-better-finder-rename                      -n 'A Better Finder Rename'
-    brew_install -oc reitermarkus/tap/adobe-creative-cloud      -n 'Creative Cloud'
+    brew_install -c adobe-creative-cloud                        -n 'Adobe Creative Cloud'
     brew_install -c adobe-illustrator-cc                        -n 'Adobe Illustrator CC'
     is_desktop && brew_install -c adobe-indesign-cc             -n 'Adobe InDesign CC'
     brew_install -c adobe-photoshop-cc                          -n 'Adobe Photoshop CC'
