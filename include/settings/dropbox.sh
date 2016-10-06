@@ -8,7 +8,7 @@ defaults_dropbox() {
 # Create Symlinks for Dropbox folders.
 
 get_dropbox_dir() {
-  /usr/bin/python -c "import json; print(json.load(open('$HOME/.dropbox/info.json'))['personal']['path'])"
+  /usr/bin/head -n 2 ~/.dropbox/host.db | /usr/bin/tail -n 1 | /usr/bin/base64 -D
 }
 
 link_to_dropbox() {
