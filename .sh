@@ -45,8 +45,6 @@ trap 'trap "" INT; echo -r "\nAborting …"; cleanup; exit 1' INT
 
 # Run Scripts
 
-enable_assistive_access
-
 install_xcode_clt
 
 install_brew
