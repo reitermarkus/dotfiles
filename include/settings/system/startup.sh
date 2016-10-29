@@ -1,5 +1,13 @@
 defaults_startup() {
 
+  # Startup Disk
+
+  if [ "$(/usr/sbin/diskutil info / | /usr/bin/awk '/Volume Name:/ {gsub(".*:\ *", ""); print $0}')" != 'Macintosh' ]; then
+    echo -b "Renaming startup disk to 'Macintosh' …"
+    /usr/sbin/diskutil rename / "Macintosh"
+  fi
+
+
   # Startup
   echo -b 'Setting defaults for Startup …'
 
