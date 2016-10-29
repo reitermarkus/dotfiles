@@ -61,6 +61,7 @@ brew_install() {
       brew cask uninstall "${cask}" --force &>/dev/null
       brew cask install "${cask}" --force \
         --appdir="${appdir}" \
+        --dictionarydir=/Library/Dictionaries \
         --prefpanedir=/Library/PreferencePanes \
         --qlplugindir=/Library/QuickLook \
         --screen_saverdir=/Library/Screen\ Savers
@@ -186,27 +187,14 @@ install_brew_formulae() {
 
 }
 
-
-fix_caskroom_permissions() {
-
-  # Fix Caskroom Permissions
-  if local brew_packages=$(brew ls); then
-
-    # Create Caskroom and set Permissions
-    /bin/mkdir -p /usr/local/Caskroom
-
-    # Set Permissions for Library folders.
-    sudo /usr/sbin/chown -R root:admin  /Library/LaunchAgents /Library/LaunchDaemons /Library/PreferencePanes /Library/QuickLook /Library/Screen\ Savers
-    sudo /bin/chmod -R ug=rwx,o=rx /Library/LaunchAgents /Library/LaunchDaemons /Library/PreferencePanes /Library/QuickLook /Library/Screen\ Savers
-
-  fi
-
-}
-
-
 install_brew_cask_apps() {
 
-  fix_caskroom_permissions
+  # Create global Dictionaries directory.
+  /usr/bin/sudo -E -- /bin/mkdir -p /Library/Dictionaries
+
+  # Set Permissions for Library folders.
+  /usr/bin/sudo -E -- /usr/sbin/chown root:admin  /Library/LaunchAgents /Library/LaunchDaemons /Library/Dictionaries /Library/PreferencePanes /Library/QuickLook /Library/Screen\ Savers
+  /usr/bin/sudo -E -- /bin/chmod -R ug=rwx,o=rx /Library/LaunchAgents /Library/LaunchDaemons /Library/Dictionaries /Library/PreferencePanes /Library/QuickLook /Library/Screen\ Savers
 
   # Install Homebrew Casks
   if local brew_casks=$(brew cask ls); then
