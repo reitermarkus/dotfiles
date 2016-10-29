@@ -1,12 +1,8 @@
 #!/bin/sh
 
 
-# Ask for superuser password, and keep “sudo” alive.
-
-/usr/bin/sudo -v || exit 1
-while true; do /usr/bin/sudo -n -v; /bin/sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
-
 # Disable Ctrl-Z
+
 trap '' TSTP
 
 
@@ -37,6 +33,26 @@ fi
 # Load Functions
 
 eval "$(/usr/bin/find "${dotfiles_dir}/include" -iname '*.sh' -exec echo . '{};' \;)"
+
+
+# Ask for superuser password, and add $USER to /etc/sudoers for the duration of the script.
+
+/usr/bin/sudo -E -v || exit 1
+
+USER_SUDOER="${USER} ALL=(ALL) NOPASSWD: ALL"
+
+reset_sudoers() {
+  echo -b 'Resetting /etc/sudoers …'
+  /usr/bin/sudo -E -- /usr/bin/sed -i '' "/^${USER_SUDOER}/d" /etc/sudoers
+}
+
+if type remove_dotfiles_dir &>/dev/null; then
+  trap 'remove_dotfiles_dir; reset_sudoers' EXIT
+else
+  trap reset_sudoers EXIT
+fi
+
+echo "${USER_SUDOER}" | /usr/bin/sudo -E -- /usr/bin/tee -a /etc/sudoers >/dev/null
 
 
 # Trap Ctrl-C
