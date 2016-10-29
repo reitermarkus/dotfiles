@@ -77,7 +77,7 @@ defaults_finder() {
   /usr/bin/defaults write com.apple.LaunchServices LSQuarantine -bool false
 
   # Disable Gatekeeper
-  sudo spctl --master-disable
+  /usr/bin/sudo -E -- /usr/sbin/spctl --master-disable
 
   # Enable spring-loading directories and decrease default delay.
   /usr/bin/defaults write NSGlobalDomain com.apple.springing.enabled -bool  true

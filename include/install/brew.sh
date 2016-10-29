@@ -1,8 +1,5 @@
 install_brew() {
 
-  # Install Homebrew
-  sudo /usr/sbin/chown "${USER}" /usr/local/
-
   if type brew &>/dev/null; then
     echo -g 'Homebrew is already installed.'
   else
@@ -10,7 +7,7 @@ install_brew() {
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   fi
 
-  launchctl load ~/Library/LaunchAgents/sh.brew.updater.plist &>/dev/null
+  /bin/launchctl load ~/Library/LaunchAgents/sh.brew.updater.plist &>/dev/null
 
 }
 

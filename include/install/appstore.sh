@@ -39,7 +39,7 @@ install_mas_apps() {
     mas_install 497799835 'Xcode'
     mas_install 892115848 'yRegex'
 
-    sudo xcodebuild -license accept &>/dev/null
+    /usr/bin/sudo -E -- xcodebuild -license accept &>/dev/null
 
   fi
 

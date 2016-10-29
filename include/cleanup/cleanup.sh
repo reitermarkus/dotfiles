@@ -3,7 +3,7 @@ cleanup() {
   echo -r 'Cleaning up …'
 
   if [ -d /opt ]; then
-    sudo chflags hidden /opt
+    /usr/bin/sudo -E -- chflags hidden /opt
   fi
 
   brew_cleanup
