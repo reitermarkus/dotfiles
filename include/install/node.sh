@@ -33,7 +33,7 @@ install_npm_packages() {
     npm -g upgrade
 
     # Install Node Packages
-    brew-cask ls imageoptim &>/dev/null && npm_install -p imageoptim-cli
+    brew cask list imageoptim &>/dev/null && npm_install -p imageoptim-cli
     npm_install -p svgexport
 
   fi
