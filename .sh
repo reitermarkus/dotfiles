@@ -94,6 +94,7 @@ defaults=(
   finder
   dock
   menubar
+  adobe
   bash
   bettersnaptool
   boom
