@@ -180,6 +180,12 @@ install_brew_formulae() {
       terminal-notifier \
     &>/dev/null
 
+    echo -r 'Removing dead Homebrew symlinks …'
+    brew prune
+
+    echo -r 'Emptying Homebrew cache …'
+    brew cleanup
+
   fi
 
 }
@@ -265,21 +271,7 @@ install_brew_cask_apps() {
     brew_install -c image2icon -d "${converters_dir}"
     brew_install -c imageoptim -d "${converters_dir}"
 
-  fi
-
-}
-
-
-brew_cleanup() {
-
-  # Homebrew Cleanup
-  if type brew &>/dev/null; then
-
-    echo -r 'Removing dead Homebrew symlinks …'
-    brew prune
-
-    echo -r 'Emptying Homebrew cache …'
-    brew cleanup
+    echo -r 'Emptying Homebrew Cask cache …'
     brew cask cleanup
 
   fi
