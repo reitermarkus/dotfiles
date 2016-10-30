@@ -289,21 +289,4 @@ brew_cleanup() {
 
   fi
 
-  # Remove unneeded Caskroom files.
-  local caskroom=/usr/local/Caskroom
-
-  # Remove Adobe CC installers.
-  /bin/rm -rfv "${caskroom}"/adobe-*-cc*/latest/*/ | /usr/bin/xargs -0 printf 'Removing: %s\n'
-
-  # Remove PKG installers.
-  /usr/bin/find "${caskroom}" -iname '*.pkg' -print0 | /usr/bin/xargs -0 /bin/rm -rfv | /usr/bin/xargs -0 printf 'Removing: %s\n'
-
-  # Remove invisible files.
-  /usr/bin/find -E "${caskroom}" -iregex \
-       '.*/(\.background|\.com\.apple\.timemachine\.supported|\.DS_Store|\.DocumentRevisions|\.fseventsd|\.VolumeIcon\.icns|\.TemporaryItems|\.Trash).*' \
-        -print0 | /usr/bin/xargs -0 /bin/rm -rfv | /usr/bin/xargs -0 printf 'Removing: %s\n'
-
-  # Remove empty directories, but leave “version” directories.
-  /usr/bin/find "${caskroom}" -depth 3 -empty -print0 | /usr/bin/xargs -0 /bin/rm -rfv | /usr/bin/xargs -0 printf 'Removing: %s\n'
-
 }
