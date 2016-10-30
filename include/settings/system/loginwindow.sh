@@ -80,7 +80,7 @@ install_launchagent_logout_guest_on_idle() {
         </array>
       </dict>
     </plist>
-  ''' | /usr/bin/sudo -E -- /usr/bin/tee "${launchd_plist}" &>/dev/null
+  ''' | /usr/bin/sudo -E -- /usr/bin/tee "${launchd_plist}" >/dev/null
 
   /usr/bin/sudo -E -- /usr/bin/defaults write "${launchd_plist}" Label -string "${launchd_name}"
   /usr/bin/sudo -E -- /usr/bin/defaults write "${launchd_plist}" RunAtLoad -bool true

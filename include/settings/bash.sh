@@ -5,7 +5,7 @@ defaults_bash() {
 
   # If “bash” isn't in shells file, add it.
   if ! /usr/bin/grep --quiet "${bash_bin}" /etc/shells; then
-    echo "${bash_bin}" | /usr/bin/sudo -E -- /usr/bin/tee -a /etc/shells &>/dev/null
+    echo "${bash_bin}" | /usr/bin/sudo -E -- /usr/bin/tee -a /etc/shells >/dev/null
   fi
 
   local bash_profile="${HOME}/.bash_profile"

@@ -5,7 +5,7 @@ defaults_fish() {
 
     # If “fish” isn't in shells file, add it.
     if ! /usr/bin/grep --quiet "${fish_bin}" /etc/shells; then
-      echo "${fish_bin}" | /usr/bin/sudo -E -- /usr/bin/tee -a /etc/shells &>/dev/null
+      echo "${fish_bin}" | /usr/bin/sudo -E -- /usr/bin/tee -a /etc/shells >/dev/null
     fi
 
     # If current shell is not “fish”, change it.
