@@ -19,12 +19,15 @@ if [ "$(basename "${0}")" != '.sh' ]; then
 
   dotfiles_dir='/tmp/dotfiles-master'
   /bin/rm -rf "${dotfiles_dir}"
-  /usr/bin/curl --progress-bar --location 'https://github.com/reitermarkus/dotfiles/archive/master.zip' | ditto -xk - '/tmp'
 
   remove_dotfiles_dir() {
     echo -r 'Removing Dotfiles directory …'
     /bin/rm -rf "${dotfiles_dir}"
   }
+
+  trap remove_dotfiles_dir EXIT
+
+  /usr/bin/curl --progress-bar --location 'https://github.com/reitermarkus/dotfiles/archive/master.zip' | ditto -xk - '/tmp'
 else
   dotfiles_dir=$(cd "$(/usr/bin/dirname "$0")" || exit 1; pwd)
 fi
