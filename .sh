@@ -30,7 +30,7 @@ if [ "$(basename "${0}")" != '.sh' ]; then
     /bin/rm -rf "${dotfiles_dir}"
   }
 else
-  dotfiles_dir=$(cd "$(/usr/bin/dirname "$0")" || exit; pwd)
+  dotfiles_dir=$(cd "$(/usr/bin/dirname "$0")" || exit 1; pwd)
 fi
 
 
