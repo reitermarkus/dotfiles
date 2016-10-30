@@ -6,7 +6,8 @@ defaults_savehollywood() {
     /usr/bin/defaults -currentHost write com.apple.screensaver moduleDict -dict-add path       -string "$(/usr/bin/mdfind -onlyin / kMDItemCFBundleIdentifier==fr.whitebox.SaveHollywood)"
     /usr/bin/defaults -currentHost write com.apple.screensaver moduleDict -dict-add type       -int    0
 
-    "${dotfiles_dir}/scripts/download-apple-tv-screensavers.py"
+    echo -b "Downloading Apple TV Screen Savers …"
+    "${dotfiles_dir}/scripts/download_apple_tv_screensavers.rb" "${HOME}/Library/Screen Savers/Videos"
 
     /usr/bin/defaults -currentHost write fr.whitebox.SaveHollywood assets.library               -array "${HOME}/Library/Screen Savers/Videos"
     /usr/bin/defaults -currentHost write fr.whitebox.SaveHollywood assets.randomOrder           -bool  true
