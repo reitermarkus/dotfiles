@@ -279,13 +279,8 @@ brew_cleanup() {
     brew prune
 
     echo -r 'Emptying Homebrew cache …'
-    brew cleanup --force
+    brew cleanup
     brew cask cleanup
-
-    if brew_cache="$(brew --cache)"; then
-      # :? makes sure that this doesn't expand to /* and delete the entire system
-      /bin/rm -rfv "${brew_cache:?}/"* | /usr/bin/xargs printf "Removing: %s\n"
-    fi
 
   fi
 
