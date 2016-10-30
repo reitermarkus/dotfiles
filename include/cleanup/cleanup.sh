@@ -2,10 +2,6 @@ cleanup() {
 
   echo -r 'Cleaning up …'
 
-  if [ -d /opt ]; then
-    /usr/bin/sudo -E -- chflags hidden /opt
-  fi
-
   brew_cleanup
 
   # Remove Adobe Patch Files.

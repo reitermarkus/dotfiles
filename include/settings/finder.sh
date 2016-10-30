@@ -2,6 +2,11 @@ defaults_finder() {
 
   # Finder
 
+  # Hide “/opt” folder.
+  if [ -d /opt ]; then
+    /usr/bin/sudo -E -- chflags hidden /opt
+  fi
+
   # Show “Library” folder.
   chflags nohidden "${HOME}/Library"
 
