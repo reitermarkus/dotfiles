@@ -40,7 +40,7 @@ eval "$(/usr/bin/find "${dotfiles_dir}/include" -iname '*.sh' -exec echo . '{};'
 
 # Ask for superuser password, and add $USER to /etc/sudoers for the duration of the script.
 
-/usr/bin/sudo -E -v || exit 1
+/usr/bin/sudo -v || exit 1
 
 USER_SUDOER="${USER} ALL=(ALL) NOPASSWD: ALL"
 
