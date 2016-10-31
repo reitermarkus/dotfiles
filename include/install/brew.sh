@@ -172,13 +172,12 @@ install_brew_formulae() {
     brew_install -p trash              -n 'Trash'
     brew_install -p valgrind           -n 'Valgrind'
 
-    # Unlink Apps
+    echo -r 'Unlinking Homebrew apps …'
     brew unlinkapps \
       python \
       python3 \
-      qt \
       terminal-notifier \
-    &>/dev/null
+    2>/dev/null
 
     echo -r 'Removing dead Homebrew symlinks …'
     brew prune
