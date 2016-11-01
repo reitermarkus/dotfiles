@@ -244,7 +244,7 @@ install_brew_cask_apps() {
     brew_install -c skype                                       -n 'Skype'
     brew_install -c sqlitebrowser                               -n 'SqliteBrowser'
     brew_install -c sshfs                                       -n 'SSHFS'
-    brew_install -c svgcleaner                                  -n 'SVGCleaner'
+    brew_install -c svg-cleaner                                 -n 'SVG Cleaner'
     brew_install -c telegram                                    -n 'Telegram'
     brew_install -c textmate                                    -n 'TextMate'
     brew_install -c texshop                                     -n 'TexShop'
