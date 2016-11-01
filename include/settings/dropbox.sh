@@ -19,7 +19,7 @@ link_to_dropbox() {
   local local_dir="${HOME}/${1}"
   local dropbox_dir="$(get_dropbox_dir)"
 
-  if [ -d "${dropbox_dir}" ]; then
+  if test -d "${dropbox_dir}"; then
 
     dropbox_dir="${dropbox_dir}/Sync/~/${1}"
 
@@ -27,29 +27,27 @@ link_to_dropbox() {
       local_dir="${HOME}/${2}"
     fi
 
-    local local_dirname="$(/usr/bin/sed "s|${HOME}|~|" <<< "${local_dir}")"
-    local dropbox_dirname="$(/usr/bin/sed "s|${HOME}|~|" <<< "${dropbox_dir}")"
+    local local_dirname="$(/usr/bin/sed "s|^${HOME}|~|" <<< "${local_dir}")"
+    local dropbox_dirname="$(/usr/bin/sed "s|^${HOME}|~|" <<< "${dropbox_dir}")"
 
-    if [ -L "${dropbox_dir}" ]; then
+    if test -L "${dropbox_dir}"; then
       echo -g "${local_dirname} already linked to Dropbox."
     else
       echo -b "Linking ${local_dirname} to ${dropbox_dirname} …"
 
       /usr/bin/killall Dropbox &>/dev/null
 
-      /bin/rm -f "${dropbox_dir}"/**/.DS_Store
-      /bin/rmdir "${dropbox_dir}" &>/dev/null
-      /bin/rm -f "${dropbox_dir}" "${local_dir}" &>/dev/null
+      /bin/rm -f "${dropbox_dir}" "${local_dir}" 2>/dev/null
       /bin/mkdir -p "${local_dir}"
 
-      if [ -d "${dropbox_dir}" ]; then
-        /bin/mv -f "${dropbox_dir}"/* "${local_dir}"/
+      if test -d "${dropbox_dir}"; then
+        /bin/rm -f "${dropbox_dir}/.DS_Store"
+        /usr/bin/find "${dropbox_dir}" -depth 1 -exec /bin/mv -f '{}' "${local_dir}/" \;
         /bin/rmdir "${dropbox_dir}"
       fi
 
-      if [ -d "${local_dir}" ] && [ ! -d "${dropbox_dir}" ]; then
-        /bin/ln -sfn "${local_dir}" "${dropbox_dir}" || echo -r "Error linking ${local_dirname} to ${dropbox_dirname}."
-      fi
+      /bin/mkdir -p "$(dirname "${dropbox_dir}")"
+      /bin/ln -sfn "${local_dir}" "${dropbox_dir}" || echo -r "Error linking ${local_dirname} to ${dropbox_dirname}."
 
     fi
   fi
