@@ -30,11 +30,12 @@ class AppleTVScreenSavers
           URI(http.head(url.path)['location'])
         }
 
-        head = Net::HTTP.start(video['url'].hostname) { |http|
-          http.head(video['url'].path)
+        Net::HTTP.start(video['url'].hostname) { |http|
+          head = http.head(video['url'].path)
+          video['size'] = head['content-length'].to_i
         }
 
-        next if duplicates.add?(head['content-length']).nil?
+        next if duplicates.add?(video['size']).nil?
 
         video
       }
@@ -52,7 +53,7 @@ class AppleTVScreenSavers
 
     mutex = Mutex.new
 
-    threads = 4.times.map {
+    threads = 10.times.map {
       Thread.new do
         Kernel.loop do
           break if queue.empty?
@@ -65,6 +66,10 @@ class AppleTVScreenSavers
                        .concat(File.extname(video['url'].path))
 
           download_path = File.join(@download_dir, filename)
+
+          if File.exist?(download_path) && video['size'] == File.size(download_path)
+            next
+          end
 
           mutex.synchronize {
             puts "Downloading #{filename} …"
