@@ -106,6 +106,7 @@ defaults=(
   rapidclick
   safari
   savehollywood
+  ssh
   terminal
   tower
   transmission
