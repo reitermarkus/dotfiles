@@ -73,7 +73,7 @@ install_launchagent_logout_guest_on_idle() {
           <string>-c</string>
           <string>
             GUI_USER="$(stat -f %Su /dev/console)";
-            if [ "$GUI_USER" == "Guest" ] &amp;&amp; [ "$(ioreg -c IOHIDSystem | /usr/bin/awk "/HIDIdleTime/ {print \$NF/1000000000; exit}" | /usr/bin/sed -E "s/(\,|\.).*//")" -ge 300 ]; then
+            if [ "$GUI_USER" == "Guest" ] &amp;&amp; [ $(/usr/sbin/ioreg -c IOHIDSystem | /usr/bin/awk "/HIDIdleTime/ {print int(\$NF/1000000000); exit}") -ge 300 ]; then
               "/System/Library/CoreServices/Menu Extras/User.menu/Contents/Resources/CGSession" -suspend
             fi
           </string>
