@@ -121,4 +121,6 @@ apply_defaults
 
 cleanup
 
-echo -k 'Done.'
+
+trap 'reset_sudoers; echo -k "Done."' EXIT
+
