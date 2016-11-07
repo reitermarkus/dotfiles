@@ -142,7 +142,7 @@ EOF
 
 run_local_scripts() {
 
-  eval local_dotfiles='~/Library/Scripts/local-dotfiles.sh'
+  local local_dotfiles="${HOME}/Library/Scripts/local-dotfiles.sh"
   if [ -f "$local_dotfiles" ]; then
     echo -b "Running local scripts …"
     /bin/sh "$local_dotfiles"
