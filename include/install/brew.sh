@@ -124,6 +124,7 @@ install_brew_taps() {
 
     brew_install -t homebrew/command-not-found -n 'Homebrew Command-Not-Found'
     brew_install -t homebrew/dupes             -n 'Homebrew Dupes'
+    brew_install -t homebrew/fuse              -n 'Homebrew Fuse'
     brew_install -t homebrew/head-only         -n 'Homebrew HEAD-Only'
     brew_install -t homebrew/versions          -n 'Homebrew Versions'
     brew_install -t homebrew/x11               -n 'Homebrew X11'
@@ -156,21 +157,23 @@ install_brew_formulae() {
   # Install Homebrew Formulae
   if local brew_packages=$(brew ls); then
 
-    is_desktop && brew_install -p apcupsd -n 'APCUPSD'
-    brew_install -p bash               -n 'Bourne-Again Shell'
-    brew_install -p bash-completion    -n 'Bash Completion'
-    brew_install -p dockutil           -n 'Dock Util'
-    brew_install -p git                -n 'Git'
-    brew_install -p node               -n 'Node Package Manager'
-    brew_install -p fish               -n 'Fish Shell'
-    brew_install -p mackup             -n 'Mackup'
-    brew_install -p mas                -n 'Mac App Store CLI'
-    brew_install -p python             -n 'Python 2'; if type pip2 &>/dev/null; then pip2 install --upgrade pip setuptools; fi
-    brew_install -p python3            -n 'Python 3'; if type pip3 &>/dev/null; then pip3 install --upgrade pip setuptools; fi
-    brew_install -p ruby               -n 'Ruby'
-    brew_install -p terminal-notifier  -n 'Terminal Notifier'
-    brew_install -p trash              -n 'Trash'
-    brew_install -p valgrind           -n 'Valgrind'
+    is_desktop && \
+    brew_install -p apcupsd           -n 'APCUPSD'
+    brew_install -p bash              -n 'Bourne-Again Shell'
+    brew_install -p bash-completion   -n 'Bash Completion'
+    brew_install -p dockutil          -n 'Dock Util'
+    brew_install -p git               -n 'Git'
+    brew_install -p node              -n 'Node Package Manager'
+    brew_install -p fish              -n 'Fish Shell'
+    brew_install -p mackup            -n 'Mackup'
+    brew_install -p mas               -n 'Mac App Store CLI'
+    brew_install -p python            -n 'Python 2'; if type pip2 &>/dev/null; then pip2 install --upgrade pip setuptools; fi
+    brew_install -p python3           -n 'Python 3'; if type pip3 &>/dev/null; then pip3 install --upgrade pip setuptools; fi
+    brew_install -p ruby              -n 'Ruby'
+    brew_install -p sshfs             -n 'SSHFS'
+    brew_install -p terminal-notifier -n 'Terminal Notifier'
+    brew_install -p trash             -n 'Trash'
+    brew_install -p valgrind          -n 'Valgrind'
 
     echo -r 'Unlinking Homebrew apps …'
     brew unlinkapps \
@@ -243,7 +246,6 @@ install_brew_cask_apps() {
     is_desktop && brew_install -c simple-hub                    -n 'Simple Hub'
     brew_install -c skype                                       -n 'Skype'
     brew_install -c sqlitebrowser                               -n 'SqliteBrowser'
-    brew_install -c sshfs                                       -n 'SSHFS'
     brew_install -c svg-cleaner                                 -n 'SVG Cleaner'
     brew_install -c telegram                                    -n 'Telegram'
     brew_install -c textmate                                    -n 'TextMate'
