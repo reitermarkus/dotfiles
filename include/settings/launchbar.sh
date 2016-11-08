@@ -12,4 +12,6 @@ defaults_launchbar() {
   add_app_to_tcc at.obdev.LaunchBar at.obdev.LaunchBar-AppleScript-Runner
   add_login_item at.obdev.LaunchBar hidden
 
+  /usr/bin/open -jgb at.obdev.LaunchBar
+
 }

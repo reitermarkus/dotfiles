@@ -232,7 +232,7 @@ install_brew_cask_apps() {
     brew_install -c kaleidoscope                                -n 'Kaleidoscope'
     brew_install -c keka                                        -n 'Keka'
     brew_install -c konica-minolta-bizhub-c220-c280-c360-driver -n 'Bizhub Driver'
-    brew_install -oc launchbar                                  -n 'LaunchBar'
+    brew_install -c launchbar                                   -n 'LaunchBar'
     brew_install -c launchrocket                                -n 'LaunchRocket'
     brew_install -c macdown                                     -n 'MacDown'
     brew_install -c netspot                                     -n 'NetSpot'
