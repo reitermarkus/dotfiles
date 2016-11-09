@@ -89,6 +89,7 @@ dropbox_link_folders() {
   link_to_dropbox 'Library/Desktop Pictures'
   link_to_dropbox 'Library/User Pictures'
 
+  link_to_dropbox 'Documents/Arduino'
   link_to_dropbox 'Documents/Backups'
   link_to_dropbox 'Documents/Cinquecento'
   link_to_dropbox 'Documents/Entwicklung'
