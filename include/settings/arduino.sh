@@ -4,8 +4,9 @@ defaults_arduino() {
 
   arduino_sketchbook_dir="${HOME}/Documents/Arduino"
 
+  /bin/mkdir -p "${arduino_preferences%/*}"
   echo "sketchbook.path=${arduino_sketchbook_dir}" >> "${arduino_preferences}"
-  /bin/mkdir  -p "${arduino_sketchbook_dir}"
+  /bin/mkdir -p "${arduino_sketchbook_dir}"
 
   echo "editor.languages.current=de_DE" >> "${arduino_preferences}"
   echo "editor.linenumbers=true"        >> "${arduino_preferences}"
