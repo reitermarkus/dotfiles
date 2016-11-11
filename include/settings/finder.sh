@@ -4,7 +4,7 @@ defaults_finder() {
 
   # Hide “/opt” folder.
   if [ -d /opt ]; then
-    /usr/bin/sudo -E -- chflags hidden /opt
+    sudo -E -- chflags hidden /opt
   fi
 
   # Show “Library” folder.
@@ -82,7 +82,7 @@ defaults_finder() {
   /usr/bin/defaults write com.apple.LaunchServices LSQuarantine -bool false
 
   # Disable Gatekeeper
-  /usr/bin/sudo -E -- /usr/sbin/spctl --master-disable
+  sudo -E -- /usr/sbin/spctl --master-disable
 
   # Enable spring-loading directories and decrease default delay.
   /usr/bin/defaults write NSGlobalDomain com.apple.springing.enabled -bool  true

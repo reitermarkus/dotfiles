@@ -4,7 +4,7 @@ install_brew() {
     echo -g 'Homebrew is already installed.'
   else
     echo -b 'Installing Homebrew …'
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    with_askpass /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   fi
 
   /bin/launchctl load ~/Library/LaunchAgents/sh.brew.updater.plist &>/dev/null
@@ -55,8 +55,8 @@ brew_install() {
       echo -b "Installing ${name} …"
 
       /bin/mkdir  -p "${appdir}"
-      brew cask uninstall "${cask}" --force &>/dev/null
-      brew cask install "${cask}" --force \
+      with_askpass brew cask uninstall "${cask}" --force &>/dev/null
+      with_askpass brew cask install "${cask}" --force \
         --appdir="${appdir}" \
         --dictionarydir=/Library/Dictionaries \
         --prefpanedir=/Library/PreferencePanes \
@@ -199,11 +199,11 @@ install_brew_formulae() {
 install_brew_cask_apps() {
 
   # Create global Dictionaries directory.
-  /usr/bin/sudo -E -- /bin/mkdir -p /Library/Dictionaries
+  sudo -E -- /bin/mkdir -p /Library/Dictionaries
 
   # Set Permissions for Library folders.
-  /usr/bin/sudo -E -- /usr/sbin/chown root:admin  /Library/LaunchAgents /Library/LaunchDaemons /Library/Dictionaries /Library/PreferencePanes /Library/QuickLook /Library/Screen\ Savers
-  /usr/bin/sudo -E -- /bin/chmod -R ug=rwx,o=rx /Library/LaunchAgents /Library/LaunchDaemons /Library/Dictionaries /Library/PreferencePanes /Library/QuickLook /Library/Screen\ Savers
+  sudo -E -- /usr/sbin/chown root:admin  /Library/LaunchAgents /Library/LaunchDaemons /Library/Dictionaries /Library/PreferencePanes /Library/QuickLook /Library/Screen\ Savers
+  sudo -E -- /bin/chmod -R ug=rwx,o=rx /Library/LaunchAgents /Library/LaunchDaemons /Library/Dictionaries /Library/PreferencePanes /Library/QuickLook /Library/Screen\ Savers
 
   # Install Homebrew Casks
   if local brew_casks=$(brew cask ls); then

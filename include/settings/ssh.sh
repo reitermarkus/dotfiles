@@ -10,7 +10,7 @@ install_launchagent_ssh_add() {
   local launchd_name='com.apple.ssh-add'
   local launchd_plist="/Library/LaunchAgents/${launchd_name}.plist"
 
-  /usr/bin/sudo -E -- /bin/rm -f "${launchd_plist}"
+  sudo -E -- /bin/rm -f "${launchd_plist}"
 
   echo '''
     <plist>
@@ -26,13 +26,13 @@ install_launchagent_ssh_add() {
         <true/>
       </dict>
     </plist>
-  ''' | /usr/bin/sudo -E -- /usr/bin/tee "${launchd_plist}" >/dev/null
+  ''' | sudo -E -- /usr/bin/tee "${launchd_plist}" >/dev/null
 
-  /usr/bin/sudo -E -- /usr/bin/defaults write "${launchd_plist}" Label -string "${launchd_name}"
-  /usr/bin/sudo -E -- /usr/bin/defaults write "${launchd_plist}" RunAtLoad -bool true
-  /usr/bin/sudo -E -- /usr/bin/defaults write "${launchd_plist}" StartInterval -int 10
+  sudo -E -- /usr/bin/defaults write "${launchd_plist}" Label -string "${launchd_name}"
+  sudo -E -- /usr/bin/defaults write "${launchd_plist}" RunAtLoad -bool true
+  sudo -E -- /usr/bin/defaults write "${launchd_plist}" StartInterval -int 10
 
-  /usr/bin/sudo -E -- /usr/sbin/chown root:admin "${launchd_plist}"
-  /usr/bin/sudo -E -- /bin/chmod 755 "${launchd_plist}"
+  sudo -E -- /usr/sbin/chown root:admin "${launchd_plist}"
+  sudo -E -- /bin/chmod 755 "${launchd_plist}"
 
 }

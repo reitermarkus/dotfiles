@@ -11,6 +11,18 @@ trap '' TSTP
 /usr/bin/caffeinate -dimu -w $$ &
 
 
+# Add commands to run when exiting.
+
+at_exit() {
+  if [ ! -z "${AT_EXIT}" ]; then
+    AT_EXIT+=';'
+  fi
+
+  AT_EXIT+="${*}"
+  trap "${AT_EXIT}" EXIT
+}
+
+
 # Download Repository
 
 if [ "$(basename "${0}")" != '.sh' ]; then
@@ -24,8 +36,7 @@ if [ "$(basename "${0}")" != '.sh' ]; then
     echo -r 'Removing Dotfiles directory …'
     /bin/rm -rf "${dotfiles_dir}"
   }
-
-  trap remove_dotfiles_dir EXIT
+  at_exit remove_dotfiles_dir
 
   /usr/bin/curl --progress-bar --location 'https://github.com/reitermarkus/dotfiles/archive/master.zip' | ditto -xk - '/tmp'
 else
@@ -38,24 +49,40 @@ fi
 eval "$(/usr/bin/find "${dotfiles_dir}/include" -iname '*.sh' -exec echo . '{};' \;)"
 
 
-# Ask for superuser password, and add $USER to /etc/sudoers for the duration of the script.
+# Ask for superuser password, and temporarily add it to the Keychain.
 
-/usr/bin/sudo -v || exit 1
+SUDO_ASKPASS_SCRIPT="$(mktemp)"
 
-USER_SUDOER="${USER} ALL=(ALL) NOPASSWD: ALL"
+cat <<EOF > "$SUDO_ASKPASS_SCRIPT"
+#!/bin/sh
+/usr/bin/security find-generic-password -s 'dotfiles' -a "$USER" -w
+EOF
 
-reset_sudoers() {
-  echo -b 'Resetting /etc/sudoers …'
-  /usr/bin/sudo -E -- /usr/bin/sed -i '' "/^${USER_SUDOER}/d" /etc/sudoers
+/bin/chmod +x "${SUDO_ASKPASS_SCRIPT}"
+
+delete_askpass_password() {
+  echo -r 'Removing password from Keychain …'
+  /bin/rm -f "${SUDO_ASKPASS_SCRIPT}"
+  /usr/bin/security delete-generic-password -s 'dotfiles' -a "${USER}"
+}
+at_exit delete_askpass_password
+
+with_askpass() {
+  SUDO_ASKPASS="${SUDO_ASKPASS_SCRIPT}" "${@}"
 }
 
-if type remove_dotfiles_dir &>/dev/null; then
-  trap 'remove_dotfiles_dir; reset_sudoers' EXIT
-else
-  trap reset_sudoers EXIT
-fi
+sudo() {
+  with_askpass /usr/bin/sudo -A "${@}"
+}
 
-echo "${USER_SUDOER}" | /usr/bin/sudo -E -- /usr/bin/tee -a /etc/sudoers >/dev/null
+/usr/bin/security add-generic-password -U -s 'dotfiles' -a "${USER}" -w "$(read -s -p "Password:" P < /dev/tty && printf "${P}")"
+printf "\n"
+
+sudo -k
+if ! sudo -kv 2>/dev/null; then
+  echo -r 'Incorrect password. Exiting …'
+  exit 1
+fi
 
 
 # Trap Ctrl-C
@@ -114,13 +141,11 @@ defaults=(
 )
 
 for default in "${defaults[@]}";do
-  defaults_${default}
+  "defaults_${default}"
 done
 
 apply_defaults
 
 cleanup
 
-
-trap 'reset_sudoers; echo -k "Done."' EXIT
-
+at_exit 'echo -k "Done."'
