@@ -61,24 +61,23 @@ dropbox_link_folders() {
   echo -b 'Waiting for Dropbox to finish syncing …'
 
   # Get Dropbox Localizations
-  dropbox_garcon="$(/usr/bin/mdfind -onlyin / kMDItemCFBundleIdentifier==com.getdropbox.dropbox | /usr/bin/head -1)/Contents/PlugIns/garcon.appex/Contents/Resources"
+  dropbox_garcon="$(/usr/bin/mdfind -onlyin / kMDItemCFBundleIdentifier==com.getdropbox.dropbox | /usr/bin/head -n 1)/Contents/PlugIns/garcon.appex/Contents/Resources"
   dropbox_localizations=''
 
   if [ -d "${dropbox_garcon}" ]; then
     for lang in "${dropbox_garcon}"/*.lproj; do
-
-      if [ "${dropbox_localizations}" != '' ]; then
+      if [ ! -z "${dropbox_localizations}" ]; then
         dropbox_localizations+='|'
       fi
 
       dropbox_localizations+="$(/usr/bin/plutil -convert json -o - "${lang}/garcon.strings" | /usr/bin/ruby -e "require 'json'; print JSON.parse(STDIN.read)['BadgeTooltipUptodate']")"
-
     done
   fi
 
-  until /usr/bin/osascript -e 'tell application "System Events" to tell application process "Dropbox" to get help of menu bar item 1 of menu bar 2' 2>/dev/null | /usr/bin/tail -1 | /usr/bin/grep --quiet -E "${dropbox_localizations}"; do
-
-    /usr/bin/open -gja 'Dropbox'
+  until test -f ~/.dropbox/host.db && \
+        test -d "$(get_dropbox_dir)" && \
+        /usr/bin/osascript -e 'tell application "System Events" to tell application process "Dropbox" to get help of menu bar item 1 of menu bar 2' 2>/dev/null | /usr/bin/tail -n 1 | /usr/bin/grep --quiet -E "${dropbox_localizations}"; do
+    /bin/launchctl list | /usr/bin/grep --quiet -E 'com.getdropbox.dropbox.\d+' || /usr/bin/open -gjb com.getdropbox.dropbox
     /bin/sleep 5
   done
 
@@ -100,7 +99,6 @@ dropbox_link_folders() {
   link_to_dropbox 'Documents/SketchUp'
   link_to_dropbox 'Documents/Sonstiges'
   link_to_dropbox 'Documents/Uni'
-
 
   local favorites='Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.FavoriteItems.sfl'
   if [ -f "$(get_dropbox_dir)/Sync/~/${favorites}" ]; then
