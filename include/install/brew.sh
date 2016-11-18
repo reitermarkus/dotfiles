@@ -139,7 +139,7 @@ upgrade_brew_formulae() {
   # Upgrade Hombrew Formulae
   if type brew &>/dev/null; then
     echo -b 'Upgrading existing Homebrew formulae …'
-    brew update --force && brew upgrade
+    brew update --force
 
     brew linkapps &>/dev/null
   fi
