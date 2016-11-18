@@ -77,7 +77,10 @@ dropbox_link_folders() {
   until test -f ~/.dropbox/host.db && \
         test -d "$(get_dropbox_dir)" && \
         /usr/bin/osascript -e 'tell application "System Events" to tell application process "Dropbox" to get help of menu bar item 1 of menu bar 2' 2>/dev/null | /usr/bin/tail -n 1 | /usr/bin/grep --quiet -E "${dropbox_localizations}"; do
-    /bin/launchctl list | /usr/bin/grep --quiet -E 'com.getdropbox.dropbox.\d+' || /usr/bin/open -gjb com.getdropbox.dropbox
+    if ! /bin/launchctl list | /usr/bin/grep --quiet -E 'com.getdropbox.dropbox.\d+'; then
+      /usr/bin/open -gjb com.getdropbox.dropbox 2>/dev/null || with_askpass brew cask install dropbox &>/dev/null
+    fi
+
     /bin/sleep 5
   done
 
