@@ -7,8 +7,6 @@ install_brew() {
     with_askpass /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   fi
 
-  /bin/launchctl load ~/Library/LaunchAgents/sh.brew.updater.plist &>/dev/null
-
 }
 
 
