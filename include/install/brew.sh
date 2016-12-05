@@ -157,6 +157,7 @@ install_brew_formulae() {
   brew_install -p bash-completion   -n 'Bash Completion'
   brew_install -p dockutil          -n 'Dock Util'
   brew_install -p git               -n 'Git'
+  brew_install -p iperf3            -n 'iPerf 3'
   brew_install -p node              -n 'Node Package Manager'
   brew_install -p fish              -n 'Fish Shell'
   brew_install -p mackup            -n 'Mackup'
