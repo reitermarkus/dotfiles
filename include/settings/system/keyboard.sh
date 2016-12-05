@@ -32,6 +32,10 @@ defaults_keyboard() {
     </dict>
   '''
 
+  # Disable automatic period substitution by double-tapping space.
+
+  /usr/bin/defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
+
   /usr/bin/killall cfprefsd &>/dev/null
 
 }
