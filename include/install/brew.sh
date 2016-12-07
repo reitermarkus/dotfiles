@@ -257,7 +257,7 @@ install_brew_cask_apps() {
   # Conversion Tools
 
   local converters_dir='/Applications/Converters.localized'
-  /bin/mkdir  -p "${converters_dir}/.localized"
+  /bin/mkdir -p "${converters_dir}/.localized"
   echo '"Converters" = "Konvertierungswerkzeuge";' > "${converters_dir}/.localized/de.strings"
   echo '"Converters" = "Conversion Tools";' > "${converters_dir}/.localized/en.strings"
   brew_install -c handbrake  -d "${converters_dir}"
