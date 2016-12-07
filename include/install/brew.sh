@@ -239,6 +239,7 @@ install_brew_cask_apps() {
   brew_install -c sigil                                       -n 'Sigil'
   is_desktop && brew_install -c simple-hub                    -n 'Simple Hub'
   brew_install -c skype                                       -n 'Skype'
+  brew_install -c slack                                       -n 'Slack'
   brew_install -c sqlitebrowser                               -n 'SqliteBrowser'
   brew_install -c svg-cleaner                                 -n 'SVG Cleaner'
   brew_install -c table-tool                                  -n 'Table Tool'
