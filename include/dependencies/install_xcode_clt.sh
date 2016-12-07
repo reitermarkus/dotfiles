@@ -9,7 +9,7 @@ install_xcode_clt() {
     /usr/bin/touch "${CLDT_PLACEHOLDER}"
     local CLDT="$(/usr/sbin/softwareupdate --list | /usr/bin/sed -E '/^.*\*\ *(Command Line Tools.*)\ *$/h;g;$!d;s//\1/')"
     /usr/sbin/softwareupdate --verbose --install "${CLDT}"
-    /usr/bin/rm -f "${CLDT_PLACEHOLDER}"
+    /bin/rm -f "${CLDT_PLACEHOLDER}"
   fi
 
 }
