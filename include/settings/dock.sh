@@ -126,6 +126,7 @@ set_dock_icons() {
     add_to_dock                                -p '/Applications/Reeder.app'
     add_to_dock -n 'Notizen'                   -p '/Applications/Notes.app'
     add_to_dock -n 'Nachrichten'               -p '/Applications/Messages.app'
+    add_to_dock                                -p '/Applications/Telegram.app'
     add_to_dock                                -p '/Applications/iTunes.app'
     add_to_dock -n 'Fotos'                     -p '/Applications/Photos.app'
     add_to_dock                                -p '/Applications/iBooks.app'
