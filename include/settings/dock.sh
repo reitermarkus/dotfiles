@@ -115,6 +115,7 @@ set_dock_icons() {
       --remove 'Reminders' --remove 'Erinnerungen' \
       --remove 'FaceTime' \
       --remove 'Feedback Assistant' --remove 'Feedback-Assistent' \
+      --remove 'Siri' \
     &>/dev/null
 
     unset after
