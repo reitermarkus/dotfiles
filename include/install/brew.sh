@@ -214,7 +214,7 @@ install_brew_cask_apps() {
   brew_install -c epub-services                               -n 'EPUB Services'
   brew_install -c evernote                                    -n 'Evernote'
   brew_install -c fritzing                                    -n 'Fritzing'
-  brew_install -c functionflip                                -n 'FunctionFlip'
+  is_desktop && brew_install -c functionflip                  -n 'FunctionFlip'
   brew_install -c hazel                                       -n 'Hazel'
   brew_install -c hex-fiend                                   -n 'Hex Fiend'
   brew_install -c iconvert -d /Applications/iTach             -n 'iConvert'
