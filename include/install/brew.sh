@@ -167,7 +167,7 @@ install_brew_formulae() {
   brew_install -p python            -n 'Python 2'; if type pip2 &>/dev/null; then pip2 install --upgrade pip setuptools; fi
   brew_install -p python3           -n 'Python 3'; if type pip3 &>/dev/null; then pip3 install --upgrade pip setuptools; fi
   brew_install -p rlwrap            -n 'Readline Wrapper'
-  brew_install -p ruby              -n 'Ruby'
+  brew_install -p rbenv             -n 'Ruby Environment Manager'
   brew_install -c osxfuse           -n 'FUSE' && \
   brew_install -p sshfs             -n 'SSHFS'
   brew_install -p terminal-notifier -n 'Terminal Notifier'
