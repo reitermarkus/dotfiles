@@ -124,7 +124,6 @@ install_brew_taps() {
   brew_install -t homebrew/command-not-found -n 'Homebrew Command-Not-Found'
   brew_install -t homebrew/dupes             -n 'Homebrew Dupes'
   brew_install -t homebrew/fuse              -n 'Homebrew Fuse'
-  brew_install -t homebrew/head-only         -n 'Homebrew HEAD-Only'
   brew_install -t homebrew/x11               -n 'Homebrew X11'
 
   brew_install -t reitermarkus/tap           -n 'Personal Tap'
