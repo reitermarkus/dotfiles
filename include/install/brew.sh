@@ -248,6 +248,8 @@ install_brew_cask_apps() {
   brew_install -c transmission                                -n 'Transmission'
   brew_install -c tower-beta                                  -n 'Tower'
   brew_install -c unicodechecker                              -n 'UnicodeChecker'
+  brew_install -c vagrant                                     -n 'Vagrant'
+  brew_install -c virtualbox                                  -n 'VirtualBox'
   brew_install -c vlc-nightly                                 -n 'VLC'
   brew_install -c wineskin-winery                             -n 'Wineskin Winery'
   brew_install -c xquartz                                     -n 'XQuartz'

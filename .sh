@@ -137,6 +137,8 @@ defaults=(
   terminal
   tower
   transmission
+  vagrant
+  virtualbox
   xcode
 )
 
