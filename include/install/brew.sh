@@ -159,6 +159,7 @@ install_brew_formulae() {
   brew_install -p iperf3            -n 'iPerf 3'
   brew_install -p node              -n 'Node Package Manager'
   brew_install -p fish              -n 'Fish Shell'
+  brew_install -p lockscreen        -n 'LockScreen'
   brew_install -p mackup            -n 'Mackup'
   brew_install -p mas               -n 'Mac App Store CLI'
   brew_install -p ocaml             -n 'OCaml'
