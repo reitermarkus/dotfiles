@@ -241,7 +241,7 @@ install_brew_cask_apps() {
   brew_install -c skype                                       -n 'Skype'
   brew_install -c slack                                       -n 'Slack'
   brew_install -c sqlitebrowser                               -n 'SqliteBrowser'
-  brew_install -c svg-cleaner                                 -n 'SVG Cleaner'
+  brew_install -c svgcleaner                                  -n 'SVG Cleaner'
   brew_install -c table-tool                                  -n 'Table Tool'
   brew_install -c telegram                                    -n 'Telegram'
   brew_install -c textmate                                    -n 'TextMate'
