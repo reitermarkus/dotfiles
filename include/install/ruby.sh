@@ -29,7 +29,7 @@ install_ruby_gems() {
   if local ruby_gems=$(gem list | /usr/bin/awk '{print $1}'); then
 
     echo -b 'Updating Ruby Gems …'
-    gem update --system
+    gem update
 
     # Install Ruby Gems
     gem_install -g bundler -n Bundler
