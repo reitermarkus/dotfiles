@@ -36,10 +36,8 @@ install_mas_apps() {
     mas_install 419891002 'RapidClick'
     mas_install 954196690 'RegexToolbox'
     mas_install 443370764 'Repeater'
-    mas_install 497799835 'Xcode'
+    mas_install 497799835 'Xcode'; sudo -E -- xcodebuild -license accept &>/dev/null
     mas_install 892115848 'yRegex'
-
-    sudo -E -- xcodebuild -license accept &>/dev/null
 
   fi
 
