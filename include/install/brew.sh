@@ -37,7 +37,6 @@ brew() {
         echo -g "${cask} is already installed."
       else
         echo -b "Installing ${cask} …"
-        with_askpass command brew cask uninstall "${cask}" --force &>/dev/null
         with_askpass command brew "${@}" \
           --dictionarydir=/Library/Dictionaries \
           --prefpanedir=/Library/PreferencePanes \
