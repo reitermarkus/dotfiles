@@ -101,7 +101,7 @@
   install_ruby_gems
   install_npm_packages
 
-  install_brew_cask_apps
+  install_brew_casks
   install_mas_apps
 
   dropbox_link_folders
