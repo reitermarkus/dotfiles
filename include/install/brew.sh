@@ -84,18 +84,11 @@ install_brew_taps() {
 }
 
 
-upgrade_brew_formulae() {
+install_brew_formulae() {
 
   # Upgrade Hombrew Formulae
   echo -b 'Updating Homebrew …'
   brew update --force
-
-}
-
-
-install_brew_formulae() {
-
-  upgrade_brew_formulae
 
   # Install Homebrew Formulae
 
@@ -113,20 +106,14 @@ install_brew_formulae() {
   brew install mas
   brew install ocaml
   brew install ocamlbuild
-  brew install python           ; if type pip2 &>/dev/null; then pip2 install --upgrade pip setuptools; fi
-  brew install python3          ; if type pip3 &>/dev/null; then pip3 install --upgrade pip setuptools; fi
+  brew install python; if type pip2 &>/dev/null; then pip2 install --upgrade pip setuptools; fi
+  brew install python3; if type pip3 &>/dev/null; then pip3 install --upgrade pip setuptools; fi
   brew install rlwrap
   brew install rbenv
   brew cask install osxfuse && brew install sshfs
   brew install terminal-notifier
   brew install trash
   brew install valgrind
-
-  echo -r 'Removing dead Homebrew symlinks …'
-  brew prune
-
-  echo -r 'Emptying Homebrew cache …'
-  brew cleanup
 
 }
 
@@ -211,8 +198,5 @@ install_brew_casks() {
   brew cask install xnconvert  --appdir="${converters_dir}"
   brew cask install image2icon --appdir="${converters_dir}"
   brew cask install imageoptim --appdir="${converters_dir}"
-
-  echo -r 'Emptying Homebrew Cask cache …'
-  brew cask cleanup
 
 }
