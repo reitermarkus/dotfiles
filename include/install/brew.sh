@@ -20,7 +20,7 @@ brew() {
 
   case "${1}" in
   tap)
-    tap="${2}"
+    local tap="${2}"
     if array_contains_exactly "${BREW_INSTALLED_TAPS[@]}" "${tap}"; then
       echo -g "${tap} is already tapped."
     else
@@ -31,7 +31,7 @@ brew() {
   cask)
     case "${2}" in
     install)
-      cask="${3}"
+      local cask="${3}"
 
       if array_contains_exactly "${BREW_INSTALLED_CASKS[@]}" "${cask}"; then
         echo -g "${cask} is already installed."
@@ -50,7 +50,7 @@ brew() {
     esac
    ;;
   install)
-    formula="${2}"
+    local formula="${2}"
     if array_contains_exactly "${BREW_INSTALLED_FORMULAE[@]}" "$(/usr/bin/basename "${formula}")"; then
       echo -g "${formula} is already installed."
     else

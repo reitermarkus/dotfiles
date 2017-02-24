@@ -4,7 +4,7 @@ npm() {
 
   case "${1} ${2}" in
   "-g install"|"install -g")
-    package="${3}"
+    local package="${3}"
     if array_contains_exactly "${NPM_INSTALLED_PACKAGES}" "${package}"; then
       echo -g "${package} is already installed."
     else

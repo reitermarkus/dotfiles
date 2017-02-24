@@ -4,7 +4,7 @@ gem() {
 
   case "${1}" in
   install)
-    gem="${2}"
+    local gem="${2}"
     if array_contains_exactly "${GEM_INSTALLED_GEMS}" "${gem}"; then
       echo -g "${gem} is already installed."
     else
