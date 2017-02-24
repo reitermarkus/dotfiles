@@ -1,41 +1,32 @@
-npm_install() {
+npm() {
 
-  local package
-  local name
+  NPM_INSTALLED_PACKAGES="${NPM_INSTALLED_PACKAGES:-$(command npm -g list | /usr/bin/awk '{print $NF}' | /usr/bin/sed 's/@.*$//' | /usr/bin/sed '1d;$d' 2>/dev/null)}"
 
-  local OPTIND
-  while getopts ":p:n:" o; do
-    case "${o}" in
-      p) package="${OPTARG}";;
-      n)    name="${OPTARG}";;
-    esac
-  done
-  shift $((OPTIND-1))
-
-  [ -z "${name}" ] && name=${package}
-
-  if array_contains_exactly "${npm_packages}" "${package}"; then
-    echo -g "${name} is already installed."
-  else
-    echo -b "Installing ${name} …"
-    npm -g install "${package}"
-  fi
+  case "${1} ${2}" in
+  "-g install"|"install -g")
+    package="${3}"
+    if array_contains_exactly "${NPM_INSTALLED_PACKAGES}" "${package}"; then
+      echo -g "${package} is already installed."
+    else
+      echo -b "Installing ${package} …"
+      command npm "${@}"
+    fi
+    ;;
+  *)
+    command npm "${@}"
+    ;;
+  esac
 
 }
 
 install_npm_packages() {
 
+  echo -b 'Updating Node packages …'
+  npm -g update
+  npm -g upgrade
+
   # Install Node Packages
-  if local npm_packages=$(npm -g list | /usr/bin/awk '{print $NF}' | /usr/bin/sed 's/@.*$//' | /usr/bin/sed '1d;$d'); then
+  brew cask list imageoptim &>/dev/null && npm -g install imageoptim-cli
+  npm -g install svgexport
 
-    echo -b 'Updating Node packages …'
-    npm -g update
-    npm -g upgrade
-
-    # Install Node Packages
-    brew cask list imageoptim &>/dev/null && npm_install -p imageoptim-cli
-    npm_install -p svgexport
-
-  fi
 }
-
