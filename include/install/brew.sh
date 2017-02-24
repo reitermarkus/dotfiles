@@ -45,7 +45,7 @@ brew_install() {
     if [ -z "${name}" ]; then
       OIFS=${IFS}
       IFS=';'
-      for caskname in $(brew cask _stanza name "${cask}" | /usr/bin/sed 's/", "/\;/g' | tr -d '["]'); do
+      for caskname in $(brew cask _stanza name "${cask}" | /usr/bin/sed 's/", "/\;/g' | /usr/bin/tr -d '["]'); do
         name="${caskname}"
       done
       IFS=${OIFS}
@@ -120,6 +120,7 @@ install_brew_taps() {
 
   brew_install -t caskroom/cask              -n 'Caskroom'
   brew_install -t caskroom/versions          -n 'Caskroom Versions'
+  brew_install -t caskroom/drivers           -n 'Caskroom Drivers'
 
   brew_install -t homebrew/command-not-found -n 'Homebrew Command-Not-Found'
   brew_install -t homebrew/dupes             -n 'Homebrew Dupes'
