@@ -33,17 +33,10 @@ brew() {
     install)
       cask="${3}"
 
-      OIFS="${IFS}"
-      IFS=';'
-      for caskname in $(brew cask _stanza name "${cask}" | /usr/bin/sed 's/", "/\;/g' | /usr/bin/tr -d '["]'); do
-        name="${caskname}"
-      done
-      IFS="${OIFS}"
-
       if array_contains_exactly "${BREW_INSTALLED_CASKS[@]}" "${cask}"; then
-        echo -g "${name} is already installed."
+        echo -g "${cask} is already installed."
       else
-        echo -b "Installing ${name} …"
+        echo -b "Installing ${cask} …"
         with_askpass command brew cask uninstall "${cask}" --force &>/dev/null
         with_askpass command brew "${@}" \
           --dictionarydir=/Library/Dictionaries \
