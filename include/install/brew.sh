@@ -90,8 +90,6 @@ upgrade_brew_formulae() {
   echo -b 'Updating Homebrew …'
   brew update --force
 
-  brew linkapps &>/dev/null
-
 }
 
 
@@ -123,13 +121,6 @@ install_brew_formulae() {
   brew install terminal-notifier
   brew install trash
   brew install valgrind
-
-  echo -r 'Unlinking Homebrew apps …'
-  brew unlinkapps \
-    python \
-    python3 \
-    terminal-notifier \
-  2>/dev/null
 
   echo -r 'Removing dead Homebrew symlinks …'
   brew prune
