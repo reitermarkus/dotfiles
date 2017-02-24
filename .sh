@@ -24,6 +24,14 @@
   }
 
 
+  # Accessibility Access
+  if test -z "$(/usr/bin/sqlite3 '/Library/Application Support/com.apple.TCC/TCC.db' \
+                       "SELECT * FROM access WHERE client = 'com.apple.Terminal' AND allowed = 1")"; then
+    echo -r "Please enable Accessibility Access for 'Terminal.app' in System Preferences."
+    exit 1
+  fi
+
+
   # Download Repository
 
   if [ "$(basename "${0}")" != '.sh' ]; then
