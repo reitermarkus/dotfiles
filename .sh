@@ -126,6 +126,7 @@
     bash
     bettersnaptool
     boom
+    environment
     fish
     deliveries
     hazel
