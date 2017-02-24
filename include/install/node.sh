@@ -23,7 +23,6 @@ install_npm_packages() {
 
   echo -b 'Updating Node packages …'
   npm -g update
-  npm -g upgrade
 
   # Install Node Packages
   brew cask list imageoptim &>/dev/null && npm -g install imageoptim-cli
