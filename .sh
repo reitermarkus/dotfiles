@@ -144,7 +144,6 @@
     rapidclick
     safari
     savehollywood
-    ssh
     telegram
     terminal
     tower
