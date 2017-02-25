@@ -7,6 +7,8 @@ defaults_git() {
 
   git config --global credential.helper osxkeychain
 
+  git config --global rerere.enabled true
+
   git config --global diff.plist.textconv 'plutil -convert xml1 -o -'
   git config --global diff.plist.binary false
   add_line_to_file "${gitattributes}" '*.plist diff=plist'
