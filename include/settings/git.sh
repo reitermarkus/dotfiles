@@ -7,6 +7,8 @@ defaults_git() {
 
   git config --global credential.helper osxkeychain
 
+  git config --global color.ui auto
+
   git config --global rerere.enabled true
 
   git config --global diff.plist.textconv 'plutil -convert xml1 -o -'
