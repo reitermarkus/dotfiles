@@ -136,6 +136,7 @@
     boom
     environment
     fish
+    git
     deliveries
     hazel
     keka
