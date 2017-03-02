@@ -12,16 +12,9 @@ export PATH="$HOME/.config/git/commands:$PATH"
 # Ruby
 
 export RBENV_ROOT="$HOME/.config/rbenv"
-export GEM_HOME="$RBENV_ROOT/versions/system"
-
-/bin/mkdir -p "$RBENV_ROOT/versions/system/bin"
-export PATH="$RBENV_ROOT/versions/system/bin:$PATH"
 
 /bin/mkdir -p "$RBENV_ROOT/shims"
 export PATH="$RBENV_ROOT/shims:$PATH"
-
-
-# Bundler
 
 export BUNDLE_PATH="$HOME/.config/bundle"
 /bin/mkdir -p "$BUNDLE_PATH"
