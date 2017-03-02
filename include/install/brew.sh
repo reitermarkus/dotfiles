@@ -110,6 +110,7 @@ install_brew_formulae() {
   brew install python3; if type pip3 &>/dev/null; then pip3 install --upgrade pip setuptools; fi
   brew install rlwrap
   brew install rbenv
+  brew install rbenv-binstubs
   brew install rbenv-system-ruby
   brew cask install osxfuse && brew install sshfs
   brew install terminal-notifier
