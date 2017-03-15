@@ -140,7 +140,6 @@
     deliveries
     hazel
     keka
-    launchbar
     rapidclick
     rocket
     safari

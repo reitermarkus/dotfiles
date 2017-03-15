@@ -157,7 +157,6 @@ install_brew_casks() {
   brew cask install kaleidoscope
   brew cask install keka
   brew cask install konica-minolta-bizhub-c220-c280-c360-driver
-  brew cask install launchbar
   brew cask install launchrocket
   brew cask install macdown
   brew cask install netspot
