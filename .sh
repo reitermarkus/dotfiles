@@ -142,6 +142,7 @@
     keka
     launchbar
     rapidclick
+    rocket
     safari
     savehollywood
     telegram

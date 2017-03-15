@@ -165,6 +165,7 @@ install_brew_casks() {
   brew cask install qlmarkdown
   brew cask install qlstephen
   brew cask install rcdefaultapp
+  brew cask install rocket
   brew cask install save-hollywood
   brew cask install sequel-pro
   brew cask install sigil
