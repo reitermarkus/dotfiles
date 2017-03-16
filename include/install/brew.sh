@@ -136,7 +136,6 @@ install_brew_casks() {
   is_desktop && brew cask install adobe-indesign-cc
   brew cask install adobe-photoshop-cc
   brew cask install arduino-nightly
-  brew cask install boom
   brew cask install calibre
   brew cask install chromium
   brew cask install cyberduck

@@ -133,7 +133,6 @@
     adobe
     bash
     bettersnaptool
-    boom
     environment
     fish
     git
