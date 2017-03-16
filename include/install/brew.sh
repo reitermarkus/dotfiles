@@ -33,7 +33,7 @@ brew() {
     install)
       local cask="${3}"
 
-      if array_contains_exactly "${BREW_INSTALLED_CASKS[@]}" "${cask}"; then
+      if array_contains_exactly "${BREW_INSTALLED_CASKS[@]}" "${cask##*/}"; then
         echo -g "${cask} is already installed."
       else
         echo -b "Installing ${cask} …"
@@ -51,7 +51,7 @@ brew() {
    ;;
   install)
     local formula="${2}"
-    if array_contains_exactly "${BREW_INSTALLED_FORMULAE[@]}" "$(/usr/bin/basename "${formula}")"; then
+    if array_contains_exactly "${BREW_INSTALLED_FORMULAE[@]}" "${formula##*/}"; then
       echo -g "${formula} is already installed."
     else
       echo -b "Installing ${formula} …"
