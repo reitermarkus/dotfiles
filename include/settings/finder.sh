@@ -4,11 +4,11 @@ defaults_finder() {
 
   # Hide “/opt” folder.
   if [ -d /opt ]; then
-    sudo -E -- chflags hidden /opt
+    sudo -E -- /usr/bin/chflags hidden /opt
   fi
 
   # Show “Library” folder.
-  chflags nohidden "${HOME}/Library"
+  /usr/bin/chflags nohidden "${HOME}/Library"
 
   # Show Drives and Servers on Desktop
   /usr/bin/defaults write com.apple.finder ShowHardDrivesOnDesktop         -bool true
