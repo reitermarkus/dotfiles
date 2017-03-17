@@ -130,7 +130,6 @@
     finder
     dock
     menubar
-    adobe
     bash
     bettersnaptool
     environment
