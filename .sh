@@ -156,7 +156,7 @@
     "defaults_${default}"
   done
 
-  apply_defaults
+  /usr/bin/killall cfprefsd &>/dev/null
 
   at_exit 'echo -k "Done."'
 
