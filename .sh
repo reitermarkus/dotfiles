@@ -158,8 +158,6 @@
 
   apply_defaults
 
-  cleanup
-
   at_exit 'echo -k "Done."'
 
 }
