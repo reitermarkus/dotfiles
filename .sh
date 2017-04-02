@@ -144,6 +144,7 @@
     savehollywood
     telegram
     terminal
+    tex
     tower
     transmission
     vagrant

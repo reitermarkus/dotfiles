@@ -158,6 +158,7 @@ install_brew_casks() {
   brew cask install konica-minolta-bizhub-c220-c280-c360-driver
   brew cask install launchrocket
   brew cask install macdown
+  brew cask install mactex
   brew cask install netspot
   brew cask install prizmo
   brew cask install qlmarkdown
