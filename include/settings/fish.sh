@@ -15,6 +15,9 @@ defaults_fish() {
     fi
 
     /bin/mkdir  -p "${HOME}/.config/fish"
+
+    /bin/mkdir  -p "${HOME}/.config/fish/conf.d"
+    /bin/ln -sfn "${HOME}/.config/environment" "${HOME}/.config/fish/conf.d/__env.fish"
   fi
 
 }
