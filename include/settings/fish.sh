@@ -25,6 +25,7 @@ defaults_fish() {
         'done' \
         'javahome' \
         'rbenv' \
+        'reitermarkus/fish_prompt' \
         'omf/thefuck' \
         'z'
   fi
