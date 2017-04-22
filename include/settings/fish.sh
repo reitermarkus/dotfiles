@@ -18,6 +18,17 @@ defaults_fish() {
 
     /bin/mkdir  -p "${HOME}/.config/fish/conf.d"
     /bin/ln -sfn "${HOME}/.config/environment" "${HOME}/.config/fish/conf.d/__env.fish"
+
+    # Fisherman
+    echo -b "Installing Fisherman …"
+    /usr/bin/curl --create-dirs -L https://git.io/fisher -o "${HOME}/.config/fish/functions/fisher.fish"
+
+    fish -c \
+      fisher install \
+        'done' \
+        'javahome' \
+        'rbenv' \
+        'z'
   fi
 
 }
