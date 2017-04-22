@@ -1,6 +1,3 @@
-/usr/bin/touch ~/.hushlogin
-
-
 # Custom Paths
 
 export PATH="/usr/local/sbin:$PATH"
