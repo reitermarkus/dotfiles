@@ -143,6 +143,7 @@ install_brew_casks() {
   brew cask install calibre
   brew cask install chromium
   brew cask install cyberduck
+  brew cask install detexify
   brew cask install dropbox
   brew cask install epub-services
   brew cask install evernote
