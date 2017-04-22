@@ -79,6 +79,8 @@ install_brew_taps() {
   brew tap homebrew/fuse
   brew tap homebrew/x11
 
+  brew tap fisherman/tap
+
   brew tap reitermarkus/tap
 
 }
@@ -101,6 +103,7 @@ install_brew_formulae() {
   brew install iperf3
   brew install node
   brew install fish
+  brew install fisherman
   brew install lockscreen
   brew install mackup
   brew install mas

@@ -20,9 +20,6 @@ defaults_fish() {
     /bin/ln -sfn "${HOME}/.config/environment" "${HOME}/.config/fish/conf.d/__env.fish"
 
     # Fisherman
-    echo -b "Installing Fisherman …"
-    /usr/bin/curl --create-dirs -L https://git.io/fisher -o "${HOME}/.config/fish/functions/fisher.fish"
-
     fish -c \
       fisher install \
         'done' \
