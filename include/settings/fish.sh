@@ -25,6 +25,7 @@ defaults_fish() {
         'done' \
         'javahome' \
         'rbenv' \
+        'omf/thefuck' \
         'z'
   fi
 
