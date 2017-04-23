@@ -42,7 +42,7 @@ defaults_git() {
 
   git config --global alias.master '! f() { git fetch ${1:-origin} master && git rebase ${1:-origin}/master; }; f'
 
-  git config --global alias.sync '! f() { git pull ${@} && git push ${@}; }; f'
+  git config --global alias.sync '! f() { git pull --rebase ${@} && git push ${@}; }; f'
 
   git config --global alias.new 'checkout -b'
   git config --global alias.shove 'push --force'
