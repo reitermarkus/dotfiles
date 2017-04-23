@@ -10,6 +10,7 @@ defaults_git() {
   git config --global color.ui auto
 
   git config --global rerere.enabled true
+  git config --global rerere.autoupdate true
 
   git config --global diff.algorithm histogram
 
