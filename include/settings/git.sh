@@ -40,7 +40,7 @@ defaults_git() {
   git config --global alias.u 'reset -p'
   git config --global alias.d 'checkout -p'
 
-  git config --global alias.master '! f() { git fetch && git rebase master; }; f'
+  git config --global alias.master '! f() { git fetch ${1:-origin} master && git rebase ${1:-origin}/master; }; f'
 
   git config --global alias.new 'checkout -b'
   git config --global alias.shove 'push --force'
