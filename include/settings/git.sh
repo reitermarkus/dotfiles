@@ -26,7 +26,7 @@ defaults_git() {
   git config --global alias.aliases 'config --get-regexp ^alias\.'
 
   # Change last n commits.
-  git config --global alias.change '! f() { git rebase -i "HEAD~${1:-1}" --autostash && git rebase --autostash; }; f'
+  git config --global alias.change '! f() { git rebase -i "HEAD~${1:-1}" --autostash && git rebase --autostash ${2:-master}; }; f'
 
   # Output nice log graph.
   git config --global alias.tree 'log --graph --oneline --decorate --all'
