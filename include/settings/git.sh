@@ -46,7 +46,7 @@ defaults_git() {
   git config --global alias.sync '! f() { git pull --rebase ${@} && git push ${@}; }; f'
 
   git config --global alias.new 'checkout -b'
-  git config --global alias.shove 'push --force'
+  git config --global alias.shove 'push --force-with-lease'
 
   git config --global alias.cp 'cherry-pick'
   git config --global alias.st 'status -s'
