@@ -99,6 +99,7 @@ install_brew_formulae() {
   brew install bash-completion
   brew install dockutil
   brew install git
+  brew install git-lfs
   brew install ghc
   brew install iperf3
   brew install node
