@@ -145,6 +145,7 @@
     telegram
     terminal
     tex
+    textmate
     tower
     transmission
     vagrant
