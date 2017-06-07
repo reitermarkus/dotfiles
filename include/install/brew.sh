@@ -97,6 +97,7 @@ install_brew_formulae() {
   is_desktop && brew install apcupsd
   brew install bash
   brew install bash-completion
+  brew install crystal-lang
   brew install dockutil
   brew install git
   brew install git-lfs
