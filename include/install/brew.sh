@@ -174,7 +174,6 @@ install_brew_casks() {
   brew cask install save-hollywood
   brew cask install sequel-pro
   brew cask install sigil
-  is_desktop && brew cask install simple-hub
   brew cask install skype
   brew cask install slack
   brew cask install sqlitebrowser
