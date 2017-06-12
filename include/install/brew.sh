@@ -111,7 +111,6 @@ install_brew_formulae() {
   brew install mas
   brew install ocaml
   brew install ocamlbuild
-  brew install python; if type pip2 &>/dev/null; then pip2 install --upgrade pip setuptools; fi
   brew install python3; if type pip3 &>/dev/null; then pip3 install --upgrade pip setuptools; fi
   brew install rlwrap
   brew install rbenv
