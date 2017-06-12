@@ -10,8 +10,6 @@ defaults_keyboard() {
   # Use FunctionFlip to set F4 to open Notification Center.
 
   if is_app_installed com.kevingessner.FunctionFlip; then
-    add_app_to_tcc 'com.kevingessner.FFHelperApp'
-
     /usr/bin/defaults write com.kevingessner.FunctionFlip startAtLogin -bool true
     /usr/bin/defaults write com.kevingessner.FunctionFlip "flipped.Markus' Tastatur.0x0007003d" -bool true
     /usr/bin/defaults write com.kevingessner.FunctionFlip "flipped.Apple Internal Keyboard / Trackpad.0x0007003d" -bool true

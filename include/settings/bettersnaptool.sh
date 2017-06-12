@@ -2,7 +2,6 @@ defaults_bettersnaptool() {
 
   # BetterSnapTool
   if is_app_installed com.hegenberg.BetterSnapTool; then
-    add_app_to_tcc com.hegenberg.BetterSnapTool
     add_login_item com.hegenberg.BetterSnapTool hidden
 
     /usr/bin/defaults write com.hegenberg.BetterSnapTool BSTCornerRoundness          -float 4
