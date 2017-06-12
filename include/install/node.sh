@@ -25,7 +25,7 @@ install_npm_packages() {
   npm -g update
 
   # Install Node Packages
-  brew cask list imageoptim &>/dev/null && npm -g install imageoptim-cli
+  npm -g install imageoptim-cli
   npm -g install svgexport
 
 }
