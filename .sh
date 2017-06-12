@@ -25,6 +25,7 @@
 
 
   # Accessibility Access
+
   if test -z "$(/usr/bin/sqlite3 '/Library/Application Support/com.apple.TCC/TCC.db' \
                        "SELECT * FROM access WHERE client = 'com.apple.Terminal' AND allowed = 1")"; then
     echo -r "Please enable Accessibility Access for 'Terminal.app' in System Preferences."
@@ -84,7 +85,7 @@
     with_askpass /usr/bin/sudo -A "${@}"
   }
 
-  /usr/bin/security add-generic-password -U -s 'dotfiles' -a "${USER}" -w "$(read -s -p "Password:" P < /dev/tty && printf "${P}")"
+  /usr/bin/security add-generic-password -U -s 'dotfiles' -a "${USER}" -w "$(read -s -p "Password: " P < /dev/tty && printf "${P}")"
   printf "\n"
 
   sudo -k
@@ -153,7 +154,7 @@
     xcode
   )
 
-  for default in "${defaults[@]}";do
+  for default in "${defaults[@]}"; do
     "defaults_${default}"
   done
 
