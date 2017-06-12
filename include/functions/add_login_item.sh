@@ -2,16 +2,15 @@ add_login_item() {
 
   # Add App to Login Items.
   local bundle_id="${1}"
-  hidden=false
+  local hidden=false
 
   if [ "${2}" == 'hidden' ]; then
     hidden=true
   fi
 
-  if is_app_installed "${bundle_id}"; then
+  local path="$(/usr/bin/mdfind -onlyin / kMDItemCFBundleIdentifier=="${bundle_id}" | /usr/bin/head -1)"
 
-    local path="$(/usr/bin/mdfind -onlyin / kMDItemCFBundleIdentifier=="${bundle_id}")"
-
+  if [ -d "${path}" ]; then
     /usr/bin/osascript -l JavaScript \
       -e "'use strict';                                   " \
       -e "                                                " \
@@ -28,7 +27,6 @@ add_login_item() {
       -e "                                                " \
       -e "$.exit(0)                                       " \
       -e "                                                "
-
   fi
 
 }
