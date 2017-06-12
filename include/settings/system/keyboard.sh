@@ -7,16 +7,6 @@ defaults_keyboard() {
 
   echo -b 'Setting defaults for Keyboard …'
 
-  # Use FunctionFlip to set F4 to open Notification Center.
-
-  if is_app_installed com.kevingessner.FunctionFlip; then
-    /usr/bin/defaults write com.kevingessner.FunctionFlip startAtLogin -bool true
-    /usr/bin/defaults write com.kevingessner.FunctionFlip "flipped.Markus' Tastatur.0x0007003d" -bool true
-    /usr/bin/defaults write com.kevingessner.FunctionFlip "flipped.Apple Internal Keyboard / Trackpad.0x0007003d" -bool true
-
-    /usr/bin/open -jga FunctionFlip &>/dev/null
-  fi
-
   # Austrian Keyboard Layout
 
   /usr/bin/defaults delete com.apple.HIToolbox AppleInputSourceHistory &>/dev/null

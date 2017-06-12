@@ -150,7 +150,6 @@ install_brew_casks() {
   brew cask install evernote
   brew cask install fritzing
   brew cask install font-meslo-nerd-font
-  is_desktop && brew cask install functionflip
   brew cask install hazel
   brew cask install hex-fiend
   sudo -E -- /bin/mkdir -p /Applications/iTach
