@@ -17,7 +17,7 @@ mas_install() {
 
 install_mas_apps() {
 
-  if type mas &>/dev/null; then
+  if which mas &>/dev/null; then
 
     echo -b 'Updating App Store Applications …'
     mas upgrade

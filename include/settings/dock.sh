@@ -65,7 +65,7 @@ defaults_dock() {
 
 set_dock_icons() {
 
-  if type dockutil &>/dev/null; then
+  if which dockutil &>/dev/null; then
 
     add_to_dock() {
 

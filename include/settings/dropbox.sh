@@ -119,7 +119,7 @@ dropbox_link_folders() {
 
 mackup_relink() {
 
-  if type mackup &>/dev/null; then
+  if which mackup &>/dev/null; then
 
     echo -b "Relinking “mackup” …"
 

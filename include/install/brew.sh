@@ -1,6 +1,6 @@
 install_brew() {
 
-  if type brew &>/dev/null; then
+  if which brew &>/dev/null; then
     echo -g 'Homebrew is already installed.'
   else
     echo -b 'Installing Homebrew …'
@@ -111,7 +111,7 @@ install_brew_formulae() {
   brew install mas
   brew install ocaml
   brew install ocamlbuild
-  brew install python3; if type pip3 &>/dev/null; then pip3 install --upgrade pip setuptools; fi
+  brew install python3; if which pip3 &>/dev/null; then pip3 install --upgrade pip setuptools; fi
   brew install rlwrap
   brew install rbenv
   brew install rbenv-binstubs
