@@ -101,6 +101,8 @@
 
   # Run Scripts
 
+  install_files
+
   install_xcode_clt
 
   install_brew

@@ -1,4 +1,4 @@
-include = "{$include,.sh}"
+include = "{$include,.sh,~/**/.*}"
 
 [ *terminal.sh ]
 softWrap = false
