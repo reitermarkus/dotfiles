@@ -14,11 +14,6 @@ defaults_fish() {
       sudo -E -- /usr/bin/chsh -s "${fish_bin}" "${USER}" &>/dev/null
     fi
 
-    /bin/mkdir -p "${HOME}/.config/fish"
-
-    /bin/mkdir -p "${HOME}/.config/fish/conf.d"
-    /bin/ln -sfn "${HOME}/.config/environment" "${HOME}/.config/fish/conf.d/__env.fish"
-
     # Fisherman
     fish -c \
       fisher install \

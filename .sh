@@ -54,6 +54,10 @@
   fi
 
 
+  # Load Environment
+  source "${dotfiles_dir}/~/.config/environment"
+
+
   # Load Functions
 
   eval "$(/usr/bin/find "${dotfiles_dir}/include" -iname '*.sh' -exec echo . '{};' \;)"
@@ -135,7 +139,6 @@
     menubar
     bash
     bettersnaptool
-    environment
     fish
     git
     deliveries

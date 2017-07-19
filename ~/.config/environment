@@ -1,3 +1,5 @@
+# This file was created automatically, do not edit it directly.
+
 # Custom Paths
 
 export PATH="/usr/local/sbin:$PATH"
