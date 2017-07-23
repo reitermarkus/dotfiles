@@ -1,6 +1,8 @@
 # This file was created automatically, do not edit it directly.
 
-source (brew command-not-found-init 2>/dev/null)
+if set -l brew_command_init (brew command-not-found-init 2>/dev/null)
+  source "$brew_command_init"
+end
 
 if test (type -t brew) = function
   functions -c brew __brew_cd
