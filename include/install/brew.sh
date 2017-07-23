@@ -192,6 +192,7 @@ install_brew_casks() {
   brew cask install tower-beta
   brew cask install unicodechecker
   brew cask install vagrant
+  brew cask install vagrant-bar
   brew cask install virtualbox
   brew cask install vlc-nightly
   brew cask install wineskin-winery
