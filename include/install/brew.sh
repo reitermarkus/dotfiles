@@ -168,6 +168,7 @@ install_brew_casks() {
   brew cask install mactex
   brew cask install netspot
   brew cask install prizmo
+  brew cask install postman
   brew cask install qlmarkdown
   brew cask install qlstephen
   brew cask install rcdefaultapp
