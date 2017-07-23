@@ -182,7 +182,9 @@ install_brew_casks() {
   brew cask install telegram
   brew cask install textmate
   brew cask install textmate-crystal
+  brew cask install textmate-cucumber
   brew cask install textmate-editorconfig
+  brew cask install textmate-elixir
   brew cask install textmate-rubocop
   brew cask install texshop
   brew cask install transmission
