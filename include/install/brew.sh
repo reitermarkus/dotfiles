@@ -71,8 +71,9 @@ install_brew_taps() {
   # Homebrew Taps
 
   brew tap caskroom/cask
-  brew tap caskroom/versions
   brew tap caskroom/drivers
+  brew tap caskroom/fonts
+  brew tap caskroom/versions
 
   brew tap homebrew/command-not-found
   brew tap homebrew/dupes
