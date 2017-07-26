@@ -15,7 +15,7 @@ install_brew() {
 brew() {
 
   BREW_INSTALLED_TAPS="${BREW_INSTALLED_TAPS:-$(command brew tap 2>/dev/null)}"
-  BREW_INSTALLED_CASKS="${BREW_INSTALLED_CASKS:-$(command brew cask list 2>/dev/null)}"
+  BREW_INSTALLED_CASKS="${BREW_INSTALLED_CASKS:-$(with_askpass command brew cask list 2>/dev/null)}"
   BREW_INSTALLED_FORMULAE="${BREW_INSTALLED_FORMULAE:-$(command brew list 2>/dev/null)}"
 
   case "${1}" in
