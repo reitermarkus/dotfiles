@@ -76,7 +76,6 @@ install_brew_taps() {
   brew tap caskroom/versions
 
   brew tap homebrew/command-not-found
-  brew tap homebrew/dupes
   brew tap homebrew/fuse
   brew tap homebrew/x11
 
