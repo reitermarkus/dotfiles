@@ -139,6 +139,7 @@
     menubar
     bash
     bettersnaptool
+    bundler
     fish
     git
     deliveries
