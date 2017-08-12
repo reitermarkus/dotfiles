@@ -18,7 +18,9 @@ defaults_startup() {
   sudo -E -- nvram boot-args='-v'
 
   # Restart on Power Failure or Freeze
-  sudo -E -- systemsetup -setrestartpowerfailure on &>/dev/null
+  if ! sudo -E -- systemsetup -getrestartpowerfailure | grep --quiet 'Not supported on this machine.'; then
+    sudo -E -- systemsetup -setrestartpowerfailure on &>/dev/null
+  fi
   sudo -E -- systemsetup -setrestartfreeze       on &>/dev/null
 
   # Enable Remote Apple Events, Remote Login & Remote Management

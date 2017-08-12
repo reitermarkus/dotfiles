@@ -9,8 +9,8 @@ defaults_keyboard() {
 
   # Austrian Keyboard Layout
 
-  /usr/bin/defaults delete com.apple.HIToolbox AppleInputSourceHistory &>/dev/null
-  /usr/bin/defaults delete com.apple.HIToolbox AppleSavedCurrentInputSource &>/dev/null
+  /usr/bin/defaults write com.apple.HIToolbox AppleInputSourceHistory -array
+  /usr/bin/defaults write com.apple.HIToolbox AppleSavedCurrentInputSource -dict
   /usr/bin/defaults write  com.apple.HIToolbox AppleCurrentKeyboardLayoutInputSourceID -string 'com.apple.keylayout.Austrian'
   /usr/bin/defaults write  com.apple.HIToolbox AppleEnabledInputSources -array '''
     <dict>
