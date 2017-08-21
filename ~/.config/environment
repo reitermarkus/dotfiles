@@ -15,10 +15,6 @@ export RBENV_ROOT="$HOME/.config/rbenv"
 /bin/mkdir -p "$RBENV_ROOT/shims"
 export PATH="$RBENV_ROOT/shims:$PATH"
 
-export BUNDLE_PATH="$HOME/.config/bundle"
-/bin/mkdir -p "$BUNDLE_PATH"
-/bin/ln -sfn .config/bundle "$HOME/.bundle"
-
 
 # Homebrew
 
