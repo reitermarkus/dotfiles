@@ -1,8 +1,9 @@
 # This file was created automatically, do not edit it directly.
 
-alias rm='rm -i' # Ask before removing files.
+alias rm 'rm -i' # Ask before removing files.
 
-alias +x='chmod +x'
+abbr --add -- '+x' 'chmod +x'
+abbr --add -- '-x' 'chmod -x'
 
 # OCaml
 alias ocaml='rlwrap ocaml'
@@ -20,7 +21,7 @@ alias edit="mate"
 
 # Finder
 alias finder 'open -a Finder'
-alias .DS_Store 'find . -name .DS_Store'
+abbr --add .DS_Store 'find . -name .DS_Store'
 alias ds_store .DS_Store
 alias openwithclean '/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -all user,local,system -v'
 
@@ -39,3 +40,5 @@ if which gittower > /dev/null
 
   alias tedit 'tower $argv; and edit'
 end
+
+abbr --add rsync-up 'rsync --progress -auv --exclude .git'
