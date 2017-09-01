@@ -147,7 +147,7 @@ install_brew_casks() {
   brew cask install cyberduck
   brew cask install detexify
   brew cask install dropbox
-  brew cask install docker
+  brew cask install docker-edge
   brew cask install epub-services
   brew cask install evernote
   brew cask install fritzing
