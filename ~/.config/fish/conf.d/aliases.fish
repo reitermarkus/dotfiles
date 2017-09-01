@@ -1,7 +1,5 @@
 # This file was created automatically, do not edit it directly.
 
-alias rm 'rm -i' # Ask before removing files.
-
 abbr --add -- '+x' 'chmod +x'
 abbr --add -- '-x' 'chmod -x'
 
