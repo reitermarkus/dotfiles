@@ -22,4 +22,12 @@ export HOMEBREW_CASK_OPTS='--appdir=/Applications --dictionarydir=/Library/Dicti
 export HOMEBREW_DEVELOPER='1'
 export HOMEBREW_GITHUB_API_TOKEN='0e3924d278578977b3bd88980c71877e0c426184'
 
+
+# RFC
+
+export RFC_DIR="$HOME/.config/rfc"
+
+
+# Z
+
 export Z_DATA="$HOME/.config/z"

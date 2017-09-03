@@ -82,6 +82,7 @@ install_brew_taps() {
   brew tap fisherman/tap
 
   brew tap reitermarkus/tap
+  brew tap bfontaine/utils
 
 }
 
@@ -117,6 +118,7 @@ install_brew_formulae() {
   brew install rbenv-binstubs
   brew install rbenv-system-ruby
   brew install rbenv-bundler-ruby-version
+  brew install rfc
   brew cask install osxfuse && brew install sshfs
   brew install terminal-notifier
   brew install thefuck
