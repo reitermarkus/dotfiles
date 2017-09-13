@@ -34,6 +34,16 @@ defaults_loginwindow() {
 
   # Apply Login Text on FileVault Pre-Boot Screen
   sudo -E -- /bin/rm -f /System/Library/Caches/com.apple.corestorage/EFILoginLocalizations/preferences.efires
+  
+  # Capitalize User Name
+  if [ "${USER}" = 'markus' ]; then
+    if [ "${HOME}" = '/Users/markus' ]; then
+      sudo -E -- /usr/bin/dscl . create "/Users/${USER}" NFSHomeDirectory /Users/Markus
+      sudo -E -- /bin/mv /Users/markus /Users/Markus
+    fi
+  
+    sudo -E -- /usr/bin/dscl . create "/Users/${USER}" RecordName Markus
+  fi
 
   # Set Account Picture
   USER_PICTURE="/Library/User Pictures/${USER}"
