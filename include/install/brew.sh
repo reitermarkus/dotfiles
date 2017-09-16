@@ -191,6 +191,7 @@ install_brew_casks() {
   brew cask install textmate-cucumber
   brew cask install textmate-editorconfig
   brew cask install textmate-elixir
+  brew cask install textmate-onsave
   brew cask install textmate-rubocop
   brew cask install transmission
   brew cask install tower-beta
