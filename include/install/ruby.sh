@@ -21,6 +21,8 @@ gem() {
 
 install_ruby_gems() {
 
+  rbenv rehash
+
   # Install Ruby Gems
   gem install bundler
 
