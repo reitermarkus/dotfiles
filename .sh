@@ -149,6 +149,7 @@
     rocket
     safari
     savehollywood
+    steam
     telegram
     terminal
     tex
