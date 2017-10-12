@@ -81,6 +81,7 @@ install_brew_taps() {
 
   brew tap fisherman/tap
 
+  brew tap jonof/kenutils
   brew tap reitermarkus/tap
   brew tap bfontaine/utils
 
@@ -113,6 +114,7 @@ install_brew_formulae() {
   brew install mas
   brew install ocaml
   brew install ocamlbuild
+  brew install pngout
   brew install python3; if which pip3 &>/dev/null; then pip3 install --upgrade pip setuptools; fi
   brew install rlwrap
   brew install rbenv
