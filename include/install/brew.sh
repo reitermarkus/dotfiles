@@ -127,6 +127,7 @@ install_brew_formulae() {
   brew install thefuck
   brew install trash
   brew install tree
+  brew install yarn
 
 }
 
