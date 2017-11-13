@@ -187,7 +187,6 @@ install_brew_casks() {
   brew cask install save-hollywood
   brew cask install sequel-pro
   brew cask install sigil
-  brew cask install skype
   brew cask install slack
   brew cask install sqlitebrowser
   brew cask install svgcleaner
