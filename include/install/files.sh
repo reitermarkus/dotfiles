@@ -18,6 +18,7 @@ install_files() {
 
   {
     echo
+    echo
     echo "# C, C++ & Make"
     echo "export MAKEFLAGS='-j$(sysctl -n hw.ncpu) -l$(sysctl -n hw.ncpu)'"
     echo "export PATH=\"$(brew --prefix ccache)/libexec:\$PATH\""
