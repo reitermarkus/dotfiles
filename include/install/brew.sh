@@ -1,5 +1,7 @@
 install_brew() {
 
+  sudo mkdir -p /usr/local/sbin
+
   if which brew &>/dev/null; then
     echo -g 'Homebrew is already installed.'
   else
@@ -100,6 +102,7 @@ install_brew_formulae() {
   brew install bash
   brew install bash-completion
   brew install carthage
+  brew install ccache
   brew install crystal-lang
   brew install dockutil
   brew install git
