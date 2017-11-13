@@ -16,16 +16,12 @@ link_to_dropbox() {
   # Also move hidden files.
   shopt -s dotglob
 
-  local local_dir="${HOME}/${1}"
+  local local_dir="${HOME}/${2-$1}"
   local dropbox_dir="$(get_dropbox_dir)"
 
   if test -d "${dropbox_dir}"; then
 
     dropbox_dir="${dropbox_dir}/Sync/~/${1}"
-
-    if [ "${2}" != '' ]; then
-      local_dir="${HOME}/${2}"
-    fi
 
     local local_dirname="$(/usr/bin/sed "s|^${HOME}|~|" <<< "${local_dir}")"
     local dropbox_dirname="$(/usr/bin/sed "s|^${HOME}|~|" <<< "${dropbox_dir}")"

@@ -82,21 +82,21 @@ set_dock_icons() {
       done
       shift $((OPTIND-1))
 
-      if [ "${name}" == "" ]; then
-        name="$(/usr/bin/basename "${path%.*}")"
+      if [ -z "${name-}" ]; then
+        name="$(/usr/bin/basename "${path%.app}")"
       fi
 
-      if [ -z "${after}" ]; then
+      if [ -z "${after-}" ]; then
         position='--position beginning'
       fi
 
       dockutil --no-restart --remove "${name}" &>/dev/null
 
-      if [ -d "${path}" ]; then
+      if [ -d "${path?}" ]; then
         dockutil --no-restart \
           --add "${path}" \
           --label "${name}" --replacing "${name}" \
-          --after "${after}" ${position}
+          --after "${after-}" ${position}
 
         after="${name}"
       fi

@@ -34,14 +34,14 @@ defaults_loginwindow() {
 
   # Apply Login Text on FileVault Pre-Boot Screen
   sudo -E -- /bin/rm -f /System/Library/Caches/com.apple.corestorage/EFILoginLocalizations/preferences.efires
-  
+
   # Capitalize User Name
   if [ "${USER}" = 'markus' ]; then
     if [ "${HOME}" = '/Users/markus' ]; then
       sudo -E -- /usr/bin/dscl . create "/Users/${USER}" NFSHomeDirectory /Users/Markus
       sudo -E -- /bin/mv /Users/markus /Users/Markus
     fi
-  
+
     sudo -E -- /usr/bin/dscl . create "/Users/${USER}" RecordName Markus
   fi
 
@@ -49,8 +49,8 @@ defaults_loginwindow() {
   USER_PICTURE="/Library/User Pictures/${USER}"
 
   sudo -E -- /bin/rm -f "${USER_PICTURE}"*
-  /usr/bin/dscl . delete "${HOME}" JPEGPhoto
-  /usr/bin/dscl . delete "${HOME}" Picture
+  sudo /usr/bin/dscl . delete "${HOME}" JPEGPhoto
+  sudo /usr/bin/dscl . delete "${HOME}" Picture
 
   # If no local Picture is found, use Gravatar.
   if [ -f "${HOME}/Library/User Pictures/${USER}"* ]; then
@@ -59,7 +59,7 @@ defaults_loginwindow() {
     sudo -E -- /usr/bin/curl -o "${USER_PICTURE}" --silent --location "http://gravatar.com/avatar/$(/sbin/md5 -q -s 'me@reitermark.us').png?s=256"
   fi
 
-  /usr/bin/dscl . append "${HOME}" Picture "${USER_PICTURE}"
+  sudo /usr/bin/dscl . append "${HOME}" Picture "${USER_PICTURE}"
 
   sudo -E -- /usr/sbin/chown "${USER}:staff" "${USER_PICTURE}"
   sudo -E -- /bin/chmod a=r,u+w "${USER_PICTURE}"

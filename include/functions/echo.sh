@@ -21,7 +21,7 @@ echo() {
   done
   shift $((OPTIND-1))
 
-  string="${*}"
+  string="${*-}"
 
   if [ ${bold} == true ]; then
     string="$(tput bold)${string}$(tput sgr0)"

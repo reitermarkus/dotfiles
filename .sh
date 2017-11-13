@@ -2,6 +2,17 @@
 
 {
 
+  # Abort on errors.
+
+  set -e
+  set -o pipefail
+
+
+  # Abort on unbound variables.
+
+  set -u
+
+
   # Disable Ctrl-Z
 
   trap '' TSTP
@@ -15,11 +26,8 @@
   # Add commands to run when exiting.
 
   at_exit() {
-    if [ ! -z "${AT_EXIT}" ]; then
-      AT_EXIT+=';'
-    fi
-
-    AT_EXIT+="${*}"
+    AT_EXIT+="${AT_EXIT:+;}"
+    AT_EXIT+="${*?}"
     trap "${AT_EXIT}" EXIT
   }
 
