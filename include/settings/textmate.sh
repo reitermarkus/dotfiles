@@ -6,7 +6,7 @@
 defaults_textmate() {
 
   # Ensure that Ruby 1.8 is downloaded.
-  mkdir -p ~/Library/Application\ Support/TextMate/Ruby
+  /bin/mkdir -p ~/Library/Application\ Support/TextMate/Ruby
   /usr/bin/curl -fsSL http://archive.textmate.org/ruby/ruby_1.8.7.tbz | \
     /usr/bin/tar xz -m -C ~/Library/Application\ Support/TextMate/Ruby
 

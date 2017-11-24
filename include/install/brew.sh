@@ -1,6 +1,6 @@
 install_brew() {
 
-  sudo mkdir -p /usr/local/sbin
+  sudo /bin/mkdir -p /usr/local/sbin
 
   if which brew &>/dev/null; then
     echo -g 'Homebrew is already installed.'
