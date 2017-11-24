@@ -124,6 +124,7 @@ install_brew_formulae() {
   brew install rbenv-system-ruby
   brew install rbenv-bundler-ruby-version
   brew install rfc
+  brew install rust
   brew cask install osxfuse && brew install sshfs
   brew install terminal-notifier
   brew install thefuck
