@@ -104,6 +104,7 @@ install_brew_formulae() {
   brew install ccache
   brew install crystal-lang
   brew install dockutil
+  brew install dnsmasq
   brew install git
   brew install git-lfs
   brew install ghc

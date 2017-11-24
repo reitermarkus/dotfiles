@@ -148,6 +148,7 @@
     bash
     bettersnaptool
     bundler
+    dnsmasq
     fish
     git
     deliveries
