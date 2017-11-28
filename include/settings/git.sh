@@ -22,6 +22,10 @@ defaults_git() {
   git config --global diff.strings.binary false
   add_line_to_file "${gitattributes}" '*.strings diff=strings'
 
+  # Always use SSH URLs for pushing to GitHub and for pulling from private repositories.
+  git config --global url.ssh://git@github.com/.pushInsteadOf https://github.com/
+  git config --global url.ssh://git@github.com/reitermarkus/.insteadOf https://github.com/reitermarkus/
+
   # Show all aliases.
   git config --global alias.aliases 'config --get-regexp ^alias\.'
 
