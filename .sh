@@ -124,6 +124,8 @@
   install_ruby_gems
   install_npm_packages
 
+  install_rustup
+
   install_brew_casks
   install_mas_apps
 

@@ -16,6 +16,12 @@ export RBENV_ROOT="$HOME/.config/rbenv"
 export PATH="$RBENV_ROOT/shims:$PATH"
 
 
+# Rust
+
+/bin/mkdir -p "$HOME/.cargo/bin"
+export PATH="$HOME/.cargo/bin:$PATH"
+
+
 # Homebrew
 
 export HOMEBREW_CASK_OPTS='--appdir=/Applications --dictionarydir=/Library/Dictionaries --colorpickerdir=/Library/ColorPickers --prefpanedir=/Library/PreferencePanes --qlplugindir=/Library/QuickLook --screen_saverdir=/Library/Screen\ Savers'
