@@ -189,6 +189,7 @@ install_brew_casks() {
   brew cask install sequel-pro
   brew cask install sigil
   brew cask install slack
+  brew cask install skim
   brew cask install db-browser-for-sqlite
   brew cask install svgcleaner
   brew cask install table-tool
