@@ -3,7 +3,7 @@ defaults_dnsmasq() {
   local dnsmasq_conf="$(brew --prefix)/etc/dnsmasq.conf"
 
   if ! /usr/bin/grep --quiet '^address=/.localhost/127.0.0.1$' "${dnsmasq_conf}"; then
-    sed -i '' -E
+    /usr/bin/sed -i '' -E \
       '/^#address=\/double-click.net\/127.0.0.1/a\
        address=/.localhost/127.0.0.1\
       ' "${dnsmasq_conf}"
