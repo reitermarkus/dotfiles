@@ -193,7 +193,7 @@ install_brew_casks() {
   brew cask install db-browser-for-sqlite
   brew cask install svgcleaner
   brew cask install table-tool
-  brew cask install telegram
+  brew cask install telegram-alpha
   brew cask install textmate
   brew cask install textmate-crystal
   brew cask install textmate-cucumber
