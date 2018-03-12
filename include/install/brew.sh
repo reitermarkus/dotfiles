@@ -147,10 +147,6 @@ install_brew_casks() {
   # Install Homebrew Casks
 
   brew cask install a-better-finder-rename
-  brew cask install adobe-creative-cloud
-  brew cask install adobe-illustrator-cc
-  is_desktop && brew cask install adobe-indesign-cc
-  brew cask install adobe-photoshop-cc
   brew cask install arduino-nightly
   brew cask install calibre
   brew cask install chromium
