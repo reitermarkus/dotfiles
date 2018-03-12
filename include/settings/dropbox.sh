@@ -31,7 +31,7 @@ link_to_dropbox() {
     else
       echo -b "Linking ${local_dirname} to ${dropbox_dirname} …"
 
-      /usr/bin/killall Dropbox &>/dev/null
+      /usr/bin/killall Dropbox &>/dev/null || true
 
       if ! test -d "${dropbox_dir}"; then
         /bin/rm "${dropbox_dir}"
