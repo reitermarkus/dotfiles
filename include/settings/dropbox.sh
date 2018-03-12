@@ -33,7 +33,14 @@ link_to_dropbox() {
 
       /usr/bin/killall Dropbox &>/dev/null
 
-      /bin/rm -f "${dropbox_dir}" "${local_dir}" 2>/dev/null
+      if ! test -d "${dropbox_dir}"; then
+        /bin/rm "${dropbox_dir}"
+      fi
+
+      if ! test -d "${local_dir}"; then
+        /bin/rm "${local_dir}"
+      fi
+
       /bin/mkdir -p "${local_dir}"
 
       if test -d "${dropbox_dir}"; then
