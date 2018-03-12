@@ -118,14 +118,14 @@ install_brew_formulae() {
   brew install ocaml
   brew install ocamlbuild
   brew install pngout
-  brew install python3; if which pip3 &>/dev/null; then pip3 install --upgrade pip setuptools; fi
+  brew install python; if which pip3 &>/dev/null; then pip3 install --upgrade pip setuptools; fi
   brew install rlwrap
   brew install rbenv
   brew install rbenv-binstubs
   brew install rbenv-system-ruby
   brew install rbenv-bundler-ruby-version
   brew install rfc
-  brew install rustup
+  brew install rustup-init
   brew cask install osxfuse && brew install sshfs
   brew install terminal-notifier
   brew install thefuck
