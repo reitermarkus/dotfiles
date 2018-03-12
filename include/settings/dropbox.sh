@@ -45,11 +45,11 @@ link_to_dropbox() {
 
       if test -d "${dropbox_dir}"; then
         /bin/rm -f "${dropbox_dir}/.DS_Store"
-        /usr/bin/find "${dropbox_dir}" -depth 1 -exec /bin/mv -f '{}' "${local_dir}/" \;
+        /usr/bin/find "${dropbox_dir}" -depth 1 -print0 | /usr/bin/xargs -0 -I% /bin/mv -f '%' "${local_dir}/"
         /bin/rmdir "${dropbox_dir}"
       fi
 
-      /bin/mkdir -p "$(dirname "${dropbox_dir}")"
+      /bin/mkdir -p "$(/usr/bin/dirname "${dropbox_dir}")"
       /bin/ln -sfn "${local_dir}" "${dropbox_dir}" || echo -r "Error linking ${local_dirname} to ${dropbox_dirname}."
 
     fi
