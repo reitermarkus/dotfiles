@@ -4,7 +4,7 @@ $cleanup = $FALSE
 $dotfilesDir = $PSScriptRoot
 
 try {
-  If ($TRUE -or $MyInvocation.InvocationName -eq '.') {
+  If ($MyInvocation.InvocationName -eq '.') {
     Write-Output 'Downloading Github Repository …'
     $cleanup = $TRUE
 
@@ -12,7 +12,7 @@ try {
     New-Item -ItemType Directory -Path $tempPath | Out-Null
 
     $dotfilesDir = (Join-Path $tempPath 'dotfiles')
-    $dotfilesZip = $dotfilesDir + '.zip'
+    $dotfilesZip = "$dotfilesDir.zip"
 
     try {
       Invoke-WebRequest -Uri 'https://github.com/reitermarkus/dotfiles/archive/windows.zip' -OutFile $dotfilesZip
@@ -22,6 +22,8 @@ try {
       Remove-Item $dotfilesZip -Force
     }
   }
+
+  . (Join-Path $dotfilesDir 'settings' 'default_apps.ps1')
 } finally {
   If ($cleanup) {
     Remove-Item $dotfilesDir -Force -Recurse
