@@ -1,5 +1,7 @@
 #!/usr/bin/env pwsh
 
+Set-ExecutionPolicy Bypass -Scope Process -Force
+
 $cleanup = $FALSE
 $dotfilesDir = $PSScriptRoot
 
