@@ -1,4 +1,4 @@
-Write-Output "Removing default apps …"
+Write-Output "Removing default apps ..."
 
 # Uninstall useless default apps.
 ForEach($appId in
