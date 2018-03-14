@@ -1,3 +1,5 @@
+Write-Output "Removing default apps …"
+
 # Uninstall useless default apps.
 ForEach($appId in
   "Microsoft.3DBuilder",          # 3D Builder
