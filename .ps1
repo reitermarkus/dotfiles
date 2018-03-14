@@ -14,8 +14,10 @@ try {
     $dotfilesDir = (Join-Path $tempPath 'dotfiles')
     $dotfilesZip = "$dotfilesDir.zip"
 
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+    Invoke-WebRequest -Uri 'https://github.com/reitermarkus/dotfiles/archive/windows.zip' -OutFile $dotfilesZip
+
     try {
-      Invoke-WebRequest -Uri 'https://github.com/reitermarkus/dotfiles/archive/windows.zip' -OutFile $dotfilesZip
       Expand-Archive -Path $dotfilesZip -DestinationPath $tempPath -Force
       Move-Item -Path (Join-Path $tempPath 'dotfiles-windows') -Destination $dotfilesDir
     } finally {
