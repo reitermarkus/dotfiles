@@ -28,6 +28,7 @@ try {
   }
 
   . (Join-Path $dotfilesDir (Join-Path 'settings' 'default_apps.ps1'))
+  . (Join-Path $dotfilesDir (Join-Path 'settings' 'disable_uac.ps1'))
 } finally {
   If ($cleanup) {
     Remove-Item $dotfilesDir -Force -Recurse
