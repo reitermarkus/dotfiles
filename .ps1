@@ -4,7 +4,7 @@ $cleanup = $FALSE
 $dotfilesDir = $PSScriptRoot
 
 try {
-  If ($MyInvocation.InvocationName -eq '.') {
+  If ($PSScriptRoot -eq '') {
     Write-Output 'Downloading Github Repository …'
     $cleanup = $TRUE
 
