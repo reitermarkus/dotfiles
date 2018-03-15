@@ -8,6 +8,7 @@ choco upgrade -y chocolatey
 choco install -y 7zip
 choco install -y autohotkey
 choco install -y cinebench
+choco install -y coretemp
 choco install -y cpu-z
 choco install -y crystaldiskmark
 choco install -y gpu-z
