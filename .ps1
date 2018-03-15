@@ -31,6 +31,7 @@ try {
   . (Join-Path $dotfilesDir (Join-Path 'settings' 'disable_uac.ps1'))
 
   . (Join-Path $dotfilesDir (Join-Path 'install' 'chocolatey.ps1'))
+  . (Join-Path $dotfilesDir (Join-Path 'install' 'bootcamp.ps1'))
 } finally {
   If ($cleanup) {
     Remove-Item $dotfilesDir -Force -Recurse
