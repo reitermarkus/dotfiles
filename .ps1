@@ -29,6 +29,7 @@ try {
 
   . (Join-Path $dotfilesDir (Join-Path 'settings' 'default_apps.ps1'))
   . (Join-Path $dotfilesDir (Join-Path 'settings' 'disable_uac.ps1'))
+  . (Join-Path $dotfilesDir (Join-Path 'settings' 'natural_scrolling.ps1'))
 
   . (Join-Path $dotfilesDir (Join-Path 'install' 'chocolatey.ps1'))
   . (Join-Path $dotfilesDir (Join-Path 'install' 'bootcamp.ps1'))
