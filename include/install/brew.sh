@@ -105,6 +105,7 @@ install_brew_formulae() {
   brew install crystal-lang
   brew install dockutil
   brew install dnsmasq
+  brew install gcc
   brew install git
   brew install git-lfs
   brew install ghc
@@ -112,6 +113,7 @@ install_brew_formulae() {
   brew install node
   brew install fish
   brew install fisherman
+  brew install llvm
   brew install lockscreen
   brew install mackup
   brew install mas
