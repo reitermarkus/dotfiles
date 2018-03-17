@@ -1,0 +1,55 @@
+# This file was created automatically, do not edit it directly.
+
+theme          = "38E819D9-AE02-452F-9231-ECC3B204AFD7" # Solarized Light
+
+fontName       = "Source Code Pro"
+fontSize       = 13
+
+softWrap       = true
+softTabs       = true
+tabSize        = 2
+
+
+# Includes
+
+include = {$include,.editorconfig,.latexmkrc,.buckconfig}                                        # Editor
+include = {$include,.gitattributes,.gitignore,.gitkeep,.github}           # Git
+include = {$include,.env*}                                                 # DotEnv
+include = {$include,.gemrc,.bundle,.rspec,.rubocop*.yml,.ruby-version}    # Ruby
+include = {$include,.travis.yml,.gitlab-ci.yml}                           # CI
+include = {$include,.simplecov,.resultset.json}                           # SimpleCov
+include = {$include,.codecov.yml}                                         # CodeCov
+include = {$include,.yardopts}                                            # Documentation
+include = {$include,.ocamlinit}                                           # OCaml
+include = {$include,.sencha,.babelrc,.markdownlint.json,.stylelintrc.yml,.eslintignore,.eslintrc*}       # JavaScript
+
+fileBrowserGlob = {*,$include}
+
+
+# Excludes
+
+excludeInFolderSearch = "{$excludeInFolderSearch,vendor/bundle}" # Bundler
+excludeInFolderSearch = "{$excludeInFolderSearch,node_modules}" # Node.js
+
+
+[ *.{icns,ico,jpg,jpeg,m4v,nib,pdf,png,psd,pyc,rtf,tif,tiff,xib} ]
+binary = true
+
+[ {README,INSTALL,LICENSE,TODO,CONFIGURATION} ]
+fileType = text.plain
+
+[ .git/COMMIT_EDITMSG ]
+spellChecking = true
+spellingLanguage = en
+
+[ .simplecov ]
+fileType = source.ruby
+
+[ .babelrc ]
+fileType = source.json
+
+[ text.tabular.csv ]
+softWrap = false
+
+[ source.makefile ]
+softTabs = false
