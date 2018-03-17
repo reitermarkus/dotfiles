@@ -15,6 +15,7 @@ defaults_fish() {
     fi
 
     # Fisherman
+    fish -c fisher up
     fish -c \
       fisher install \
         'done' \
