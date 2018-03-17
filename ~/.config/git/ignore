@@ -1,0 +1,31 @@
+# This file was created automatically, do not edit it directly.
+
+# Metadata
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon?
+Icon
+# Icon? (must end with two carriage returns)
+
+# Thumbnails
+._*
+
+# Files that might appear in the Root of a Volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Debugging Symbols
+*.dSYM
