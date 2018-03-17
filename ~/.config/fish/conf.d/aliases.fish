@@ -40,3 +40,10 @@ if which gittower > /dev/null
 end
 
 abbr --add rsync-up 'rsync --progress -auv --exclude .git'
+
+# Development
+alias dotfiles 'cd ~/Documents/Git-Repos/Personal/dotfiles/'
+alias website 'cd ~/Documents/Git-Repos/Personal/reitermarkus.github.com/'
+
+# Maintenance
+alias syncsettings 'mackup --force restore; and mackup --force restore; and mackup --force backup'
