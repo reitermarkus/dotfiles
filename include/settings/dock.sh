@@ -36,8 +36,16 @@ defaults_dock() {
       );
     }
   """
-  /usr/bin/sqlite3 "${HOME}/Library/Application Support/Dock/desktoppicture.db" "update data set value = '${desktop_pictures_dir}/current'"
-
+  /usr/bin/sqlite3 "${HOME}/Library/Application Support/Dock/desktoppicture.db" """
+    DELETE FROM data;
+    DELETE FROM preferences;
+    VACUUM;
+    INSERT INTO data VALUES('${desktop_pictures_dir}/current');
+    INSERT INTO preferences VALUES(1, 1, 1);
+    INSERT INTO preferences VALUES(1, 1, 2);
+    INSERT INTO preferences VALUES(1, 1, 3);
+    INSERT INTO preferences VALUES(1, 1, 4);
+  """
 
   # Screensaver
 
