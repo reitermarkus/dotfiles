@@ -5,6 +5,7 @@ theme          = "38E819D9-AE02-452F-9231-ECC3B204AFD7" # Solarized Light
 fontName       = "Source Code Pro"
 fontSize       = 13
 
+wrapColumn     = 0
 softWrap       = true
 softTabs       = true
 tabSize        = 2
