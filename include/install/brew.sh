@@ -176,6 +176,7 @@ install_brew_casks() {
   brew cask install macdown
   brew cask install mactex
   brew cask install netspot
+  brew cask install otp-auth
   brew cask install playnow
   brew cask install prizmo
   brew cask install postman
