@@ -150,6 +150,7 @@ install_brew_casks() {
 
   brew cask install a-better-finder-rename
   brew cask install arduino-nightly
+  brew cask install bibdesk
   brew cask install calibre
   brew cask install chromium
   brew cask install cyberduck
@@ -158,6 +159,7 @@ install_brew_casks() {
   brew cask install docker-edge
   brew cask install epub-services
   brew cask install evernote
+  brew cask install excalibur
   brew cask install fritzing
   brew cask install font-meslo-nerd-font
   brew cask install hazel
@@ -173,8 +175,9 @@ install_brew_casks() {
   brew cask install keka
   brew cask install konica-minolta-bizhub-c220-c280-c360-driver
   brew cask install launchrocket
+  brew cask install latexit
   brew cask install macdown
-  brew cask install mactex
+  brew cask install mactex-no-gui
   brew cask install netspot
   brew cask install otp-auth
   brew cask install playnow
@@ -193,6 +196,7 @@ install_brew_casks() {
   brew cask install svgcleaner
   brew cask install table-tool
   brew cask install telegram-alpha
+  brew cask install tex-live-utility
   brew cask install textmate
   brew cask install textmate-crystal
   brew cask install textmate-cucumber
