@@ -226,7 +226,6 @@ install_brew_casks() {
   echo '"Converters" = "Conversion Tools";' > "${converters_dir}/.localized/en.strings"
   brew cask install handbrake  --appdir="${converters_dir}"
   brew cask install makemkv    --appdir="${converters_dir}"
-  brew cask install mkvtools   --appdir="${converters_dir}"
   brew cask install xld        --appdir="${converters_dir}"
   brew cask install xnconvert  --appdir="${converters_dir}"
   brew cask install image2icon --appdir="${converters_dir}"
