@@ -102,6 +102,7 @@ install_brew_formulae() {
   brew install bash-completion
   brew install carthage
   brew install ccache
+  brew install clang-format
   brew install cmake
   brew install crystal-lang
   brew install dockutil
