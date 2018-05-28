@@ -1,0 +1,9 @@
+os: osx
+
+sudo: true
+
+before_install:
+  - brew uninstall --force $(brew ls)
+  - brew cask uninstall --force $(brew cask ls)
+  - /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)" -- --force
+install: ./.sh
