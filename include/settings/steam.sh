@@ -16,8 +16,17 @@ defaults_steam() {
     echo 'cl_radar_scale 0.6'
     echo 'cl_hud_radar_scale 1.25'
     echo 'cl_radar_icon_scale_min 1'
-    echo 'bind MWHEELDOWN +jump'
-    echo 'bind MOUSE4 +voicerecord'
+    echo 'bind MWHEELUP +jump'
+    echo 'bind MWHEELDOWN invnext'
+    echo 'alias +jumpthrow "+jump;-attack;-attack2"'
+    echo 'alias -jumpthrow "-jump"'
+    echo 'bind j +jumpthrow'
+    echo 'bind MOUSE4 +jumpthrow'
+    echo 'developer 1'
+    echo 'con_enable "1"'
+    echo 'con_filter_text "Damage Given"'
+    echo 'con_filter_text_out "Player:"'
+    echo 'con_filter_enable 2'
   } > "${csgo_config_dir}/autoexec.cfg"
 
   {
