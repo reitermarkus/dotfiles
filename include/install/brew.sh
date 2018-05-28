@@ -162,6 +162,7 @@ install_brew_casks() {
   brew cask install epub-services
   brew cask install evernote
   brew cask install excalibur
+  brew cask install fluor
   brew cask install fritzing
   brew cask install font-meslo-nerd-font
   brew cask install hazel
