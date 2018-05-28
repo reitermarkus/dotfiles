@@ -1,4 +1,5 @@
 mas_install() {
+  ci && return
 
   local id="${1}"
   local name="${2}"

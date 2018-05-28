@@ -31,10 +31,13 @@
     trap "${AT_EXIT}" EXIT
   }
 
+  ci() {
+    test -n "${CI+set}"
+  }
 
   # Accessibility Access
 
-  if test -z "$(/usr/bin/sqlite3 '/Library/Application Support/com.apple.TCC/TCC.db' \
+  if ! ci && test -z "$(/usr/bin/sqlite3 '/Library/Application Support/com.apple.TCC/TCC.db' \
                        "SELECT * FROM access WHERE client = 'com.apple.Terminal' AND allowed = 1")"; then
     echo -r "Please enable Accessibility Access for 'Terminal.app' in System Preferences."
     exit 1
@@ -71,39 +74,47 @@
   eval "$(/usr/bin/find "${dotfiles_dir}/include" -iname '*.sh' -exec echo . '{};' \;)"
 
 
-  # Ask for superuser password, and temporarily add it to the Keychain.
+  if ci; then
+    echo Running on CI
 
-  SUDO_ASKPASS_SCRIPT="$(mktemp)"
+    with_askpass() {
+      "${@}"
+    }
+  else
+    # Ask for superuser password, and temporarily add it to the Keychain.
 
-  echo \
-    "#!/bin/sh\n" \
-    '/usr/bin/security find-generic-password -s "dotfiles" -a "$USER" -w' \
-    >> "${SUDO_ASKPASS_SCRIPT}"
+    SUDO_ASKPASS_SCRIPT="$(mktemp)"
 
-  /bin/chmod +x "${SUDO_ASKPASS_SCRIPT}"
+    echo \
+      "#!/bin/sh\n" \
+      '/usr/bin/security find-generic-password -s "dotfiles" -a "$USER" -w' \
+      >> "${SUDO_ASKPASS_SCRIPT}"
 
-  delete_askpass_password() {
-    echo -r 'Removing password from Keychain …'
-    /bin/rm -f "${SUDO_ASKPASS_SCRIPT}"
-    /usr/bin/security delete-generic-password -s 'dotfiles' -a "${USER}"
-  }
-  at_exit delete_askpass_password
+    /bin/chmod +x "${SUDO_ASKPASS_SCRIPT}"
 
-  with_askpass() {
-    SUDO_ASKPASS="${SUDO_ASKPASS_SCRIPT}" "${@}"
-  }
+    delete_askpass_password() {
+      echo -r 'Removing password from Keychain …'
+      /bin/rm -f "${SUDO_ASKPASS_SCRIPT}"
+      /usr/bin/security delete-generic-password -s 'dotfiles' -a "${USER}"
+    }
+    at_exit delete_askpass_password
 
-  sudo() {
-    with_askpass /usr/bin/sudo -A "${@}"
-  }
+    with_askpass() {
+      SUDO_ASKPASS="${SUDO_ASKPASS_SCRIPT}" "${@}"
+    }
 
-  /usr/bin/security add-generic-password -U -s 'dotfiles' -a "${USER}" -w "$(read -s -p "Password: " P < /dev/tty && printf "${P}")"
-  printf "\n"
+    sudo() {
+      with_askpass /usr/bin/sudo -A "${@}"
+    }
 
-  sudo -k
-  if ! sudo -kv 2>/dev/null; then
-    echo -r 'Incorrect password. Exiting …'
-    exit 1
+    /usr/bin/security add-generic-password -U -s 'dotfiles' -a "${USER}" -w "$(read -s -p "Password: " P < /dev/tty && printf "${P}")"
+    printf "\n"
+
+    sudo -k
+    if ! sudo -kv 2>/dev/null; then
+      echo -r 'Incorrect password. Exiting …'
+      exit 1
+    fi
   fi
 
 
