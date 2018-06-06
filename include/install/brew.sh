@@ -1,4 +1,5 @@
 install_brew() {
+  export HOMEBREW_NO_AUTO_UPDATE=1
 
   sudo /bin/mkdir -p /usr/local/sbin
 
@@ -9,6 +10,8 @@ install_brew() {
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   fi
 
+  echo -b 'Updating Homebrew …'
+  brew update --force
 }
 
 
@@ -97,10 +100,6 @@ install_brew_taps() {
 
 
 install_brew_formulae() {
-
-  # Upgrade Hombrew Formulae
-  echo -b 'Updating Homebrew …'
-  brew update --force
 
   # Install Homebrew Formulae
 
