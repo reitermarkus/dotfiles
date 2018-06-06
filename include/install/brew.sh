@@ -16,20 +16,10 @@ install_brew() {
 
 brew() {
 
-  BREW_INSTALLED_TAPS="${BREW_INSTALLED_TAPS:-$(command brew tap 2>/dev/null)}"
   BREW_INSTALLED_CASKS="${BREW_INSTALLED_CASKS:-$(with_askpass command brew cask list 2>/dev/null)}"
   BREW_INSTALLED_FORMULAE="${BREW_INSTALLED_FORMULAE:-$(command brew list 2>/dev/null)}"
 
   case "${1}" in
-  tap)
-    local tap="${2}"
-    if array_contains_exactly "${BREW_INSTALLED_TAPS[@]}" "${tap}"; then
-      echo -g "${tap} is already tapped."
-    else
-      echo -b "Tapping ${tap} …"
-      command brew "${@}" || echo -r "Error tapping ${tap}."
-    fi
-    ;;
   cask)
     case "${2}" in
     install)
@@ -68,24 +58,41 @@ brew() {
 }
 
 
+# Homebrew Taps
 install_brew_taps() {
+  local installed_taps="$(brew tap 2>/dev/null)"
 
-  # Homebrew Taps
+  local taps=(
+    caskroom/cask
+    caskroom/drivers
+    caskroom/fonts
+    caskroom/versions
 
-  brew tap caskroom/cask
-  brew tap caskroom/drivers
-  brew tap caskroom/fonts
-  brew tap caskroom/versions
+    homebrew/command-not-found
+    homebrew/services
 
-  brew tap homebrew/command-not-found
-  brew tap homebrew/services
+    fisherman/tap
 
-  brew tap fisherman/tap
+    jonof/kenutils
+    reitermarkus/tap
+    bfontaine/utils
+  )
 
-  brew tap jonof/kenutils
-  brew tap reitermarkus/tap
-  brew tap bfontaine/utils
+  local pids=( )
 
+  for tap in "${taps[@]}"; do
+    if array_contains_exactly "${installed_taps[@]}" "${tap}"; then
+      echo -g "${tap} is already tapped."
+    else
+      echo -b "Tapping ${tap} …"
+      brew tap "${tap}" >/dev/null &
+      pids+=( $! )
+    fi
+  done
+
+  for pid in "${pids[@]}"; do
+    wait "${pid}"
+  done
 }
 
 
