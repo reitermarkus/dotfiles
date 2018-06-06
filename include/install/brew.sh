@@ -88,7 +88,7 @@ install_brew_taps() {
       echo -g "${tap} is already tapped."
     else
       echo -b "Tapping ${tap} …"
-      brew tap "${tap}" >/dev/null &
+      brew tap "${tap}" &>/dev/null &
       pids+=( $! )
     fi
   done
