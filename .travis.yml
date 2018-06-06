@@ -6,7 +6,8 @@ osx_image: xcode9.3
 sudo: true
 
 before_install:
-  - brew uninstall --force $(brew ls)
-  - brew cask uninstall --force $(brew cask ls)
+  - brew uninstall --force $(brew ls) &
+  - brew cask uninstall --force $(brew cask ls) &
+  - wait
   - /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)" -- --force
 install: ./.sh
