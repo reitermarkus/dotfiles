@@ -6,7 +6,7 @@ install_brew() {
     echo -g 'Homebrew is already installed.'
   else
     echo -b 'Installing Homebrew …'
-    with_askpass /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   fi
 
 }
@@ -16,7 +16,7 @@ install_brew() {
 
 brew() {
 
-  BREW_INSTALLED_CASKS="${BREW_INSTALLED_CASKS:-$(with_askpass command brew cask list 2>/dev/null)}"
+  BREW_INSTALLED_CASKS="${BREW_INSTALLED_CASKS:-$(command brew cask list 2>/dev/null)}"
   BREW_INSTALLED_FORMULAE="${BREW_INSTALLED_FORMULAE:-$(command brew list 2>/dev/null)}"
 
   case "${1}" in
@@ -29,7 +29,7 @@ brew() {
         echo -g "${cask} is already installed."
       else
         echo -b "Installing ${cask} …"
-        with_askpass command brew "${@}" \
+        command brew "${@}" \
           --dictionarydir=/Library/Dictionaries \
           --prefpanedir=/Library/PreferencePanes \
           --qlplugindir=/Library/QuickLook \

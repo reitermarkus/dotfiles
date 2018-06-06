@@ -74,13 +74,7 @@
   eval "$(/usr/bin/find "${dotfiles_dir}/include" -iname '*.sh' -exec echo . '{};' \;)"
 
 
-  if ci; then
-    echo Running on CI
-
-    with_askpass() {
-      "${@}"
-    }
-  else
+  if ! ci; then
     # Ask for superuser password, and temporarily add it to the Keychain.
 
     SUDO_ASKPASS_SCRIPT="$(mktemp)"
@@ -99,12 +93,10 @@
     }
     at_exit delete_askpass_password
 
-    with_askpass() {
-      SUDO_ASKPASS="${SUDO_ASKPASS_SCRIPT}" "${@}"
-    }
+    export SUDO_ASKPASS="${SUDO_ASKPASS_SCRIPT}"
 
     sudo() {
-      with_askpass /usr/bin/sudo -A "${@}"
+      /usr/bin/sudo -A "${@}"
     }
 
     /usr/bin/security add-generic-password -U -s 'dotfiles' -a "${USER}" -w "$(read -s -p "Password: " P < /dev/tty && printf "${P}")"
