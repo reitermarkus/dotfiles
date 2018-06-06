@@ -214,7 +214,7 @@ install_brew_casks() {
   brew cask install unicodechecker
   brew cask install vagrant
   brew cask install vagrant-manager
-  brew cask install virtualbox
+  ci || brew cask install virtualbox
   brew cask install vlc-nightly
   brew cask install wineskin-winery
   brew cask install xquartz
