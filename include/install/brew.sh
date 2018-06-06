@@ -137,7 +137,8 @@ install_brew_formulae() {
   brew install rbenv-bundler-ruby-version
   brew install rfc
   brew install rustup-init
-  brew cask install osxfuse && brew install sshfs
+  brew cask install osxfuse
+  brew install sshfs
   brew install terminal-notifier
   brew install thefuck
   brew install trash
