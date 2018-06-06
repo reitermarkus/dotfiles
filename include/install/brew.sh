@@ -20,7 +20,6 @@ install_brew() {
 brew() {
 
   BREW_INSTALLED_CASKS="${BREW_INSTALLED_CASKS:-$(command brew cask list 2>/dev/null)}"
-  BREW_INSTALLED_FORMULAE="${BREW_INSTALLED_FORMULAE:-$(command brew list 2>/dev/null)}"
 
   case "${1}" in
   cask)
@@ -44,15 +43,6 @@ brew() {
       ;;
     esac
    ;;
-  install)
-    local formula="${2}"
-    if array_contains_exactly "${BREW_INSTALLED_FORMULAE[@]}" "${formula##*/}"; then
-      echo -g "${formula} is already installed."
-    else
-      echo -b "Installing ${formula} …"
-      command brew "${@}"
-    fi
-    ;;
   *)
     command brew "${@}"
     ;;
@@ -99,50 +89,81 @@ install_brew_taps() {
 }
 
 
+# Install Homebrew Formulae
 install_brew_formulae() {
+  local installed_formulae="$(brew list 2>/dev/null)"
 
-  # Install Homebrew Formulae
+  local formulae=(
+    bash
+    bash-completion
+    carthage
+    ccache
+    clang-format
+    cmake
+    crystal-lang
+    dockutil
+    dnsmasq
+    gcc
+    git
+    git-lfs
+    ghc
+    iperf3
+    node
+    fish
+    fisherman
+    llvm
+    lockscreen
+    mackup
+    mas
+    ocaml
+    ocamlbuild
+    pngout
+    python
+    rlwrap
+    rbenv
+    rbenv-binstubs
+    rbenv-system-ruby
+    rbenv-bundler-ruby-version
+    rfc
+    rustup-init
+    sshfs
+    terminal-notifier
+    thefuck
+    trash
+    tree
+    yarn
+  )
 
-  is_desktop && brew install apcupsd
-  brew install bash
-  brew install bash-completion
-  brew install carthage
-  brew install ccache
-  brew install clang-format
-  brew install cmake
-  brew install crystal-lang
-  brew install dockutil
-  brew install dnsmasq
-  brew install gcc
-  brew install git
-  brew install git-lfs
-  brew install ghc
-  brew install iperf3
-  brew install node
-  brew install fish
-  brew install fisherman
-  brew install llvm
-  brew install lockscreen
-  brew install mackup
-  brew install mas
-  brew install ocaml
-  brew install ocamlbuild
-  brew install pngout
-  brew install python; if which pip3 &>/dev/null; then pip3 install --upgrade pip setuptools; fi
-  brew install rlwrap
-  brew install rbenv
-  brew install rbenv-binstubs
-  brew install rbenv-system-ruby
-  brew install rbenv-bundler-ruby-version
-  brew install rfc
-  brew install rustup-init
-  brew cask install osxfuse
-  brew install sshfs
-  brew install terminal-notifier
-  brew install thefuck
-  brew install trash
-  brew install tree
-  brew install yarn
+  if is_desktop; then
+    formulae+=( apcupsd )
+  fi
+
+  for formula in "${formulae[@]}"; do
+    {
+      if ! array_contains_exactly "${installed_formulae[@]}" "${formula##*/}"; then
+        if [ "${formula}" = 'sshfs' ]; then
+          brew cask install osxfuse &>/dev/null
+        fi
+
+        brew fetch "${formula}" --deps &>/dev/null
+      fi
+    } &
+    declare "fetch_$(/usr/bin/tr - _ <<< "${formula}")_pid=${!}"
+  done
+
+  for formula in "${formulae[@]}"; do
+    fetch_pid="fetch_$(/usr/bin/tr - _ <<< "${formula}")_pid"
+    wait "${!fetch_pid}"
+
+    if array_contains_exactly "${installed_formulae[@]}" "${formula##*/}"; then
+      echo -g "${formula} is already installed."
+    else
+      echo -b "Installing ${formula} …"
+      brew install "${formula}"
+    fi
+  done
+
+  if which pip3 &>/dev/null; then pip3 install --upgrade pip setuptools; fi
 
 }
 
