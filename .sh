@@ -120,9 +120,9 @@
 
   install_xcode_clt
 
-  install_brew
-  install_brew_taps
-  install_brew_formulae
+  /usr/bin/rake brew:install
+  /usr/bin/rake brew:taps
+  /usr/bin/rake brew:formulae
 
   install_ruby_gems
   install_npm_packages
