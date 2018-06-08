@@ -19,9 +19,19 @@ end
 
 require 'open3'
 
-class CommandError < RuntimeError
-  def initialize(command, stderr, status)
-    super "'#{command.join(' ')}'".concat(" exited with #{status.exitstatus}\n").concat(stderr)
+class NonZeroExit < RuntimeError
+  attr_reader :command, :stderr, :status
+
+  def initialize(*command, stderr, status)
+    @command = command.join(' ')
+    @stderr = stderr
+    @status = status
+  end
+
+  def message
+    message = "'#{command}' exited with #{status.exitstatus}"
+    message.concat("\n#{stderr}") unless stderr.empty?
+    message
   end
 end
 
@@ -39,7 +49,7 @@ end
 
 def run!(*args)
   stdout, stderr, status = run(*args)
-  raise CommandError.new(args, stderr, status) unless status.success?
+  raise NonZeroExit.new(*args, stderr, status) unless status.success?
   [stdout, stderr, status]
 end
 
@@ -50,7 +60,7 @@ end
 def system(*args)
   pid = Process.spawn(*args, in: $stdin, out: $stdout, err: $stderr)
   _, status = Process.wait2(pid)
-  raise CommandError.new(args, '', status) unless status.success?
+  raise NonZeroExit.new(*args, '', status) unless status.success?
 end
 
 def ci?
