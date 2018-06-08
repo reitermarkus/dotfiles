@@ -10,7 +10,7 @@ namespace :brew do
     if which 'brew'
       command 'brew', 'update', '--force'
     else
-      command '/bin/bash', '-c', '/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
+      command '/usr/bin/ruby', '-e', capture('/usr/bin/curl', '-fsSL', 'https://raw.githubusercontent.com/Homebrew/install/master/install')
     end
   end
 
