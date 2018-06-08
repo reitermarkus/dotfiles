@@ -8,7 +8,7 @@ namespace :brew do
     if which 'brew'
       system 'brew', 'update', '--force'
     else
-      `/bin/bash -c '/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'`
+      system '/bin/bash', '-c', '/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
     end
   end
 
@@ -109,87 +109,97 @@ namespace :brew do
 
   desc "Install Casks"
   task :casks do
-    CASKS = [
-      'a-better-finder-rename',
-      'arduino-nightly',
-      'bibdesk',
-      'calibre',
-      'chromium',
-      'cyberduck',
-      'detexify',
-      'dropbox',
-      'docker-edge',
-      'epub-services',
-      'evernote',
-      'excalibur',
-      'fluor',
-      'fritzing',
-      'font-meslo-nerd-font',
-      'hazel',
-      'hex-fiend',
-      'iconvert --appdir=/Applications/iTach',
-      'ihelp --appdir=/Applications/iTach',
-      'ilearn --appdir=/Applications/iTach',
-      'itest --appdir=/Applications/iTach',
-      'insomniax',
-      'java',
-      'kaleidoscope',
-      'keka',
-      'konica-minolta-bizhub-c220-c280-c360-driver',
-      'launchrocket',
-      'latexit',
-      'macdown',
-      'mactex-no-gui',
-      'netspot',
-      'otp-auth',
-      'playnow',
-      'prizmo',
-      'postman',
-      'qlmarkdown',
-      'qlstephen',
-      'rcdefaultapp',
-      'rocket',
-      'save-hollywood',
-      'sequel-pro',
-      'sigil',
-      'slack',
-      'skim',
-      'db-browser-for-sqlite',
-      'svgcleaner',
-      'table-tool',
-      'telegram-alpha',
-      'tex-live-utility',
-      'textmate',
-      'textmate-crystal',
-      'textmate-cucumber',
-      'textmate-editorconfig',
-      'textmate-elixir',
-      'textmate-fish',
-      'textmate-onsave',
-      'textmate-opencl',
-      'textmate-rubocop',
-      'transmission',
-      'tower-beta',
-      'unicodechecker',
-      'vagrant',
-      'vagrant-manager',
-      'virtualbox',
-      'vlc-nightly',
-      'wineskin-winery',
-      'xquartz',
-    ]
+    CASKS = {
+      'a-better-finder-rename' => [],
+      'arduino-nightly' => [],
+      'bibdesk' => [],
+      'calibre' => [],
+      'chromium' => [],
+      'cyberduck' => [],
+      'detexify' => [],
+      'dropbox' => [],
+      'docker-edge' => [],
+      'epub-services' => [],
+      'evernote' => [],
+      'excalibur' => [],
+      'fluor' => [],
+      'fritzing' => [],
+      'font-meslo-nerd-font' => [],
+      'hazel' => [],
+      'hex-fiend' => [],
+      'iconvert' => ['--appdir=/Applications/iTach'],
+      'ihelp' => ['--appdir=/Applications/iTach'],
+      'ilearn' => ['--appdir=/Applications/iTach'],
+      'itest' => ['--appdir=/Applications/iTach'],
+      'insomniax' => [],
+      'java' => [],
+      'kaleidoscope' => [],
+      'keka' => [],
+      'konica-minolta-bizhub-c220-c280-c360-driver' => [],
+      'launchrocket' => [],
+      'latexit' => [],
+      'macdown' => [],
+      'mactex-no-gui' => [],
+      'netspot' => [],
+      'otp-auth' => [],
+      'playnow' => [],
+      'prizmo' => [],
+      'postman' => [],
+      'qlmarkdown' => [],
+      'qlstephen' => [],
+      'rcdefaultapp' => [],
+      'rocket' => [],
+      'save-hollywood' => [],
+      'sequel-pro' => [],
+      'sigil' => [],
+      'slack' => [],
+      'skim' => [],
+      'db-browser-for-sqlite' => [],
+      'svgcleaner' => [],
+      'table-tool' => [],
+      'telegram-alpha' => [],
+      'tex-live-utility' => [],
+      'textmate' => [],
+      'textmate-crystal' => [],
+      'textmate-cucumber' => [],
+      'textmate-editorconfig' => [],
+      'textmate-elixir' => [],
+      'textmate-fish' => [],
+      'textmate-onsave' => [],
+      'textmate-opencl' => [],
+      'textmate-rubocop' => [],
+      'transmission' => [],
+      'tower-beta' => [],
+      'unicodechecker' => [],
+      'vagrant' => [],
+      'vagrant-manager' => [],
+      'virtualbox' => [],
+      'vlc-nightly' => [],
+      'wineskin-winery' => [],
+      'xquartz' => [],
+    }
 
-    # Create global Dictionaries directory.
-    `sudo -E -- /bin/mkdir -p /Library/Dictionaries`
+    # Ensure directories exist and have correct permissions.
+    [
+      '/Applications/iTach',
+      '/Library/LaunchAgents',
+      '/Library/LaunchDaemons',
+      '/Library/Dictionaries',
+      '/Library/PreferencePanes',
+      '/Library/QuickLook',
+      '/Library/Screen Savers',
+    ].each do |dir|
+      system 'sudo', '-E', '--', '/bin/mkdir', '-p', dir
+      system 'sudo', '-E', '--', '/usr/sbin/chown', 'root:admin', dir
+      system 'sudo', '-E', '--', '/bin/chmod', '-R', 'ug=rwx,o=rx', dir
+    end
 
-    # Set Permissions for Library folders.
-    `sudo -E -- /usr/sbin/chown root:admin  /Library/LaunchAgents /Library/LaunchDaemons /Library/Dictionaries /Library/PreferencePanes /Library/QuickLook /Library/Screen\\ Savers`
-    `sudo -E -- /bin/chmod -R ug=rwx,o=rx /Library/LaunchAgents /Library/LaunchDaemons /Library/Dictionaries /Library/PreferencePanes /Library/QuickLook /Library/Screen\\ Savers`
-
-    `sudo -E -- /bin/mkdir -p /Applications/iTach`
-
-    casks = CASKS - `brew cask list`.strip.split("\n")
-    casks -= 'virtualbox' if ci?
+    installed_casks = `brew cask list`.strip.split("\n")
+    casks = CASKS.select { |cask, _|
+      next false if installed_casks.include?(cask)
+      next false if ci? && cask == 'virtualbox'
+      true
+    }
 
     begin
       ENV['HOMEBREW_NO_AUTO_UPDATE'] = '1'
@@ -197,10 +207,10 @@ namespace :brew do
       download_pool = Concurrent::FixedThreadPool.new(10)
       install_pool = Concurrent::SingleThreadExecutor.new
 
-      casks.map { |cask|
+      casks.map { |cask, flags|
         Concurrent::Promise
           .execute(executor: download_pool) { `brew cask fetch #{cask}` }
-          .then(executor: install_pool) { system 'brew', 'cask', 'install', *cask.shellsplit }
+          .then(executor: install_pool) { system 'brew', 'cask', 'install', cask, *flags }
       }.each(&:wait!)
     ensure
       download_pool.shutdown

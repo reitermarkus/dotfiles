@@ -50,7 +50,7 @@ end
 def system(*args)
   pid = Process.spawn(*args, in: $stdin, out: $stdout, err: $stderr)
   _, status = Process.wait2(pid)
-  raise CommandError.new(args, status) unless status.success?
+  raise CommandError.new(args, '', status) unless status.success?
 end
 
 def ci?
