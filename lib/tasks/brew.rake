@@ -6,9 +6,9 @@ namespace :brew do
     ENV['HOMEBREW_NO_AUTO_UPDATE'] = '1'
 
     if which 'brew'
-      system 'brew', 'update', '--force'
+      command 'brew', 'update', '--force'
     else
-      system '/bin/bash', '-c', '/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
+      command '/bin/bash', '-c', '/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
     end
   end
 
@@ -29,7 +29,7 @@ namespace :brew do
       bfontaine/utils
     ]
 
-    taps = TAPS - `brew tap`.strip.split("\n")
+    taps = TAPS - capture('brew', 'tap').strip.split("\n")
 
     begin
       ENV['HOMEBREW_NO_AUTO_UPDATE'] = '1'
@@ -38,7 +38,7 @@ namespace :brew do
 
       taps.map { |tap|
         Concurrent::Promise
-          .execute(executor: download_pool) { `brew tap #{tap}` }
+          .execute(executor: download_pool) { command 'brew', 'tap', tap, silent: true }
       }.each(&:wait!)
     ensure
       download_pool.shutdown
@@ -88,7 +88,7 @@ namespace :brew do
       yarn
     ]
 
-    formulae = FORMULAE - `brew list`.strip.split("\n")
+    formulae = FORMULAE - capture('brew', 'list').strip.split("\n")
 
     begin
       ENV['HOMEBREW_NO_AUTO_UPDATE'] = '1'
@@ -98,8 +98,8 @@ namespace :brew do
 
       formulae.map { |formula|
         Concurrent::Promise
-          .execute(executor: download_pool) { `brew fetch #{formula}` }
-          .then(executor: install_pool) { system 'brew', 'install', formula }
+          .execute(executor: download_pool) { command 'brew', 'fetch', formula, silent: true }
+          .then(executor: install_pool) { command 'brew', 'install', formula }
       }.each(&:wait!)
     ensure
       download_pool.shutdown
@@ -190,12 +190,12 @@ namespace :brew do
       '/Library/QuickLook',
       '/Library/Screen Savers',
     ].each do |dir|
-      system 'sudo', '-E', '--', '/bin/mkdir', '-p', dir
-      system 'sudo', '-E', '--', '/usr/sbin/chown', 'root:admin', dir
-      system 'sudo', '-E', '--', '/bin/chmod', '-R', 'ug=rwx,o=rx', dir
+      command 'sudo', '-E', '--', '/bin/mkdir', '-p', dir
+      command 'sudo', '-E', '--', '/usr/sbin/chown', 'root:admin', dir
+      command 'sudo', '-E', '--', '/bin/chmod', '-R', 'ug=rwx,o=rx', dir
     end
 
-    installed_casks = `brew cask list`.strip.split("\n")
+    installed_casks = capture('brew', 'cask', 'list').strip.split("\n")
     casks = CASKS.select { |cask, _|
       next false if installed_casks.include?(cask)
       next false if ci? && cask == 'virtualbox'
@@ -210,8 +210,8 @@ namespace :brew do
 
       casks.map { |cask, flags|
         Concurrent::Promise
-          .execute(executor: download_pool) { `brew cask fetch #{cask}` }
-          .then(executor: install_pool) { system 'brew', 'cask', 'install', cask, *flags }
+          .execute(executor: download_pool) { command 'brew', 'cask', 'fetch', cask, silent: true }
+          .then(executor: install_pool) { command 'brew', 'cask', 'install', cask, *flags }
       }.each(&:wait!)
     ensure
       download_pool.shutdown
