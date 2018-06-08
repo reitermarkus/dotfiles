@@ -170,7 +170,7 @@ namespace :brew do
       'textmate-rubocop' => [],
       'transmission' => [],
       'tower-beta' => [],
-      'unicodechecker' => [],
+      # 'unicodechecker' => [],
       'vagrant' => [],
       'vagrant-manager' => [],
       'virtualbox' => [],
