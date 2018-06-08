@@ -7,6 +7,7 @@ Rake.add_rakelib 'lib/tasks'
 
 require 'concurrent-edge'
 require 'pty'
+require 'English'
 
 module Concurrent
   class Promise
@@ -76,6 +77,24 @@ def popen(*args, stdout_tty: false, stderr_tty: false, **opts, &block)
   result
 end
 
+class IO
+  def readline_nonblock(sep = $INPUT_RECORD_SEPARATOR)
+    line = ''
+    buffer = ''
+
+    loop do
+      break if buffer == sep
+      read_nonblock(1, buffer)
+      line.concat(buffer)
+    end
+
+    line
+  rescue IO::WaitReadable, EOFError => e
+    raise e if line.empty?
+    line
+  end
+end
+
 def command(*args, silent: false, **opts)
   args = args.flatten(1)
 
@@ -90,17 +109,21 @@ def command(*args, silent: false, **opts)
       readers, writers = IO.select([stdout, stderr])
 
       if (reader = readers.first) && !reader.eof?
-        case reader
-        when stdout
-          line = reader.readline
-          out << line
+        begin
+          line = reader.readline_nonblock
+
           merged << line
-          $stdout.write line unless silent
-        when stderr
-          line = reader.readline
-          err << line
-          merged << line
-          $stderr.write line unless silent
+
+          case reader
+          when stdout
+            out << line
+            $stdout.write line unless silent
+          when stderr
+            line = reader.readline
+            err << line
+            $stderr.write line unless silent
+          end
+        rescue IO::WaitReadable, EOFError
         end
       end
 
