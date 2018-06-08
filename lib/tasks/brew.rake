@@ -141,6 +141,7 @@ namespace :brew do
       'macdown' => [],
       'mactex-no-gui' => [],
       'netspot' => [],
+      'osxfuse' => [],
       'otp-auth' => [],
       'playnow' => [],
       'prizmo' => [],
