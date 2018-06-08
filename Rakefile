@@ -106,9 +106,11 @@ def command(*args, silent: false, **opts)
     stdin.close
 
     loop do
-      readers, writers = IO.select([stdout, stderr])
+      readers, = IO.select([stdout, stderr])
 
-      if (reader = readers.first) && !reader.eof?
+      break if readers.all?(&:eof?)
+
+      readers.reject(&:eof?).each do |reader|
         begin
           line = reader.readline_nonblock
 
@@ -124,10 +126,9 @@ def command(*args, silent: false, **opts)
             $stderr.write line unless silent
           end
         rescue IO::WaitReadable, EOFError
+          next
         end
       end
-
-      break if stdout.eof? && stderr.eof?
     end
 
     stdout.close
@@ -141,8 +142,8 @@ def command(*args, silent: false, **opts)
   }
 end
 
-def capture(*cmd, **opts)
-  out, = command(*cmd, silent: true, stdout_tty: false, **opts)
+def capture(*args, **opts)
+  out, = command(*args, silent: true, stdout_tty: false, **opts)
   out
 end
 
