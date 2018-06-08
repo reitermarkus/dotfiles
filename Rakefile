@@ -77,6 +77,8 @@ def popen(*args, stdout_tty: false, stderr_tty: false, **opts, &block)
 end
 
 def command(*args, silent: false, **opts)
+  args = args.flatten(1)
+
   popen(*args, stdout_tty: true, stderr_tty: true, **opts) { |stdin, stdout, stderr, thread|
     out = ''
     err = ''
@@ -119,4 +121,9 @@ end
 def capture(*cmd, **opts)
   out, = command(*cmd, silent: true, stdout_tty: false, **opts)
   out
+end
+
+def sudo
+  askpass_flag = ENV.key?('SUDO_ASKPASS') ? '-A' : nil
+  ['/usr/bin/sudo', *askpass_flag, '-E', '--']
 end

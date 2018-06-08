@@ -211,9 +211,9 @@ namespace :brew do
       '/Library/Services',
       '/Library/Screen Savers',
     ].each do |dir|
-      command 'sudo', '-E', '--', '/bin/mkdir', '-p', dir
-      command 'sudo', '-E', '--', '/usr/sbin/chown', 'root:admin', dir
-      command 'sudo', '-E', '--', '/bin/chmod', '-R', 'ug=rwx,o=rx', dir
+      command sudo, '/bin/mkdir', '-p', dir
+      command sudo, '/usr/sbin/chown', 'root:admin', dir
+      command sudo, '/bin/chmod', '-R', 'ug=rwx,o=rx', dir
     end
 
     dir_flags = [
