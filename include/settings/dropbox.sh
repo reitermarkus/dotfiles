@@ -8,7 +8,14 @@ defaults_dropbox() {
 # Create Symlinks for Dropbox folders.
 
 get_dropbox_dir() {
-  /usr/bin/head -n 2 ~/.dropbox/host.db | /usr/bin/tail -n 1 | /usr/bin/base64 -D
+  local dropbox_dir="$(/usr/bin/head -n 2 ~/.dropbox/host.db | /usr/bin/tail -n 1 | /usr/bin/base64 -D)"
+
+  if [ -z "${dropbox_dir}" ]; then
+    echo ~/Dropbox
+    return
+  fi
+
+  echo "${dropbox_dir}"
 }
 
 link_to_dropbox() {
