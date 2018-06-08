@@ -39,10 +39,20 @@ end
 
 def run!(*args)
   stdout, stderr, status = run(*args)
-  raise CommandError.new(args, stderr, status) if status.exitstatus.nonzero?
+  raise CommandError.new(args, stderr, status) unless status.success?
   [stdout, stderr, status]
 end
 
 def which(executable)
   ENV['PATH'].split(':').any? { |p| File.executable?("#{p}/#{executable}") }
+end
+
+def system(*args)
+  pid = Process.spawn(*args, in: $stdin, out: $stdout, err: $stderr)
+  _, status = Process.wait2(pid)
+  raise CommandError.new(args, status) unless status.success?
+end
+
+def ci?
+  ENV.key?('CI')
 end

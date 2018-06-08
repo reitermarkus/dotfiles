@@ -1,12 +1,12 @@
 namespace :brew do
-  task :all => [:install, :taps, :formulae, :casks]
+  task :all => [:install, :taps, :casks, :formulae]
 
   desc 'Install Homebrew'
   task :install do
-    ENV["HOMEBREW_NO_AUTO_UPDATE"] = "1"
+    ENV['HOMEBREW_NO_AUTO_UPDATE'] = '1'
 
     if which 'brew'
-      `brew update --force`
+      system 'brew', 'update', '--force'
     else
       `/bin/bash -c '/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'`
     end
@@ -29,10 +29,10 @@ namespace :brew do
       bfontaine/utils
     ]
 
-    begin
-      ENV["HOMEBREW_NO_AUTO_UPDATE"] = "1"
+    taps = TAPS - `brew tap`.strip.split("\n")
 
-      taps = TAPS - `brew tap`.strip.split("\n")
+    begin
+      ENV['HOMEBREW_NO_AUTO_UPDATE'] = '1'
 
       download_pool = Concurrent::FixedThreadPool.new(10)
 
@@ -88,10 +88,10 @@ namespace :brew do
       yarn
     ]
 
-    begin
-      ENV["HOMEBREW_NO_AUTO_UPDATE"] = "1"
+    formulae = FORMULAE - `brew list`.strip.split("\n")
 
-      formulae = FORMULAE - `brew list`.strip.split("\n")
+    begin
+      ENV['HOMEBREW_NO_AUTO_UPDATE'] = '1'
 
       download_pool = Concurrent::FixedThreadPool.new(10)
       install_pool = Concurrent::SingleThreadExecutor.new
@@ -99,7 +99,7 @@ namespace :brew do
       formulae.map { |formula|
         Concurrent::Promise
           .execute(executor: download_pool) { `brew fetch #{formula}` }
-          .then(executor: install_pool) { `brew install #{formula}` }
+          .then(executor: install_pool) { system 'brew', 'install', formula }
       }.each(&:wait!)
     ensure
       download_pool.shutdown
@@ -109,14 +109,90 @@ namespace :brew do
 
   desc "Install Casks"
   task :casks do
-    CASKS = %w[
-
+    CASKS = [
+      'a-better-finder-rename',
+      'arduino-nightly',
+      'bibdesk',
+      'calibre',
+      'chromium',
+      'cyberduck',
+      'detexify',
+      'dropbox',
+      'docker-edge',
+      'epub-services',
+      'evernote',
+      'excalibur',
+      'fluor',
+      'fritzing',
+      'font-meslo-nerd-font',
+      'hazel',
+      'hex-fiend',
+      'iconvert --appdir=/Applications/iTach',
+      'ihelp --appdir=/Applications/iTach',
+      'ilearn --appdir=/Applications/iTach',
+      'itest --appdir=/Applications/iTach',
+      'insomniax',
+      'java',
+      'kaleidoscope',
+      'keka',
+      'konica-minolta-bizhub-c220-c280-c360-driver',
+      'launchrocket',
+      'latexit',
+      'macdown',
+      'mactex-no-gui',
+      'netspot',
+      'otp-auth',
+      'playnow',
+      'prizmo',
+      'postman',
+      'qlmarkdown',
+      'qlstephen',
+      'rcdefaultapp',
+      'rocket',
+      'save-hollywood',
+      'sequel-pro',
+      'sigil',
+      'slack',
+      'skim',
+      'db-browser-for-sqlite',
+      'svgcleaner',
+      'table-tool',
+      'telegram-alpha',
+      'tex-live-utility',
+      'textmate',
+      'textmate-crystal',
+      'textmate-cucumber',
+      'textmate-editorconfig',
+      'textmate-elixir',
+      'textmate-fish',
+      'textmate-onsave',
+      'textmate-opencl',
+      'textmate-rubocop',
+      'transmission',
+      'tower-beta',
+      'unicodechecker',
+      'vagrant',
+      'vagrant-manager',
+      'virtualbox',
+      'vlc-nightly',
+      'wineskin-winery',
+      'xquartz',
     ]
 
-    begin
-      ENV["HOMEBREW_NO_AUTO_UPDATE"] = "1"
+    # Create global Dictionaries directory.
+    `sudo -E -- /bin/mkdir -p /Library/Dictionaries`
 
-      casks = CASKS - `brew cask list`.strip.split("\n")
+    # Set Permissions for Library folders.
+    `sudo -E -- /usr/sbin/chown root:admin  /Library/LaunchAgents /Library/LaunchDaemons /Library/Dictionaries /Library/PreferencePanes /Library/QuickLook /Library/Screen\\ Savers`
+    `sudo -E -- /bin/chmod -R ug=rwx,o=rx /Library/LaunchAgents /Library/LaunchDaemons /Library/Dictionaries /Library/PreferencePanes /Library/QuickLook /Library/Screen\\ Savers`
+
+    `sudo -E -- /bin/mkdir -p /Applications/iTach`
+
+    casks = CASKS - `brew cask list`.strip.split("\n")
+    casks -= 'virtualbox' if ci?
+
+    begin
+      ENV['HOMEBREW_NO_AUTO_UPDATE'] = '1'
 
       download_pool = Concurrent::FixedThreadPool.new(10)
       install_pool = Concurrent::SingleThreadExecutor.new
@@ -124,7 +200,7 @@ namespace :brew do
       casks.map { |cask|
         Concurrent::Promise
           .execute(executor: download_pool) { `brew cask fetch #{cask}` }
-          .then(executor: install_pool) { `brew cask install #{cask}` }
+          .then(executor: install_pool) { system 'brew', 'cask', 'install', *cask.shellsplit }
       }.each(&:wait!)
     ensure
       download_pool.shutdown
