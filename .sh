@@ -127,7 +127,6 @@
 
   install_rustup
 
-  install_brew_casks
   install_mas_apps
 
   dropbox_link_folders

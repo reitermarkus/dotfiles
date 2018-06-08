@@ -1,3 +1,5 @@
+require 'fileutils'
+
 namespace :brew do
   task :all => [:install, :taps, :casks, :formulae]
 
@@ -109,6 +111,9 @@ namespace :brew do
 
   desc "Install Casks"
   task :casks do
+    converters_dir = '/Applications/Converters.localized'
+    itach_dir = '/Applications/iTach'
+
     CASKS = {
       'a-better-finder-rename' => [],
       'arduino-nightly' => [],
@@ -125,12 +130,15 @@ namespace :brew do
       'fluor' => [],
       'fritzing' => [],
       'font-meslo-nerd-font' => [],
+      'handbrake' => ["--appdir=#{converters_dir}"],
       'hazel' => [],
       'hex-fiend' => [],
-      'iconvert' => ['--appdir=/Applications/iTach'],
-      'ihelp' => ['--appdir=/Applications/iTach'],
-      'ilearn' => ['--appdir=/Applications/iTach'],
-      'itest' => ['--appdir=/Applications/iTach'],
+      'iconvert' => ["--appdir=#{itach_dir}"],
+      'ihelp' => ["--appdir=#{itach_dir}"],
+      'ilearn' => ["--appdir=#{itach_dir}"],
+      'itest' => ["--appdir=#{itach_dir}"],
+      'image2icon' => ["--appdir=#{converters_dir}"],
+      'imageoptim' => ["--appdir=#{converters_dir}"],
       'insomniax' => [],
       'java' => [],
       'kaleidoscope' => [],
@@ -140,6 +148,7 @@ namespace :brew do
       'latexit' => [],
       'macdown' => [],
       'mactex-no-gui' => [],
+      'makemkv' => ["--appdir=#{converters_dir}"],
       'netspot' => [],
       'osxfuse' => [],
       'otp-auth' => [],
@@ -177,23 +186,43 @@ namespace :brew do
       'virtualbox' => [],
       'vlc-nightly' => [],
       'wineskin-winery' => [],
+      'xld' => ["--appdir=#{converters_dir}"],
+      'xnconvert' => ["--appdir=#{converters_dir}"],
       'xquartz' => [],
+    }
+
+    FileUtils.mkdir_p [itach_dir, "#{converters_dir}/.localized"]
+
+    File.open("#{converters_dir}/.localized/de.strings", 'w') { |f|
+      f.puts '"Converters" = "Konvertierungswerkzeuge";'
+    }
+
+    File.open("#{converters_dir}/.localized/en.strings", 'w') { |f|
+      f.puts '"Converters" = "Conversion Tools";'
     }
 
     # Ensure directories exist and have correct permissions.
     [
-      '/Applications/iTach',
       '/Library/LaunchAgents',
       '/Library/LaunchDaemons',
       '/Library/Dictionaries',
       '/Library/PreferencePanes',
       '/Library/QuickLook',
+      '/Library/Services',
       '/Library/Screen Savers',
     ].each do |dir|
       command 'sudo', '-E', '--', '/bin/mkdir', '-p', dir
       command 'sudo', '-E', '--', '/usr/sbin/chown', 'root:admin', dir
       command 'sudo', '-E', '--', '/bin/chmod', '-R', 'ug=rwx,o=rx', dir
     end
+
+    dir_flags = [
+      '--dictionarydir=/Library/Dictionaries',
+      '--prefpanedir=/Library/PreferencePanes',
+      '--qlplugindir=/Library/QuickLook',
+      '--servicedir=/Library/Services',
+      '--screen_saverdir=/Library/Screen Savers',
+    ]
 
     installed_casks = capture('brew', 'cask', 'list').strip.split("\n")
     casks = CASKS.select { |cask, _|
@@ -211,7 +240,7 @@ namespace :brew do
       casks.map { |cask, flags|
         Concurrent::Promise
           .execute(executor: download_pool) { command 'brew', 'cask', 'fetch', cask, silent: true }
-          .then(executor: install_pool) { command 'brew', 'cask', 'install', cask, *flags }
+          .then(executor: install_pool) { command 'brew', 'cask', 'install', cask, *flags, *dir_flags }
       }.each(&:wait!)
     ensure
       download_pool.shutdown
