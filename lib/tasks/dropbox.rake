@@ -11,11 +11,11 @@ namespace :dropbox do
   task :init do
     DROPBOX_DIR.expand_path.mkpath
 
-    host_db = Pathname('~/.dropbox/host.db')
+    host_db = Pathname('~/.dropbox/host.db').expand_path
 
     host_db.dirname.mkpath
 
-    host_db.expand_path.open('w') do |f|
+    host_db.open('w') do |f|
       f.puts '0' * 40
       f.puts Base64.encode64(DROPBOX_DIR.expand_path.to_s)
     end
@@ -51,7 +51,7 @@ namespace :dropbox do
 
       unless local_dir.directory?
         FileUtils.rm_f local_dir
-        FileUtils.mkdir local_dir
+        local_dir.mkpath
       end
 
       if dropbox_dir.directory?
