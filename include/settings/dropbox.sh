@@ -7,24 +7,13 @@ defaults_dropbox() {
 
 # Create Symlinks for Dropbox folders.
 
-get_dropbox_dir() {
-  local dropbox_dir="$(/usr/bin/head -n 2 ~/.dropbox/host.db | /usr/bin/tail -n 1 | /usr/bin/base64 -D)"
-
-  if [ -z "${dropbox_dir}" ]; then
-    echo ~/Dropbox
-    return
-  fi
-
-  echo "${dropbox_dir}"
-}
-
 link_to_dropbox() {
 
   # Also move hidden files.
   shopt -s dotglob
 
   local local_dir="${HOME}/${1}"
-  local dropbox_dir="$(get_dropbox_dir)/Sync/~/${1}"
+  local dropbox_dir="${HOME}/Dropbox/Sync/~/${1}"
 
   local local_dirname="$(/usr/bin/sed "s|^${HOME}|~|" <<< "${local_dir}")"
   local dropbox_dirname="$(/usr/bin/sed "s|^${HOME}|~|" <<< "${dropbox_dir}")"
