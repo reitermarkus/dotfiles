@@ -129,7 +129,7 @@
 
   install_mas_apps
 
-  /usr/bin/rake dropbox:init
+  /usr/bin/rake dropbox:all
 
   dropbox_link_folders
   mackup_relink
