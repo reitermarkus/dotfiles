@@ -102,8 +102,8 @@ namespace :brew do
       install_pool = Concurrent::SingleThreadExecutor.new
 
       formulae.map { |formula|
-        Concurrent::Promise
-          .execute(executor: download_pool) { command 'brew', 'fetch', formula, silent: true, tries: 3 }
+          Concurrent::Promise
+          .execute(executor: download_pool) { command 'brew', 'fetch', '--deps', '--retry', formula, silent: true }
           .then(executor: install_pool) { command 'brew', 'install', formula }
       }.each(&:wait!)
     ensure
