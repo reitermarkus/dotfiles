@@ -7,7 +7,7 @@ sudo: true
 
 before_install:
   - yes yes | sudo rvm implode &
-  - sudo rm -r ~/.rvmrc ~/.gemrc ~/.bashrc ~/.bash_profile ~/.bundle ~/.gem ~/.cocoapods ~/nvm &
+  - sudo rm -r ~/.rvmrc ~/.gemrc ~/.bashrc ~/.bash_profile ~/.bundle ~/.gem ~/.cocoapods ~/.nvm &
   - brew uninstall --force $(brew ls) &
   - brew cask uninstall --force $(brew cask ls) &
   - wait
