@@ -1,6 +1,7 @@
 require 'add_login_item'
 require 'pathname'
 require 'base64'
+require 'json'
 
 namespace :dropbox do
   DROPBOX_DIR = Pathname('~/Dropbox')
@@ -18,6 +19,10 @@ namespace :dropbox do
     host_db.open('w') do |f|
       f.puts '0' * 40
       f.puts Base64.encode64(DROPBOX_DIR.expand_path.to_s)
+    end
+
+    DROPBOX_DIR.join('.dropbox').expand_path.open('w') do |f|
+      f.puts JSON.generate({tag: :dropbox, ns: 2937623})
     end
   end
 
