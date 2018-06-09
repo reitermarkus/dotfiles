@@ -26,11 +26,8 @@ rescue LoadError => e
 end
 
 def install_gem(name, version = nil)
-  ENV['GEM_PATH'] = ENV['GEM_HOME'] = (@gem_dir ||= Dir.mktmpdir)
+  ENV['GEM_PATH'] = ENV['GEM_HOME'] = '/tmp/dotfiles-gem-home'
 
-  at_exit do
-    FileUtils.rm_rf @gem_dir
-  end
 
   if name == 'concurrent-edge'
     install_gem 'concurrent-ruby-ext'
