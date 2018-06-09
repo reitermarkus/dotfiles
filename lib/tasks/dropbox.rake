@@ -7,6 +7,7 @@ namespace :dropbox do
 
   task :all => [:init, :login_item, :link_directories]
 
+  desc 'Initialize Dropbox Directory'
   task :init do
     DROPBOX_DIR.expand_path.mkpath
 
@@ -20,10 +21,12 @@ namespace :dropbox do
     end
   end
 
+  desc 'Add Dropbox Login Item'
   task :login_item do
     add_login_item 'com.getdropbox.dropbox', hidden: true
   end
 
+  desc 'Create Dropbox Symlinks'
   task :link_directories do
     def link_directory(dir)
       local_dirname = "~/#{dir}"
