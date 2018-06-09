@@ -103,7 +103,7 @@ namespace :brew do
 
       formulae.map { |formula|
           Concurrent::Promise
-          .execute(executor: download_pool) { command 'brew', 'fetch', '--deps', '--retry', formula, silent: true }
+          .execute(executor: download_pool) { command 'brew', 'fetch', '--deps', '--retry', formula, silent: true, tries: 3 }
           .then(executor: install_pool) { command 'brew', 'install', formula }
       }.each(&:wait!)
     ensure
