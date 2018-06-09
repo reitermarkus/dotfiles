@@ -95,7 +95,7 @@ class IO
   end
 end
 
-def command(*args, silent: false, **opts)
+def command(*args, silent: false, tries: 1, **opts)
   args = args.flatten(1)
 
   popen(*args, stdout_tty: true, stderr_tty: true, **opts) { |stdin, stdout, stderr, thread|
@@ -140,6 +140,10 @@ def command(*args, silent: false, **opts)
 
     [out, err, merged, status]
   }
+rescue
+  tries -= 1
+  retry if tries > 0
+  raise
 end
 
 def capture(*args, **opts)

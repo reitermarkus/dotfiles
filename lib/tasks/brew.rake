@@ -100,7 +100,7 @@ namespace :brew do
 
       formulae.map { |formula|
         Concurrent::Promise
-          .execute(executor: download_pool) { command 'brew', 'fetch', formula, silent: true }
+          .execute(executor: download_pool) { command 'brew', 'fetch', formula, silent: true, tries: 3 }
           .then(executor: install_pool) { command 'brew', 'install', formula }
       }.each(&:wait!)
     ensure
@@ -239,7 +239,7 @@ namespace :brew do
 
       casks.map { |cask, flags|
         Concurrent::Promise
-          .execute(executor: download_pool) { command 'brew', 'cask', 'fetch', cask, silent: true }
+          .execute(executor: download_pool) { command 'brew', 'cask', 'fetch', cask, silent: true, tries: 3 }
           .then(executor: install_pool) { command 'brew', 'cask', 'install', cask, *flags, *dir_flags }
       }.each(&:wait!)
     ensure
