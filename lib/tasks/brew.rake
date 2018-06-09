@@ -1,4 +1,7 @@
+require 'ci'
+require 'command'
 require 'fileutils'
+require 'which'
 
 namespace :brew do
   task :all => [:install, :taps, :casks, :formulae]
