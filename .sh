@@ -127,7 +127,9 @@
 
   install_rustup
 
-  install_mas_apps
+  /usr/bin/rake mas:apps
+
+  /usr/bin/rake xcode:accept_license
 
   /usr/bin/rake dropbox:all
 
