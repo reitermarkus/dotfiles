@@ -1,8 +1,7 @@
 defaults_savehollywood() {
 
   # SaveHollywood Screensaver
-  echo -b "Downloading Apple TV Screen Savers …"
-  "${dotfiles_dir}/scripts/download_apple_tv_screensavers.rb" "${HOME}/Library/Screen Savers/Videos"
+  /usr/bin/rake screensaver:apple_tv
 
   /usr/bin/defaults -currentHost write fr.whitebox.SaveHollywood assets.library               -array "${HOME}/Library/Screen Savers/Videos"
   /usr/bin/defaults -currentHost write fr.whitebox.SaveHollywood assets.randomOrder           -bool  true
