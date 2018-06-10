@@ -243,7 +243,7 @@ namespace :brew do
       casks.map { |cask, flags|
         Concurrent::Promise
           .execute(executor: download_pool) { command 'brew', 'cask', 'fetch', cask, silent: true, tries: 3 }
-          .then(executor: install_pool) { command 'brew', 'cask', 'install', cask, *flags, *dir_flags }
+          .then(executor: install_pool) { command 'brew', 'cask', 'install', cask, *dir_flags, *flags }
       }.each(&:wait!)
     ensure
       download_pool.shutdown
