@@ -36,7 +36,7 @@ namespace :screensaver do
       }
     }
 
-    videos = promises.flat_map(&:value)
+    videos = promises.flat_map(&:value!)
                      .select { |video| duplicates.add?(video['size']) }
 
     download_dir = Pathname('~/Library/Screen Savers/Videos').expand_path
