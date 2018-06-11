@@ -298,7 +298,7 @@ namespace :brew do
       '--screen_saverdir=/Library/Screen Savers',
     ]
 
-    cask_install_pool = Concurrent::FixedThreadPool.new(2)
+    cask_install_pool = Concurrent::FixedThreadPool.new(5)
     formula_install_pool = Concurrent::SingleThreadExecutor.new
     install_finished_pool = Concurrent::SingleThreadExecutor.new
 
