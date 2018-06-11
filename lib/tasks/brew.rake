@@ -251,9 +251,12 @@ namespace :brew do
   task :casks_and_formulae do
     ENV['HOMEBREW_NO_AUTO_UPDATE'] = '1'
 
+    casks = CASKS.keys.reject { |cask| ci? && cask == 'virtualbox' }
+    formulae = FORMULAE.keys
+
     dependency_graph = dependencies(
-      FORMULAE.keys.map { |formula| [:formula, formula] } +
-      CASKS.keys.map { |cask| [:cask, cask] }
+      formulae.map { |formula| [:formula, formula] } +
+      casks.map { |cask| [:cask, cask] }
     )
 
     dependency_graph[[:formula, 'sshfs']] << [:cask, 'osxfuse']
@@ -321,7 +324,7 @@ namespace :brew do
     install_finished_pool = Concurrent::SingleThreadExecutor.new
 
     begin
-      cask_promises = CASKS.map { |cask, flags: [], **|
+      cask_promises = casks.map { |cask| [cask, CASKS[cask]] }.map { |cask, flags: [], **|
         download_key = [:cask, cask]
 
         wait_for_downloads = Concurrent::Promise.execute(executor: cask_install_pool) {
@@ -341,7 +344,7 @@ namespace :brew do
         end
       }
 
-      formula_promises = FORMULAE.map { |formula, **|
+      formula_promises = formulae.map { |formula| [formula, FORMULAE[formula]] }.map { |formula, **|
         download_key = [:formula, formula]
 
         wait_for_downloads = Concurrent::Promise.execute(executor: formula_install_pool) {
