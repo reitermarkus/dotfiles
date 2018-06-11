@@ -3,8 +3,63 @@ require 'command'
 require 'fileutils'
 require 'which'
 
+class TopologicalHash < Hash
+  include TSort
+
+  alias tsort_each_node each_key
+
+  def tsort_each_child(node, &block)
+    fetch(node).each(&block)
+  end
+end
+
+def dependencies(keys, acc: TopologicalHash.new)
+  pool = Concurrent::FixedThreadPool.new(10)
+
+  promises = keys.map { |key|
+    next if acc.key?(key)
+
+    type, name = key
+
+    promise = case type
+    when :cask
+      Concurrent::Promise.execute(executor: pool) {
+        capture('brew', 'cask', 'cat', name).lines.reduce([]) do |a, line|
+          if /depends_on\s+formula:\s*(?:"(?<formula>.*)"|'(?<formula>.*)')/ =~ line
+            [*a, [:formula, formula]]
+          elsif /depends_on\s+cask:\s*(?:"(?<cask>.*)"|'(?<cask>.*)')/  =~ line
+            [*a, [:cask, cask]]
+          else
+            a
+          end
+        end
+      }
+    when :formula
+      Concurrent::Promise.execute(executor: pool) {
+        capture('brew', 'deps', name).lines.map { |line| [:formula, line.strip] }
+      }
+    end
+
+    [key, promise]
+  }.compact
+
+  key_deps = promises.map { |key, promise| [key, promise.value!] }
+
+  pool.shutdown
+
+  key_deps.each do |key, deps|
+    acc[key] = deps
+  end
+
+  key_deps.each do |_, deps|
+  dependencies(deps, acc: acc)
+  end
+
+  acc
+end
+
 namespace :brew do
-  task :all => [:install, :taps, :casks, :formulae]
+  task :all => [:install, :taps, :casks_and_formulae]
 
   desc 'Install Homebrew'
   task :install do
@@ -191,6 +246,129 @@ namespace :brew do
     'xnconvert' => { flags: ["--appdir=#{converters_dir}"] },
     'xquartz'=> {},
   }
+
+  desc 'Install Casks and Formulae'
+  task :casks_and_formulae do
+    ENV['HOMEBREW_NO_AUTO_UPDATE'] = '1'
+
+    dependency_graph = dependencies(
+      FORMULAE.keys.map { |formula| [:formula, formula] } +
+      CASKS.keys.map { |cask| [:cask, cask] }
+    )
+
+    dependency_graph[[:formula, 'sshfs']] << [:cask, 'osxfuse']
+
+    installed_casks = capture('brew', 'cask', 'list').strip.split("\n")
+    installed_formulae = capture('brew', 'list').strip.split("\n")
+
+    download_pool = Concurrent::FixedThreadPool.new(10)
+    downloads = {}
+
+    dependency_graph.tsort.each do |key|
+      type, name = key
+
+      downloads[key] = case type
+      when :cask
+        if installed_casks.include?(name)
+          Concurrent::Promise.fulfill(nil)
+        else
+          Concurrent::Promise.execute(executor: download_pool) { command 'brew', 'cask', 'fetch', name, silent: true, tries: 3 }
+        end
+      when :formula
+        if installed_formulae.include?(name)
+          Concurrent::Promise.fulfill(nil)
+        else
+          Concurrent::Promise.execute(executor: download_pool) { command 'brew', 'fetch', '--retry', name, silent: true, tries: 3 }
+        end
+      end
+    end
+
+    FileUtils.mkdir_p [itach_dir, "#{converters_dir}/.localized"]
+
+    File.open("#{converters_dir}/.localized/de.strings", 'w') { |f|
+      f.puts '"Converters" = "Konvertierungswerkzeuge";'
+    }
+
+    File.open("#{converters_dir}/.localized/en.strings", 'w') { |f|
+      f.puts '"Converters" = "Conversion Tools";'
+    }
+
+    # Ensure directories exist and have correct permissions.
+    [
+      '/Library/LaunchAgents',
+      '/Library/LaunchDaemons',
+      '/Library/Dictionaries',
+      '/Library/PreferencePanes',
+      '/Library/QuickLook',
+      '/Library/Services',
+      '/Library/Screen Savers',
+    ].each do |dir|
+      command sudo, '/bin/mkdir', '-p', dir
+      command sudo, '/usr/sbin/chown', 'root:admin', dir
+      command sudo, '/bin/chmod', '-R', 'ug=rwx,o=rx', dir
+    end
+
+    dir_flags = [
+      '--dictionarydir=/Library/Dictionaries',
+      '--prefpanedir=/Library/PreferencePanes',
+      '--qlplugindir=/Library/QuickLook',
+      '--servicedir=/Library/Services',
+      '--screen_saverdir=/Library/Screen Savers',
+    ]
+
+    cask_install_pool = Concurrent::SingleThreadExecutor.new
+    formula_install_pool = Concurrent::SingleThreadExecutor.new
+    install_finished_pool = Concurrent::SingleThreadExecutor.new
+
+    begin
+      cask_promises = CASKS.map { |cask, flags: [], **|
+        download_key = [:cask, cask]
+
+        wait_for_downloads = Concurrent::Promise.execute(executor: cask_install_pool) {
+          deps = dependency_graph[download_key]
+
+          [*deps, download_key].each do |key|
+            downloads[key].wait!
+          end
+        }
+
+        if installed_casks.include?(cask)
+          wait_for_downloads
+        else
+          wait_for_downloads
+            .then { capture 'brew', 'cask', 'install', cask, *dir_flags, *flags, stdout_tty: true }
+            .then(executor: install_finished_pool) { |out, _| print out }
+        end
+      }
+
+      formula_promises = FORMULAE.map { |formula, **|
+        download_key = [:formula, formula]
+
+        wait_for_downloads = Concurrent::Promise.execute(executor: formula_install_pool) {
+          deps = dependency_graph[download_key]
+
+          [*deps, download_key].each do |key|
+            downloads[key].wait!
+          end
+        }
+
+        if installed_formulae.include?(formula)
+          wait_for_downloads
+        else
+          wait_for_downloads
+            .then { capture 'brew', 'install', formula, stdout_tty: true }
+            .then(executor: install_finished_pool) { |out, _| print out }
+        end
+      }
+
+      cask_promises.each(&:wait!)
+      formula_promises.each(&:wait!)
+    ensure
+      cask_install_pool.shutdown
+      formula_install_pool.shutdown
+      install_finished_pool.shutdown
+    end
+  end
 
   desc "Install Casks"
   task :casks do
