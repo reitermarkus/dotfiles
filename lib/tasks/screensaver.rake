@@ -3,7 +3,7 @@ require 'command'
 
 namespace :screensaver do
   task :apple_tv do
-    puts 'Downloading Apple TV Screen Savers …'
+    puts ANSI.blue { 'Downloading Apple TV Screen Savers …' }
 
     VIDEOS_JSON_URL = URI('http://a1.phobos.apple.com/us/r1000/000/Features/atv/AutumnResources/videos/entries.json')
 
@@ -57,11 +57,11 @@ namespace :screensaver do
       end
 
       Concurrent::Promise.execute(executor: serial_executor) {
-        puts "Downloading #{filename} …"
+        puts ANSI.blue { "Downloading #{filename} …" }
       }.then(executor: download_pool) {
         command '/usr/bin/curl', '--silent', '--continue-at', '-', '--location', video['url'], '-o', download_path
       }.then(executor: serial_executor) {
-        puts "Downloaded #{filename}."
+        puts ANSI.green { "Downloaded #{filename}." }
       }
     }
 
