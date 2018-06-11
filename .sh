@@ -137,6 +137,8 @@
 
   run_local_scripts
 
+  /usr/bin/rake bash
+
   defaults=(
     startup
     locale
@@ -150,7 +152,6 @@
     finder
     dock
     menubar
-    bash
     bettersnaptool
     bundler
     dnsmasq
