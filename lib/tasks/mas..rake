@@ -1,6 +1,8 @@
 namespace :mas do
   desc 'Install Apps from the App Store'
   task :apps do
+    next if ci?
+
     APPS = {
       '608292802' => 'Auction Sniper for eBay',
       '417375580' => 'BetterSnapTool',
