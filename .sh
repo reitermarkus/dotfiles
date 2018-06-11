@@ -122,7 +122,7 @@
 
   /usr/bin/rake brew:all
 
-  install_ruby_gems
+  /usr/bin/rake ruby:bundler
   install_npm_packages
 
   /usr/bin/rake rust

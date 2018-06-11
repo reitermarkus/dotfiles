@@ -28,7 +28,6 @@ end
 def install_gem(name, version = nil)
   ENV['GEM_PATH'] = ENV['GEM_HOME'] = '/tmp/dotfiles-gem-home'
 
-
   if name == 'concurrent-edge'
     install_gem 'concurrent-ruby-ext'
     name = 'concurrent-ruby-edge'
