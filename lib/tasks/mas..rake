@@ -1,4 +1,5 @@
 namespace :mas do
+  desc 'Install Apps from the App Store'
   task :apps do
     APPS = {
       '608292802' => 'Auction Sniper for eBay',
