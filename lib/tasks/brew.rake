@@ -146,27 +146,6 @@ namespace :brew do
     'yarn' => {},
   }
 
-  desc "Install Formulae"
-  task :formulae do
-    formulae = FORMULAE.keys - capture('brew', 'list').strip.split("\n")
-
-    begin
-      ENV['HOMEBREW_NO_AUTO_UPDATE'] = '1'
-
-      download_pool = Concurrent::FixedThreadPool.new(10)
-      install_pool = Concurrent::SingleThreadExecutor.new
-
-      formulae.map { |formula|
-          Concurrent::Promise
-          .execute(executor: download_pool) { command 'brew', 'fetch', '--deps', '--retry', formula, silent: true, tries: 3 }
-          .then(executor: install_pool) { command 'brew', 'install', formula }
-      }.each(&:wait!)
-    ensure
-      download_pool.shutdown
-      install_pool.shutdown
-    end
-  end
-
   converters_dir = '/Applications/Converters.localized'
   itach_dir = '/Applications/iTach'
 
@@ -370,65 +349,6 @@ namespace :brew do
       cask_install_pool.shutdown
       formula_install_pool.shutdown
       install_finished_pool.shutdown
-    end
-  end
-
-  desc "Install Casks"
-  task :casks do
-    FileUtils.mkdir_p [itach_dir, "#{converters_dir}/.localized"]
-
-    File.open("#{converters_dir}/.localized/de.strings", 'w') { |f|
-      f.puts '"Converters" = "Konvertierungswerkzeuge";'
-    }
-
-    File.open("#{converters_dir}/.localized/en.strings", 'w') { |f|
-      f.puts '"Converters" = "Conversion Tools";'
-    }
-
-    # Ensure directories exist and have correct permissions.
-    [
-      '/Library/LaunchAgents',
-      '/Library/LaunchDaemons',
-      '/Library/Dictionaries',
-      '/Library/PreferencePanes',
-      '/Library/QuickLook',
-      '/Library/Services',
-      '/Library/Screen Savers',
-    ].each do |dir|
-      command sudo, '/bin/mkdir', '-p', dir
-      command sudo, '/usr/sbin/chown', 'root:admin', dir
-      command sudo, '/bin/chmod', '-R', 'ug=rwx,o=rx', dir
-    end
-
-    dir_flags = [
-      '--dictionarydir=/Library/Dictionaries',
-      '--prefpanedir=/Library/PreferencePanes',
-      '--qlplugindir=/Library/QuickLook',
-      '--servicedir=/Library/Services',
-      '--screen_saverdir=/Library/Screen Savers',
-    ]
-
-    installed_casks = capture('brew', 'cask', 'list').strip.split("\n")
-    casks = CASKS.select { |cask, _|
-      next false if installed_casks.include?(cask)
-      next false if ci? && cask == 'virtualbox'
-      true
-    }
-
-    begin
-      ENV['HOMEBREW_NO_AUTO_UPDATE'] = '1'
-
-      download_pool = Concurrent::FixedThreadPool.new(10)
-      install_pool = Concurrent::SingleThreadExecutor.new
-
-      casks.map { |cask, flags: []|
-        Concurrent::Promise
-          .execute(executor: download_pool) { command 'brew', 'cask', 'fetch', cask, silent: true, tries: 3 }
-          .then(executor: install_pool) { command 'brew', 'cask', 'install', cask, *dir_flags, *flags }
-      }.each(&:wait!)
-    ensure
-      download_pool.shutdown
-      install_pool.shutdown
     end
   end
 end
