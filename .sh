@@ -118,7 +118,7 @@
 
   install_files
 
-  install_xcode_clt
+  /usr/bin/rake xcode:command_line_utilities
 
   /usr/bin/rake brew:all
 

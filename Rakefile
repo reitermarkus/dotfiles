@@ -6,6 +6,7 @@ require 'ci'
 Rake.add_rakelib 'lib/tasks'
 
 require 'concurrent-edge'
+require 'ansi'
 
 module Concurrent
   class Promise
