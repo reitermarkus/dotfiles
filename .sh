@@ -138,6 +138,7 @@
   run_local_scripts
 
   /usr/bin/rake bash
+  /usr/bin/rake fish
 
   defaults=(
     startup
@@ -155,7 +156,6 @@
     bettersnaptool
     bundler
     dnsmasq
-    fish
     git
     deliveries
     hazel
