@@ -33,15 +33,19 @@ if ci?
       puts "travis_time:start:#{travis_timer_id}"
 
       start_time = Time.now
-      execute_without_fold(*args)
-      end_time = Time.now
 
-      travis_start_time = (start_time.to_f * 1_000_000_000).to_i
-      travis_end_time = (end_time.to_f * 1_000_000_000).to_i
-      travis_duration = travis_end_time - travis_start_time
+      begin
+        execute_without_fold(*args)
+      ensure
+        end_time = Time.now
 
-      puts "travis_time:end:#{travis_timer_id},start=#{travis_start_time},finish=#{travis_end_time},duration=#{travis_duration}"
-      puts "travis_fold:end:#{travis_fold_id}"
+        travis_start_time = (start_time.to_f * 1_000_000_000).to_i
+        travis_end_time = (end_time.to_f * 1_000_000_000).to_i
+        travis_duration = travis_end_time - travis_start_time
+
+        puts "travis_time:end:#{travis_timer_id},start=#{travis_start_time},finish=#{travis_end_time},duration=#{travis_duration}"
+        puts "travis_fold:end:#{travis_fold_id}"
+      end
     end
 
     alias execute_without_fold execute
