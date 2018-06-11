@@ -25,7 +25,16 @@ rescue LoadError => e
   super
 end
 
+AUTO_INSTALLED_GEMS = %w[
+  ansi
+  concurrent-edge
+  concurrent-ruby-ext
+  concurrent-ruby-edge
+]
+
 def install_gem(name, version = nil)
+  raise unless AUTO_INSTALLED_GEMS.include?(name)
+
   ENV['GEM_PATH'] = ENV['GEM_HOME'] = '/tmp/dotfiles-gem-home'
 
   if name == 'concurrent-edge'
