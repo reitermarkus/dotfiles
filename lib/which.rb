@@ -1,5 +1,6 @@
 def which(executable)
   ENV['PATH']
     .split(File::PATH_SEPARATOR)
-    .any? { |p| File.executable?("#{p}/#{executable}") }
+    .map { |p| "#{p}/#{executable}"}
+    .detect { |p| File.executable?(p) }
 end
