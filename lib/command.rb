@@ -68,7 +68,7 @@ class IO
   end
 end
 
-def command(*args, silent: false, tries: 1, **opts)
+def command(*args, silent: false, tries: 1, input: '', **opts)
   args = args.flatten(1)
 
   popen(*args, stdout_tty: true, stderr_tty: true, **opts) { |stdin, stdout, stderr, thread|
@@ -76,7 +76,8 @@ def command(*args, silent: false, tries: 1, **opts)
     err = ''
     merged = ''
 
-    stdin.close
+    stdin.print input
+    stdin.close_write
 
     loop do
       readers, = IO.select([stdout, stderr])
@@ -104,8 +105,8 @@ def command(*args, silent: false, tries: 1, **opts)
       end
     end
 
-    stdout.close
-    stderr.close
+    stdout.close_read
+    stderr.close_read
 
     status = thread.value
 
