@@ -301,6 +301,7 @@ namespace :brew do
     cask_install_pool = Concurrent::FixedThreadPool.new(5)
     formula_install_pool = Concurrent::SingleThreadExecutor.new
     install_finished_pool = Concurrent::SingleThreadExecutor.new
+    cleanup_pool = Concurrent::SingleThreadExecutor.new
 
     begin
       cask_promises = casks.map { |cask| [cask, CASKS[cask]] }.map { |cask, flags: [], **|
@@ -320,6 +321,7 @@ namespace :brew do
           wait_for_downloads
             .then { capture 'brew', 'cask', 'install', cask, *dir_flags, *flags, stdout_tty: true }
             .then(executor: install_finished_pool) { |out, _| print out }
+            .then(executor: cleanup_pool) { capture 'brew', 'cask', 'cleanup', cask if ci? }
         end
       }
 
@@ -340,6 +342,7 @@ namespace :brew do
           wait_for_downloads
             .then { capture 'brew', 'install', formula, stdout_tty: true }
             .then(executor: install_finished_pool) { |out, _| print out }
+            .then(executor: cleanup_pool) { capture 'brew', 'cleanup', formula if ci? }
         end
       }
 
