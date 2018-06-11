@@ -8,8 +8,8 @@ sudo: true
 before_install:
   - yes yes | sudo rvm implode &
   - sudo rm -r ~/.rvmrc ~/.gemrc ~/.bashrc ~/.bash_profile ~/.bundle ~/.gem ~/.cocoapods ~/.nvm &
-  - brew uninstall --force $(brew ls) &
-  - brew cask uninstall --force $(brew cask ls) &
+  - for f in $(brew list); do brew uninstall --force --ignore-dependencies "$f" & done &
+  - for c in $(brew cask list); do brew cask uninstall --force "$c" & done &
   - wait
   - unset GEM_PATH
   - /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)" -- --force
