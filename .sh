@@ -125,7 +125,7 @@
   install_ruby_gems
   install_npm_packages
 
-  install_rustup
+  /usr/bin/rake rust
 
   /usr/bin/rake mas:apps
 
