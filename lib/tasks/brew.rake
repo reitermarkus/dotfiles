@@ -66,8 +66,10 @@ namespace :brew do
     ENV['HOMEBREW_NO_AUTO_UPDATE'] = '1'
 
     if which 'brew'
+      puts ANSI.blue { 'Updating Homebrew …' }
       command 'brew', 'update', '--force'
     else
+      puts ANSI.blue { 'Installing Homebrew …' }
       command '/usr/bin/ruby', '-e', capture('/usr/bin/curl', '-fsSL', 'https://raw.githubusercontent.com/Homebrew/install/master/install')
     end
   end
@@ -352,6 +354,7 @@ namespace :brew do
       cask_install_pool.shutdown
       formula_install_pool.shutdown
       install_finished_pool.shutdown
+      cleanup_pool.shutdown
     end
   end
 end
