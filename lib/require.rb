@@ -30,6 +30,7 @@ AUTO_INSTALLED_GEMS = %w[
   concurrent-edge
   concurrent-ruby-ext
   concurrent-ruby-edge
+  plist
 ]
 
 def install_gem(name, version = nil)

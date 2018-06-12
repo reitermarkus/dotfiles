@@ -1,3 +1,5 @@
+require 'defaults'
+
 namespace :xcode do
   desc 'Install Xcode Command Line Utilities'
   task :command_line_utilities do
@@ -28,5 +30,14 @@ namespace :xcode do
   desc 'Accept the Xcode License Agreement'
   task :accept_license do
     command sudo, 'xcodebuild', '-license', 'accept'
+  end
+
+  desc 'Configure Xcode Defaults'
+  task :defaults do
+    defaults 'com.apple.dt.xcode', 'DVTTextIndentUsingTabs', false
+    defaults 'com.apple.dt.xcode', 'DVTTextIndentTabWidth', 2
+    defaults 'com.apple.dt.xcode', 'DVTTextIndentWidth', 2
+    defaults 'com.apple.dt.xcode', 'DVTTextShowLineNumbers', true
+    defaults 'com.apple.dt.xcode', 'NSNavPanelExpandedStateForSaveMode', true
   end
 end

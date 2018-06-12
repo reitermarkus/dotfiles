@@ -141,6 +141,8 @@
   /usr/bin/rake fish
   /usr/bin/rake git
 
+  /usr/bin/rake xcode:defaults
+
   defaults=(
     startup
     locale
@@ -173,7 +175,6 @@
     transmission
     vagrant
     virtualbox
-    xcode
   )
 
   for default in "${defaults[@]}"; do
