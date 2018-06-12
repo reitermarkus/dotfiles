@@ -1,6 +1,8 @@
 require 'command'
 
 def add_login_item(bundle_id, hidden: false)
+  return if ci?
+
   path = capture('/usr/bin/mdfind', '-onlyin', '/', "kMDItemCFBundleIdentifier=='#{bundle_id}'").lines.first&.strip
 
   script = <<~JAVASCRIPT
