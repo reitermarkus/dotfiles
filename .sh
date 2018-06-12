@@ -139,6 +139,7 @@
 
   /usr/bin/rake bash
   /usr/bin/rake fish
+  /usr/bin/rake git
 
   defaults=(
     startup
@@ -156,7 +157,6 @@
     bettersnaptool
     bundler
     dnsmasq
-    git
     deliveries
     hazel
     keka
