@@ -144,6 +144,7 @@
   /usr/bin/rake xcode:defaults
   /usr/bin/rake rapidclick:defaults
   /usr/bin/rake hazel:defaults
+  /usr/bin/rake virtualbox:defaults
 
   defaults=(
     startup
@@ -174,7 +175,6 @@
     tower
     transmission
     vagrant
-    virtualbox
   )
 
   for default in "${defaults[@]}"; do
