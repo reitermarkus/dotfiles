@@ -147,6 +147,7 @@
   /usr/bin/rake virtualbox:defaults
   /usr/bin/rake steam:defaults
   /usr/bin/rake csgo:config
+  /usr/bin/rake tex
 
   defaults=(
     startup
@@ -170,7 +171,6 @@
     savehollywood
     telegram
     terminal
-    tex
     textmate
     tower
     transmission
