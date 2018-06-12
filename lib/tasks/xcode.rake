@@ -29,15 +29,18 @@ namespace :xcode do
 
   desc 'Accept the Xcode License Agreement'
   task :accept_license do
+    ANSI.blue { 'Accepting Xcode License Agreement …' }
     command sudo, 'xcodebuild', '-license', 'accept'
   end
 
   desc 'Configure Xcode Defaults'
   task :defaults do
-    defaults 'com.apple.dt.xcode', 'DVTTextIndentUsingTabs', false
-    defaults 'com.apple.dt.xcode', 'DVTTextIndentTabWidth', 2
-    defaults 'com.apple.dt.xcode', 'DVTTextIndentWidth', 2
-    defaults 'com.apple.dt.xcode', 'DVTTextShowLineNumbers', true
-    defaults 'com.apple.dt.xcode', 'NSNavPanelExpandedStateForSaveMode', true
+    defaults 'com.apple.dt.xcode' do
+      write 'DVTTextIndentUsingTabs', false
+      write 'DVTTextIndentTabWidth', 2
+      write 'DVTTextIndentWidth', 2
+      write 'DVTTextShowLineNumbers', true
+      write 'NSNavPanelExpandedStateForSaveMode', true
+    end
   end
 end

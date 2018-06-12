@@ -142,6 +142,7 @@
   /usr/bin/rake git
 
   /usr/bin/rake xcode:defaults
+  /usr/bin/rake rapidclick:defaults
 
   defaults=(
     startup
@@ -162,7 +163,6 @@
     deliveries
     hazel
     keka
-    rapidclick
     rocket
     safari
     savehollywood

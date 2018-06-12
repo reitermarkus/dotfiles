@@ -1,14 +1,30 @@
 require 'command'
 require 'plist'
 
-def defaults(bundle_id, key, value = :read)
-  action = case value
-  when :read
+class Defaults
+  attr_reader :bundle_id
+
+  def initialize(bundle_id, &block)
+    @bundle_id = bundle_id
+    instance_eval(&block) if block_given?
+  end
+
+  def read(key)
     capture '/usr/bin/defaults', 'read', bundle_id, key
-  when nil
-    command '/usr/bin/defaults', 'delete', bundle_id, key
-  else
-    args = case value
+  end
+
+  def write(key, value)
+    command '/usr/bin/defaults', 'write', bundle_id, key, *args(value)
+  end
+
+  def delete(*args)
+    command '/usr/bin/defaults', 'delete', bundle_id, *args
+  end
+
+  private
+
+  def args(value)
+    case value
     when true, false
       ['-bool', value.to_s]
     when Float
@@ -18,13 +34,13 @@ def defaults(bundle_id, key, value = :read)
     when String
       ['-string', value]
     when Hash
-      ['-dicts', value.to_plist(false)]
+      ['-dict-add', *value.flat_map { |k, v| [k.to_str, args(v)] }]
     when Array
       ['-array', value.to_plist(false)]
     end
-
-    args = ['/usr/bin/defaults', 'write', bundle_id, key, *args]
-
-    command *args
   end
+end
+
+def defaults(bundle_id, &block)
+  Defaults.new(bundle_id, &block)
 end
