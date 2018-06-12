@@ -145,6 +145,8 @@
   /usr/bin/rake rapidclick:defaults
   /usr/bin/rake hazel:defaults
   /usr/bin/rake virtualbox:defaults
+  /usr/bin/rake steam:defaults
+  /usr/bin/rake csgo:config
 
   defaults=(
     startup
@@ -167,7 +169,6 @@
     rocket
     safari
     savehollywood
-    steam
     telegram
     terminal
     tex
