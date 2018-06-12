@@ -58,9 +58,9 @@ def dependencies(keys, acc: TopologicalHash.new)
   acc
 end
 
-namespace :brew do
-  task :all => [:install, :taps, :casks_and_formulae]
+task :brew => [:'brew:install', :'brew:taps', :'brew:casks_and_formulae']
 
+namespace :brew do
   desc 'Install Homebrew'
   task :install do
     ENV['HOMEBREW_NO_AUTO_UPDATE'] = '1'
@@ -92,6 +92,12 @@ namespace :brew do
     ]
 
     taps = TAPS - capture('brew', 'tap').strip.split("\n")
+
+    if taps.empty?
+      ANSI.green { 'All Homebrew Taps already installed.' }
+    else
+      ANSI.blue { 'Installing Homebrew Taps …' }
+    end
 
     begin
       ENV['HOMEBREW_NO_AUTO_UPDATE'] = '1'
@@ -244,6 +250,13 @@ namespace :brew do
 
     installed_casks = capture('brew', 'cask', 'list').strip.split("\n")
     installed_formulae = capture('brew', 'list').strip.split("\n")
+
+    if ((casks - installed_casks) + (formulae - installed_formulae)).empty?
+      puts ANSI.green { 'All Casks and Formulae already installed.' }
+      next
+    else
+      puts ANSI.blue { 'Installing Casks and Formulae …' }
+    end
 
     download_pool = Concurrent::FixedThreadPool.new(10)
     downloads = {}

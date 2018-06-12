@@ -120,7 +120,7 @@
 
   /usr/bin/rake xcode:command_line_utilities
 
-  /usr/bin/rake brew:all
+  /usr/bin/rake brew
 
   /usr/bin/rake ruby
   install_npm_packages
