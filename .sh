@@ -143,6 +143,7 @@
 
   /usr/bin/rake xcode:defaults
   /usr/bin/rake rapidclick:defaults
+  /usr/bin/rake hazel:defaults
 
   defaults=(
     startup
@@ -161,7 +162,6 @@
     bundler
     dnsmasq
     deliveries
-    hazel
     keka
     rocket
     safari
