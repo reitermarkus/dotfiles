@@ -36,29 +36,35 @@ AUTO_INSTALLED_GEMS = %w[
 def install_gem(name, version = nil)
   raise unless AUTO_INSTALLED_GEMS.include?(name)
 
-  ENV['GEM_PATH'] = ENV['GEM_HOME'] = '/tmp/dotfiles-gem-home'
-
   if name == 'concurrent-edge'
     install_gem 'concurrent-ruby-ext'
     name = 'concurrent-ruby-edge'
   end
 
-  Gem.clear_paths
-  Gem::Specification.reset
+  begin
+    saved_env = ENV.to_hash
 
-  return unless Gem::Specification.find_all_by_name(name, version).empty?
+    ENV['GEM_PATH'] = ENV['GEM_HOME'] = '/tmp/dotfiles-gem-home'
 
-  # Do `gem install [...]` without having to spawn a separate process or
-  # having to find the right `gem` binary for the running Ruby interpreter.
-  Gem::Commands::InstallCommand.new.tap do |cmd|
-    install_args = ['--no-ri', '--no-rdoc', name]
-    install_args += ['--version', version] unless version.nil?
+    Gem.clear_paths
+    Gem::Specification.reset
 
-    cmd.handle_options(install_args)
+    return unless Gem::Specification.find_all_by_name(name, version).empty?
 
-    silently do
-      cmd.execute
+    # Do `gem install [...]` without having to spawn a separate process or
+    # having to find the right `gem` binary for the running Ruby interpreter.
+    Gem::Commands::InstallCommand.new.tap do |cmd|
+      install_args = ['--no-ri', '--no-rdoc', name]
+      install_args += ['--version', version] unless version.nil?
+
+      cmd.handle_options(install_args)
+
+      silently do
+        cmd.execute
+      end
     end
+  ensure
+    ENV.replace(saved_env)
   end
 rescue Gem::SystemExitException => e
   raise e.message if e.exit_code.nonzero?
