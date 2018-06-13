@@ -1,7 +1,20 @@
 task :rust do
+  cargo_home = '~/.config/cargo'
+  rustup_home = '~/.config/rustup'
+
+  ENV['CARGO_HOME'] = File.expand_path(cargo_home)
+
+  add_line_to_file fish_environment, "set -x CARGO_HOME #{cargo_home}"
+  add_line_to_file bash_environment, "export CARGO_HOME=#{cargo_home}"
+
+  ENV['RUSTUP_HOME'] = File.expand_path(rustup_home)
+
+  add_line_to_file fish_environment, "set -x RUSTUP_HOME #{rustup_home}"
+  add_line_to_file bash_environment, "export RUSTUP_HOME=#{rustup_home}"
+
   command 'rustup-init', '-y', '--no-modify-path'
 
-  cargo_bin = '~/.cargo/bin'
+  cargo_bin = "#{cargo_home}/bin"
 
   ENV['PATH'] = "#{File.expand_path(cargo_bin)}:#{ENV['PATH']}"
 
