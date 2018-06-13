@@ -151,6 +151,7 @@
   /usr/bin/rake ccache
   /usr/bin/rake make
   /usr/bin/rake keyboard
+  /usr/bin/rake ui
 
   defaults=(
     startup
@@ -159,7 +160,6 @@
     loginwindow
     softwareupdate
     mouse_trackpad
-    ui_ux
     crash_reporter
     finder
     dock
