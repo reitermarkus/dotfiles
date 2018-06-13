@@ -8,14 +8,6 @@ export PATH="/usr/local/sbin:$PATH"
 export PATH="$HOME/.config/git/commands:$PATH"
 
 
-# Ruby
-
-export RBENV_ROOT="$HOME/.config/rbenv"
-
-/bin/mkdir -p "$RBENV_ROOT/shims"
-export PATH="$RBENV_ROOT/shims:$PATH"
-
-
 # Rust
 
 /bin/mkdir -p "$HOME/.cargo/bin"

@@ -1,7 +1,13 @@
 def add_line_to_file(file, line)
   file = File.expand_path(file)
-  lines = File.open(file, 'r', &:read).lines.map(&:strip)
-  return if lines.include?(line)
+
+  if File.exist?(file)
+    lines = File.open(file, 'r', &:read).lines.map(&:strip)
+    return if lines.include?(line)
+  else
+    FileUtils.mkdir_p File.dirname(file)
+    FileUtils.touch file
+  end
 
   if File.writable?(file)
     File.open(file, 'a') do |f|

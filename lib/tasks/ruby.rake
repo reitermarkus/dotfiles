@@ -1,7 +1,7 @@
 task :ruby => [:'ruby:bundler']
 
 namespace :ruby do
-  task :bundler => [:'bundler:install', :'bundler:config']
+  task :bundler => [:'rbenv:init', :'bundler:install', :'bundler:config']
 
   namespace :bundler do
     task :install do
@@ -19,6 +19,21 @@ namespace :ruby do
       processors = capture('/usr/sbin/sysctl', '-n', 'hw.ncpu').strip
       puts ANSI.blue { "Configuring Bundler with #{processors} processors …" }
       command 'bundle', 'config', '--global', 'jobs', processors
+    end
+  end
+
+  namespace :rbenv do
+    task :init do
+      rbenv_root = '~/.config/rbenv'
+
+      ENV['RBENV_ROOT'] = File.expand_path(rbenv_root)
+      ENV['PATH'] = "#{ENV['RBENV_ROOT']}/shims:#{ENV['PATH']}"
+
+      add_line_to_file fish_environment, "set -x RBENV_ROOT #{rbenv_root}"
+      capture 'fish', '-c', 'fisher', 'install', 'rbenv'
+
+      add_line_to_file bash_environment, "export RBENV_ROOT=#{rbenv_root}"
+      add_line_to_file bash_environment, 'eval "$(rbenv init -)"'
     end
   end
 end

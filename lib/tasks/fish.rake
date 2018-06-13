@@ -18,7 +18,6 @@ task :fish do
   command 'fish', '-c', 'fisher', 'install', %w[
     done
     javahome
-    rbenv
     reitermarkus/fish_prompt
     omf/thefuck
     z

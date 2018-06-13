@@ -52,3 +52,5 @@ if ci?
     alias execute execute_with_fold
   end
 end
+
+DOTFILES_DIR = __dir__
