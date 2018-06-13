@@ -7,12 +7,28 @@ sudo: true
 
 before_install:
   - yes yes | sudo rvm implode &
-  - sudo rm -r ~/.rvmrc ~/.gemrc ~/.bashrc ~/.bash_profile ~/.bundle ~/.gem ~/.cocoapods ~/.nvm &
+  - sudo rm -r
+      ~/.bundle ~/.gem ~/.gemrc ~/.rvmrc
+      ~/.bash_profile
+      ~/.cocoapods
+      ~/.mkshrc
+      ~/.fastlane
+      ~/.ssh
+      ~/.subversion
+      ~/.swp
+      ~/.gnupg
+      ~/.cocoapods
+      "$NVM_BIN" &
   - for f in $(brew list); do brew uninstall --force --ignore-dependencies "$f" & done &
   - for c in $(brew cask list); do brew cask uninstall --force "$c" & done &
   - wait
-  - unset GEM_PATH
   - /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)" -- --force
+  - unset
+      CC
+      GEM_HOME GEM_PATH IRBRC MY_RUBY_HOME RUBY_VERSION rvm_bin_path rvm_path rvm_prefix rvm_pretty_print_flag rvm_version
+      GIT_ASKPASS
+      NVM_CD_FLAGS NVM_DIR NVM_BIN NVM_IOJS_ORG_MIRROR NVM_NODEJS_ORG_MIRROR NVM_PATH
+  - unset PATH MANPATH && source /etc/profile && source ~/.profile
 install: ./.sh
 
 notifications:
