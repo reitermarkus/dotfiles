@@ -148,6 +148,8 @@
   /usr/bin/rake steam:defaults
   /usr/bin/rake csgo:config
   /usr/bin/rake tex
+  /usr/bin/rake ccache
+  /usr/bin/rake make
 
   defaults=(
     startup
