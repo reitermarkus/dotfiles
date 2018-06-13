@@ -150,6 +150,7 @@
   /usr/bin/rake tex
   /usr/bin/rake ccache
   /usr/bin/rake make
+  /usr/bin/rake keyboard
 
   defaults=(
     startup
@@ -157,7 +158,6 @@
     locate_db
     loginwindow
     softwareupdate
-    keyboard
     mouse_trackpad
     ui_ux
     crash_reporter

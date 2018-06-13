@@ -13,8 +13,8 @@ class Defaults
     capture '/usr/bin/defaults', 'read', bundle_id, key
   end
 
-  def write(key, value)
-    command '/usr/bin/defaults', 'write', bundle_id, key, *args(value)
+  def write(key, value, add: false)
+    command '/usr/bin/defaults', 'write', bundle_id, key, *args(value, add: add)
   end
 
   def delete(*args)
@@ -23,7 +23,7 @@ class Defaults
 
   private
 
-  def args(value)
+  def args(value, add: false)
     case value
     when true, false
       ['-bool', value.to_s]
@@ -34,9 +34,9 @@ class Defaults
     when String
       ['-string', value]
     when Hash
-      ['-dict-add', *value.flat_map { |k, v| [k.to_str, args(v)] }]
+      [add ? '-dict-add' : '-dict', *value.flat_map { |k, v| [k.to_str, args(v)] }]
     when Array
-      ['-array', value.to_plist(false)]
+      [add ? '-array-add' : '-array', *value.map { |element| element.to_plist(false) }]
     end
   end
 end
