@@ -127,6 +127,7 @@ namespace :brew do
     'git' => {},
     'git-lfs' => {},
     'ghc' => {},
+    'imageoptim-cli' => {},
     'iperf3' => {},
     'node' => {},
     'fish' => {},

@@ -25,7 +25,6 @@ install_npm_packages() {
   npm -g update
 
   # Install Node Packages
-  npm -g install imageoptim-cli
   npm -g install svgexport
 
 }
