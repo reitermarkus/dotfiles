@@ -164,6 +164,7 @@
   /usr/bin/rake bettersnaptool
   /usr/bin/rake screensaver
   /usr/bin/rake vagrant
+  /usr/bin/rake telegram
 
   defaults=(
     loginwindow
@@ -175,7 +176,6 @@
     dnsmasq
     keka
     savehollywood
-    telegram
     terminal
     textmate
   )

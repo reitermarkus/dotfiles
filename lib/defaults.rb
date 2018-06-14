@@ -9,8 +9,8 @@ class Defaults
     instance_eval(&block) if block_given?
   end
 
-  def read(key)
-    capture '/usr/bin/defaults', 'read', bundle_id, key
+  def read(key = nil)
+    capture '/usr/bin/defaults', 'read', bundle_id, *key
   end
 
   def write(key, value, add: false)
