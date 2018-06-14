@@ -76,6 +76,8 @@ namespace :brew do
 
   desc "Install Taps"
   task :taps do
+    ENV['HOMEBREW_NO_AUTO_UPDATE'] = '1'
+
     TAPS = %w[
       homebrew/cask
       homebrew/cask-drivers
@@ -94,19 +96,17 @@ namespace :brew do
     taps = TAPS - capture('brew', 'tap').strip.split("\n")
 
     if taps.empty?
-      ANSI.green { 'All Homebrew Taps already installed.' }
+      puts ANSI.green { 'All Homebrew Taps already installed.' }
     else
-      ANSI.blue { 'Installing Homebrew Taps …' }
+      puts ANSI.blue { 'Installing Homebrew Taps …' }
     end
 
     begin
-      ENV['HOMEBREW_NO_AUTO_UPDATE'] = '1'
-
       download_pool = Concurrent::FixedThreadPool.new(10)
 
       taps.map { |tap|
         Concurrent::Promise
-          .execute(executor: download_pool) { command 'brew', 'tap', tap, silent: true }
+          .execute(executor: download_pool) { command 'brew', 'tap', tap }
       }.each(&:wait!)
     ensure
       download_pool.shutdown
