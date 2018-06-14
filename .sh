@@ -152,6 +152,7 @@
   /usr/bin/rake make
   /usr/bin/rake keyboard
   /usr/bin/rake ui
+  /usr/bin/rake rocket
 
   defaults=(
     startup
@@ -168,7 +169,6 @@
     dnsmasq
     deliveries
     keka
-    rocket
     safari
     savehollywood
     telegram
