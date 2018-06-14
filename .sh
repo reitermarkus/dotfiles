@@ -160,6 +160,7 @@
   /usr/bin/rake locate_db
   /usr/bin/rake menubar
   /usr/bin/rake deliveries
+  /usr/bin/rake tower
 
   defaults=(
     loginwindow
@@ -175,7 +176,6 @@
     telegram
     terminal
     textmate
-    tower
     vagrant
   )
 
