@@ -159,6 +159,7 @@
   /usr/bin/rake transmission
   /usr/bin/rake locate_db
   /usr/bin/rake menubar
+  /usr/bin/rake deliveries
 
   defaults=(
     loginwindow
@@ -169,7 +170,6 @@
     dock
     bettersnaptool
     dnsmasq
-    deliveries
     keka
     savehollywood
     telegram
