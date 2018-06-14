@@ -161,6 +161,7 @@
   /usr/bin/rake menubar
   /usr/bin/rake deliveries
   /usr/bin/rake tower
+  /usr/bin/rake bettersnaptool
 
   defaults=(
     loginwindow
@@ -169,7 +170,6 @@
     crash_reporter
     finder
     dock
-    bettersnaptool
     dnsmasq
     keka
     savehollywood

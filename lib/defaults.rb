@@ -43,6 +43,8 @@ class Defaults
         add ? '-array-add' : '-array',
         *value.map { |v| to_arg(v) },
       ]
+    when StringIO
+      ['-data', value.read]
     end
   end
 
