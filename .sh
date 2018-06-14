@@ -156,6 +156,7 @@
   /usr/bin/rake safari
   /usr/bin/rake locale
   /usr/bin/rake startup
+  /usr/bin/rake transmission
 
   defaults=(
     locate_db
@@ -175,7 +176,6 @@
     terminal
     textmate
     tower
-    transmission
     vagrant
   )
 
