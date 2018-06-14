@@ -162,6 +162,7 @@
   /usr/bin/rake deliveries
   /usr/bin/rake tower
   /usr/bin/rake bettersnaptool
+  /usr/bin/rake screensaver
 
   defaults=(
     loginwindow

@@ -1,6 +1,8 @@
 require 'concurrent'
 require 'command'
 
+task :screensaver => [:'screensaver:apple_tv']
+
 namespace :screensaver do
   task :apple_tv do
     puts ANSI.blue { 'Downloading Apple TV Screen Savers …' }

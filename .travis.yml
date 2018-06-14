@@ -17,18 +17,24 @@ before_install:
       ~/.subversion
       ~/.swp
       ~/.gnupg
-      ~/.cocoapods
-      "$NVM_BIN" &
+      "$NVM_DIR" &
+  - sudo rm -r /Applications/Xcode*.app &
+  - sudo rm -r ~/Library/Developer &
+  # - sudo rm -r /Library/Developer &
+  - sudo rm -r /Library/Developer/CommandLineTools &
+  - sudo pkgutil --forget com.apple.pkg.CLTools_Executables &
   - for f in $(brew list); do brew uninstall --force --ignore-dependencies "$f" & done &
   - for c in $(brew cask list); do brew cask uninstall --force "$c" & done &
   - wait
   - /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)" -- --force
+  - sudo xcode-select --reset
   - unset
       CC
       GEM_HOME GEM_PATH IRBRC MY_RUBY_HOME RUBY_VERSION rvm_bin_path rvm_path rvm_prefix rvm_pretty_print_flag rvm_version
       GIT_ASKPASS
-      NVM_CD_FLAGS NVM_DIR NVM_BIN NVM_IOJS_ORG_MIRROR NVM_NODEJS_ORG_MIRROR NVM_PATH
+      NVM_CD_FLAGS NVM_BIN NVM_DIR NVM_IOJS_ORG_MIRROR NVM_NODEJS_ORG_MIRROR NVM_PATH
   - unset PATH MANPATH && source /etc/profile && source ~/.profile
+  - df -m /
 install: ./.sh
 
 notifications:

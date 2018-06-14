@@ -1,7 +1,6 @@
 defaults_savehollywood() {
 
   # SaveHollywood Screensaver
-  /usr/bin/rake screensaver:apple_tv
 
   /usr/bin/defaults -currentHost write fr.whitebox.SaveHollywood assets.library               -array "${HOME}/Library/Screen Savers/Videos"
   /usr/bin/defaults -currentHost write fr.whitebox.SaveHollywood assets.randomOrder           -bool  true
