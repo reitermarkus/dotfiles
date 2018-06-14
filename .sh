@@ -158,6 +158,7 @@
   /usr/bin/rake startup
   /usr/bin/rake transmission
   /usr/bin/rake locate_db
+  /usr/bin/rake menubar
 
   defaults=(
     loginwindow
@@ -166,7 +167,6 @@
     crash_reporter
     finder
     dock
-    menubar
     bettersnaptool
     dnsmasq
     deliveries
