@@ -163,6 +163,7 @@
   /usr/bin/rake tower
   /usr/bin/rake bettersnaptool
   /usr/bin/rake screensaver
+  /usr/bin/rake vagrant
 
   defaults=(
     loginwindow
@@ -177,7 +178,6 @@
     telegram
     terminal
     textmate
-    vagrant
   )
 
   for default in "${defaults[@]}"; do
