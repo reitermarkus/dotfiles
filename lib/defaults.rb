@@ -34,10 +34,20 @@ class Defaults
     when String
       ['-string', value]
     when Hash
-      [add ? '-dict-add' : '-dict', *value.flat_map { |k, v| [k.to_str, v.to_plist(false)] }]
+      [
+        add ? '-dict-add' : '-dict',
+        *value.flat_map { |k, v| [k.to_str, to_arg(v)] },
+      ]
     when Array
-      [add ? '-array-add' : '-array', *value.map { |element| element.to_plist(false) }]
+      [
+        add ? '-array-add' : '-array',
+        *value.map { |v| to_arg(v) },
+      ]
     end
+  end
+
+  def to_arg(value)
+    value.respond_to?(:to_plist) ? value.to_plist(false) : args(value)
   end
 end
 

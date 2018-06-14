@@ -154,10 +154,10 @@
   /usr/bin/rake ui
   /usr/bin/rake rocket
   /usr/bin/rake safari
+  /usr/bin/rake locale
 
   defaults=(
     startup
-    locale
     locate_db
     loginwindow
     softwareupdate
