@@ -155,9 +155,9 @@
   /usr/bin/rake rocket
   /usr/bin/rake safari
   /usr/bin/rake locale
+  /usr/bin/rake startup
 
   defaults=(
-    startup
     locate_db
     loginwindow
     softwareupdate
