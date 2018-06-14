@@ -239,7 +239,7 @@ namespace :brew do
   task :casks_and_formulae do
     ENV['HOMEBREW_NO_AUTO_UPDATE'] = '1'
 
-    casks = CASKS.keys.reject { |cask| ci? && cask == 'virtualbox' }
+    casks = CASKS.keys.reject { |cask| ci? && ['unicodechecker', 'virtualbox'].include?(cask) }
     formulae = FORMULAE.keys
 
     dependency_graph = dependencies(
