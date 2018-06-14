@@ -1,7 +1,12 @@
 namespace :mas do
   desc 'Install Apps from the App Store'
   task :apps do
-    next if ci?
+    begin
+      capture 'mas', 'account'
+    rescue NonZeroExit
+      next if ci?
+      raise 'Not signed in into App Store.'
+    end
 
     APPS = {
       '608292802' => 'Auction Sniper for eBay',
