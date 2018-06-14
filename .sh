@@ -157,9 +157,9 @@
   /usr/bin/rake locale
   /usr/bin/rake startup
   /usr/bin/rake transmission
+  /usr/bin/rake locate_db
 
   defaults=(
-    locate_db
     loginwindow
     softwareupdate
     mouse_trackpad
