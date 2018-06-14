@@ -153,6 +153,7 @@
   /usr/bin/rake keyboard
   /usr/bin/rake ui
   /usr/bin/rake rocket
+  /usr/bin/rake safari
 
   defaults=(
     startup
@@ -169,7 +170,6 @@
     dnsmasq
     deliveries
     keka
-    safari
     savehollywood
     telegram
     terminal

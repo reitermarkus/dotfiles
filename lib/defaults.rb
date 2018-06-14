@@ -34,7 +34,7 @@ class Defaults
     when String
       ['-string', value]
     when Hash
-      [add ? '-dict-add' : '-dict', *value.flat_map { |k, v| [k.to_str, args(v)] }]
+      [add ? '-dict-add' : '-dict', *value.flat_map { |k, v| [k.to_str, v.to_plist(false)] }]
     when Array
       [add ? '-array-add' : '-array', *value.map { |element| element.to_plist(false) }]
     end
