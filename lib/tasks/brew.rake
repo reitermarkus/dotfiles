@@ -15,7 +15,7 @@ end
 
 def dependencies(keys, acc: TopologicalHash.new, pool: nil)
   shutdown = pool.nil?
-  pool ||= Concurrent::CachedThreadPool.new
+  pool ||= Concurrent::FixedThreadPool.new(10)
 
   promises = keys.map { |key|
     next if acc.key?(key)
