@@ -365,6 +365,20 @@ namespace :brew do
       downloads[key]&.wait!
     }
 
+    def safe_install
+      begin
+        yield
+      rescue NonZeroExit => e
+        if e.stderr =~ /Another active Homebrew process/
+          $stderr.puts ANSI.red { e.stderr }
+          $stderr.puts ANSI.blue { "Retrying '#{e.command}'…" }
+          sleep 5
+          retry
+        end
+        raise e
+      end
+    end
+
     begin
       casks.map { |cask| [cask, CASKS[cask]] }.each { |cask, flags: [], **|
         key = [:cask, cask]
@@ -372,7 +386,10 @@ namespace :brew do
         installations[key] =
           Concurrent::Promise.new(executor: cask_install_pool) {
             wait_for_downloads.call(key)
-            capture 'brew', 'cask', 'install', cask, *dir_flags, *flags, stdout_tty: true
+
+            safe_install do
+              capture 'brew', 'cask', 'install', cask, *dir_flags, *flags, stdout_tty: true
+            end
           }
           .then(executor: install_finished_pool) { |out, _| print out }
       }
@@ -383,7 +400,10 @@ namespace :brew do
         installations[key] =
           Concurrent::Promise.new(executor: formula_install_pool) {
             wait_for_downloads.call(key)
-            capture 'brew', 'install', formula, stdout_tty: true
+
+            safe_install do
+              capture 'brew', 'install', formula, stdout_tty: true
+            end
           }
           .then(executor: install_finished_pool) { |out, _| print out }
       }
