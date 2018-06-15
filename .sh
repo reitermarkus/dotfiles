@@ -165,13 +165,13 @@
   /usr/bin/rake screensaver
   /usr/bin/rake vagrant
   /usr/bin/rake telegram
+  /usr/bin/rake finder
 
   defaults=(
     loginwindow
     softwareupdate
     mouse_trackpad
     crash_reporter
-    finder
     dock
     dnsmasq
     keka
