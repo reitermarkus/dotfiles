@@ -175,7 +175,6 @@
     dock
     dnsmasq
     keka
-    savehollywood
     terminal
     textmate
   )

@@ -1,7 +1,7 @@
 require 'concurrent'
 require 'command'
 
-task :screensaver => [:'screensaver:apple_tv']
+task :screensaver => [:'screensaver:apple_tv', :'screensaver:savehollywood']
 
 namespace :screensaver do
   task :apple_tv do
@@ -68,5 +68,37 @@ namespace :screensaver do
     }
 
     promises.each(&:wait!)
+  end
+
+  task :savehollywood do
+    defaults current_host: 'fr.whitebox.SaveHollywood' do
+      write 'assets.library', [File.expand_path('~/Library/Screen Savers/Videos')]
+      write 'assets.randomOrder', true
+      write 'assets.startWhereLeftOff', false
+      write 'frame.drawBorder', false
+      write 'frame.randomPosition', false
+      write 'frame.scaling', 1
+      write 'frame.showMetadata.mode', false
+      write 'movie.volume.mode', 1
+      write 'screen.mainDisplayOnly', false
+    end
+
+    path = capture('/usr/bin/mdfind', '-onlyin', '/', 'kMDItemCFBundleIdentifier=="fr.whitebox.SaveHollywood"').lines.first.strip
+
+    defaults current_host: 'com.apple.screensaver' do
+      if File.directory?(path)
+        write 'moduleDict', {
+          'moduleName' => 'SaveHollywood',
+          'path' => path,
+          'type' => 0,
+        }
+      else
+        write 'moduleDict', {
+          'moduleName' => 'Arabesque',
+          'path' => '/System/Library/Screen Savers/Arabesque.qtz',
+          'type' => 1,
+        }
+      end
+    end
   end
 end

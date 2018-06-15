@@ -4,21 +4,22 @@ require 'plist'
 class Defaults
   attr_reader :bundle_id
 
-  def initialize(bundle_id, &block)
-    @bundle_id = bundle_id
+  def initialize(bundle_id = nil, current_host: nil, &block)
+    @bundle_id = bundle_id || current_host
+    @current_host = '-currentHost' if !current_host.nil?
     instance_eval(&block) if block_given?
   end
 
   def read(key = nil)
-    capture '/usr/bin/defaults', 'read', bundle_id, *key
+    capture '/usr/bin/defaults', *@current_host, 'read', bundle_id, *key
   end
 
   def write(key, value, add: false)
-    command '/usr/bin/defaults', 'write', bundle_id, key, *args(value, add: add)
+    command '/usr/bin/defaults', *@current_host, 'write', bundle_id, key, *args(value, add: add)
   end
 
   def delete(*args)
-    command '/usr/bin/defaults', 'delete', bundle_id, *args
+    command '/usr/bin/defaults', *@current_host, 'delete', bundle_id, *args
   end
 
   private
