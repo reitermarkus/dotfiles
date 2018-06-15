@@ -375,7 +375,6 @@ namespace :brew do
             capture 'brew', 'cask', 'install', cask, *dir_flags, *flags, stdout_tty: true
           }
           .then(executor: install_finished_pool) { |out, _| print out }
-          .then(executor: cleanup_pool) { capture 'brew', 'cask', 'cleanup', cask if ci? }
       }
 
       formulae.map { |formula| [formula, FORMULAE[formula]] }.each { |formula, **|
@@ -387,7 +386,6 @@ namespace :brew do
             capture 'brew', 'install', formula, stdout_tty: true
           }
           .then(executor: install_finished_pool) { |out, _| print out }
-          .then(executor: cleanup_pool) { capture 'brew', 'cleanup', formula if ci? }
       }
 
       installations.each do |_, promise|
