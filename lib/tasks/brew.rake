@@ -258,42 +258,45 @@ namespace :brew do
       puts ANSI.blue { 'Installing Casks and Formulae …' }
     end
 
-    sorted_dependency_graph = dependency_graph.tsort
-
     recursive_dependencies = ->(key) {
-      deps = dependency_graph[key]
-
-      if deps.empty?
-        []
-      else
-        (deps + deps.flat_map { |dep| recursive_dependencies.call(dep) }).uniq
-      end
+      dependency_graph.fetch(key, []).flat_map { |dep|
+        [*recursive_dependencies.call(dep), dep]
+      }.uniq
     }
 
-    sorted_dependency_graph.each_with_index do |key, i|
-      deps = recursive_dependencies.call(key)
+    dependency_graph.each do |key, _|
+      dependency_graph[key] = recursive_dependencies.call(key)
+    end
 
-      deps.each do |dep|
-        next if all_keys.include?(dep)
+    sorted_dependencies = dependency_graph.tsort
 
-        sorted_dependency_graph.take(i).each do |previous_key|
-          next if deps.include?(previous_key)
+    sorted_dependencies.each_with_index do |key, i|
+      previous_deps = sorted_dependencies.take(i)
+
+      dependency_graph[key] = dependency_graph[key].map { |dep|
+        next dep if all_keys.include?(dep)
+
+        # Find closest previous explicitly-installed dependency which also depends on `dep`.
+        previous_dep = previous_deps.detect { |previous_key|
           next unless all_keys.include?(previous_key)
+          next unless dependency_graph[previous_key].include?(dep)
+          previous_key
+        }
 
-          if dependency_graph[previous_key].include?(dep)
-            deps << previous_key
-            break
-          end
-        end
-      end
+        previous_dep || dep
+      }.uniq
+    end
 
-      dependency_graph[key] = deps
+    sorted_dependencies = dependency_graph.tsort
+
+    sorted_dependencies.each do |key|
+      puts "#{key[1]} => #{dependency_graph[key].map(&:last).join(', ')}"
     end
 
     download_pool = Concurrent::FixedThreadPool.new(10)
     downloads = {}
 
-    sorted_dependency_graph.each do |key|
+    sorted_dependencies.each do |key|
       type, name = key
 
       case type
@@ -356,19 +359,17 @@ namespace :brew do
       Concurrent::Promise.new(executor: executor) {
         deps = dependency_graph[key]
 
-        [*deps, key].each do |k|
-          downloads[k]&.wait!
-        end
-
-
         deps.each do |k|
+          downloads[k]&.wait!
           installations[k]&.wait!
         end
+
+        downloads[key]&.wait!
       }
     }
 
     begin
-      cask_promises = casks.map { |cask| [cask, CASKS[cask]] }.map { |cask, flags: [], **|
+      casks.map { |cask| [cask, CASKS[cask]] }.each { |cask, flags: [], **|
         key = [:cask, cask]
 
         installations[key] = begin
@@ -385,7 +386,7 @@ namespace :brew do
         end
       }
 
-      formula_promises = formulae.map { |formula| [formula, FORMULAE[formula]] }.map { |formula, **|
+      formulae.map { |formula| [formula, FORMULAE[formula]] }.each { |formula, **|
         key = [:formula, formula]
 
         installations[key] = begin
@@ -402,11 +403,14 @@ namespace :brew do
         end
       }
 
-      cask_promises.each(&:execute)
-      formula_promises.each(&:execute)
+      installations.each do |_, promise|
+        promise.execute
+      end
 
-      cask_promises.each(&:wait!)
-      formula_promises.each(&:wait!)
+      installations.each do |key, promise|
+        puts ".wait!-ing for #{key[1]} …"
+        promise.wait!
+      end
     ensure
       cask_install_pool.shutdown
       formula_install_pool.shutdown
