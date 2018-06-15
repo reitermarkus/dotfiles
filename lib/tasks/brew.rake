@@ -13,8 +13,9 @@ class TopologicalHash < Hash
   end
 end
 
-def dependencies(keys, acc: TopologicalHash.new)
-  pool = Concurrent::FixedThreadPool.new(10)
+def dependencies(keys, acc: TopologicalHash.new, pool: nil)
+  shutdown = pool.nil?
+  pool ||= Concurrent::CachedThreadPool.new
 
   promises = keys.map { |key|
     next if acc.key?(key)
@@ -45,17 +46,17 @@ def dependencies(keys, acc: TopologicalHash.new)
 
   key_deps = promises.map { |key, promise| [key, promise.value!] }
 
-  pool.shutdown
-
   key_deps.each do |key, deps|
     acc[key] = deps
   end
 
   key_deps.each do |_, deps|
-    dependencies(deps, acc: acc)
+    dependencies(deps, acc: acc, pool: pool)
   end
 
   acc
+ensure
+  pool.shutdown if shutdown
 end
 
 task :brew => [:'brew:install', :'brew:taps', :'brew:casks_and_formulae']
