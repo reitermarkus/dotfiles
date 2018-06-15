@@ -166,12 +166,12 @@
   /usr/bin/rake vagrant
   /usr/bin/rake telegram
   /usr/bin/rake finder
+  /usr/bin/rake crash_reporter
 
   defaults=(
     loginwindow
     softwareupdate
     mouse_trackpad
-    crash_reporter
     dock
     dnsmasq
     keka
