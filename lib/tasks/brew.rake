@@ -366,15 +366,22 @@ namespace :brew do
     }
 
     def safe_install
+      tries = 60
+
       begin
         yield
       rescue NonZeroExit => e
         if e.stderr =~ /Another active Homebrew process/
-          $stderr.puts ANSI.red { e.stderr }
-          $stderr.puts ANSI.blue { "Retrying '#{e.command}'…" }
-          sleep 5
-          retry
+          tries -= 1
+
+          if tries > 0
+            $stderr.puts ANSI.red { e.stderr }
+            $stderr.puts ANSI.blue { "Retrying '#{e.command}'…" }
+            sleep 1
+            retry
+          end
         end
+
         raise e
       end
     end
