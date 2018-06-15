@@ -83,10 +83,10 @@ namespace :screensaver do
       write 'screen.mainDisplayOnly', false
     end
 
-    path = capture('/usr/bin/mdfind', '-onlyin', '/', 'kMDItemCFBundleIdentifier=="fr.whitebox.SaveHollywood"').lines.first.strip
+    path = capture('/usr/bin/mdfind', '-onlyin', '/', 'kMDItemCFBundleIdentifier=="fr.whitebox.SaveHollywood"').lines.first&.strip
 
     defaults current_host: 'com.apple.screensaver' do
-      if File.directory?(path)
+      if path
         write 'moduleDict', {
           'moduleName' => 'SaveHollywood',
           'path' => path,
