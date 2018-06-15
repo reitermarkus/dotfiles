@@ -52,7 +52,7 @@ def dependencies(keys, acc: TopologicalHash.new)
   end
 
   key_deps.each do |_, deps|
-  dependencies(deps, acc: acc)
+    dependencies(deps, acc: acc)
   end
 
   acc
@@ -242,10 +242,9 @@ namespace :brew do
     casks = CASKS.keys.reject { |cask| ci? && ['unicodechecker', 'virtualbox'].include?(cask) }
     formulae = FORMULAE.keys
 
-    dependency_graph = dependencies(
-      formulae.map { |formula| [:formula, formula] } +
-      casks.map { |cask| [:cask, cask] }
-    )
+    all_keys = formulae.map { |formula| [:formula, formula] } + casks.map { |cask| [:cask, cask] }
+
+    dependency_graph = dependencies(all_keys)
 
     dependency_graph[[:formula, 'sshfs']] << [:cask, 'osxfuse']
 
@@ -259,25 +258,57 @@ namespace :brew do
       puts ANSI.blue { 'Installing Casks and Formulae …' }
     end
 
+    sorted_dependency_graph = dependency_graph.tsort
+
+    recursive_dependencies = ->(key) {
+      deps = dependency_graph[key]
+
+      if deps.empty?
+        []
+      else
+        (deps + deps.flat_map { |dep| recursive_dependencies.call(dep) }).uniq
+      end
+    }
+
+    sorted_dependency_graph.each_with_index do |key, i|
+      deps = recursive_dependencies.call(key)
+
+      deps.each do |dep|
+        next if all_keys.include?(dep)
+
+        sorted_dependency_graph.take(i).each do |previous_key|
+          next if deps.include?(previous_key)
+          next unless all_keys.include?(previous_key)
+
+          if dependency_graph[previous_key].include?(dep)
+            deps << previous_key
+            break
+          end
+        end
+      end
+
+      dependency_graph[key] = deps
+    end
+
     download_pool = Concurrent::FixedThreadPool.new(10)
     downloads = {}
 
-    dependency_graph.tsort.each do |key|
+    sorted_dependency_graph.each do |key|
       type, name = key
 
-      downloads[key] = case type
+      case type
       when :cask
-        if installed_casks.include?(name)
-          Concurrent::Promise.fulfill(nil)
-        else
-          Concurrent::Promise.execute(executor: download_pool) { command 'brew', 'cask', 'fetch', name, silent: true, tries: 3 }
-        end
+        next if installed_casks.include?(name)
+
+        downloads[key] = Concurrent::Promise.execute(executor: download_pool) {
+          command 'brew', 'cask', 'fetch', name, silent: true, tries: 3
+        }
       when :formula
-        if installed_formulae.include?(name)
-          Concurrent::Promise.fulfill(nil)
-        else
-          Concurrent::Promise.execute(executor: download_pool) { command 'brew', 'fetch', '--retry', name, silent: true, tries: 3 }
-        end
+        next if installed_formulae.include?(name)
+
+        downloads[key] = Concurrent::Promise.execute(executor: download_pool) {
+          command 'brew', 'fetch', '--retry', name, silent: true, tries: 3
+        }
       end
     end
 
@@ -315,52 +346,64 @@ namespace :brew do
     ]
 
     cask_install_pool = Concurrent::FixedThreadPool.new(5)
-    formula_install_pool = Concurrent::SingleThreadExecutor.new
+    formula_install_pool = Concurrent::FixedThreadPool.new(2)
     install_finished_pool = Concurrent::SingleThreadExecutor.new
     cleanup_pool = Concurrent::SingleThreadExecutor.new
 
+    installations = {}
+
+    wait_for_downloads = ->(key, executor:) {
+      Concurrent::Promise.new(executor: executor) {
+        deps = dependency_graph[key]
+
+        [*deps, key].each do |k|
+          downloads[k]&.wait!
+        end
+
+
+        deps.each do |k|
+          installations[k]&.wait!
+        end
+      }
+    }
+
     begin
       cask_promises = casks.map { |cask| [cask, CASKS[cask]] }.map { |cask, flags: [], **|
-        download_key = [:cask, cask]
+        key = [:cask, cask]
 
-        wait_for_downloads = Concurrent::Promise.execute(executor: cask_install_pool) {
-          deps = dependency_graph[download_key]
+        installations[key] = begin
+          promise = wait_for_downloads.call(key, executor: cask_install_pool)
 
-          [*deps, download_key].each do |key|
-            downloads[key].wait!
+          if installed_casks.include?(cask)
+            promise
+          else
+            promise
+              .then { capture 'brew', 'cask', 'install', cask, *dir_flags, *flags, stdout_tty: true }
+              .then(executor: install_finished_pool) { |out, _| print out }
+              .then(executor: cleanup_pool) { capture 'brew', 'cask', 'cleanup', cask if ci? }
           end
-        }
-
-        if installed_casks.include?(cask)
-          wait_for_downloads
-        else
-          wait_for_downloads
-            .then { capture 'brew', 'cask', 'install', cask, *dir_flags, *flags, stdout_tty: true }
-            .then(executor: install_finished_pool) { |out, _| print out }
-            .then(executor: cleanup_pool) { capture 'brew', 'cask', 'cleanup', cask if ci? }
         end
       }
 
       formula_promises = formulae.map { |formula| [formula, FORMULAE[formula]] }.map { |formula, **|
-        download_key = [:formula, formula]
+        key = [:formula, formula]
 
-        wait_for_downloads = Concurrent::Promise.execute(executor: formula_install_pool) {
-          deps = dependency_graph[download_key]
+        installations[key] = begin
+          promise = wait_for_downloads.call(key, executor: formula_install_pool)
 
-          [*deps, download_key].each do |key|
-            downloads[key].wait!
+          if installed_formulae.include?(formula)
+            promise
+          else
+            promise
+              .then { capture 'brew', 'install', formula, stdout_tty: true }
+              .then(executor: install_finished_pool) { |out, _| print out }
+              .then(executor: cleanup_pool) { capture 'brew', 'cleanup', formula if ci? }
           end
-        }
-
-        if installed_formulae.include?(formula)
-          wait_for_downloads
-        else
-          wait_for_downloads
-            .then { capture 'brew', 'install', formula, stdout_tty: true }
-            .then(executor: install_finished_pool) { |out, _| print out }
-            .then(executor: cleanup_pool) { capture 'brew', 'cleanup', formula if ci? }
         end
       }
+
+      cask_promises.each(&:execute)
+      formula_promises.each(&:execute)
 
       cask_promises.each(&:wait!)
       formula_promises.each(&:wait!)
