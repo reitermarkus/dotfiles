@@ -1,9 +1,30 @@
 require 'concurrent'
 require 'command'
 
-task :screensaver => [:'screensaver:apple_tv', :'screensaver:savehollywood']
+task :screensaver => [:'screensaver:defaults', :'screensaver:apple_tv', :'screensaver:savehollywood']
 
 namespace :screensaver do
+  task :defaults do
+    defaults 'com.apple.screensaver' do
+      # Ask for password after screensaver.
+      write 'askForPassword', true
+
+      # Set password delay.
+      write 'askForPasswordDelay', laptop? ? 60 : 300
+    end
+
+    defaults current_host: 'com.apple.screensaver' do
+      # Set screensaver delay.
+      write 'idleTime', laptop? ? 120 : 300
+
+      # Don't show Clock on Screensaver
+      write 'showClock', false
+    end
+
+    capture '/usr/bin/killall', 'cfprefsd'
+    capture '/usr/bin/killall', '-HUP', 'Dock'
+  end
+
   task :apple_tv do
     puts ANSI.blue { 'Downloading Apple TV Screen Savers …' }
 

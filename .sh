@@ -170,11 +170,11 @@
   /usr/bin/rake dnsmasq
   /usr/bin/rake loginwindow
   /usr/bin/rake textmate
+  /usr/bin/rake dock
 
   defaults=(
     softwareupdate
     mouse_trackpad
-    dock
     keka
     terminal
   )
