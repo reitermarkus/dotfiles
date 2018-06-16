@@ -7,7 +7,7 @@ class Defaults
   def initialize(bundle_id = nil, current_host: nil, &block)
     @bundle_id = bundle_id || current_host
     @current_host = '-currentHost' if !current_host.nil?
-    @sudo = sudo if bundle_id.start_with?('/') && !File.writable?(File.dirname(bundle_id))
+    @sudo = sudo if @bundle_id.start_with?('/') && !File.writable?(File.dirname(@bundle_id))
     instance_eval(&block) if block_given?
   end
 
