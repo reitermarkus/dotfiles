@@ -171,15 +171,9 @@
   /usr/bin/rake terminal
   /usr/bin/rake rfc
   /usr/bin/rake z
+  /usr/bin/rake keka
 
-  defaults=(
-    mouse_trackpad
-    keka
-  )
-
-  for default in "${defaults[@]}"; do
-    "defaults_${default}"
-  done
+  defaults_mouse_trackpad
 
   /usr/bin/killall cfprefsd &>/dev/null
 
