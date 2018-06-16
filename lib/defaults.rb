@@ -33,7 +33,63 @@ class Defaults
     command *@sudo, '/usr/bin/defaults', *@current_host, 'delete', bundle_id, *args
   end
 
+  def color(r, g, b, a = 1)
+    def format_number(n)
+      n = n.round(10)
+      n - n.to_i == 0 ?  n.to_i : n
+    end
+
+    r = format_number(r / 255.0)
+    g = format_number(g / 255.0)
+    b = format_number(b / 255.0)
+    a = format_number(a)
+
+    data = "#{r} #{g} #{b}"
+    data << " #{a}" unless a == 1
+    data << "\x00"
+
+    wrap_data({
+        '$class' => { 'CF$UID' => 2 },
+        'NSColorSpace' => 1,
+        'NSRGB' => StringIO.new(data),
+      },
+      {
+        '$classes' => ['NSColor', 'NSObject'],
+        '$classname' => 'NSColor',
+      },
+    )
+  end
+
+  def font(name, size = 11.0)
+    wrap_data(
+      {
+        '$class' => { 'CF$UID' => 3 },
+        'NSName' => { 'CF$UID' => 2 },
+        'NSSize' => size,
+        'NSfFlags' => 16,
+      },
+      name,
+      {
+        '$classes' => ['NSFont', 'NSObject'],
+        '$classname' => 'NSFont',
+      },
+    )
+  end
+
   private
+
+  def wrap_data(*objects)
+    plist = {
+      '$archiver' => 'NSKeyedArchiver',
+      '$objects' => ['$null'] + objects,
+      '$top' => {
+        'root' => { 'CF$UID' => 1 },
+      },
+      '$version' => 100000,
+    }
+
+    StringIO.new(capture('plutil', '-convert', 'binary1', '-o', '-', '-', input: plist.to_plist))
+  end
 
   def args(value, add: false)
     case value
@@ -56,7 +112,8 @@ class Defaults
         *value.map { |v| to_arg(v) },
       ]
     when StringIO
-      ['-data', value.read]
+      hex = value.read.unpack('C*').map { |i| i.to_s(16).rjust(2, '0') }.join
+      ['-data', hex]
     end
   end
 

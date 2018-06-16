@@ -172,11 +172,11 @@
   /usr/bin/rake textmate
   /usr/bin/rake dock
   /usr/bin/rake softwareupdate
+  /usr/bin/rake terminal
 
   defaults=(
-  mouse_trackpad
+    mouse_trackpad
     keka
-    terminal
   )
 
   for default in "${defaults[@]}"; do
