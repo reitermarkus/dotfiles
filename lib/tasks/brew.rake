@@ -224,6 +224,7 @@ namespace :brew do
     'textmate-onsave'=> {},
     'textmate-opencl'=> {},
     'textmate-rubocop'=> {},
+    'textmate-solarized' => {},
     'transmission'=> {},
     'tower-beta'=> {},
     'unicodechecker'=> {},
