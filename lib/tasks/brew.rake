@@ -2,6 +2,7 @@ require 'ci'
 require 'command'
 require 'fileutils'
 require 'which'
+require 'shellwords'
 
 class TopologicalHash < Hash
   include TSort
@@ -240,6 +241,26 @@ namespace :brew do
   task :casks_and_formulae do
     ENV['HOMEBREW_NO_AUTO_UPDATE'] = '1'
 
+    ENV['HOMEBREW_CASK_OPTS'] = [
+      '--appdir=/Applications',
+      '--dictionarydir=/Library/Dictionaries',
+      '--colorpickerdir=/Library/ColorPickers',
+      '--prefpanedir=/Library/PreferencePanes',
+      '--qlplugindir=/Library/QuickLook',
+      '--servicedir=/Library/Services',
+      '--screen_saverdir=/Library/Screen Savers',
+    ].shelljoin.gsub(/\\=/, '=')
+
+    add_line_to_file fish_environment, "set -x HOMEBREW_CASK_OPTS '#{ENV['HOMEBREW_CASK_OPTS']}'"
+    add_line_to_file bash_environment, "export HOMEBREW_CASK_OPTS='#{ENV['HOMEBREW_CASK_OPTS']}'"
+
+    add_line_to_file fish_environment, "set -x HOMEBREW_DEVELOPER 1"
+    add_line_to_file bash_environment, "export HOMEBREW_DEVELOPER='1'"
+
+    api_token = '0e3924d278578977b3bd88980c71877e0c426184'
+    add_line_to_file fish_environment, "set -x HOMEBREW_GITHUB_API_TOKEN #{api_token}"
+    add_line_to_file bash_environment, "export HOMEBREW_GITHUB_API_TOKEN='#{api_token}'"
+
     installed_casks = capture('brew', 'cask', 'list').strip.split("\n")
     installed_formulae = capture('brew', 'list').strip.split("\n")
 
@@ -343,14 +364,6 @@ namespace :brew do
       command sudo, '/bin/chmod', '-R', 'ug=rwx,o=rx', dir
     end
 
-    dir_flags = [
-      '--dictionarydir=/Library/Dictionaries',
-      '--prefpanedir=/Library/PreferencePanes',
-      '--qlplugindir=/Library/QuickLook',
-      '--servicedir=/Library/Services',
-      '--screen_saverdir=/Library/Screen Savers',
-    ]
-
     cask_install_pool = Concurrent::FixedThreadPool.new(5)
     formula_install_pool = Concurrent::FixedThreadPool.new(2)
     install_finished_pool = Concurrent::SingleThreadExecutor.new
@@ -399,7 +412,7 @@ namespace :brew do
             wait_for_downloads.call(key)
 
             safe_install do
-              capture 'brew', 'cask', 'install', cask, *dir_flags, *flags, stdout_tty: true
+              capture 'brew', 'cask', 'install', cask, *flags, stdout_tty: true
             end
           }
           .then(executor: install_finished_pool) { |out, _| print out }

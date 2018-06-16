@@ -65,10 +65,6 @@
   fi
 
 
-  # Load Environment
-  source "${dotfiles_dir}/~/.config/environment"
-
-
   # Load Functions
 
   eval "$(/usr/bin/find "${dotfiles_dir}/include" -iname '*.sh' -exec echo . '{};' \;)"
@@ -173,6 +169,8 @@
   /usr/bin/rake dock
   /usr/bin/rake softwareupdate
   /usr/bin/rake terminal
+  /usr/bin/rake rfc
+  /usr/bin/rake z
 
   defaults=(
     mouse_trackpad

@@ -2,7 +2,7 @@ require 'add_line_to_file'
 require 'ansi'
 require 'command'
 
-task :git => [:'git:config', :'git:aliases']
+task :git => [:'git:config', :'git:commands', :'git:aliases']
 
 namespace :git do
   desc 'Set up Git Configuration'
@@ -37,6 +37,13 @@ namespace :git do
     # Always use SSH URLs for pushing to GitHub and for pulling from private repositories.
     command 'git', 'config', '--global', 'url.ssh://git@github.com/.pushInsteadOf', 'https://github.com/'
     command 'git', 'config', '--global', 'url.ssh://git@github.com/reitermarkus/.insteadOf', 'https://github.com/reitermarkus/'
+  end
+
+  desc 'Install Git Commands'
+  task :commands do
+    bin = '~/.config/git/commands'
+    add_line_to_file fish_environment, "mkdir -p #{bin}; and set -x fish_user_paths #{bin} $fish_user_paths"
+    add_line_to_file bash_environment, "mkdir -p #{bin} && export PATH=#{bin}:\"$PATH\""
   end
 
   desc 'Install Git Aliases'
