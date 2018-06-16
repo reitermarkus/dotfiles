@@ -276,8 +276,8 @@ namespace :brew do
     sorted_dependencies.each_with_index do |key, i|
       previous_deps = sorted_dependencies.take(i)
 
-      dependency_graph[key] = dependency_graph[key].map { |dep|
-        next dep if all_keys.include?(dep)
+      dependency_graph[key] = dependency_graph[key].flat_map { |dep|
+        next [dep] if all_keys.include?(dep)
 
         # Find closest previous explicitly-installed dependency which also depends on `dep`.
         previous_dep = previous_deps.detect { |previous_key|
@@ -286,7 +286,11 @@ namespace :brew do
           previous_key
         }
 
-        previous_dep || dep
+        if previous_dep
+          [previous_dep, dep]
+        else
+          [dep]
+        end
       }.uniq
     end
 
