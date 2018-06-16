@@ -7,6 +7,7 @@ class Defaults
   def initialize(bundle_id = nil, current_host: nil, &block)
     @bundle_id = bundle_id || current_host
     @current_host = '-currentHost' if !current_host.nil?
+    @sudo = sudo if bundle_id.start_with?('/') && !File.writable?(File.dirname(bundle_id))
     instance_eval(&block) if block_given?
   end
 
@@ -15,11 +16,11 @@ class Defaults
   end
 
   def write(key, value, add: false)
-    command '/usr/bin/defaults', *@current_host, 'write', bundle_id, key, *args(value, add: add)
+    command *@sudo, '/usr/bin/defaults', *@current_host, 'write', bundle_id, key, *args(value, add: add)
   end
 
   def delete(*args)
-    command '/usr/bin/defaults', *@current_host, 'delete', bundle_id, *args
+    command *@sudo, '/usr/bin/defaults', *@current_host, 'delete', bundle_id, *args
   end
 
   private

@@ -168,9 +168,9 @@
   /usr/bin/rake finder
   /usr/bin/rake crash_reporter
   /usr/bin/rake dnsmasq
+  /usr/bin/rake loginwindow
 
   defaults=(
-    loginwindow
     softwareupdate
     mouse_trackpad
     dock
