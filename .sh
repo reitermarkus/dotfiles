@@ -119,7 +119,6 @@
   /usr/bin/rake brew
 
   /usr/bin/rake ruby
-  install_npm_packages
 
   /usr/bin/rake rust
 

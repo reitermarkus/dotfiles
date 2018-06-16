@@ -150,6 +150,7 @@ namespace :brew do
     'rfc' => {},
     'rustup-init' => {},
     'sshfs' => {},
+    'svgexport' => {},
     'terminal-notifier' => {},
     'thefuck' => {},
     'trash' => {},
