@@ -167,13 +167,13 @@
   /usr/bin/rake telegram
   /usr/bin/rake finder
   /usr/bin/rake crash_reporter
+  /usr/bin/rake dnsmasq
 
   defaults=(
     loginwindow
     softwareupdate
     mouse_trackpad
     dock
-    dnsmasq
     keka
     terminal
     textmate
