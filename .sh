@@ -171,10 +171,10 @@
   /usr/bin/rake loginwindow
   /usr/bin/rake textmate
   /usr/bin/rake dock
+  /usr/bin/rake softwareupdate
 
   defaults=(
-    softwareupdate
-    mouse_trackpad
+  mouse_trackpad
     keka
     terminal
   )
