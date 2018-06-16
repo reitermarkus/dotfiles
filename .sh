@@ -112,7 +112,7 @@
 
   # Run Scripts
 
-  install_files
+  /usr/bin/rake files
 
   /usr/bin/rake xcode:command_line_utilities
 
