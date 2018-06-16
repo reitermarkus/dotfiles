@@ -1,3 +1,5 @@
+require 'defaults'
+
 task :ruby => [:'ruby:rbenv', :'ruby:bundler']
 
 namespace :ruby do
@@ -35,5 +37,20 @@ namespace :ruby do
 
     add_line_to_file bash_environment, "export RBENV_ROOT=#{rbenv_root}"
     add_line_to_file bash_environment, 'eval "$(rbenv init -)"'
+
+    defaults 'com.macromates.TextMate' do
+      write 'environmentVariables', [
+        {
+          'enabled' => true,
+          'name' => 'RBENV_ROOT',
+          'value' => rbenv_root,
+        },
+        {
+          'enabled' => true,
+          'name' => 'PATH',
+          'value' => '$RBENV_ROOT/shims:$PATH',
+        },
+      ], add: true
+    end
   end
 end

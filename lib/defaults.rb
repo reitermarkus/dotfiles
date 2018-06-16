@@ -16,6 +16,16 @@ class Defaults
   end
 
   def write(key, value, add: false)
+    if add && value.is_a?(Array)
+      file = "#{bundle_id}.plist"
+      file = File.expand_path("~/Library/Preferences/#{file}") unless file.start_with?('/')
+
+      if File.exist?(file)
+        plist = Plist.parse_xml(capture '/usr/bin/plutil', '-convert', 'xml1', '-o', '-', file)
+        value = value.reject { |v| plist[key].include?(v) }
+      end
+    end
+
     command *@sudo, '/usr/bin/defaults', *@current_host, 'write', bundle_id, key, *args(value, add: add)
   end
 

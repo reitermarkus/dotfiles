@@ -169,6 +169,7 @@
   /usr/bin/rake crash_reporter
   /usr/bin/rake dnsmasq
   /usr/bin/rake loginwindow
+  /usr/bin/rake textmate
 
   defaults=(
     softwareupdate
@@ -176,7 +177,6 @@
     dock
     keka
     terminal
-    textmate
   )
 
   for default in "${defaults[@]}"; do
