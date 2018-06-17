@@ -172,10 +172,7 @@
   /usr/bin/rake z
   /usr/bin/rake keka
   /usr/bin/rake arduino
-
-  defaults_mouse_trackpad
-
-  /usr/bin/killall cfprefsd &>/dev/null
+  /usr/bin/rake mouse_trackpad
 
   at_exit 'echo -k "Done."'
 
