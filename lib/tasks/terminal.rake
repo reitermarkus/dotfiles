@@ -14,7 +14,7 @@ task :terminal do
         'name' => "Solarized Light",
         'TerminalType' => "xterm-256color",
         'CommandString' => "",
-        'BackgroundColor' => color(252, 244, 220, 0.9),
+        'BackgroundColor' => color(252, 244, 220, 0.95),
         'CursorColor' => color(147, 161, 161),
         'SelectionColor' => color(7, 54, 66),
         'Font' => font('MesloLGSNerdFontComplete-Regular'),
