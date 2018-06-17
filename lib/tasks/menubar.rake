@@ -1,4 +1,6 @@
 task :menubar do
+  puts ANSI.blue { 'Configuring menu bar …' }
+
   # Set Clock Format
   defaults 'com.apple.menuextra.clock' do
     write 'DateFormat', 'HH:mm'

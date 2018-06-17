@@ -1,5 +1,7 @@
 namespace :csgo do
   task :config do
+    puts ANSI.blue { 'Setting up CS:GO configuration …' }
+
     csgo_config_dir = File.expand_path('~/Library/Application Support/Steam/userdata/46026291/730/local/cfg')
 
     FileUtils.mkdir_p csgo_config_dir

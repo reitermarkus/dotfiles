@@ -1,5 +1,7 @@
 namespace :rapidclick do
   task :defaults do
+    puts ANSI.blue { 'Configuring RapidClick …' }
+
     defaults 'com.pilotmoon.rapidclick' do
       # Disable Welcome Message
       write 'HasRunBefore', true

@@ -50,6 +50,8 @@ namespace :dock do
   task :icons do
     next unless which 'dockutil'
 
+    puts ANSI.blue { 'Setting up Dock icons …' }
+
     defaults_apps = [
       ['System Preferences', 'Systemeinstellungen'],
       ['App Store'],
@@ -110,6 +112,8 @@ namespace :dock do
       else
         ['--position', 'beginning']
       end
+
+      puts name(path)
 
       command 'dockutil', '--no-restart', '--add', path, '--label', name(path), '--replacing', name(path), position_args
     end
