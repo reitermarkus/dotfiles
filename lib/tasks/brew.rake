@@ -339,13 +339,13 @@ namespace :brew do
 
     FileUtils.mkdir_p [itach_dir, "#{converters_dir}/.localized"]
 
-    File.open("#{converters_dir}/.localized/de.strings", 'w') { |f|
-      f.puts '"Converters" = "Konvertierungswerkzeuge";'
-    }
+    File.write "#{converters_dir}/.localized/de.strings", <<~EOS
+      "Converters" = "Konvertierungswerkzeuge";
+    EOS
 
-    File.open("#{converters_dir}/.localized/en.strings", 'w') { |f|
-      f.puts '"Converters" = "Conversion Tools";'
-    }
+    File.write "#{converters_dir}/.localized/en.strings", <<~EOS
+      "Converters" = "Conversion Tools";
+    EOS
 
     # Ensure directories exist and have correct permissions.
     [
