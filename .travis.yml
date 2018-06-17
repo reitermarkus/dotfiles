@@ -5,7 +5,7 @@ osx_image: xcode9.3
 
 sudo: true
 
-before_install:
+install:
   - yes yes | sudo rvm implode &
   - sudo rm -r
       ~/.bundle ~/.gem ~/.gemrc ~/.rvmrc
@@ -35,7 +35,7 @@ before_install:
       NVM_CD_FLAGS NVM_BIN NVM_DIR NVM_IOJS_ORG_MIRROR NVM_NODEJS_ORG_MIRROR NVM_PATH
   - unset PATH MANPATH && source /etc/profile && source ~/.profile
   - df -m /
-install: ./.sh
+script: ./.sh
 
 notifications:
   email: false
