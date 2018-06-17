@@ -319,10 +319,6 @@ namespace :brew do
 
     sorted_dependencies = dependency_graph.tsort
 
-    sorted_dependencies.each do |key|
-      puts "#{key[1]} => #{dependency_graph[key].map(&:last).join(', ')}"
-    end
-
     download_pool = Concurrent::FixedThreadPool.new(10)
     downloads = {}
 
@@ -385,7 +381,7 @@ namespace :brew do
     }
 
     def safe_install
-      tries = 60
+      tries = 12
 
       begin
         yield
@@ -394,9 +390,7 @@ namespace :brew do
           tries -= 1
 
           if tries > 0
-            $stderr.puts ANSI.red { e.stderr }
-            $stderr.puts ANSI.blue { "Retrying '#{e.command}'…" }
-            sleep 1
+            sleep 5
             retry
           end
         end
@@ -441,7 +435,6 @@ namespace :brew do
       end
 
       installations.each do |key, promise|
-        puts ".wait!-ing for #{key[1]} …"
         promise.wait!
       end
     ensure
