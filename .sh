@@ -171,6 +171,7 @@
   /usr/bin/rake rfc
   /usr/bin/rake z
   /usr/bin/rake keka
+  /usr/bin/rake arduino
 
   defaults_mouse_trackpad
 
