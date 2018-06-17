@@ -128,7 +128,7 @@
 
   /usr/bin/rake dropbox:all
 
-  mackup_relink
+  /usr/bin/rake mackup
 
   run_local_scripts
 
