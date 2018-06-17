@@ -126,7 +126,7 @@
 
   /usr/bin/rake xcode:accept_license
 
-  /usr/bin/rake dropbox:all
+  /usr/bin/rake dropbox
 
   /usr/bin/rake mackup
 

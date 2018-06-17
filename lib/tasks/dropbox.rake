@@ -3,10 +3,10 @@ require 'pathname'
 require 'base64'
 require 'json'
 
+task :dropbox => [:'dropbox:init', :'dropbox:login_item', :'dropbox:link_directories']
+
 namespace :dropbox do
   DROPBOX_DIR = Pathname('~/Dropbox')
-
-  task :all => [:init, :login_item, :link_directories]
 
   desc 'Initialize Dropbox Directory'
   task :init do
