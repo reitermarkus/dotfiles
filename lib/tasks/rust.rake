@@ -12,20 +12,49 @@ task :rust do
   add_line_to_file fish_environment, "set -x RUSTUP_HOME #{rustup_home}"
   add_line_to_file bash_environment, "export RUSTUP_HOME=#{rustup_home}"
 
-  command 'rustup-init', '-y', '--no-modify-path'
+  ENV['PATH'] = "#{ENV['CARGO_HOME']}/bin:#{ENV['PATH']}"
 
-  cargo_bin = "#{cargo_home}/bin"
+  add_line_to_file fish_environment, 'mkdir -p "$CARGO_HOME/bin"; and set -x fish_user_paths "$CARGO_HOME/bin" $fish_user_paths'
+  add_line_to_file bash_environment, 'mkdir -p "$CARGO_HOME/bin" && export PATH="$CARGO_HOME/bin:$PATH"'
 
-  ENV['PATH'] = "#{File.expand_path(cargo_bin)}:#{ENV['PATH']}"
+  defaults 'com.macromates.TextMate' do
+    write 'environmentVariables', [
+      {
+        'enabled' => true,
+        'name' => 'CARGO_HOME',
+        'value' => ENV['CARGO_HOME'],
+      },
+      {
+        'enabled' => true,
+        'name' => 'PATH',
+        'value' => '$CARGO_HOME/bin:$PATH',
+      },
+    ], add: true
+  end
 
-  add_line_to_file fish_environment, "mkdir -p #{cargo_bin}; and set -x fish_user_paths #{cargo_bin} $fish_user_paths"
-  add_line_to_file bash_environment, "mkdir -p #{cargo_bin} && export PATH=#{cargo_bin}:\"$PATH\""
+  if which 'rustup'
+    puts ANSI.blue { 'Updating Rust …' }
+    command 'rustup', 'update'
+  else
+    puts ANSI.blue { 'Installing Rust …' }
+    command 'rustup-init', '-y', '--no-modify-path'
+  end
 
-  puts ANSI.blue { 'Updating Rust …' }
-  command 'rustup', 'update'
+  installed_components = capture('rustup', 'component', 'list').lines.map { |line| line.split(/\s/).first }
 
-  puts ANSI.blue { 'Installing Rust components …' }
-  command 'rustup', 'component', 'add', 'rust-src'
+  components = ['rust-src'] - installed_components
 
-  command 'cargo', 'install', 'racer' unless which 'racer'
+  if components.empty?
+    puts ANSI.green { 'All Rust components already installed.' }
+  else
+    puts ANSI.blue { 'Installing Rust components …' }
+    command 'rustup', 'component', 'add', 'rust-src'
+  end
+
+  if which 'racer'
+    puts ANSI.green { '`racer` already installed.' }
+  else
+    puts ANSI.blue { 'Installing `racer` …' }
+    command 'cargo', 'install', 'racer' unless which 'racer'
+  end
 end
