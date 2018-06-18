@@ -3,17 +3,19 @@ require 'open3'
 require 'pty'
 
 class NonZeroExit < RuntimeError
-  attr_reader :command, :stderr, :status
+  attr_reader :command, :stdout, :stderr, :merged_output, :status
 
-  def initialize(*command, stderr, status)
+  def initialize(*command, stdout, stderr, merged_output, status)
     @command = command.join(' ')
+    @stdout = stdout
     @stderr = stderr
+    @merged_output = merged_output
     @status = status
   end
 
   def message
     message = "'#{command}' exited with #{status.exitstatus}"
-    message.concat("\n#{stderr}") unless stderr.empty?
+    message.concat("\n#{merged_output}") unless merged_output.empty?
     message
   end
 end
@@ -109,7 +111,7 @@ def command(*args, silent: false, tries: 1, input: '', **opts)
 
     status = thread.value
 
-    raise NonZeroExit.new(*args, err, status) unless status.success?
+    raise NonZeroExit.new(*args, out, err, merged, status) unless status.success?
 
     [out, err, merged, status]
   }
