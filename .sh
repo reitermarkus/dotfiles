@@ -39,22 +39,20 @@
 
   if ! ci && test -z "$(/usr/bin/sqlite3 '/Library/Application Support/com.apple.TCC/TCC.db' \
                        "SELECT * FROM access WHERE client = 'com.apple.Terminal' AND allowed = 1")"; then
-    echo -r "Please enable Accessibility Access for 'Terminal.app' in System Preferences."
+    echo "\033[0;31mPlease enable Accessibility Access for 'Terminal.app' in System Preferences.\033[0m"
     exit 1
   fi
-
 
   # Download Repository
 
   if [ "$(basename "${0}")" != '.sh' ]; then
-    eval "$(/usr/bin/curl --silent --location "https://raw.githubusercontent.com/reitermarkus/dotfiles/HEAD/include/functions/echo.sh")"
-    echo -b "Downloading Github Repository …"
+    echo '\033[0;34mDownloading Github Repository …\033[0m'
 
     dotfiles_dir='/tmp/dotfiles-master'
     /bin/rm -rf "${dotfiles_dir}"
 
     remove_dotfiles_dir() {
-      echo -r 'Removing Dotfiles directory …'
+      echo '\033[0;31mRemoving Dotfiles directory …\033[0m'
       /bin/rm -rf "${dotfiles_dir}"
     }
     at_exit remove_dotfiles_dir
@@ -63,11 +61,6 @@
   else
     dotfiles_dir=$(cd "$(/usr/bin/dirname "$0")" || exit 1; pwd)
   fi
-
-
-  # Load Functions
-
-  eval "$(/usr/bin/find "${dotfiles_dir}/include" -iname '*.sh' -exec echo . '{};' \;)"
 
 
   if ! ci; then
@@ -83,7 +76,7 @@
     /bin/chmod +x "${SUDO_ASKPASS_SCRIPT}"
 
     delete_askpass_password() {
-      echo -r 'Removing password from Keychain …'
+      echo '\033[0;31mRemoving password from Keychain …\033[0m'
       /bin/rm -f "${SUDO_ASKPASS_SCRIPT}"
       /usr/bin/security delete-generic-password -s 'dotfiles' -a "${USER}"
     }
@@ -100,14 +93,14 @@
 
     sudo -k
     if ! sudo -kv 2>/dev/null; then
-      echo -r 'Incorrect password. Exiting …'
+      echo '\033[0;31mIncorrect password. Exiting …\033[0m'
       exit 1
     fi
   fi
 
 
   # Trap Ctrl-C
-  trap 'trap "" INT; echo -r "\nAborting …"; cleanup; exit 1' INT
+  trap 'trap "" INT; echo "\n\033[0;31mAborting …\033[0m"; cleanup; exit 1' INT
 
 
   # Run Scripts
@@ -164,6 +157,6 @@
     arduino \
     mouse_trackpad
 
-  at_exit 'echo -k "Done."'
+  at_exit 'echo "\033[0;30mDone.\033[0m"'
 
 }
