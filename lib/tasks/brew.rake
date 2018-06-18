@@ -38,7 +38,7 @@ def dependencies(keys, acc: TopologicalHash.new, pool: nil)
       }
     when :formula
       Concurrent::Promise.execute(executor: pool) {
-        capture('brew', 'deps', '--include-build', name).lines.map { |line| [:formula, line.strip] }
+        capture('brew', 'deps', name).lines.map { |line| [:formula, line.strip] }
       }
     end
 
