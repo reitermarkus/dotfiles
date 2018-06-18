@@ -367,8 +367,8 @@ namespace :brew do
       command sudo, '/bin/chmod', '-R', 'ug=rwx,o=rx', dir
     end
 
-    cask_install_pool = Concurrent::FixedThreadPool.new(5)
-    formula_install_pool = Concurrent::FixedThreadPool.new(2)
+    cask_install_pool = Concurrent::FixedThreadPool.new(10)
+    formula_install_pool = Concurrent::FixedThreadPool.new(10)
     install_finished_pool = Concurrent::SingleThreadExecutor.new
     cleanup_pool = Concurrent::SingleThreadExecutor.new
 
