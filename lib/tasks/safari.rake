@@ -1,6 +1,8 @@
 require 'defaults'
 
 task :safari do
+  puts ANSI.blue { 'Configuring Safari …' }
+
   defaults 'com.apple.Safari' do
     # Change Safari's In-Page Search to “contains” instead of “starts with”.
     write 'FindOnPageMatchesWordStartsOnly', false

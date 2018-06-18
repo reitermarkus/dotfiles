@@ -137,11 +137,11 @@
   /usr/bin/rake git
 
   /usr/bin/rake xcode:defaults
-  /usr/bin/rake rapidclick:defaults
-  /usr/bin/rake hazel:defaults
-  /usr/bin/rake virtualbox:defaults
-  /usr/bin/rake steam:defaults
-  /usr/bin/rake csgo:config
+  /usr/bin/rake rapidclick
+  /usr/bin/rake hazel
+  /usr/bin/rake virtualbox
+  /usr/bin/rake steam
+  /usr/bin/rake csgo
   /usr/bin/rake tex
   /usr/bin/rake ccache
   /usr/bin/rake make

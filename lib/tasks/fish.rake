@@ -7,7 +7,7 @@ task :fish do
   add_line_to_file '/etc/shells', fish_executable
 
   if ENV['SHELL'] != fish_executable
-    puts ANSI.blue { 'Changing Shell to Fish …' }
+    puts ANSI.blue { 'Changing shell to `fish` …' }
     command sudo, '/usr/bin/chsh', '-s', fish_executable, USER
   end
 

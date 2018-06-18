@@ -1,19 +1,20 @@
 task :vagrant do
+  next unless which 'vagrant'
 
-  if which 'vagrant'
-    installed_plugins = capture('vagrant', 'plugin', 'list').lines
-                          .map { |line| line.split(/\s+/).first }
+  puts ANSI.blue { 'Configuring Vagrant …' }
 
-    [
-      'vagrant-hostsupdater',
-      'vagrant-parallels',
-    ].each do |plugin|
-      if installed_plugins.include?(plugin)
-        puts ANSI.green { "Vagrant plugin “#{plugin}” is already installed." }
-      else
-        puts ANSI.blue { "Installing Vagrant plugin “#{plugin}” …" }
-        command 'vagrant', 'plugin', 'install', plugin
-      end
+  installed_plugins = capture('vagrant', 'plugin', 'list').lines
+                        .map { |line| line.split(/\s+/).first }
+
+  [
+    'vagrant-hostsupdater',
+    'vagrant-parallels',
+  ].each do |plugin|
+    if installed_plugins.include?(plugin)
+      puts ANSI.green { "Vagrant plugin “#{plugin}” is already installed." }
+    else
+      puts ANSI.blue { "Installing Vagrant plugin “#{plugin}” …" }
+      command 'vagrant', 'plugin', 'install', plugin
     end
   end
 

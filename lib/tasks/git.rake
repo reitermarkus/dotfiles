@@ -48,7 +48,7 @@ namespace :git do
 
   desc 'Install Git Aliases'
   task :aliases do
-    puts ANSI.blue { 'Installing Git Aliases …' }
+    puts ANSI.blue { 'Installing Git aliases …' }
 
     # Show all aliases.
     command 'git', 'config', '--global', 'alias.aliases', 'config --get-regexp ^alias\.'

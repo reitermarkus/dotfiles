@@ -43,6 +43,8 @@ namespace :xcode do
 
   desc 'Configure Xcode Defaults'
   task :defaults do
+    puts ANSI.blue { 'Configuring Xcode …' }
+
     defaults 'com.apple.dt.xcode' do
       write 'DVTTextIndentUsingTabs', false
       write 'DVTTextIndentTabWidth', 2

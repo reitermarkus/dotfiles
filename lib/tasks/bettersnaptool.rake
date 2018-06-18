@@ -1,5 +1,5 @@
 task :bettersnaptool do
-  add_login_item 'com.hegenberg.BetterSnapTool', hidden: true
+  puts ANSI.blue { 'Configuring BetterSnapTool …' }
 
   defaults 'com.hegenberg.BetterSnapTool' do
     write 'BSTCornerRoundness', 4.0
@@ -17,6 +17,9 @@ task :bettersnaptool do
     write 'showMenubarIcon', false
     write 'previewWindowBackgroundColor', color(0, 0, 0, 0.1)
   end
+
+  puts ANSI.blue { 'Adding BetterSnapTool to login items …' }
+  add_login_item 'com.hegenberg.BetterSnapTool', hidden: true
 
   capture '/usr/bin/killall', 'cfprefsd'
 end

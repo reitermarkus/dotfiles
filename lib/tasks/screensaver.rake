@@ -5,6 +5,8 @@ task :screensaver => [:'screensaver:defaults', :'screensaver:apple_tv', :'screen
 
 namespace :screensaver do
   task :defaults do
+    puts ANSI.blue { 'Configuring screensaver settings …' }
+
     defaults 'com.apple.screensaver' do
       # Ask for password after screensaver.
       write 'askForPassword', true

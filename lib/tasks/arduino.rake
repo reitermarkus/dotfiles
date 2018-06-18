@@ -1,4 +1,6 @@
 task :arduino do
+  puts ANSI.blue { 'Configuring Arduino …' }
+
   arduino_preferences = Pathname('~/Library/Arduino15/preferences.txt').expand_path
 
   arduino_sketchbook_dir = Pathname('~/Documents/Arduino').expand_path
