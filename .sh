@@ -130,7 +130,7 @@
 
   /usr/bin/rake mackup
 
-  run_local_scripts
+  /usr/bin/rake local_scripts
 
   /usr/bin/rake bash
   /usr/bin/rake fish
