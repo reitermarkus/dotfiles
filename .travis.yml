@@ -6,26 +6,38 @@ osx_image: xcode9.4
 sudo: true
 
 install:
+  - sudo /usr/bin/gem uninstall --all --executables
+      bundler
+      dotenv
+      fastlane
+      google-api-client
+      httpclient
+      rouge
+      terminal-notifier
+      word_wrap
+      xcode-install
+      xcodeproj
+      xcpretty
+      xcpretty-travis-formatter
+      &
   - yes yes | sudo rvm implode &
   - sudo rm -r
       ~/.bundle ~/.gem ~/.gemrc ~/.rvmrc
       ~/.bash_profile
       ~/.cocoapods
-      ~/.mkshrc
       ~/.fastlane
       ~/.ssh
-      ~/.subversion
-      ~/.swp
       ~/.gnupg
-      "$NVM_DIR" &
+      "$NVM_DIR" /usr/local/lib/node_modules /usr/local/bin/npm /usr/local/bin/npx
+      &
   - sudo rm -r /Applications/Xcode*.app &
-  # - sudo rm -r /Library/Developer &
   - sudo rm -r /Library/Developer/CommandLineTools &
   - sudo pkgutil --forget com.apple.pkg.CLTools_Executables &
   - for f in $(brew list); do brew uninstall --force --ignore-dependencies "$f" & done &
   - for c in $(brew cask list); do brew cask uninstall --force "$c" & done &
   - wait
   - /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)" -- --force
+  - sudo rmdir /usr/local/Caskroom/
   - sudo xcode-select --reset
   - unset
       CC
