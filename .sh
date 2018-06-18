@@ -122,7 +122,7 @@
 
   /usr/bin/rake rust
 
-  /usr/bin/rake mas:apps
+  /usr/bin/rake mas
 
   /usr/bin/rake xcode:accept_license
 
