@@ -18,8 +18,8 @@ namespace :xcode do
       FileUtils.touch placeholder
 
       begin
-        name = capture('/usr/sbin/softwareupdate', '--list')
-                 .scan(/^.*\*\s*(Command Line Tools.+)\s*$/).last
+        out, = command '/usr/sbin/softwareupdate', '--list'
+        name = out.scan(/^\s*\*\s*(Command Line Tools.*)\s+?$/).flatten.last
         command '/usr/sbin/softwareupdate', '--verbose', '--install', name
       ensure
         FileUtils.rm placeholder
