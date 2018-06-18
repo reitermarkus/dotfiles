@@ -367,6 +367,7 @@ namespace :brew do
       command sudo, '/bin/chmod', '-R', 'ug=rwx,o=rx', dir
     end
 
+    download_wait_pool = Concurrent::CachedThreadPool.new
     install_pool = Concurrent::FixedThreadPool.new(10)
     install_finished_pool = Concurrent::SingleThreadExecutor.new
     cleanup_pool = Concurrent::SingleThreadExecutor.new
@@ -374,18 +375,20 @@ namespace :brew do
     installations = {}
 
     wait_for_downloads = ->(key) {
-      deps = dependency_graph[key]
+      Concurrent::Promise.new(executor: download_wait_pool) {
+        deps = dependency_graph[key]
 
-      deps.each do |k|
-        downloads[k]&.wait!
-        installations[k]&.wait!
-      end
+        deps.each do |k|
+          downloads[k]&.wait!
+          installations[k]&.wait!
+        end
 
-      downloads[key]&.wait!
+        downloads[key]&.wait!
+      }
     }
 
     def safe_install
-      tries = 12
+      tries = 120
 
       begin
         yield
@@ -394,7 +397,7 @@ namespace :brew do
           tries -= 1
 
           if tries > 0
-            sleep 5
+            sleep 1
             retry
           end
         end
@@ -408,30 +411,28 @@ namespace :brew do
         key = [:cask, cask]
 
         installations[key] =
-          Concurrent::Promise.new(executor: install_pool) {
-            wait_for_downloads.call(key)
-
-            safe_install do
-              capture 'brew', 'cask', 'install', cask, *flags, stdout_tty: true
-            end
-          }
-          .then(executor: install_finished_pool) { |out, _| print out }
-          .then(executor: cleanup_pool) { capture 'brew', 'cask', 'cleanup', cask if ci? }
+          wait_for_downloads.call(key)
+            .then(executor: install_pool) {
+              safe_install do
+                capture 'brew', 'cask', 'install', cask, *flags, stdout_tty: true
+              end
+            }
+            .then(executor: install_finished_pool) { |out, _| print out }
+            .then(executor: cleanup_pool) { capture 'brew', 'cask', 'cleanup', cask if ci? }
       }
 
       formulae.map { |formula| [formula, FORMULAE[formula]] }.each { |formula, **|
         key = [:formula, formula]
 
         installations[key] =
-          Concurrent::Promise.new(executor: install_pool) {
-            wait_for_downloads.call(key)
-
-            safe_install do
-              capture 'brew', 'install', formula, stdout_tty: true
-            end
-          }
-          .then(executor: install_finished_pool) { |out, _| print out }
-          .then(executor: cleanup_pool) { capture 'brew', 'cleanup', formula if ci? }
+          wait_for_downloads.call(key)
+            .then(executor: install_pool) {
+              safe_install do
+                capture 'brew', 'install', formula, stdout_tty: true
+              end
+            }
+            .then(executor: install_finished_pool) { |out, _| print out }
+            .then(executor: cleanup_pool) { capture 'brew', 'cleanup', formula if ci? }
       }
 
       sorted_dependencies.each do |key|
