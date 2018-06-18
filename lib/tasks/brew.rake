@@ -367,8 +367,7 @@ namespace :brew do
       command sudo, '/bin/chmod', '-R', 'ug=rwx,o=rx', dir
     end
 
-    cask_install_pool = Concurrent::FixedThreadPool.new(10)
-    formula_install_pool = Concurrent::FixedThreadPool.new(10)
+    install_pool = Concurrent::FixedThreadPool.new(10)
     install_finished_pool = Concurrent::SingleThreadExecutor.new
     cleanup_pool = Concurrent::SingleThreadExecutor.new
 
@@ -409,7 +408,7 @@ namespace :brew do
         key = [:cask, cask]
 
         installations[key] =
-          Concurrent::Promise.new(executor: cask_install_pool) {
+          Concurrent::Promise.new(executor: install_pool) {
             wait_for_downloads.call(key)
 
             safe_install do
@@ -424,7 +423,7 @@ namespace :brew do
         key = [:formula, formula]
 
         installations[key] =
-          Concurrent::Promise.new(executor: formula_install_pool) {
+          Concurrent::Promise.new(executor: install_pool) {
             wait_for_downloads.call(key)
 
             safe_install do
@@ -435,16 +434,15 @@ namespace :brew do
           .then(executor: cleanup_pool) { capture 'brew', 'cleanup', formula if ci? }
       }
 
-      installations.each do |_, promise|
-        promise.execute
+      sorted_dependencies.each do |key|
+        installations[key]&.execute
       end
 
-      installations.each do |key, promise|
-        promise.wait!
+      sorted_dependencies.each do |key|
+        installations[key]&.wait!
       end
     ensure
-      cask_install_pool.shutdown
-      formula_install_pool.shutdown
+      install_pool.shutdown
       install_finished_pool.shutdown
       cleanup_pool.shutdown
     end
