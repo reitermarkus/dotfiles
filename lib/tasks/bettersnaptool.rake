@@ -1,4 +1,4 @@
-task :bettersnaptool do
+task :bettersnaptool => [:'brew:casks_and_formulae'] do
   puts ANSI.blue { 'Configuring BetterSnapTool …' }
 
   defaults 'com.hegenberg.BetterSnapTool' do

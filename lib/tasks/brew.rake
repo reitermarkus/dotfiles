@@ -64,7 +64,7 @@ task :brew => [:'brew:install', :'brew:taps', :'brew:casks_and_formulae']
 
 namespace :brew do
   desc 'Install Homebrew'
-  task :install do
+  task :install => [:'xcode:command_line_utilities'] do
     ENV['HOMEBREW_NO_AUTO_UPDATE'] = '1'
 
     if which 'brew'
@@ -77,7 +77,7 @@ namespace :brew do
   end
 
   desc "Install Taps"
-  task :taps do
+  task :taps => [:'brew:install'] do
     ENV['HOMEBREW_NO_AUTO_UPDATE'] = '1'
 
     TAPS = %w[
@@ -245,7 +245,7 @@ namespace :brew do
   }
 
   desc 'Install Casks and Formulae'
-  task :casks_and_formulae do
+  task :casks_and_formulae => [:'brew:taps'] do
     ENV['HOMEBREW_NO_AUTO_UPDATE'] = '1'
 
     ENV['HOMEBREW_CASK_OPTS'] = [

@@ -1,4 +1,4 @@
-task :mas do
+task :mas => [:'brew:casks_and_formulae'] do
   begin
     capture 'mas', 'account'
   rescue NonZeroExit

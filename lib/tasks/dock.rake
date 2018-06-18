@@ -47,9 +47,7 @@ namespace :dock do
     capture '/usr/bin/killall', 'cfprefsd'
   end
 
-  task :icons do
-    next unless which 'dockutil'
-
+  task :icons => [:'brew:casks_and_formulae'] do
     puts ANSI.blue { 'Setting up Dock icons …' }
 
     defaults_apps = [

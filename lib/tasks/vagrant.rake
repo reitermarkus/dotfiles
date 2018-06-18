@@ -1,6 +1,4 @@
-task :vagrant do
-  next unless which 'vagrant'
-
+task :vagrant => [:'brew:casks_and_formulae'] do
   puts ANSI.blue { 'Configuring Vagrant …' }
 
   installed_plugins = capture('vagrant', 'plugin', 'list').lines

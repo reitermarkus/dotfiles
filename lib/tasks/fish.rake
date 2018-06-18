@@ -1,8 +1,8 @@
 require 'add_line_to_file'
 require 'user'
 
-task :fish do
-  next unless fish_executable = (which 'fish')
+task :fish => [:'brew:casks_and_formulae'] do
+  fish_executable = (which 'fish')
 
   add_line_to_file '/etc/shells', fish_executable
 

@@ -27,7 +27,7 @@ namespace :dropbox do
   end
 
   desc 'Add Dropbox Login Item'
-  task :login_item do
+  task :login_item => [:'brew:casks_and_formulae'] do
     add_login_item 'com.getdropbox.dropbox', hidden: true
   end
 

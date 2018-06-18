@@ -1,6 +1,6 @@
 require 'add_line_to_file'
 
-task :bash do
+task :bash => [:'brew:casks_and_formulae'] do
   add_line_to_file '/etc/shells', (which 'bash')
 
   add_line_to_file '~/.bash_profile', 'test -f ~/.bashrc && source ~/.bashrc'

@@ -1,10 +1,9 @@
 require 'tmpdir'
 
-task :keka do
+task :keka => [:'brew:casks_and_formulae'] do
   keka = capture('/usr/bin/mdfind', '-onlyin', '/', 'kMDItemCFBundleIdentifier == com.aone.keka').lines.first&.strip
-  next unless keka
 
-  keka_resources = "#{keka}/Contents/Resources"
+  keka_resources = Pathname(keka).join("Contents/Resources")
 
   repo = 'osx-archive-icons'
   tmp_dir = "/tmp/#{repo}-master"
@@ -16,11 +15,11 @@ task :keka do
     command "#{dir}/#{repo}-master/_convert_iconsets"
 
     FileUtils.cp Dir.glob("#{dir}/#{repo}-master/*.icns"), keka_resources
-    FileUtils.rm_f "#{keka_resources}/extract.png"
+    FileUtils.rm_f keka_resources.join("extract.png")
 
     dmg_icns = '/System/Library/CoreServices/DiskImageMounter.app/Contents/Resources/diskcopy-doc.icns'
-    FileUtils.cp dmg_icns, "#{keka_resources}/dmg.icns"
-    FileUtils.cp dmg_icns, "#{keka_resources}/iso.icns"
+    FileUtils.cp dmg_icns, keka_resources.join('dmg.icns')
+    FileUtils.cp dmg_icns, keka_resources.join('iso.icns')
 
     icons = {
       '7z' => '7z' ,
@@ -38,8 +37,8 @@ task :keka do
     icons.each do |name, extension|
       iconset = "#{dir}/#{repo}-master/#{extension}.iconset"
 
-      FileUtils.cp "#{iconset}/icon_32x32.png", "#{keka_resources}/tab_#{name}.png"
-      FileUtils.cp "#{iconset}/icon_32x32@2x.png", "#{keka_resources}/tab_#{name}@2x.png"
+      FileUtils.cp "#{iconset}/icon_32x32.png", keka_resources.join("tab_#{name}.png")
+      FileUtils.cp "#{iconset}/icon_32x32@2x.png", keka_resources.join("tab_#{name}@2x.png")
     end
   end
 end

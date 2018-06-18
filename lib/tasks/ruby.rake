@@ -24,7 +24,7 @@ namespace :ruby do
     end
   end
 
-  task :rbenv do
+  task :rbenv => [:'brew:casks_and_formulae'] do
     rbenv_root = '~/.config/rbenv'
 
     ENV['RBENV_ROOT'] = File.expand_path(rbenv_root)

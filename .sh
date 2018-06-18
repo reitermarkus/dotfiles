@@ -112,67 +112,57 @@
 
   # Run Scripts
 
-  /usr/bin/rake files
-
-  /usr/bin/rake xcode:command_line_utilities
-
-  /usr/bin/rake brew
-
-  /usr/bin/rake ruby
-
-  /usr/bin/rake rust
-
-  /usr/bin/rake mas
-
-  /usr/bin/rake xcode:accept_license
-
-  /usr/bin/rake dropbox
-
-  /usr/bin/rake mackup
-
-  /usr/bin/rake local_scripts
-
-  /usr/bin/rake bash
-  /usr/bin/rake fish
-  /usr/bin/rake git
-
-  /usr/bin/rake xcode:defaults
-  /usr/bin/rake rapidclick
-  /usr/bin/rake hazel
-  /usr/bin/rake virtualbox
-  /usr/bin/rake steam
-  /usr/bin/rake csgo
-  /usr/bin/rake tex
-  /usr/bin/rake ccache
-  /usr/bin/rake make
-  /usr/bin/rake keyboard
-  /usr/bin/rake ui
-  /usr/bin/rake rocket
-  /usr/bin/rake safari
-  /usr/bin/rake locale
-  /usr/bin/rake startup
-  /usr/bin/rake transmission
-  /usr/bin/rake locate_db
-  /usr/bin/rake menubar
-  /usr/bin/rake deliveries
-  /usr/bin/rake tower
-  /usr/bin/rake bettersnaptool
-  /usr/bin/rake screensaver
-  /usr/bin/rake vagrant
-  /usr/bin/rake telegram
-  /usr/bin/rake finder
-  /usr/bin/rake crash_reporter
-  /usr/bin/rake dnsmasq
-  /usr/bin/rake loginwindow
-  /usr/bin/rake textmate
-  /usr/bin/rake dock
-  /usr/bin/rake softwareupdate
-  /usr/bin/rake terminal
-  /usr/bin/rake rfc
-  /usr/bin/rake z
-  /usr/bin/rake keka
-  /usr/bin/rake arduino
-  /usr/bin/rake mouse_trackpad
+  /usr/bin/rake \
+    files \
+    xcode:command_line_utilities \
+    brew \
+    ruby \
+    rust \
+    mas \
+    xcode:accept_license \
+    dropbox \
+    mackup \
+    local_scripts \
+    bash \
+    fish \
+    git \
+    xcode:defaults \
+    rapidclick \
+    hazel \
+    virtualbox \
+    steam \
+    csgo \
+    tex \
+    ccache \
+    make \
+    keyboard \
+    ui \
+    rocket \
+    safari \
+    locale \
+    startup \
+    transmission \
+    locate_db \
+    menubar \
+    deliveries \
+    tower \
+    bettersnaptool \
+    screensaver \
+    vagrant \
+    telegram \
+    finder \
+    crash_reporter \
+    dnsmasq \
+    loginwindow \
+    textmate \
+    dock \
+    softwareupdate \
+    terminal \
+    rfc \
+    z \
+    keka \
+    arduino \
+    mouse_trackpad
 
   at_exit 'echo -k "Done."'
 

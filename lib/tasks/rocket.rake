@@ -1,6 +1,6 @@
 require 'defaults'
 
-task :rocket do
+task :rocket => [:'brew:casks_and_formulae'] do
   puts ANSI.blue { 'Configuring Rocket …' }
 
   defaults 'net.matthewpalmer.Rocket' do

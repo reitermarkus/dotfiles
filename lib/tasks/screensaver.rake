@@ -93,7 +93,7 @@ namespace :screensaver do
     promises.each(&:wait!)
   end
 
-  task :savehollywood do
+  task :savehollywood => [:'brew:casks_and_formulae'] do
     defaults current_host: 'fr.whitebox.SaveHollywood' do
       write 'assets.library', [File.expand_path('~/Library/Screen Savers/Videos')]
       write 'assets.randomOrder', true

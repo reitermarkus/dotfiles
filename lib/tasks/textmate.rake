@@ -6,7 +6,7 @@ task :textmate do
   Dir.mktmpdir do |dir|
     command '/usr/bin/curl', '-sL', 'https://archive.textmate.org/ruby/ruby_1.8.7.tbz', '-o', "#{dir}/ruby_1.8.7.tbz"
     ruby_dir = File.expand_path('~/Library/Application Support/TextMate/Ruby')
-    FileUtils.mkdir_p File.expand_path(ruby_dir)
+    FileUtils.mkdir_p ruby_dir
     command '/usr/bin/tar', '-xz', '-m', '-C', ruby_dir, '-f', "#{dir}/ruby_1.8.7.tbz"
   end
 

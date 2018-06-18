@@ -1,6 +1,4 @@
-task :dnsmasq do
-  next unless which 'brew'
-
+task :dnsmasq => [:'brew:casks_and_formulae'] do
   brew_prefix = capture('brew', '--prefix').strip
   dnsmasq_conf = "#{brew_prefix}/etc/dnsmasq.conf"
 
