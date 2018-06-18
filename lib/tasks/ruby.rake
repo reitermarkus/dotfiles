@@ -6,7 +6,7 @@ namespace :ruby do
   task :bundler => [:'bundler:install', :'bundler:config']
 
   namespace :bundler do
-    task :install do
+    task :install => [:'ruby:rbenv'] do
       if capture('gem', 'list', '--no-versions', 'bundler').strip == 'bundler'
         puts ANSI.green { 'Bundler is already installed.' }
       else

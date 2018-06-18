@@ -18,13 +18,10 @@ module Concurrent
   end
 end
 
-if ci?
-  class Rake::Task
-    def execute_with_fold(*args)
-      if @actions.empty?
-        execute_without_fold(*args)
-        return
-      end
+class Rake::Task
+  module Travis
+    def execute(*)
+      return super if @actions.empty?
 
       travis_fold_id = name.tr(':', '.')
       travis_timer_id = rand(2**32).to_s(16)
@@ -35,7 +32,7 @@ if ci?
       start_time = Time.now
 
       begin
-        execute_without_fold(*args)
+        super
       ensure
         end_time = Time.now
 
@@ -47,10 +44,28 @@ if ci?
         puts "travis_fold:end:#{travis_fold_id}"
       end
     end
-
-    alias execute_without_fold execute
-    alias execute execute_with_fold
   end
+
+  module PATH
+    def invoke_with_call_chain(_, invocation_chain)
+      return super unless invocation_chain == Rake::InvocationChain::EMPTY
+
+      begin
+        @__env = ENV.to_hash
+
+        ENV['PATH'] = ['/etc/paths', *Dir.glob('/etc/paths.d/*')]
+          .flat_map { |f| File.read(f).strip.split("\n") }
+          .join(File::PATH_SEPARATOR)
+
+        super
+      ensure
+        ENV.replace(@__env)
+      end
+    end
+  end
+
+  prepend PATH
+  prepend Travis if ci?
 end
 
 DOTFILES_DIR = __dir__
