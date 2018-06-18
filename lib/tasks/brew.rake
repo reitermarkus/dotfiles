@@ -229,6 +229,7 @@ namespace :brew do
     'textmate-opencl'=> {},
     'textmate-openhab' => {},
     'textmate-rubocop'=> {},
+    'textmate-rust'=> {},
     'textmate-solarized' => {},
     'transmission'=> {},
     'tower-beta'=> {},
