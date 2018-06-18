@@ -19,7 +19,6 @@ install:
       ~/.gnupg
       "$NVM_DIR" &
   - sudo rm -r /Applications/Xcode*.app &
-  - sudo rm -r ~/Library/Developer &
   # - sudo rm -r /Library/Developer &
   - sudo rm -r /Library/Developer/CommandLineTools &
   - sudo pkgutil --forget com.apple.pkg.CLTools_Executables &
