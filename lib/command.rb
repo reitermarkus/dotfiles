@@ -95,7 +95,6 @@ def command(*args, silent: false, tries: 1, input: '', **opts)
             out << line
             $stdout.write line unless silent
           when stderr
-            line = reader.readline
             err << line
             $stderr.write line unless silent
           end
