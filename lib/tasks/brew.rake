@@ -338,14 +338,24 @@ namespace :brew do
 
       downloads[key] = case type
       when :cask
-        Concurrent::Promise.execute(executor: download_pool) {
+        Concurrent::Promise.new(executor: download_pool) {
           command 'brew', 'cask', 'fetch', name, silent: true, tries: 3
         }
       when :formula
-        Concurrent::Promise.execute(executor: download_pool) {
+        Concurrent::Promise.new(executor: download_pool) {
           command 'brew', 'fetch', '--retry', name, silent: true, tries: 3
         }
       end
+    end
+
+    # Start MacTeX downloads first because it is by far the biggest.
+    mactex_key = [:cask, 'mactex-no-gui']
+    [mactex_key, *dependency_graph[mactex_key]].each do |key|
+      downloads[key]&.execute
+    end
+
+    sorted_dependencies.each do |key|
+      downloads[key].execute
     end
 
     FileUtils.mkdir_p [itach_dir, "#{converters_dir}/.localized"]
