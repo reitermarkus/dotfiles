@@ -105,12 +105,18 @@ namespace :brew do
 
     begin
       download_pool = Concurrent::FixedThreadPool.new(10)
+      output_pool = Concurrent::SingleThreadExecutor.new
 
       taps.map { |tap|
-        Concurrent::Promise
-          .execute(executor: download_pool) { command 'brew', 'tap', tap }
+        Concurrent::Promise.execute(executor: download_pool) {
+          capture 'brew', 'tap', tap, stdout_tty: true
+        }
+        .then(executor: output_pool) { |out|
+          print out
+        }
       }.each(&:wait!)
     ensure
+      output_pool.shutdown
       download_pool.shutdown
     end
   end
