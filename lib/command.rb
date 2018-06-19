@@ -81,29 +81,39 @@ def command(*args, silent: false, tries: 1, input: '', **opts)
     stdin.print input
     stdin.close_write
 
-    loop do
-      readers, = IO.select([stdout, stderr])
+    signal = catch :kill do
+      loop do
+        readers, = IO.select([stdout, stderr])
 
-      break if readers.all?(&:eof?)
+        break if readers.all?(&:eof?)
 
-      readers.reject(&:eof?).each do |reader|
-        begin
-          line = reader.readline_nonblock
+        readers.reject(&:eof?).each do |reader|
+          begin
+            line = reader.readline_nonblock
 
-          merged << line
+            merged << line
 
-          case reader
-          when stdout
-            out << line
-            $stdout.write line unless silent
-          when stderr
-            err << line
-            $stderr.write line unless silent
+            case reader
+            when stdout
+              out << line
+              yield [:stdout, line] if block_given?
+              $stdout.write line unless silent
+            when stderr
+              err << line
+              yield [:stderr, line] if block_given?
+              $stderr.write line unless silent
+            end
+          rescue IO::WaitReadable, EOFError
+            next
           end
-        rescue IO::WaitReadable, EOFError
-          next
         end
       end
+
+      nil
+    end
+
+    if signal
+      Process.kill(signal, thread.pid)
     end
 
     stdout.close_read
@@ -111,11 +121,13 @@ def command(*args, silent: false, tries: 1, input: '', **opts)
 
     status = thread.value
 
-    raise NonZeroExit.new(*args, out, err, merged, status) unless status.success?
+    if signal.nil?
+      raise NonZeroExit.new(*args, out, err, merged, status) unless status.success?
+    end
 
     [out, err, merged, status]
   }
-rescue
+rescue NonZeroExit
   tries -= 1
   retry if tries > 0
   raise

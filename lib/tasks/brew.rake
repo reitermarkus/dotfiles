@@ -339,11 +339,22 @@ namespace :brew do
       downloads[key] = case type
       when :cask
         Concurrent::Promise.new(executor: download_pool) {
-          command 'brew', 'cask', 'fetch', name, silent: true, tries: 3
+          begin
+            command 'brew', 'cask', 'fetch', name, silent: true, tries: 3 do |stream, line|
+              if stream == :stdout && line.include?('Verifying checksum')
+                throw :kill, 'INT'
+              end
+            end
+          rescue
+          end
         }
       when :formula
         Concurrent::Promise.new(executor: download_pool) {
-          command 'brew', 'fetch', '--retry', name, silent: true, tries: 3
+          command 'brew', 'fetch', '--retry', name, silent: true, tries: 3 do |stream, line|
+            if stream == :stdout && line.include?('/Library/Caches/')
+              throw :kill, 'INT'
+            end
+          end
         }
       end
     end
