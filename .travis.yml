@@ -1,52 +1,92 @@
-language: c
+language: ruby
+
+rvm: system
 
 os: osx
 osx_image: xcode9.4
 
 sudo: true
 
+cache:
+  directories:
+    - $HOME/.config/cargo/registry/cache
+    - $HOME/.config/rustup/toolchains
+  timeout: 600
+
 install:
-  - sudo /usr/bin/gem uninstall --all --executables
-      bundler
-      dotenv
-      fastlane
-      google-api-client
-      httpclient
-      rouge
-      terminal-notifier
-      word_wrap
-      xcode-install
-      xcodeproj
-      xcpretty
-      xcpretty-travis-formatter
-      &
-  - yes yes | sudo rvm implode &
-  - sudo rm -r
-      ~/.bundle ~/.gem ~/.gemrc ~/.rvmrc
-      ~/.bash_profile
-      ~/.cocoapods
-      ~/.fastlane
-      ~/.ssh
-      ~/.gnupg
-      "$NVM_DIR" /usr/local/lib/node_modules /usr/local/bin/npm /usr/local/bin/npx
-      &
-  - sudo rm -r /Applications/Xcode*.app &
-  - sudo rm -r /Library/Developer/CommandLineTools &
-  - sudo pkgutil --forget com.apple.pkg.CLTools_Executables &
-  - for f in $(brew list); do brew uninstall --force --ignore-dependencies "$f" & done &
-  - for c in $(brew cask list); do brew cask uninstall --force "$c" & done &
-  - wait
-  - /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)" -- --force
-  - sudo rmdir /usr/local/Caskroom/
-  - sudo xcode-select --reset
-  - unset
-      CC
-      GEM_HOME GEM_PATH IRBRC MY_RUBY_HOME RUBY_VERSION rvm_bin_path rvm_path rvm_prefix rvm_pretty_print_flag rvm_version
-      GIT_ASKPASS
-      NVM_CD_FLAGS NVM_BIN NVM_DIR NVM_IOJS_ORG_MIRROR NVM_NODEJS_ORG_MIRROR NVM_PATH
-  - unset PATH MANPATH && source /etc/profile && source ~/.profile
-  - df -m /
+  - |
+    # Uninstall Homebrew
+    for f in $(brew list); do (brew uninstall --force --ignore-dependencies "$f") & done
+    for c in $(brew cask list); do (brew cask uninstall --force "$c") & done
+    wait
+    mv ~/Library/Caches/Homebrew ~/Library/Caches/Homebrew.bak
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)" -- --force
+    rmdir /usr/local/Caskroom/
+    mv ~/Library/Caches/Homebrew.bak ~/Library/Caches/Homebrew
+  - |
+    # Uninstall Xcode and Command Line Tools
+
+    sudo rm -r /Applications/Xcode*.app &
+    sudo rm -r /Library/Developer/CommandLineTools &
+    wait
+
+    sudo pkgutil --forget com.apple.pkg.CLTools_Executables
+    sudo xcode-select --reset
+  - |
+    # Clean Environment
+    rm -r ~/.cocoapods &
+    rm -r ~/.fastlane &
+    rm -r ~/.ssh &
+    rm -r ~/.gnupg &
+
+    unset CC
+
+    old_rvm_bin_path="$rvm_bin_path"
+    old_rvm_path="$rvm_path"
+    old_rvm_prefix="$rvm_prefix"
+    old_rvm_pretty_print_flag="$rvm_pretty_print_flag"
+    old_rvm_version="$rvm_version"
+    rm -r ~/.bundle ~/.gem ~/.gemrc ~/.rvmrc &
+    sudo /usr/bin/gem uninstall --all --executables \
+      bundler \
+      dotenv \
+      fastlane \
+      google-api-client \
+      httpclient \
+      rouge \
+      terminal-notifier \
+      word_wrap \
+      xcode-install \
+      xcodeproj \
+      xcpretty \
+      xcpretty-travis-formatter &
+    unset GEM_HOME GEM_PATH IRBRC MY_RUBY_HOME RUBY_VERSION rvm_bin_path rvm_path rvm_prefix rvm_pretty_print_flag rvm_version
+
+    unset GIT_ASKPASS
+
+    rm -r "$NVM_DIR" /usr/local/lib/node_modules /usr/local/bin/npm /usr/local/bin/npx &
+    unset NVM_CD_FLAGS NVM_BIN NVM_DIR NVM_IOJS_ORG_MIRROR NVM_NODEJS_ORG_MIRROR NVM_PATH
+
+    unset PATH MANPATH
+    rm ~/.bash_profile &
+
+    wait
+
+    source /etc/profile && source ~/.profile
+
 script: ./.sh
+
+before_cache:
+  - |
+    # Restore CA$H€R Dependencies
+
+    HOMEBREW_NO_AUTO_UPDATE='1' brew install libyaml openssl@1.1 md5deep
+
+    export rvm_bin_path="$old_rvm_bin_path"
+    export rvm_path="$old_rvm_path"
+    export rvm_prefix="$old_rvm_prefix"
+    export rvm_pretty_print_flag="$old_rvm_pretty_print_flag"
+    export rvm_version="$old_rvm_version"
 
 notifications:
   email: false

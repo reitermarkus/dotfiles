@@ -445,7 +445,9 @@ namespace :brew do
               end
             }
             .then(executor: install_finished_pool) { |out, _| print out }
-            .then(executor: cleanup_pool) { capture 'brew', 'cask', 'cleanup', cask if ci? }
+            .then(executor: cleanup_pool) {
+              capture 'brew', 'cask', 'cleanup', cask if ci? && cask != 'mactex-no-gui'
+            }
       }
 
       formulae.map { |formula| [formula, FORMULAE[formula]] }.each { |formula, **|
