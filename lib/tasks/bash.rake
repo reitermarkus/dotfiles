@@ -8,5 +8,5 @@ task :bash => [:'brew:casks_and_formulae'] do
 
   # Import Bash Completion into ~/.bashrc
   add_line_to_file '~/.bashrc', 'test -f /etc/bashrc && source /etc/bashrc'
-  add_line_to_file '~/.bashrc', 'brew ls bash-completion &>/dev/null && source "$(brew --prefix)/etc/bash_completion"'
+  add_line_to_file '~/.bashrc', 'brew list bash-completion &>/dev/null && source "$(brew --prefix)/etc/bash_completion"'
 end
