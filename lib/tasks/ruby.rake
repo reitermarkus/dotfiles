@@ -43,7 +43,7 @@ namespace :ruby do
         {
           'enabled' => true,
           'name' => 'RBENV_ROOT',
-          'value' => ENV['RBENV_ROOT'],
+          'value' => '$HOME/.config/rbenv',
         },
         {
           'enabled' => true,

@@ -22,12 +22,17 @@ task :rust => [:'brew:casks_and_formulae'] do
       {
         'enabled' => true,
         'name' => 'CARGO_HOME',
-        'value' => ENV['CARGO_HOME'],
+        'value' => '$HOME/.config/cargo',
       },
       {
         'enabled' => true,
         'name' => 'PATH',
         'value' => '$CARGO_HOME/bin:$PATH',
+      },
+      {
+        'enabled' => true,
+        'name' => 'RUSTUP_HOME',
+        'value' => '$HOME/.config/rustup',
       },
     ], add: true
   end
