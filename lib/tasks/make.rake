@@ -1,7 +1,6 @@
 require 'environment'
 
 task :make do
-  processors = capture('/usr/sbin/sysctl', '-n', 'hw.ncpu').strip
-  add_line_to_file fish_environment, "set -x MAKEFLAGS -j#{processors} -l#{processors}"
-  add_line_to_file bash_environment, "export MAKEFLAGS='-j#{processors} -l#{processors}'"
+  add_line_to_file fish_environment, 'set -l cores (/usr/sbin/sysctl -n hw.ncpu); and set -x MAKEFLAGS "-j $cores -l $cores"'
+  add_line_to_file bash_environment, 'cores="$(/usr/sbin/sysctl -n hw.ncpu)" && export MAKEFLAGS="-j $cores -l $cores"'
 end
