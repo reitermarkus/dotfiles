@@ -395,7 +395,7 @@ namespace :brew do
     end
 
     download_wait_pool = Concurrent::CachedThreadPool.new
-    install_pool = Concurrent::FixedThreadPool.new(10)
+    install_pool = Concurrent::FixedThreadPool.new(20)
     install_finished_pool = Concurrent::SingleThreadExecutor.new
     cleanup_pool = Concurrent::SingleThreadExecutor.new
 
@@ -415,7 +415,7 @@ namespace :brew do
     }
 
     def safe_install
-      tries = 120
+      tries = 5 * 60
 
       begin
         yield
