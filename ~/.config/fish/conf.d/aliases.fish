@@ -26,19 +26,6 @@ alias openwithclean '/System/Library/Frameworks/CoreServices.framework/Framework
 # Safari
 alias safari 'open -a Safari'
 
-# Git Tower
-if which gittower > /dev/null
-  function tower
-    for repo in $argv
-      set -l repo_root (git -C "$repo" rev-parse --show-toplevel ^ /dev/null)
-      and gittower "$repo_root"
-      or gittower "$repo"
-    end
-  end
-
-  alias tedit 'tower $argv; and edit'
-end
-
 abbr --add rsync-up 'rsync --progress -auv --exclude .git'
 
 # Development
