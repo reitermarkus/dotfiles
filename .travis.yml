@@ -20,7 +20,7 @@ install:
     wait
     mv ~/Library/Caches/Homebrew ~/Library/Caches/Homebrew.bak
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)" -- --force
-    rmdir /usr/local/Caskroom/
+    sudo rmdir /usr/local/Caskroom/
     mv ~/Library/Caches/Homebrew.bak ~/Library/Caches/Homebrew
   - |
     # Uninstall Xcode and Command Line Tools
