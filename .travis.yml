@@ -15,8 +15,8 @@ cache:
 install:
   - |
     # Uninstall Homebrew
-    for f in $(brew list); do (brew uninstall --force --ignore-dependencies "$f") & done
-    for c in $(brew cask list); do (brew cask uninstall --force "$c") & done
+    eval "$(brew list | xargs -I% echo 'brew uninstall --force --ignore-dependencies "%" &')"
+    eval "$(brew cask list | xargs -I% echo 'brew cask uninstall --force "%" &')"
     wait
     mv ~/Library/Caches/Homebrew ~/Library/Caches/Homebrew.bak
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)" -- --force
