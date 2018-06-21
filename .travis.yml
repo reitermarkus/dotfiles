@@ -11,7 +11,6 @@ cache:
   directories:
     - $HOME/.config/cargo/registry/cache
     - $HOME/.config/rustup/toolchains
-  timeout: 600
 
 install:
   - |
@@ -26,18 +25,20 @@ install:
   - |
     # Uninstall Xcode and Command Line Tools
 
-    sudo rm -r /Applications/Xcode*.app &
-    sudo rm -r /Library/Developer/CommandLineTools &
-    wait
+    sudo rm /Applications/Xcode.app
+    sudo mv /Applications/Xcode*.app /tmp/Xcode.app
+    sudo rm -r /tmp/Xcode.app & disown
+    sudo mv /Library/Developer/CommandLineTools /tmp/CommandLineTools
+    sudo rm -r /tmp/CommandLineTools & disown
 
     sudo pkgutil --forget com.apple.pkg.CLTools_Executables
     sudo xcode-select --reset
   - |
     # Clean Environment
-    rm -r ~/.cocoapods &
-    rm -r ~/.fastlane &
-    rm -r ~/.ssh &
-    rm -r ~/.gnupg &
+    rm -r ~/.cocoapods & disown
+    rm -r ~/.fastlane & disown
+    rm -r ~/.ssh & disown
+    rm -r ~/.gnupg & disown
 
     unset CC
 
