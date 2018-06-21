@@ -155,6 +155,7 @@ namespace :brew do
     'rbenv-bundler-ruby-version' => {},
     'rfc' => {},
     'rustup-init' => {},
+    'sccache' => {},
     'sshfs' => {},
     'svgexport' => {},
     'terminal-notifier' => {},

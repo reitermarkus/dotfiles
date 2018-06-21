@@ -127,6 +127,7 @@
     csgo \
     tex \
     ccache \
+    sccache \
     make \
     keyboard \
     ui \
