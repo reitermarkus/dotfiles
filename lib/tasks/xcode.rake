@@ -3,13 +3,7 @@ require 'defaults'
 namespace :xcode do
   desc 'Install Xcode Command Line Utilities'
   task :command_line_utilities do
-    installed = begin
-      capture '/usr/bin/xcode-select', '--print-path'
-    rescue NonZeroExit
-      false
-    end
-
-    if installed
+    if File.directory?('/Library/Developer/CommandLineTools')
       puts ANSI.green { 'Command Line Developer Tools are already installed.' }
     else
       puts ANSI.blue { 'Installing Command Line Developer Tools …' }
