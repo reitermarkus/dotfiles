@@ -1,4 +1,4 @@
-$LOAD_PATH.unshift "#{__dir__}/lib"
+$LOAD_PATH.unshift 'lib'
 
 require 'require'
 require 'ci'

@@ -62,6 +62,7 @@
     dotfiles_dir=$(cd "$(/usr/bin/dirname "$0")" || exit 1; pwd)
   fi
 
+  cd "${dotfiles_dir}"
 
   if ! ci; then
     # Ask for superuser password, and temporarily add it to the Keychain.

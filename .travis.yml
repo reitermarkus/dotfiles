@@ -13,6 +13,7 @@ cache:
     - $HOME/.config/rustup/toolchains
 
 install:
+  - cd ~
   - |
     # Uninstall Homebrew
     eval "$(brew list | xargs -I% echo 'brew uninstall --force --ignore-dependencies "%" &')"
@@ -75,7 +76,7 @@ install:
 
     source /etc/profile && source ~/.profile
 
-script: ./.sh
+script: "$TRAVIS_BUILD_DIR/.sh"
 
 before_cache:
   - |
