@@ -278,7 +278,7 @@ namespace :brew do
     installed_casks = capture('brew', 'cask', 'list').strip.split("\n")
     installed_formulae = capture('brew', 'list').strip.split("\n")
 
-    casks = CASKS.keys.reject { |cask| ci? && ['unicodechecker', 'virtualbox'].include?(cask) } - installed_casks
+    casks = CASKS.keys - installed_casks
     formulae = FORMULAE.keys - installed_formulae
 
     if (casks + formulae).empty?
@@ -415,7 +415,7 @@ namespace :brew do
       }
     }
 
-    def safe_install
+    def safe_install(ignore_exception: false)
       tries = 5 * 60
 
       begin
@@ -430,6 +430,8 @@ namespace :brew do
           end
         end
 
+        return if ignore_exception
+
         raise e
       end
     end
@@ -441,7 +443,7 @@ namespace :brew do
         installations[key] =
           wait_for_downloads.call(key)
             .then(executor: install_pool) {
-              safe_install do
+              safe_install(ignore_exception: cask == 'virtualbox') do
                 capture 'brew', 'cask', 'install', cask, *flags, stdout_tty: true
               end
             }
