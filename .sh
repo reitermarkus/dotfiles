@@ -101,7 +101,7 @@
 
 
   # Trap Ctrl-C
-  trap 'trap "" INT; echo "\n\033[0;31mAborting …\033[0m"; cleanup; exit 1' INT
+  trap 'trap "" INT; echo "\n\033[0;31mAborting …\033[0m"; exit 1' INT
 
 
   # Run Scripts
