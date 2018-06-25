@@ -30,15 +30,16 @@
     ${CI-false}
   }
 
-  # Accessibility Access
-  if ! ci && test -z "$(/usr/bin/sqlite3 '/Library/Application Support/com.apple.TCC/TCC.db' \
-                       "SELECT * FROM access WHERE client = 'com.apple.Terminal' AND allowed = 1")"; then
-    echo "\033[0;31mPlease enable Accessibility Access for 'Terminal.app' in System Preferences.\033[0m" 1>&2
-    /usr/bin/open 'x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility'
-    exit 1
-  fi
-
   if ! ci; then
+    # Accessibility Access
+    if test -z "$(/usr/bin/sqlite3 '/Library/Application Support/com.apple.TCC/TCC.db' \
+                    "SELECT * FROM access WHERE client = 'com.apple.Terminal' AND allowed = 1")"; then
+      echo "\033[0;31mPlease enable Accessibility Access for 'Terminal.app' in System Preferences.\033[0m" 1>&2
+      /usr/bin/open 'x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility'
+      /usr/bin/open -R /Applications/Utilities/Terminal.app
+      exit 1
+    fi
+
     # Ask for superuser password, and temporarily add it to the Keychain.
     /usr/bin/security add-generic-password -U -s 'dotfiles' -a "${USER}" -w "$(read -s -p "Password: " P < /dev/tty && printf "${P}")"
     printf "\n"
