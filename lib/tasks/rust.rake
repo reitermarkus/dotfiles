@@ -1,4 +1,4 @@
-task :rust => [:'brew:casks_and_formulae'] do
+task :rust => [:'brew:casks_and_formulae', :sccache] do
   cargo_home = '~/.config/cargo'
   rustup_home = '~/.config/rustup'
 

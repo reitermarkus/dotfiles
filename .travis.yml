@@ -11,9 +11,9 @@ cache:
   directories:
     - $HOME/.config/cargo/registry/cache
     - $HOME/.config/rustup/toolchains
+    - $HOME/Library/Caches/sccache
 
 install:
-  - export HOMEBREW_FORCE_BREWED_CURL=1
   - cd ~
   - |
     # Uninstall Homebrew

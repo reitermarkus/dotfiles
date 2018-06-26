@@ -78,8 +78,6 @@ namespace :brew do
 
   desc "Install Taps"
   task :taps => [:'brew:install'] do
-    ENV['HOMEBREW_NO_AUTO_UPDATE'] = '1'
-
     TAPS = %w[
       homebrew/cask
       homebrew/cask-drivers
@@ -253,8 +251,7 @@ namespace :brew do
 
   desc 'Install Casks and Formulae'
   task :casks_and_formulae => [:'brew:taps'] do
-    ENV['HOMEBREW_NO_AUTO_UPDATE'] = '1'
-
+    ENV['HOMEBREW_FORCE_BREWED_CURL'] = '1' if ci?
     ENV['HOMEBREW_CASK_OPTS'] = [
       '--appdir=/Applications',
       '--dictionarydir=/Library/Dictionaries',

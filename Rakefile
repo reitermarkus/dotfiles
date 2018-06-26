@@ -46,26 +46,36 @@ class Rake::Task
     end
   end
 
-  module PATH
-    def invoke_with_call_chain(_, invocation_chain)
-      return super unless invocation_chain == Rake::InvocationChain::EMPTY
-
-      begin
-        @__env = ENV.to_hash
-
-        ENV['PATH'] = ['/etc/paths', *Dir.glob('/etc/paths.d/*')]
-          .flat_map { |f| File.read(f).strip.split("\n") }
-          .join(File::PATH_SEPARATOR)
-
-        super
-      ensure
-        ENV.replace(@__env)
-      end
-    end
-  end
-
-  prepend PATH
   prepend Travis if ci?
 end
 
 DOTFILES_DIR = __dir__
+
+ENV['PATH'] = ['/etc/paths', *Dir.glob('/etc/paths.d/*')]
+  .flat_map { |f| File.read(f).strip.split("\n") }
+  .join(File::PATH_SEPARATOR)
+
+ALLOWED_VARIABLES = %w[
+  Apple_PubSub_Socket_Render
+  CI
+  HOME
+  LANG
+  LOGNAME
+  PATH
+  PWD
+  SHELL
+  SHLVL
+  SSH_AUTH_SOCK
+  TERM
+  TERM_PROGRAM
+  TERM_PROGRAM_VERSION
+  TERM_SESSION_ID
+  TMPDIR
+  USER
+  XPC_FLAGS
+  XPC_SERVICE_NAME
+]
+
+ENV.delete_if { |k, _|
+  !ALLOWED_VARIABLES.include?(k)
+}
