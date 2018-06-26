@@ -71,7 +71,6 @@ install:
     unset NVM_CD_FLAGS NVM_BIN NVM_DIR NVM_IOJS_ORG_MIRROR NVM_NODEJS_ORG_MIRROR NVM_PATH
 
     unset PATH MANPATH
-    rm ~/.bash_profile &
 
     wait
 
