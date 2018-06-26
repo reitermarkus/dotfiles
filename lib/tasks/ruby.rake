@@ -10,7 +10,7 @@ namespace :ruby do
       if capture('gem', 'list', '--no-versions', 'bundler').strip == 'bundler'
         puts ANSI.green { 'Bundler is already installed.' }
       else
-        puts ANSI.green { 'Installing Bundler …' }
+        puts ANSI.blue { 'Installing Bundler …' }
         command 'gem', 'install', 'bundler'
       end
     end
