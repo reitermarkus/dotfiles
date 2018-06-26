@@ -440,7 +440,7 @@ namespace :brew do
         installations[key] =
           wait_for_downloads.call(key)
             .then(executor: install_pool) {
-              safe_install(ignore_exception: cask == 'virtualbox') do
+              safe_install(ignore_exception: cask == 'virtualbox' || (ci? && cask == 'unicodechecker')) do
                 capture 'brew', 'cask', 'install', cask, *flags, stdout_tty: true
               end
             }
