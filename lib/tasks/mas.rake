@@ -23,7 +23,7 @@ task :mas => [:'brew:casks_and_formulae'] do
     '443370764' => 'Repeater',
     '497799835' => 'Xcode',
     '892115848' => 'yRegex',
-  }
+  }.freeze
 
   installed_apps = capture('mas', 'list').lines.map { |line| line.split(/\s+/).first }
 
@@ -34,12 +34,11 @@ task :mas => [:'brew:casks_and_formulae'] do
     serial_executor = Concurrent::SingleThreadExecutor.new
 
     apps.map { |id, name|
-      puts "Installing '#{name}' …"
+      puts ANSI.blue { "Installing “#{name}” …" }
       Concurrent::Promise.execute(executor: install_pool) {
         capture 'mas', 'install', id
-      }.then(executor: serial_executor) { |out, _|
-        print out
-        puts "Installed '#{name}'."
+      }.then(executor: serial_executor) {
+        puts ANSI.green { "Installed “#{name}”." }
       }
     }.each(&:wait!)
   ensure
