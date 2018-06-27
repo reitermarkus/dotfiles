@@ -46,14 +46,23 @@ class Rake::Task
     end
   end
 
+  module PATH
+    def invoke_with_call_chain(_, invocation_chain)
+      current_path = ENV['PATH']&.split(File::PATH_SEPARATOR)
+      default_path = ['/etc/paths', *Dir.glob('/etc/paths.d/*')]
+                       .flat_map { |f| File.read(f).strip.split("\n") }
+
+      ENV['PATH'] = [*current_path, *default_path].uniq.join(File::PATH_SEPARATOR)
+
+      super
+    end
+  end
+
+  prepend PATH
   prepend Travis if ci?
 end
 
 DOTFILES_DIR = __dir__
-
-ENV['PATH'] = ['/etc/paths', *Dir.glob('/etc/paths.d/*')]
-  .flat_map { |f| File.read(f).strip.split("\n") }
-  .join(File::PATH_SEPARATOR)
 
 ALLOWED_VARIABLES = %w[
   Apple_PubSub_Socket_Render
@@ -61,7 +70,6 @@ ALLOWED_VARIABLES = %w[
   HOME
   LANG
   LOGNAME
-  PATH
   PWD
   SHELL
   SHLVL
