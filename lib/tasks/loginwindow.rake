@@ -46,13 +46,13 @@ namespace :loginwindow do
     end
 
     # Capitalize user name.
-    if USER == 'markus'
-      if HOME == '/Users/markus'
-        command sudo, '/usr/bin/dscl', '.', 'create', '/Users/markus', 'NFSHomeDirectory', '/Users/Markus'
-        command sudo, '/bin/mv', '/Users/markus', '/Users/Markus'
-      end
+    if USER != 'Markus'
+      command sudo, '/usr/bin/dscl', '.', 'create', HOME, 'RecordName', 'Markus'
+    end
 
-      command sudo, '/usr/bin/dscl', '.', 'create', '/Users/markus', 'RecordName', 'Markus'
+    if HOME != '/Users/Markus'
+      command sudo, '/usr/bin/dscl', '.', 'create', HOME, 'NFSHomeDirectory', '/Users/Markus'
+      command sudo, '/bin/mv', HOME, '/Users/Markus'
     end
 
     user_picture = "/Library/User Pictures/#{USER}"
