@@ -48,7 +48,7 @@ namespace :dropbox do
       puts "Linking #{local_dirname} to #{dropbox_dirname} …"
 
       was_running = begin
-        command '/usr/bin/killall', 'Dropbox'
+        capture '/usr/bin/killall', 'Dropbox'
         true
       rescue NonZeroExit
         false
