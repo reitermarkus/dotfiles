@@ -237,7 +237,7 @@ namespace :brew do
     'textmate-rust'=> {},
     'textmate-solarized' => {},
     'transmission'=> {},
-    'tower-beta'=> {},
+    'tower2'=> {},
     'unicodechecker'=> {},
     'vagrant'=> {},
     'vagrant-manager'=> {},
