@@ -26,13 +26,24 @@ else
 end
 
 function brew_cd
-  if test (count $argv) -eq 1
-    set -l dir (command brew --repository $argv[1])
-    cd $dir
-    test -d Casks;   and cd Casks
-    test -d Formula; and cd Formula
-  else
-    cd (command brew --repository)/Library/Homebrew
+  if not set -q __homebrew_repo
+    set -U __homebrew_repo (command brew --repository)
   end
+
+  if test (count $argv) -eq 1
+    set -l user 'homebrew'
+    set -l repo $argv[1]
+
+    if string match -r '/' $argv[1]
+      set -l tap (string split / $argv[1])
+      set user $tap[1]
+      set repo $tap[2]
+    end
+
+    cd "$__homebrew_repo/Library/Taps/$user/homebrew-$repo"
+  else
+    cd "$__homebrew_repo/Library/Homebrew"
+  end
+
   return $status
 end
