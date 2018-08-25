@@ -45,6 +45,15 @@ task :rust => [:'brew:casks_and_formulae', :sccache] do
     command 'rustup-init', '-y', '--no-modify-path'
   end
 
+  installed_toolchains = capture('rustup', 'toolchain', 'list').lines.map(&:chomp)
+
+  if installed_toolchains.include?('nightly-x86_64-apple-darwin')
+    puts ANSI.green { 'Rust nightly toolchain already installed.' }
+  else
+    puts ANSI.blue { 'Installing Rust nightly toolchain …' }
+    command 'rustup', 'install', 'nightly'
+  end
+
   installed_components = capture('rustup', 'component', 'list').lines.map { |line| line.split(/\s/).first }
 
   components = ['rust-src'] - installed_components
@@ -60,6 +69,6 @@ task :rust => [:'brew:casks_and_formulae', :sccache] do
     puts ANSI.green { '`racer` already installed.' }
   else
     puts ANSI.blue { 'Installing `racer` …' }
-    command 'cargo', 'install', 'racer' unless which 'racer'
+    command 'rustup', 'run', 'nightly-x86_64-apple-darwin', 'cargo', 'install', 'racer'
   end
 end
