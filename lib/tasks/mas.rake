@@ -7,6 +7,7 @@ task :mas => [:'brew:casks_and_formulae'] do
   end
 
   APPS = {
+    '824183456' => 'Affinity Photo',
     '608292802' => 'Auction Sniper for eBay',
     '417375580' => 'BetterSnapTool',
     '420212497' => 'Byword',
