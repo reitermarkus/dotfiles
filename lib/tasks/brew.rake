@@ -173,6 +173,7 @@ namespace :brew do
     'calibre'=> {},
     'chromium'=> {},
     'cyberduck'=> {},
+    'daisydisk' => {},
     'detexify'=> {},
     'dropbox'=> {},
     'docker-edge'=> {},
