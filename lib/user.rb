@@ -1,21 +1,19 @@
 require 'etc'
+require 'delegate'
 
-class << USER = BasicObject.new
-  def respond_to?(*)
-    super
+class DynamicConstant < Delegator
+  def initialize(&callable)
+    super(callable)
   end
 
-  def method_missing(symbol, *args)
-    ::Etc.getlogin.public_send(symbol, *args)
-  end
-end
-
-class << HOME = BasicObject.new
-  def respond_to?(*)
-    super
+  def __getobj__
+    @__callable__.call
   end
 
-  def method_missing(symbol, *args)
-    ::File.expand_path('~').public_send(symbol, *args)
+  def __setobj__(callable)
+    @__callable__ = callable
   end
 end
+
+USER = DynamicConstant.new { Etc.getlogin }
+HOME = DynamicConstant.new { File.expand_path('~') }
