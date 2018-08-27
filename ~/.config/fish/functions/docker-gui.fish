@@ -1,3 +1,5 @@
+# This file was created automatically, do not edit it directly.
+
 function docker-gui
   open -a XQuartz
 
