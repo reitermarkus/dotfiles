@@ -13,7 +13,14 @@ task :terminal do
       'Solarized Light' => {
         'name' => "Solarized Light",
         'TerminalType' => "xterm-256color",
-        'CommandString' => "",
+        'CommandString' => "/usr/bin/login -fpq #{USER}",
+        'RunCommandAsShell' => true,
+        'noWarnProcesses' => [
+          { 'ProcessName' => 'screen' },
+          { 'ProcessName' => 'tmux' },
+          { 'ProcessName' => 'login' },
+          { 'ProcessName' => '-fish' },
+        ],
         'BackgroundColor' => color(252, 244, 220, 0.95),
         'CursorColor' => color(147, 161, 161),
         'SelectionColor' => color(7, 54, 66),
