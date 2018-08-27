@@ -181,6 +181,7 @@ namespace :brew do
     'evernote'=> {},
     'excalibur'=> {},
     'fluor'=> {},
+    'fork'=> {},
     'fritzing'=> {},
     'font-meslo-nerd-font'=> {},
     'handbrake' => { flags: ["--appdir=#{converters_dir}"] },
