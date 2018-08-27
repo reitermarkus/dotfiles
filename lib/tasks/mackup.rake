@@ -5,6 +5,10 @@ task :mackup => [:'brew:casks_and_formulae'] do
     [storage]
     engine = dropbox
     directory = Sync/~
+
+    [applications_to_ignore]
+    fish
+    fisherman
   CFG
 
   command 'mackup', 'restore', '--force'
