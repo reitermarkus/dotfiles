@@ -137,6 +137,7 @@
     softwareupdate \
     terminal \
     rfc \
+    x11 \
     z \
     keka \
     arduino \
