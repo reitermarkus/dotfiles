@@ -15,11 +15,12 @@ task :fish => [:'brew:casks_and_formulae'] do
   command 'fish', '-c', 'fisher', 'up'
 
   puts ANSI.blue { 'Installing Fish Plugins …' }
-  command 'fish', '-c', 'fisher', 'install', %w[
+  plugins = %w[
     done
     javahome
     reitermarkus/fish_prompt
     omf/thefuck
     z
   ]
+  command 'fish', '-c', "fisher install #{plugins.join(' ')}"
 end
