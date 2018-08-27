@@ -1,3 +1,5 @@
+# This file was created automatically, do not edit it directly.
+
 function fish_colors --description 'Shows the various fish colors being used'
   set -l clr_list (set -n | grep fish | grep color | grep -v __)
   if test -n "$clr_list"
