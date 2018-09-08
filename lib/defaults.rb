@@ -22,7 +22,7 @@ class Defaults
 
       if File.exist?(file)
         plist = Plist.parse_xml(capture '/usr/bin/plutil', '-convert', 'xml1', '-o', '-', file)
-        value = value.reject { |v| plist[key].include?(v) }
+        value = value.reject { |v| plist.fetch(key, []).include?(v) }
       end
     end
 
