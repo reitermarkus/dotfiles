@@ -18,7 +18,7 @@ export EDITOR='mate -w'
 alias edit="mate"
 
 # Finder
-alias finder 'open -a Finder'
+alias finder 'open -R'
 abbr --add .DS_Store 'find . -name .DS_Store'
 alias ds_store .DS_Store
 alias openwithclean '/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -all user,local,system -v'
