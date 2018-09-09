@@ -7,6 +7,6 @@ function openhab-config
   mkdir -p "$share"
   mount -t smbfs "//$USER:$pass@server.local/Macintosh" "$share" ^ /dev/null
 
-  cd  "$share/usr/local/etc/openhab/"; and \
-  edit "$share/usr/local/etc/openhab/"
+  cd  "$share/usr/local/etc/openhab2/"; and \
+  edit "$share/usr/local/etc/openhab2/"
 end
