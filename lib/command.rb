@@ -113,7 +113,11 @@ def command(*args, silent: false, tries: 1, input: '', **opts)
     end
 
     if signal
-      Process.kill(signal, thread.pid)
+      begin
+        Process.kill(signal, thread.pid)
+      rescue Errno::ESRCH
+        # Ignore already killed process.
+      end
     end
 
     stdout.close_read
