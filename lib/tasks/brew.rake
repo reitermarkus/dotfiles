@@ -292,7 +292,7 @@ namespace :brew do
 
     dependency_graph = dependencies(all_keys)
 
-    if dependency_graph.key?([:formula, 'sshfs'])
+    if dependency_graph.key?([:formula, 'sshfs']) && !installed_casks.include?('osxfuse')
       dependency_graph[[:formula, 'sshfs']] << [:cask, 'osxfuse']
     end
 
