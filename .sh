@@ -31,13 +31,26 @@
   }
 
   if ! ci; then
-    # Accessibility Access
-    if test -z "$(/usr/bin/sqlite3 '/Library/Application Support/com.apple.TCC/TCC.db' \
-                    "SELECT * FROM access WHERE client = 'com.apple.Terminal' AND allowed = 1")"; then
-      echo "\033[0;31mPlease enable Accessibility Access for 'Terminal.app' in System Preferences.\033[0m" 1>&2
-      /usr/bin/open 'x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility'
-      /usr/bin/open -R /Applications/Utilities/Terminal.app
-      exit 1
+    if [ "$(echo "$(/usr/bin/sw_vers -productVersion)\n10.14" | /usr/bin/sort -V | /usr/bin/head -n 1)" = '10.14' ]; then
+      # Automation Access
+      osascript -e 'tell application "System Events" to get volume settings' &>/dev/null &
+      pid=$!
+      sleep 0.5
+      kill "${pid}" &>/dev/null || true
+
+      if ! wait "${pid}"; then
+        /usr/bin/open 'x-apple.systempreferences:com.apple.preference.security?Privacy_Automation'
+        exit 1
+      fi
+    else
+      # Accessibility Access
+      if test -z "$(/usr/bin/sqlite3 '/Library/Application Support/com.apple.TCC/TCC.db' \
+                      "SELECT * FROM access WHERE client = 'com.apple.Terminal' AND allowed = 1")"; then
+        echo "\033[0;31mPlease enable Accessibility Access for 'Terminal.app' in System Preferences.\033[0m" 1>&2
+        /usr/bin/open 'x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility'
+        /usr/bin/open -R /Applications/Utilities/Terminal.app
+        exit 1
+      fi
     fi
 
     # Ask for superuser password, and temporarily add it to the Keychain.
