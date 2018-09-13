@@ -1,0 +1,77 @@
+pool:
+  vmImage: 'macOS 10.13'
+
+steps:
+  - bash: |
+      set -e
+      set -u
+      set -o pipefail
+
+      # Uninstall Gems.
+      for gem in $(gem list --no-versions); do
+        if ! gem list "$gem" | grep -q default; then
+          gem uninstall --force --all --ignore-dependencies --executables "$gem"
+        fi
+      done
+      wait
+
+      # Uninstall Homebrew.
+      sudo rm -rf /usr/local/miniconda &
+      rm -r /usr/local/lib/node_modules &
+      eval "$(brew list | xargs -I% echo 'brew uninstall --force --ignore-dependencies "%" &')"
+      eval "$(brew cask list | xargs -I% echo '{ brew cask uninstall --force "%"; brew cask zap --force "%"; } &')"
+      brew cask zap --force dotnet &
+      wait
+      /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)" -- --force
+
+      # Uninstall Xcode and Command Line Tools
+      mkdir -p /tmp/trash
+      for trash in /Applications/Xcode*.app /Library/Developer/CommandLineTools; do
+        sudo mv "$trash" /tmp/trash/
+      done
+      sudo pkgutil --forget com.apple.pkg.CLTools_Executables
+      sudo xcode-select --reset
+
+      # Clean environment.
+      for trash in ~/.DS_Store \
+                   ~/.Trash \
+                   ~/.android \
+                   ~/.azcopy \
+                   ~/.azure \
+                   ~/.bash_history \
+                   ~/.bash_profile \
+                   ~/.bash_sessions \
+                   ~/.bashrc \
+                   ~/.cocoapods \
+                   ~/.config \
+                   ~/.dotnet \
+                   ~/.fastlane \
+                   ~/.gem \
+                   ~/.gitconfig \
+                   ~/.gradle \
+                   ~/.m2 \
+                   ~/.mono \
+                   ~/.npm \
+                   ~/.npmrc \
+                   ~/.nvm \
+                   ~/.oracle_jre_usage \
+                   ~/.subversion \
+                   ~/Microsoft \
+                   ~/hostedtoolcache \
+                   ~/*.txt; do
+        if [ -e "$trash" ]; then
+          mv "$trash" /tmp/trash/
+        fi
+      done
+
+      # Delete broken symlinks.
+      for exe in /usr/local/bin/*; do
+        if [ -L "$exe" ] && ! [ -e "$exe" ]; then
+          rm "$exe"
+        fi
+      done
+    displayName: Clean environment
+  - bash: ./.sh
+    displayName: Run `.sh`
+    env:
+      CI: 'true'

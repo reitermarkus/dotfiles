@@ -59,7 +59,7 @@ class Rake::Task
   end
 
   prepend PATH
-  prepend Travis if ci?
+  prepend Travis if travis?
 end
 
 DOTFILES_DIR = __dir__

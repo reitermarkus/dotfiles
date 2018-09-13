@@ -18,7 +18,8 @@ def require(name)
 rescue LoadError => e
   begin
     install_gem name
-  rescue
+  rescue => err
+    $stderr.puts err.message if ci?
     raise e
   end
 

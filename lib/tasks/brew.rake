@@ -252,7 +252,8 @@ namespace :brew do
 
   desc 'Install Casks and Formulae'
   task :casks_and_formulae => [:'brew:taps'] do
-    ENV['HOMEBREW_FORCE_BREWED_CURL'] = '1' if ci?
+    ENV['HOMEBREW_FORCE_BREWED_CURL'] = '1' if travis?
+    ENV['HOMEBREW_NO_COLOR'] = '1' if azure?
     ENV['HOMEBREW_CASK_OPTS'] = [
       '--appdir=/Applications',
       '--dictionarydir=/Library/Dictionaries',
