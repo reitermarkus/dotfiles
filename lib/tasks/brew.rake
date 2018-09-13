@@ -86,8 +86,6 @@ namespace :brew do
       homebrew/command-not-found
       homebrew/services
 
-      fisherman/tap
-
       jonof/kenutils
       reitermarkus/tap
       bfontaine/utils
