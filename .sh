@@ -117,6 +117,7 @@
     fish \
     git \
     xcode:defaults \
+    itunes \
     rapidclick \
     hazel \
     virtualbox \

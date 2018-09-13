@@ -8,20 +8,19 @@ class Defaults
     @bundle_id = bundle_id || current_host
     @current_host = '-currentHost' if !current_host.nil?
     @sudo = sudo if @bundle_id.start_with?('/') && !File.writable?(File.dirname(@bundle_id))
+    @file = File.expand_path("~/Library/Preferences/#{@bundle_id}.plist")
     instance_eval(&block) if block_given?
   end
 
   def read(key = nil)
-    capture '/usr/bin/defaults', *@current_host, 'read', bundle_id, *key
+    plist = Plist.parse_xml(capture '/usr/bin/plutil', '-convert', 'xml1', '-o', '-', @file)
+    key.nil? ? plist : plist&.fetch(key, nil)
   end
 
   def write(key, value, add: false)
     if add && value.is_a?(Array)
-      file = "#{bundle_id}.plist"
-      file = File.expand_path("~/Library/Preferences/#{file}") unless file.start_with?('/')
-
-      if File.exist?(file)
-        plist = Plist.parse_xml(capture '/usr/bin/plutil', '-convert', 'xml1', '-o', '-', file)
+      if File.exist?(@file)
+        plist = Plist.parse_xml(capture '/usr/bin/plutil', '-convert', 'xml1', '-o', '-', @file)
         value = value.reject { |v| plist.fetch(key, []).include?(v) }
       end
     end
