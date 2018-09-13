@@ -16,10 +16,10 @@ task :fish => [:'brew:casks_and_formulae'] do
 
   puts ANSI.blue { 'Installing Fish Plugins …' }
   plugins = %w[
-    done
+    fisherman/done
     reitermarkus/fish_prompt
     omf/thefuck
-    z
+    jethrokuan/z
   ]
   command 'fish', '-c', "fisher install #{plugins.join(' ')}"
 end
