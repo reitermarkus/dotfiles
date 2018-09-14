@@ -1,6 +1,9 @@
 task :itunes do
   defaults 'com.apple.iTunes' do
     preferences = read 'pref:130:Preferences'
+
+    next if preferences.nil?
+
     preferences.set_encoding(Encoding::BINARY)
     preferences = preferences.string
 

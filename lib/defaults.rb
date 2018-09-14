@@ -13,6 +13,7 @@ class Defaults
   end
 
   def read(key = nil)
+    return nil unless File.exist?(@file)
     plist = Plist.parse_xml(capture '/usr/bin/plutil', '-convert', 'xml1', '-o', '-', @file)
     key.nil? ? plist : plist&.fetch(key, nil)
   end
