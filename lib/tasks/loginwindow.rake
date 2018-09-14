@@ -46,11 +46,11 @@ namespace :loginwindow do
     end
 
     # Capitalize user name.
-    if USER != 'Markus'
+    if USER == 'markus'
       command sudo, '/usr/bin/dscl', '.', 'create', HOME, 'RecordName', 'Markus'
     end
 
-    if HOME != '/Users/Markus'
+    if HOME == '/Users/markus'
       command sudo, '/usr/bin/dscl', '.', 'create', HOME, 'NFSHomeDirectory', '/Users/Markus'
       command sudo, '/bin/mv', HOME, '/Users/Markus'
     end
