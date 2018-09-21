@@ -9,12 +9,13 @@ steps:
       set -o pipefail
 
       # Uninstall Gems.
-      for gem in $(gem list --no-versions); do
-        if ! gem list "$gem" | grep -q default; then
-          gem uninstall --force --all --ignore-dependencies --executables "$gem"
-        fi
-      done
-      wait
+      if [ "$(which gem)" != /usr/bin/gem ]; then
+        for gem in $(gem list --no-versions); do
+          if ! gem list "$gem" | grep -q default; then
+            gem uninstall --force --all --ignore-dependencies --executables "$gem"
+          fi
+        done
+      fi
 
       # Uninstall Homebrew.
       sudo rm -rf /usr/local/miniconda &
