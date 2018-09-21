@@ -19,12 +19,15 @@ steps:
 
       # Uninstall Homebrew.
       sudo rm -rf /usr/local/miniconda &
-      rm -r /usr/local/lib/node_modules &
-      eval "$(brew list | xargs -I% echo 'brew uninstall --force --ignore-dependencies "%" &')"
-      eval "$(brew cask list | xargs -I% echo '{ brew cask uninstall --force "%"; brew cask zap --force "%"; } &')"
-      brew cask zap --force dotnet &
-      wait
-      /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)" -- --force
+      rm -rf /usr/local/lib/node_modules &
+
+      if which brew &>/dev/null; then
+        eval "$(brew list | xargs -I% echo 'brew uninstall --force --ignore-dependencies "%" &')"
+        eval "$(brew cask list | xargs -I% echo '{ brew cask uninstall --force "%"; brew cask zap --force "%"; } &')"
+        brew cask zap --force dotnet &
+        wait
+        /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)" -- --force
+      fi
 
       # Uninstall Xcode and Command Line Tools
       mkdir -p /tmp/trash
