@@ -66,4 +66,60 @@ task :csgo do
     sv_grenade_trajectory 1
     bind n noclip
   CFG
+
+  output, = capture 'system_profiler', 'SPDisplaysDataType'
+
+  vendor_id = output.scan(/Vendor: [^\s]+ \(0x(\h+)\)/).first.first.to_i(16)
+  device_id = output.scan(/Device ID: 0x(\h+)/).first.first.to_i(16)
+  width, height = output.scan(/Resolution: (\d+) x (\d+)/).first
+
+  File.write "#{csgo_config_dir}/video.txt", <<~CFG
+    "VideoConfig" {
+      "setauto.cpu_level"                "2"
+      "setauto.gpu_level"                "3"
+      "setauto.mat_antialias"            "0"
+      "setauto.mat_aaquality"            "0"
+      "setauto.mat_forceaniso"           "1"
+      "setting.mat_vsync"                "0"
+      "setting.mat_triplebuffered"       "0"
+      "setting.mat_grain_scale_override" "-1.0"
+      "setauto.gpu_mem_level"            "2"
+      "setting.mem_level"                "3"
+      "setting.mat_queue_mode"           "-1"
+      "setauto.csm_quality_level"        "3"
+      "setting.mat_software_aa_strength" "1"
+      "setting.mat_motion_blur_enabled"  "0"
+      "setting.defaultres"               "#{width}"
+      "setting.defaultresheight"         "#{height}"
+      "setting.aspectratiomode"          "2"
+      "setting.fullscreen"               "1"
+      "setting.nowindowborder"           "1"
+    }
+  CFG
+
+  File.write "#{csgo_config_dir}/videodefaults.txt", <<~CFG
+    "config" {
+      "setting.csm_quality_level"             "3"
+      "setting.mat_software_aa_strength"      "1"
+      "VendorID"                              "#{vendor_id}"
+      "DeviceID"                              "#{device_id}"
+      "setting.fullscreen"                    "1"
+      "setting.nowindowborder"                "0"
+      "setting.aspectratiomode"               "-1"
+      "setting.mat_vsync"                     "0"
+      "setting.mat_triplebuffered"            "0"
+      "setting.mat_monitorgamma"              "2.200000"
+      "setting.mat_queue_mode"                "-1"
+      "setting.mat_motion_blur_enabled"       "0"
+      "setting.gpu_mem_level"                 "2"
+      "setting.gpu_level"                     "3"
+      "setting.mat_antialias"                 "0"
+      "setting.mat_aaquality"                 "0"
+      "setting.mat_forceaniso"                "1"
+      "setting.cpu_level"                     "2"
+      "setting.videoconfig_version"           "1"
+      "setting.defaultres"                    "#{width}"
+      "setting.defaultresheight"              "#{height}"
+    }
+  CFG
 end
