@@ -448,7 +448,7 @@ namespace :brew do
             }
             .then(executor: install_finished_pool) { |out, _| print out }
             .then(executor: cleanup_pool) {
-              capture 'brew', 'cask', 'cleanup', cask if ci? && cask != 'mactex-no-gui'
+              capture 'brew', 'cleanup', cask if ci? && cask != 'mactex-no-gui'
             }
       }
 
