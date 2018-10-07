@@ -177,7 +177,6 @@ namespace :brew do
     'docker-edge'=> {},
     'epub-services'=> {},
     'evernote'=> {},
-    'excalibur'=> {},
     'fluor'=> {},
     'fork'=> {},
     'fritzing'=> {},
