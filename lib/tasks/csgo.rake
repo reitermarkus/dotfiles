@@ -69,9 +69,11 @@ task :csgo do
 
   output, = capture 'system_profiler', 'SPDisplaysDataType'
 
-  vendor_id = output.scan(/Vendor: [^\s]+ \(0x(\h+)\)/).first.first.to_i(16)
-  device_id = output.scan(/Device ID: 0x(\h+)/).first.first.to_i(16)
+  vendor_id = output.scan(/Vendor: [^\s]+ \(0x(\h+)\)/).first&.first&.to_i(16)
+  device_id = output.scan(/Device ID: 0x(\h+)/).first&.first&.to_i(16)
   width, height = output.scan(/Resolution: (\d+) x (\d+)/).first
+
+  next if [vendor_id, device_id, width, height].any?(&:nil?)
 
   File.write "#{csgo_config_dir}/video.txt", <<~CFG
     "VideoConfig" {
