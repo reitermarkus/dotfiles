@@ -127,6 +127,7 @@ namespace :brew do
     'crystal-lang' => {},
     'dockutil' => {},
     'dnsmasq' => {},
+    'duti' => {},
     'gcc' => {},
     'git' => {},
     'git-lfs' => {},
