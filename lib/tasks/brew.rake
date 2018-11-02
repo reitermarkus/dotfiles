@@ -175,7 +175,7 @@ namespace :brew do
     'daisydisk' => {},
     'detexify'=> {},
     'dropbox'=> {},
-    'docker-edge'=> {},
+    'docker'=> {},
     'epub-services'=> {},
     'evernote'=> {},
     'fluor'=> {},
