@@ -270,9 +270,8 @@ namespace :brew do
     add_line_to_file fish_environment, "set -x HOMEBREW_DEVELOPER 1"
     add_line_to_file bash_environment, "export HOMEBREW_DEVELOPER='1'"
 
-    api_token = '0e3924d278578977b3bd88980c71877e0c426184'
-    add_line_to_file fish_environment, "set -x HOMEBREW_GITHUB_API_TOKEN #{api_token}"
-    add_line_to_file bash_environment, "export HOMEBREW_GITHUB_API_TOKEN='#{api_token}'"
+    add_line_to_file fish_environment, 'test -e ~/.config/github/token; and read -x HOMEBREW_GITHUB_API_TOKEN < ~/.config/github/token'
+    add_line_to_file bash_environment, '[ -e ~/.config/github/token ] && read HOMEBREW_GITHUB_API_TOKEN < ~/.config/github/token && export HOMEBREW_GITHUB_API_TOKEN'
 
     installed_casks = capture('brew', 'cask', 'list').strip.split("\n")
     installed_formulae = capture('brew', 'list').strip.split("\n")

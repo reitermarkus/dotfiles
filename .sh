@@ -116,6 +116,7 @@
     bash \
     fish \
     git \
+    github \
     xcode:defaults \
     itunes \
     rapidclick \
