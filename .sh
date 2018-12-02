@@ -108,6 +108,7 @@
     brew \
     ruby \
     rust \
+    python \
     mas \
     xcode:accept_license \
     dropbox \
