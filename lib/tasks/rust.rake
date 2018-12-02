@@ -56,13 +56,26 @@ task :rust => [:'brew:casks_and_formulae', :sccache] do
 
   installed_components = capture('rustup', 'component', 'list').lines.map { |line| line.split(/\s/).first }
 
-  components = ['rust-src'] - installed_components
+  components = [
+    'rust-src',
+    'rustfmt-preview',
+    'clippy-preview',
+  ]
+
+  components = components.select { |component|
+    installed_components.none? { |installed_component|
+      installed_component == component || installed_component.start_with?("#{component}-")
+    }
+  }
 
   if components.empty?
     puts ANSI.green { 'All Rust components already installed.' }
   else
     puts ANSI.blue { 'Installing Rust components …' }
-    command 'rustup', 'component', 'add', 'rust-src'
+    components.each do |component|
+      command 'rustup', 'component', 'add', component, "--toolchain", "stable"
+      command 'rustup', 'component', 'add', component, "--toolchain", "nightly"
+    end
   end
 
   if which 'racer'
