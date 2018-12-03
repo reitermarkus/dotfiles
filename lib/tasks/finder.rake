@@ -111,4 +111,12 @@ task :finder do
   end
 
   capture '/usr/bin/killall', 'cfprefsd'
+
+  # Set default apps.
+  command 'duti', '-s', 'at.eggerapps.tabletool', 'csv', 'all'
+  command 'duti', '-s', 'com.macromates.TextMate', 'rb', 'all'
+  command 'duti', '-s', 'com.macromates.TextMate', 'rake', 'all'
+  command 'duti', '-s', 'com.macromates.TextMate', 'json', 'all'
+  command 'duti', '-s', 'com.macromates.TextMate', 'yml', 'all'
+  command 'duti', '-s', 'com.uranusjr.macdown', 'md', 'all'
 end
