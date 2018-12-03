@@ -15,6 +15,26 @@ steps:
             gem uninstall --force --all --ignore-dependencies --executables "$gem"
           fi
         done
+      else
+        for gem in $(gem list --no-versions | grep -v \
+                                                   -e 'bigdecimal' \
+                                                   -e 'CFPropertyList' \
+                                                   -e 'did_you_mean' \
+                                                   -e 'io-console' \
+                                                   -e 'json' \
+                                                   -e 'libxml-ruby' \
+                                                   -e 'minitest' \
+                                                   -e 'net-telnet' \
+                                                   -e 'nokogiri' \
+                                                   -e 'power_assert' \
+                                                   -e 'psych' \
+                                                   -e 'rake' \
+                                                   -e 'rdoc' \
+                                                   -e 'sqlite3' \
+                                                   -e 'test-unit' \
+        ); do
+          sudo gem uninstall --force --all --ignore-dependencies --executables "$gem" || true
+        done
       fi
 
       # Uninstall Homebrew.
