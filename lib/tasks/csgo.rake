@@ -21,6 +21,10 @@ task :csgo do
     alias -forwardjumpthrow "-forward;-jumpthrow"
     bind h +forwardjumpthrow
 
+    # Show Teammates
+    cl_teamid_overhead_always 1
+    bind tab "+score;+cl_show_team_equipment"
+
     # “Damage Given” Messages
     developer 1
     con_enable "1"
