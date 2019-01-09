@@ -143,6 +143,7 @@ namespace :brew do
     'mas' => {},
     'ocaml' => {},
     'ocamlbuild' => {},
+    'pam-touch-id' => {},
     'pngout' => {},
     'python' => {},
     'rlwrap' => {},
