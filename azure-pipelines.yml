@@ -9,37 +9,31 @@ steps:
       set -o pipefail
 
       # Uninstall Gems.
-      if [ "$(which gem)" != /usr/bin/gem ]; then
-        for gem in $(gem list --no-versions); do
-          if ! gem list "$gem" | grep -q default; then
-            gem uninstall --force --all --ignore-dependencies --executables "$gem"
-          fi
-        done
-      else
-        for gem in $(gem list --no-versions | grep -v \
-                                                   -e 'bigdecimal' \
-                                                   -e 'CFPropertyList' \
-                                                   -e 'did_you_mean' \
-                                                   -e 'io-console' \
-                                                   -e 'json' \
-                                                   -e 'libxml-ruby' \
-                                                   -e 'minitest' \
-                                                   -e 'net-telnet' \
-                                                   -e 'nokogiri' \
-                                                   -e 'power_assert' \
-                                                   -e 'psych' \
-                                                   -e 'rake' \
-                                                   -e 'rdoc' \
-                                                   -e 'sqlite3' \
-                                                   -e 'test-unit' \
-        ); do
-          sudo gem uninstall --force --all --ignore-dependencies --executables "$gem" || true
-        done
-      fi
+      for gem in $(gem list --no-versions | grep -v \
+                                                 -e 'bigdecimal' \
+                                                 -e 'CFPropertyList' \
+                                                 -e 'did_you_mean' \
+                                                 -e 'io-console' \
+                                                 -e 'json' \
+                                                 -e 'libxml-ruby' \
+                                                 -e 'minitest' \
+                                                 -e 'net-telnet' \
+                                                 -e 'nokogiri' \
+                                                 -e 'power_assert' \
+                                                 -e 'psych' \
+                                                 -e 'rake' \
+                                                 -e 'rdoc' \
+                                                 -e 'sqlite3' \
+                                                 -e 'test-unit' \
+                                                 -e 'xmlrpc' \
+      ); do
+        sudo gem uninstall --force --all --ignore-dependencies --executables "$gem"
+      done
 
       # Uninstall Homebrew.
       sudo rm -rf /usr/local/miniconda &
       rm -rf /usr/local/lib/node_modules &
+      rm -f /usr/local/bin/terminal-notifier
 
       if which brew &>/dev/null; then
         eval "$(brew list | xargs -I% echo 'brew uninstall --force --ignore-dependencies "%" &')"
