@@ -129,6 +129,7 @@
     ccache \
     sccache \
     make \
+    pam \
     keyboard \
     ui \
     rocket \
