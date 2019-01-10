@@ -441,7 +441,10 @@ namespace :brew do
             }
             .then(executor: install_finished_pool) { |out, _| print out }
             .then(executor: cleanup_pool) {
-              capture 'brew', 'cleanup', cask if ci? && cask != 'mactex-no-gui'
+              begin
+                capture 'brew', 'cleanup', cask if ci?
+              rescue NonZeroExit
+              end
             }
       end
 
@@ -456,7 +459,12 @@ namespace :brew do
               end
             }
             .then(executor: install_finished_pool) { |out, _| print out }
-            .then(executor: cleanup_pool) { capture 'brew', 'cleanup', formula if ci? }
+            .then(executor: cleanup_pool) {
+              begin
+                capture 'brew', 'cleanup', formula if ci?
+              rescue NonZeroExit
+              end
+            }
       end
 
       sorted_dependencies.each do |key|
