@@ -8,6 +8,14 @@ steps:
       set -u
       set -o pipefail
 
+      gem install rubocop
+      rubocop
+    displayName: RuboCop
+  - bash: |
+      set -e
+      set -u
+      set -o pipefail
+
       # Uninstall Gems.
       for gem in $(gem list --no-versions | grep -v \
                                                  -e 'bigdecimal' \
