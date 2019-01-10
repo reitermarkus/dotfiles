@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Pathname
   def recurse(&block)
     each_child do |child|
@@ -11,6 +13,7 @@ class Pathname
 
     recurse do |child|
       next if child.directory?
+
       files << child
     end
 
@@ -19,7 +22,7 @@ class Pathname
 end
 
 task :files do
-  puts ANSI.blue { "Copying files …" }
+  puts ANSI.blue { 'Copying files …' }
   Pathname("#{DOTFILES_DIR}/~").files.each do |path|
     relative_path = path.relative_path_from(Pathname(DOTFILES_DIR))
     user_path = relative_path.expand_path

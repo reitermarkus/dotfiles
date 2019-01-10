@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'ci'
 require 'command'
 require 'fileutils'
@@ -29,7 +31,7 @@ def dependencies(keys, acc: TopologicalHash.new, pool: nil)
         capture('brew', 'cask', 'cat', name).lines.reduce([]) do |a, line|
           if /depends_on\s+formula:\s*(?:"(?<formula>.*)"|'(?<formula>.*)')/ =~ line
             [*a, [:formula, formula]]
-          elsif /depends_on\s+cask:\s*(?:"(?<cask>.*)"|'(?<cask>.*)')/  =~ line
+          elsif /depends_on\s+cask:\s*(?:"(?<cask>.*)"|'(?<cask>.*)')/ =~ line
             [*a, [:cask, cask]]
           else
             a
@@ -76,7 +78,7 @@ namespace :brew do
     end
   end
 
-  desc "Install Taps"
+  desc 'Install Taps'
   task :taps => [:'brew:install'] do
     TAPS = %w[
       homebrew/cask
@@ -89,7 +91,7 @@ namespace :brew do
       jonof/kenutils
       reitermarkus/tap
       bfontaine/utils
-    ]
+    ].freeze
 
     taps = TAPS - capture('brew', 'tap').strip.split("\n")
 
@@ -106,8 +108,7 @@ namespace :brew do
       taps.map { |tap|
         Concurrent::Promise.execute(executor: download_pool) {
           capture 'brew', 'tap', tap, stdout_tty: true
-        }
-        .then(executor: output_pool) { |out|
+        }.then(executor: output_pool) { |out|
           print out
         }
       }.each(&:wait!)
@@ -161,94 +162,94 @@ namespace :brew do
     'trash' => {},
     'tree' => {},
     'yarn' => {},
-  }
+  }.freeze
 
   converters_dir = '/Applications/Converters.localized'
   itach_dir = '/Applications/iTach'
 
   CASKS = {
-    'a-better-finder-rename'=> {},
-    'arduino-nightly'=> {},
-    'bibdesk'=> {},
-    'calibre'=> {},
-    'chromium'=> {},
-    'cyberduck'=> {},
+    'a-better-finder-rename' => {},
+    'arduino-nightly' => {},
+    'bibdesk' => {},
+    'calibre' => {},
+    'chromium' => {},
+    'cyberduck' => {},
     'daisydisk' => {},
-    'detexify'=> {},
-    'dropbox'=> {},
-    'docker'=> {},
-    'epub-services'=> {},
-    'evernote'=> {},
-    'fluor'=> {},
-    'fork'=> {},
-    'font-meslo-nerd-font'=> {},
+    'detexify' => {},
+    'dropbox' => {},
+    'docker' => {},
+    'epub-services' => {},
+    'evernote' => {},
+    'fluor' => {},
+    'fork' => {},
+    'font-meslo-nerd-font' => {},
     'handbrake' => { flags: ["--appdir=#{converters_dir}"] },
-    'hazel'=> {},
-    'hex-fiend'=> {},
+    'hazel' => {},
+    'hex-fiend' => {},
     'iconvert' => { flags: ["--appdir=#{itach_dir}"] },
     'ihelp' => { flags: ["--appdir=#{itach_dir}"] },
     'ilearn' => { flags: ["--appdir=#{itach_dir}"] },
     'itest' => { flags: ["--appdir=#{itach_dir}"] },
     'image2icon' => { flags: ["--appdir=#{converters_dir}"] },
     'imageoptim' => { flags: ["--appdir=#{converters_dir}"] },
-    'insomniax'=> {},
-    'java'=> {},
-    'kaleidoscope'=> {},
-    'keka'=> {},
-    'konica-minolta-bizhub-c220-c280-c360-driver'=> {},
-    'launchrocket'=> {},
-    'latexit'=> {},
-    'macdown'=> {},
-    'mactex-no-gui'=> {},
+    'insomniax' => {},
+    'java' => {},
+    'kaleidoscope' => {},
+    'keka' => {},
+    'konica-minolta-bizhub-c220-c280-c360-driver' => {},
+    'launchrocket' => {},
+    'latexit' => {},
+    'macdown' => {},
+    'mactex-no-gui' => {},
     'makemkv' => { flags: ["--appdir=#{converters_dir}"] },
-    'netspot'=> {},
-    'osxfuse'=> {},
-    'otp-auth'=> {},
-    'playnow'=> {},
-    'prizmo'=> {},
-    'postman'=> {},
-    'qlmarkdown'=> {},
-    'qlstephen'=> {},
-    'rcdefaultapp'=> {},
-    'rocket'=> {},
-    'save-hollywood'=> {},
-    'sequel-pro'=> {},
-    'sigil'=> {},
-    'slack'=> {},
-    'skim'=> {},
-    'steermouse'=> {},
-    'db-browser-for-sqlite'=> {},
-    'svgcleaner'=> {},
-    'table-tool'=> {},
-    'telegram-alpha'=> {},
-    'tex-live-utility'=> {},
-    'textmate'=> {},
-    'textmate-crystal'=> {},
-    'textmate-cucumber'=> {},
-    'textmate-editorconfig'=> {},
-    'textmate-elixir'=> {},
-    'textmate-fish'=> {},
+    'netspot' => {},
+    'osxfuse' => {},
+    'otp-auth' => {},
+    'playnow' => {},
+    'prizmo' => {},
+    'postman' => {},
+    'qlmarkdown' => {},
+    'qlstephen' => {},
+    'rcdefaultapp' => {},
+    'rocket' => {},
+    'save-hollywood' => {},
+    'sequel-pro' => {},
+    'sigil' => {},
+    'slack' => {},
+    'skim' => {},
+    'steermouse' => {},
+    'db-browser-for-sqlite' => {},
+    'svgcleaner' => {},
+    'table-tool' => {},
+    'telegram-alpha' => {},
+    'tex-live-utility' => {},
+    'textmate' => {},
+    'textmate-crystal' => {},
+    'textmate-cucumber' => {},
+    'textmate-editorconfig' => {},
+    'textmate-elixir' => {},
+    'textmate-fish' => {},
     'textmate-glsl' => {},
     'textmate-javascript-babel' => {},
     'textmate-javascript-eslint' => {},
-    'textmate-onsave'=> {},
-    'textmate-opencl'=> {},
+    'textmate-onsave' => {},
+    'textmate-opencl' => {},
     'textmate-openhab' => {},
-    'textmate-rubocop'=> {},
-    'textmate-rust'=> {},
+    'textmate-rubocop' => {},
+    'textmate-rust' => {},
     'textmate-solarized' => {},
-    'transmission'=> {},
-    'tower2'=> {},
-    'unicodechecker'=> {},
-    'vagrant'=> {},
-    'vagrant-manager'=> {},
-    'virtualbox'=> {},
-    'vlc-nightly'=> {},
-    'wineskin-winery'=> {},
+    'transmission' => {},
+    'tower2' => {},
+    'unicodechecker' => {},
+    'vagrant' => {},
+    'vagrant-manager' => {},
+    'virtualbox' => {},
+    'vlc-nightly' => {},
+    'wineskin-winery' => {},
     'xld' => { flags: ["--appdir=#{converters_dir}"] },
     'xnconvert' => { flags: ["--appdir=#{converters_dir}"] },
-    'xquartz'=> {},
-  }
+    'xquartz' => {},
+  }.freeze
 
   desc 'Install Casks and Formulae'
   task :casks_and_formulae => [:'brew:taps'] do
@@ -267,7 +268,7 @@ namespace :brew do
     add_line_to_file fish_environment, "set -x HOMEBREW_CASK_OPTS '#{ENV['HOMEBREW_CASK_OPTS']}'"
     add_line_to_file bash_environment, "export HOMEBREW_CASK_OPTS='#{ENV['HOMEBREW_CASK_OPTS']}'"
 
-    add_line_to_file fish_environment, "set -x HOMEBREW_DEVELOPER 1"
+    add_line_to_file fish_environment, 'set -x HOMEBREW_DEVELOPER 1'
     add_line_to_file bash_environment, "export HOMEBREW_DEVELOPER='1'"
 
     add_line_to_file fish_environment, 'test -e ~/.config/github/token; and read -x HOMEBREW_GITHUB_API_TOKEN < ~/.config/github/token'
@@ -290,11 +291,9 @@ namespace :brew do
 
     dependency_graph = dependencies(all_keys)
 
-    if dependency_graph.key?([:formula, 'sshfs']) && !installed_casks.include?('osxfuse')
-      dependency_graph[[:formula, 'sshfs']] << [:cask, 'osxfuse']
-    end
+    dependency_graph[[:formula, 'sshfs']] << [:cask, 'osxfuse'] if dependency_graph.key?([:formula, 'sshfs']) && !installed_casks.include?('osxfuse')
 
-    recursive_dependencies = ->(key) {
+    recursive_dependencies = lambda { |key|
       dependency_graph.fetch(key, []).flat_map { |dep|
         [*recursive_dependencies.call(dep), dep]
       }.uniq
@@ -316,6 +315,7 @@ namespace :brew do
         previous_dep = previous_deps.detect { |previous_key|
           next unless all_keys.include?(previous_key)
           next unless dependency_graph[previous_key].include?(dep)
+
           previous_key
         }
 
@@ -340,19 +340,15 @@ namespace :brew do
         Concurrent::Promise.new(executor: download_pool) {
           begin
             command 'brew', 'cask', 'fetch', name, silent: true, tries: 3 do |stream, line|
-              if stream == :stdout && line.include?('Verifying checksum')
-                throw :kill, 'INT'
-              end
+              throw :kill, 'INT' if stream == :stdout && line.include?('Verifying checksum')
             end
-          rescue
+          rescue StandardError
           end
         }
       when :formula
         Concurrent::Promise.new(executor: download_pool) {
           command 'brew', 'fetch', '--retry', name, silent: true, tries: 3 do |stream, line|
-            if stream == :stdout && line.include?('/Library/Caches/')
-              throw :kill, 'INT'
-            end
+            throw :kill, 'INT' if stream == :stdout && line.include?('/Library/Caches/')
           end
         }
       end
@@ -370,13 +366,13 @@ namespace :brew do
 
     FileUtils.mkdir_p [itach_dir, "#{converters_dir}/.localized"]
 
-    File.write "#{converters_dir}/.localized/de.strings", <<~EOS
+    File.write "#{converters_dir}/.localized/de.strings", <<~STRINGS
       "Converters" = "Konvertierungswerkzeuge";
-    EOS
+    STRINGS
 
-    File.write "#{converters_dir}/.localized/en.strings", <<~EOS
+    File.write "#{converters_dir}/.localized/en.strings", <<~STRINGS
       "Converters" = "Conversion Tools";
-    EOS
+    STRINGS
 
     # Ensure directories exist and have correct permissions.
     [
@@ -400,7 +396,7 @@ namespace :brew do
 
     installations = {}
 
-    wait_for_downloads = ->(key) {
+    wait_for_downloads = lambda { |key|
       Concurrent::Promise.new(executor: download_wait_pool) {
         deps = dependency_graph[key]
 
@@ -422,20 +418,18 @@ namespace :brew do
         if e.stderr =~ /Another active Homebrew process/
           tries -= 1
 
-          if tries > 0
+          if tries.positive?
             sleep 1
             retry
           end
         end
 
-        return if ignore_exception
-
-        raise e
+        ignore_exception ? return : raise
       end
     end
 
     begin
-      casks.map { |cask| [cask, CASKS[cask]] }.each { |cask, flags: [], **|
+      casks.map { |cask| [cask, CASKS[cask]] }.each do |cask, flags: [], **|
         key = [:cask, cask]
 
         installations[key] =
@@ -449,9 +443,9 @@ namespace :brew do
             .then(executor: cleanup_pool) {
               capture 'brew', 'cleanup', cask if ci? && cask != 'mactex-no-gui'
             }
-      }
+      end
 
-      formulae.map { |formula| [formula, FORMULAE[formula]] }.each { |formula, **|
+      formulae.map { |formula| [formula, FORMULAE[formula]] }.each do |formula, **|
         key = [:formula, formula]
 
         installations[key] =
@@ -463,7 +457,7 @@ namespace :brew do
             }
             .then(executor: install_finished_pool) { |out, _| print out }
             .then(executor: cleanup_pool) { capture 'brew', 'cleanup', formula if ci? }
-      }
+      end
 
       sorted_dependencies.each do |key|
         installations[key]&.execute

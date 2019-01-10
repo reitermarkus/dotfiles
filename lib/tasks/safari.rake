@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'defaults'
 
 task :safari do
@@ -8,7 +10,7 @@ task :safari do
     write 'FindOnPageMatchesWordStartsOnly', false
 
     # Enable Search Suggestions.
-     write 'SuppressSearchSuggestions', false
+    write 'SuppressSearchSuggestions', false
 
     # Don't open “safe” Downloads.
     write 'AutoOpenSafeDownloads', false

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 task :mouse_trackpad do
   # Enable user preferences.
   defaults 'com.apple.AppleMultitouchTrackpad' do

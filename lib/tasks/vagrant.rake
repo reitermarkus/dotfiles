@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 task :vagrant => [:'brew:casks_and_formulae'] do
   puts ANSI.blue { 'Configuring Vagrant …' }
 
@@ -16,10 +18,10 @@ task :vagrant => [:'brew:casks_and_formulae'] do
     end
   end
 
-  capture sudo, '/usr/bin/tee', '/etc/sudoers.d/vagrant_hostsupdater', input: <<~EOF
+  capture sudo, '/usr/bin/tee', '/etc/sudoers.d/vagrant_hostsupdater', input: <<~CFG
     # Allow passwordless startup of Vagrant with vagrant-hostsupdater.
     Cmnd_Alias VAGRANT_HOSTS_ADD = /bin/sh -c echo "*" >> /etc/hosts
     Cmnd_Alias VAGRANT_HOSTS_REMOVE = /usr/bin/sed -i -e /*/ d /etc/hosts
     %admin ALL=(root) NOPASSWD: VAGRANT_HOSTS_ADD, VAGRANT_HOSTS_REMOVE
-  EOF
+  CFG
 end

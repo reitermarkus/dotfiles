@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 task :itunes do
   defaults 'com.apple.iTunes' do
     preferences = read 'pref:130:Preferences'

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 task :softwareupdate do
   puts ANSI.blue { 'Enabling automatic software updates …' }
 

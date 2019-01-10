@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 task :virtualbox => [:'brew:casks_and_formulae'] do
   next unless which 'VBoxManage'
 

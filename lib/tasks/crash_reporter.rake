@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 task :crash_reporter do
   puts ANSI.blue { 'Configuring Crash Reporter …' }
 

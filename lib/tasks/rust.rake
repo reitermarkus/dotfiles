@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 task :rust => [:'brew:casks_and_formulae', :sccache] do
   cargo_home = '~/.config/cargo'
   rustup_home = '~/.config/rustup'
@@ -73,8 +75,8 @@ task :rust => [:'brew:casks_and_formulae', :sccache] do
   else
     puts ANSI.blue { 'Installing Rust components …' }
     components.each do |component|
-      command 'rustup', 'component', 'add', component, "--toolchain", "stable"
-      command 'rustup', 'component', 'add', component, "--toolchain", "nightly"
+      command 'rustup', 'component', 'add', component, '--toolchain', 'stable'
+      command 'rustup', 'component', 'add', component, '--toolchain', 'nightly'
     end
   end
 

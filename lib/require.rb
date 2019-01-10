@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'fileutils'
 require 'rubygems/commands/install_command'
 require 'tempfile'
@@ -18,7 +20,7 @@ def require(name)
 rescue LoadError => e
   begin
     install_gem name
-  rescue => err
+  rescue StandardError => err
     $stderr.puts err.message if ci?
     raise e
   end
@@ -32,7 +34,7 @@ AUTO_INSTALLED_GEMS = %w[
   concurrent-ruby-ext
   concurrent-ruby-edge
   plist
-]
+].freeze
 
 def install_gem(name, version = nil)
   raise unless AUTO_INSTALLED_GEMS.include?(name)
@@ -40,7 +42,7 @@ def install_gem(name, version = nil)
   if name == 'concurrent-edge'
     begin
       install_gem 'concurrent-ruby-ext'
-    rescue
+    rescue StandardError
       # Allow to fail when Xcode Command Line Tools are missing.
     end
     name = 'concurrent-ruby-edge'

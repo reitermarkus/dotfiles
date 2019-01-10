@@ -1,8 +1,8 @@
+# frozen_string_literal: true
+
 task :finder do
   # Hide “/opt” folder.
-  if File.directory?('/opt')
-    command sudo, '/usr/bin/chflags', 'hidden', '/opt'
-  end
+  command sudo, '/usr/bin/chflags', 'hidden', '/opt' if File.directory?('/opt')
 
   # Show “Library” folder.
   command '/usr/bin/chflags', 'nohidden', File.expand_path('~/Library')
@@ -34,7 +34,7 @@ task :finder do
     write 'DesktopViewSettings', {
       'IconViewSettings' => {
         'arrangeBy' => 'name',
-        'backgroundColorBlue' =>  1.0,
+        'backgroundColorBlue' => 1.0,
         'backgroundColorGreen' => 1.0,
         'backgroundColorRed' => 1.0,
         'backgroundType' => 0,
@@ -47,7 +47,7 @@ task :finder do
         'showItemInfo' => true,
         'textSize' => 12,
         'viewOptionsVersion' => 1,
-      }
+      },
     }
 
     capture '/usr/bin/killall', 'cfprefsd'
@@ -101,7 +101,6 @@ task :finder do
     write 'com.apple.springing.enabled', true
     write 'com.apple.springing.delay', 0.2
   end
-
 
   # Disable Disk Image verification.
   defaults 'com.apple.frameworks.diskimages' do

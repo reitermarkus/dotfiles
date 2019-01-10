@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'add_login_item'
 require 'pathname'
 require 'base64'
@@ -22,7 +24,7 @@ namespace :dropbox do
     end
 
     DROPBOX_DIR.join('.dropbox').expand_path.open('w') do |f|
-      f.puts JSON.generate({tag: :dropbox, ns: 2937623})
+      f.puts JSON.generate({ tag: :dropbox, ns: 2937623 })
     end
   end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 $LOAD_PATH.unshift 'lib'
 
 require 'require'
@@ -20,48 +22,50 @@ module Concurrent
   end
 end
 
-class Rake::Task
-  module Travis
-    def execute(*)
-      return super if @actions.empty?
+module Rake
+  class Task
+    module Travis
+      def execute(*)
+        return super if @actions.empty?
 
-      travis_fold_id = name.tr(':', '.')
-      travis_timer_id = rand(2**32).to_s(16)
+        travis_fold_id = name.tr(':', '.')
+        travis_timer_id = rand(2**32).to_s(16)
 
-      puts "travis_fold:start:#{travis_fold_id}"
-      puts "travis_time:start:#{travis_timer_id}"
+        puts "travis_fold:start:#{travis_fold_id}"
+        puts "travis_time:start:#{travis_timer_id}"
 
-      start_time = Time.now
+        start_time = Time.now
 
-      begin
-        super
-      ensure
-        end_time = Time.now
+        begin
+          super
+        ensure
+          end_time = Time.now
 
-        travis_start_time = (start_time.to_f * 1_000_000_000).to_i
-        travis_end_time = (end_time.to_f * 1_000_000_000).to_i
-        travis_duration = travis_end_time - travis_start_time
+          travis_start_time = (start_time.to_f * 1_000_000_000).to_i
+          travis_end_time = (end_time.to_f * 1_000_000_000).to_i
+          travis_duration = travis_end_time - travis_start_time
 
-        puts "travis_time:end:#{travis_timer_id},start=#{travis_start_time},finish=#{travis_end_time},duration=#{travis_duration}"
-        puts "travis_fold:end:#{travis_fold_id}"
+          puts "travis_time:end:#{travis_timer_id},start=#{travis_start_time},finish=#{travis_end_time},duration=#{travis_duration}"
+          puts "travis_fold:end:#{travis_fold_id}"
+        end
       end
     end
-  end
 
-  module PATH
-    def invoke_with_call_chain(_, invocation_chain)
-      current_path = ENV['PATH']&.split(File::PATH_SEPARATOR)
-      default_path = ['/etc/paths', *Dir.glob('/etc/paths.d/*')]
-                       .flat_map { |f| File.read(f).strip.split("\n") }
+    module PATH
+      def invoke_with_call_chain(_, invocation_chain)
+        current_path = ENV['PATH']&.split(File::PATH_SEPARATOR)
+        default_path = ['/etc/paths', *Dir.glob('/etc/paths.d/*')]
+                         .flat_map { |f| File.read(f).strip.split("\n") }
 
-      ENV['PATH'] = [*current_path, *default_path].uniq.join(File::PATH_SEPARATOR)
+        ENV['PATH'] = [*current_path, *default_path].uniq.join(File::PATH_SEPARATOR)
 
-      super
+        super
+      end
     end
-  end
 
-  prepend PATH
-  prepend Travis if travis?
+    prepend PATH
+    prepend Travis if travis?
+  end
 end
 
 DOTFILES_DIR = __dir__
@@ -85,7 +89,7 @@ ALLOWED_VARIABLES = %w[
   USER
   XPC_FLAGS
   XPC_SERVICE_NAME
-]
+].freeze
 
 ENV.delete_if { |k, _|
   !ALLOWED_VARIABLES.include?(k)

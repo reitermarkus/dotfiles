@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 task :startup do
   # Startup Disk
   volume_name = capture('/usr/sbin/diskutil', 'info', '/').scan(/Volume Name:\s+(.*)/).first.first
@@ -11,9 +13,7 @@ task :startup do
   capture sudo, 'nvram', 'boot-args=-v'
 
   # Restart on Power Failure or Freeze
-  if capture(sudo, 'systemsetup', '-getrestartpowerfailure') !~ /Not supported on this machine./
-    capture sudo, 'systemsetup', '-setrestartpowerfailure', 'on'
-  end
+  capture sudo, 'systemsetup', '-setrestartpowerfailure', 'on' if capture(sudo, 'systemsetup', '-getrestartpowerfailure') !~ /Not supported on this machine./
   capture sudo, 'systemsetup', '-setrestartfreeze', 'on'
 
   # Enable Remote Apple Events, Remote Login & Remote Management

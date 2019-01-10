@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'defaults'
 
 task :terminal do
@@ -65,7 +67,7 @@ task :terminal do
         'ShowTTYNameInTitle' => false,
         'ShowWindowSettingsNameInTitle' => false,
         'shellExitAction' => 1,
-      }
+      },
     }, add: true
   end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 task :mackup => [:'brew:casks_and_formulae'] do
   mackup_cfg = File.expand_path('~/.mackup.cfg')
 

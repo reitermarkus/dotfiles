@@ -1,8 +1,11 @@
+# frozen_string_literal: true
+
 task :mas => [:'brew:casks_and_formulae'] do
   begin
     capture 'mas', 'account'
   rescue NonZeroExit
     next if ci?
+
     raise 'Not signed in into App Store.'
   end
 

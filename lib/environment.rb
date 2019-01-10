@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'shellwords'
 
 require 'add_line_to_file'

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 task :x11 do
   defaults 'org.macosforge.xquartz.X11' do
     write 'no_auth', false

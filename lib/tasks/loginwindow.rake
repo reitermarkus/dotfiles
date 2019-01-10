@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'laptop?'
 require 'user'
 require 'plist'
@@ -46,9 +48,7 @@ namespace :loginwindow do
     end
 
     # Capitalize user name.
-    if USER == 'markus'
-      command sudo, '/usr/bin/dscl', '.', 'create', HOME, 'RecordName', 'Markus'
-    end
+    command sudo, '/usr/bin/dscl', '.', 'create', HOME, 'RecordName', 'Markus' if USER == 'markus'
 
     if HOME == '/Users/markus'
       command sudo, '/usr/bin/dscl', '.', 'create', HOME, 'NFSHomeDirectory', '/Users/Markus'
@@ -69,7 +69,7 @@ namespace :loginwindow do
       puts ANSI.blue { "Setting user picture to #{File.basename(local_picture)} …" }
       command sudo, '/bin/cp', '-f', local_picture, user_picture
     else
-      puts ANSI.blue { "Setting user picture to Gravatar picture …" }
+      puts ANSI.blue { 'Setting user picture to Gravatar picture …' }
       gravatar_id = Digest::MD5.hexdigest('me@reitermark.us')
       command sudo, '/usr/bin/curl', '-o', user_picture, '--silent', '--location', "https://gravatar.com/avatar/#{gravatar_id}.png?s=256"
     end
@@ -101,7 +101,7 @@ namespace :loginwindow do
             fi
           fi
         SH
-      ]
+      ],
     }
 
     capture sudo, '/usr/bin/tee', launchd_plist, input: plist.to_plist

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 task :bettersnaptool => [:'brew:casks_and_formulae'] do
   puts ANSI.blue { 'Configuring BetterSnapTool …' }
 

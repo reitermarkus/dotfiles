@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 task :arduino do
   puts ANSI.blue { 'Configuring Arduino …' }
 

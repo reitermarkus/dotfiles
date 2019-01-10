@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 task :rapidclick do
   puts ANSI.blue { 'Configuring RapidClick …' }
 

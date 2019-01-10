@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'defaults'
 
 task :transmission do

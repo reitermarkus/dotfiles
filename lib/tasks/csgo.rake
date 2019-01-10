@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 task :csgo do
   puts ANSI.blue { 'Setting up CS:GO configuration …' }
 

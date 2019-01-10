@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 task :tower do
   puts ANSI.blue { 'Configuring Tower …' }
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'defaults'
 
 task :rocket => [:'brew:casks_and_formulae'] do

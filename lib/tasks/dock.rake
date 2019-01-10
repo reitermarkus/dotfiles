@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'command'
 require 'defaults'
 require 'plist'
@@ -29,7 +31,7 @@ namespace :dock do
     desktop_pictures_dir = File.expand_path('~/Library/Desktop Pictures')
     defaults 'com.apple.systempreferences' do
       write 'DSKDesktopPrefPane', {
-        'UserFolderPaths' => [desktop_pictures_dir]
+        'UserFolderPaths' => [desktop_pictures_dir],
       }
     end
 

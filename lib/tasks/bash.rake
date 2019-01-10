@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'add_line_to_file'
 
 task :bash => [:'brew:casks_and_formulae'] do

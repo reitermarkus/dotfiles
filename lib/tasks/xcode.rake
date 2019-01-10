@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'defaults'
 
 namespace :xcode do
@@ -22,7 +24,7 @@ namespace :xcode do
   end
 
   desc 'Accept the Xcode License Agreement'
-  task :accept_license => [:mas]  do
+  task :accept_license => [:mas] do
     installed = begin
       capture('/usr/bin/xcode-select', '--print-path').include?('/Xcode.app/')
     rescue NonZeroExit

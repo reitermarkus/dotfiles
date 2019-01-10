@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 task :menubar do
   puts ANSI.blue { 'Configuring menu bar …' }
 

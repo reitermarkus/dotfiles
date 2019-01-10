@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'command'
 
 def add_login_item(bundle_id, hidden: false)

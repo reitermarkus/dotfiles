@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'environment'
 
 task :sccache => [:'brew:casks_and_formulae'] do

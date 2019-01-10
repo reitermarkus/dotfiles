@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 task :tex => [:'brew:casks_and_formulae'] do
   next if ci?
 

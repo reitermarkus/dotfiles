@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 task :locale do
   # Set System Languages
   capture sudo, 'languagesetup', '-langspec', 'de'

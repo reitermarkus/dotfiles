@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 task :locate_db do
   begin
     capture sudo, '/bin/launchctl', 'list', 'com.apple.locate'

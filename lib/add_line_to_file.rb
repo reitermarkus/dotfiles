@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 def add_line_to_file(file, line)
   file = File.expand_path(file)
 

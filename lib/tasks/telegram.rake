@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 task :telegram do
   defaults 'ru.keepcoder.Telegram' do
     write 'AutomaticDashSubstitutionEnabledTGGrowingTextView', false

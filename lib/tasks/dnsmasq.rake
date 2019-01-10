@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 task :dnsmasq => [:'brew:casks_and_formulae'] do
   brew_prefix = capture('brew', '--prefix').strip
   dnsmasq_conf = "#{brew_prefix}/etc/dnsmasq.conf"

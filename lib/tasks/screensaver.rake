@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'concurrent'
 require 'command'
 
@@ -61,8 +63,9 @@ namespace :screensaver do
       }
     }
 
-    videos = promises.flat_map(&:value!)
-                     .select { |video| duplicates.add?(video['size']) }
+    videos = promises
+               .flat_map(&:value!)
+               .select { |video| duplicates.add?(video['size']) }
 
     download_dir = Pathname('~/Library/Screen Savers/Videos').expand_path
     download_dir.mkpath
@@ -77,9 +80,7 @@ namespace :screensaver do
 
       download_path = File.join(download_dir, filename)
 
-      if File.exist?(download_path) && video['size'] == File.size(download_path)
-        next Concurrent::Promise.fulfill(nil)
-      end
+      next Concurrent::Promise.fulfill(nil) if File.exist?(download_path) && video['size'] == File.size(download_path)
 
       Concurrent::Promise.execute(executor: serial_executor) {
         puts ANSI.blue { "Downloading #{filename} …" }

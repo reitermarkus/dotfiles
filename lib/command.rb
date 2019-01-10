@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'English'
 require 'open3'
 require 'pty'
@@ -14,13 +16,13 @@ class NonZeroExit < RuntimeError
   end
 
   def message
-    message = "'#{command}' exited with #{status.exitstatus}"
+    message = +"'#{command}' exited with #{status.exitstatus}"
     message.concat("\n#{merged_output}") unless merged_output.empty?
     message
   end
 end
 
-def popen(*args, stdout_tty: false, stderr_tty: false, **opts, &block)
+def popen(*args, stdout_tty: false, stderr_tty: false, **opts)
   in_r, in_w = IO.pipe
   opts[:in] = in_r
   in_w.sync = true
@@ -54,11 +56,12 @@ end
 
 class IO
   def readline_nonblock(sep = $INPUT_RECORD_SEPARATOR)
-    line = ''
-    buffer = ''
+    line = +''
+    buffer = +''
 
     loop do
       break if buffer == sep
+
       read_nonblock(1, buffer)
       line.concat(buffer)
     end
@@ -66,6 +69,7 @@ class IO
     line
   rescue IO::WaitReadable, EOFError => e
     raise e if line.empty?
+
     line
   end
 end
@@ -74,14 +78,14 @@ def command(*args, silent: false, tries: 1, input: '', **opts)
   args = args.flatten(1)
 
   popen(*args, stdout_tty: true, stderr_tty: true, **opts) { |stdin, stdout, stderr, thread|
-    out = ''
-    err = ''
-    merged = ''
+    out = +''
+    err = +''
+    merged = +''
 
     stdin.print input
     stdin.close_write
 
-    signal = catch :kill do
+    signal = catch(:kill) {
       loop do
         readers, = IO.select([stdout, stderr])
 
@@ -110,7 +114,7 @@ def command(*args, silent: false, tries: 1, input: '', **opts)
       end
 
       nil
-    end
+    }
 
     if signal
       begin
@@ -133,8 +137,7 @@ def command(*args, silent: false, tries: 1, input: '', **opts)
   }
 rescue NonZeroExit
   tries -= 1
-  retry if tries > 0
-  raise
+  tries.zero? ? raise : retry
 end
 
 def capture(*args, **opts)
