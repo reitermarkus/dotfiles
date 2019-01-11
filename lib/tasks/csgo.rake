@@ -8,33 +8,40 @@ task :csgo do
   FileUtils.mkdir_p csgo_config_dir
 
   File.write "#{csgo_config_dir}/autoexec.cfg", <<~CFG
+    gameinstructor_enable 0
     cl_autowepswitch 0
-    cl_radar_always_centered 0
-    cl_radar_scale 0.6
-    cl_hud_radar_scale 1.25
-    cl_radar_icon_scale_min 1
-    bind MWHEELUP +jump
-    bind MWHEELDOWN invnext
     alias +jumpthrow "+jump;-attack;-attack2"
     alias -jumpthrow "-jump"
     bind j +jumpthrow
-    bind MOUSE4 +jumpthrow
     alias +forwardjumpthrow "+forward;+jumpthrow"
     alias -forwardjumpthrow "-forward;-jumpthrow"
     bind h +forwardjumpthrow
 
-    # Show Teammates
+    // Matchmaking
+    cl_color 2
+    mm_dedicated_search_maxping 350
+
+    // HUD & Radar
+    cl_radar_always_centered 0
+    cl_radar_scale 0.6
+    hud_scaling 0.75
+    cl_hud_radar_scale 1.25
+    cl_radar_icon_scale_min 1
+    safezonex 0.85
+    safezoney 0.85
+
+    // Show Teammates
     cl_teamid_overhead_always 1
     bind tab "+score;+cl_show_team_equipment"
 
-    # “Damage Given” Messages
+    // “Damage Given” Messages
     developer 1
     con_enable "1"
     con_filter_text "Damage Given"
     con_filter_text_out "Player:"
     con_filter_enable 2
 
-    # Crosshair
+    // Crosshair
     cl_crosshair_drawoutline 1
     cl_crosshair_outlinethickness 1
     cl_crosshair_sniper_show_normal_inaccuracy 0
@@ -53,6 +60,25 @@ task :csgo do
     cl_crosshairstyle 4
     cl_crosshairthickness 0
     cl_crosshairusealpha 1
+
+    // Mouse
+    sensitivity 1.6
+    bind MWHEELUP +jump
+    bind MWHEELDOWN invnext
+    bind MOUSE4 +jumpthrow
+
+    // Sound
+    snd_mapobjective_volume 0.0
+    snd_menumusic_volume 0.0
+    snd_mvp_volume 0.3
+    snd_roundstart_volume 0.05
+    snd_roundend_volume 0.05
+    voice_scale 0.5
+    volume 0.3
+    snd_tensecondwarning_volume 0.15
+    snd_mute_losefocus 0
+
+    host_writeconfig
   CFG
 
   File.write "#{csgo_config_dir}/training.cfg", <<~CFG
