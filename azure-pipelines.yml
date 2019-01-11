@@ -11,7 +11,7 @@ jobs:
           set -o pipefail
 
           gem install rubocop
-          rubocop
+          rubocop --color
         displayName: RuboCop
       - bash: |
           set -e

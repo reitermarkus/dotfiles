@@ -10,8 +10,6 @@ Rake.add_rakelib 'lib/tasks'
 require 'concurrent-edge'
 require 'ansi'
 
-$ansi = false if azure?
-
 module Concurrent
   class Promise
     prepend Module.new {
