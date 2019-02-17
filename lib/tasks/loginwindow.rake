@@ -90,7 +90,7 @@ namespace :loginwindow do
       'RunAtLoad' => true,
       'StartInterval' => 10,
       'ProgramArguments' => [
-        '/bin/bash', '-c', <<~SH
+        '/bin/bash', '-c', <<~SH,
           gui_user="$(/usr/bin/stat -f '%Su' /dev/console)";
 
           if [ "$gui_user" = "Guest" ]; then
