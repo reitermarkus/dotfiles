@@ -1,6 +1,6 @@
 jobs:
   - job: Dotfiles
-    timeoutInMinutes: 120
+    timeoutInMinutes: 200
     pool:
       demands:
         - agent.os -equals Darwin
