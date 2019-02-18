@@ -64,7 +64,7 @@ task :rust => [:'brew:casks_and_formulae', :sccache] do
     next unless File.exist?("#{ENV['RUSTUP_HOME']}/#{dir}/#{nightly}-x86_64-apple-darwin")
 
     FileUtils.rm_rf "#{ENV['RUSTUP_HOME']}/#{dir}/nightly-x86_64-apple-darwin"
-    FileUtils.mv_f  "#{ENV['RUSTUP_HOME']}/#{dir}/#{nightly}-x86_64-apple-darwin",
+    FileUtils.mv    "#{ENV['RUSTUP_HOME']}/#{dir}/#{nightly}-x86_64-apple-darwin",
                     "#{ENV['RUSTUP_HOME']}/#{dir}/nightly-x86_64-apple-darwin"
   end
 

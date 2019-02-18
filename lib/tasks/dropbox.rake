@@ -65,7 +65,7 @@ namespace :dropbox do
         FileUtils.rm_f dropbox_dir.join('.DS_Store')
 
         dropbox_dir.children.each do |child|
-          FileUtils.mv_f child, local_dir
+          FileUtils.mv child, local_dir, force: true
         end
 
         FileUtils.rmdir dropbox_dir
