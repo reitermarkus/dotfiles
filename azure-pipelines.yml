@@ -99,6 +99,8 @@ jobs:
               rm "$exe"
             fi
           done
+
+          sudo chown -R $(whoami) ~
         displayName: Clean environment
       - bash: ./.sh
         displayName: Run `.sh`
