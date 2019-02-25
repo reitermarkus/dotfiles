@@ -5,7 +5,7 @@ require 'defaults'
 task :safari do
   puts ANSI.blue { 'Configuring Safari …' }
 
-  defaults 'com.apple.Safari' do
+  defaults app: 'Safari' do
     # Change Safari's In-Page Search to “contains” instead of “starts with”.
     write 'FindOnPageMatchesWordStartsOnly', false
 
@@ -16,7 +16,9 @@ task :safari do
     write 'AutoOpenSafeDownloads', false
 
     # Enable Developer Menu.
+    write 'IncludeDevelopMenu', true
     write 'WebKitDeveloperExtrasEnabledPreferenceKey', true
+    write 'com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled', true
   end
 
   # Set “DuckDuckGo” as Default Search Provider.

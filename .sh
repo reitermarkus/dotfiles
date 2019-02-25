@@ -42,6 +42,13 @@
         /usr/bin/open 'x-apple.systempreferences:com.apple.preference.security?Privacy_Automation'
         exit 1
       fi
+
+      # Full Disk Access
+      if ( ! ls ~/Library/Containers/com.apple.Safari 2>&1 ) | grep -q 'Operation not permitted'; then
+        echo 'Add `Terminal.app` to System Preferences -> Security -> Privacy -> Full Disk Access' 1>&2
+        /usr/bin/open 'x-apple.systempreferences:com.apple.preference.security?Privacy_AllFiles'
+        exit 1
+      fi
     else
       # Accessibility Access
       if test -z "$(/usr/bin/sqlite3 '/Library/Application Support/com.apple.TCC/TCC.db' \
