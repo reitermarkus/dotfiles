@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 task :tex => [:'brew:casks_and_formulae'] do
-  next unless tlmgr = which('tlmgr')
+  next unless (tlmgr = which 'tlmgr')
 
   launchd_name = 'tlmgr'
   launchd_plist = "/Library/LaunchAgents/#{launchd_name}.plist"

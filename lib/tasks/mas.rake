@@ -4,9 +4,7 @@ task :mas => [:'brew:casks_and_formulae'] do
   begin
     capture 'mas', 'account'
   rescue NonZeroExit
-    next if ci?
-
-    raise 'Not signed in into App Store.'
+    raise 'Not signed in into App Store.' unless ci?
   end
 
   APPS = {
@@ -38,6 +36,12 @@ task :mas => [:'brew:casks_and_formulae'] do
     serial_executor = Concurrent::SingleThreadExecutor.new
 
     apps.map { |id, name|
+      # Check if the app ID is correct.
+      if ci?
+        capture 'mas', 'info', id
+        next
+      end
+
       puts ANSI.blue { "Installing “#{name}” …" }
       Concurrent::Promise.execute(executor: install_pool) {
         capture 'mas', 'install', id
