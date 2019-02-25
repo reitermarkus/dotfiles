@@ -21,10 +21,8 @@ task :mas => [:'brew:casks_and_formulae'] do
     '409203825' => 'Numbers',
     '409201541' => 'Pages',
     '419891002' => 'RapidClick',
-    '954196690' => 'RegexToolbox',
     '443370764' => 'Repeater',
     '497799835' => 'Xcode',
-    '892115848' => 'yRegex',
   }.freeze
 
   installed_apps = capture('mas', 'list').lines.map { |line| line.split(/\s+/).first }
