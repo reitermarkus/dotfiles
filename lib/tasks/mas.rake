@@ -38,6 +38,8 @@ task :mas => [:'brew:casks_and_formulae'] do
     apps.map { |id, name|
       # Check if the app ID is correct.
       if ci?
+        next if id == '463541543' # Still available, but only if previously purchased.
+
         capture 'mas', 'info', id
         next
       end
