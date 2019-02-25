@@ -143,6 +143,7 @@
     tower \
     bettersnaptool \
     screensaver \
+    parallels \
     vagrant \
     telegram \
     finder \
