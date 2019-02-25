@@ -170,6 +170,7 @@ namespace :brew do
 
   CASKS = {
     'a-better-finder-rename' => {},
+    'araxis-merge' => {},
     'arduino-nightly' => {},
     'bibdesk' => {},
     'calibre' => {},
