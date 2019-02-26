@@ -34,16 +34,16 @@ task :mas => [:'brew:casks_and_formulae'] do
     serial_executor = Concurrent::SingleThreadExecutor.new
 
     apps.map { |id, name|
-      # Check if the app ID is correct.
-      if ci?
-        next if id == '463541543' # Still available, but only if previously purchased.
-
-        capture 'mas', 'info', id
-        next
-      end
-
       puts ANSI.blue { "Installing “#{name}” …" }
       Concurrent::Promise.execute(executor: install_pool) {
+        # On CI, only check if the app ID is correct.
+        if ci?
+          next if id == '463541543' # Still available, but only if previously purchased.
+
+          capture 'mas', 'info', id
+          next
+        end
+
         capture 'mas', 'install', id
       }.then(executor: serial_executor) {
         puts ANSI.green { "Installed “#{name}”." }
