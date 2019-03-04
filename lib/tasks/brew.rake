@@ -223,7 +223,7 @@ namespace :brew do
     'db-browser-for-sqlite' => {},
     'svgcleaner' => {},
     'table-tool' => {},
-    'telegram-alpha' => {},
+    'telegram' => {},
     'tex-live-utility' => {},
     'textmate' => {},
     'textmate-crystal' => {},
