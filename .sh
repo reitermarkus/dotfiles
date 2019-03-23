@@ -132,6 +132,7 @@
     virtualbox \
     steam \
     csgo \
+    cities_skylines \
     tex \
     ccache \
     sccache \
