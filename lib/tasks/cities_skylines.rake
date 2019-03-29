@@ -10,4 +10,12 @@ task :cities_skylines do
     dir.mkpath
     command '/usr/bin/tar', '-x', '--strip-components', '1', '-C', dir.to_s, '-f', "#{tmpdir}/master.tar.gz"
   end
+
+  config = Pathname('~/Library/Application Support/Colossal Order/Cities_Skylines/gameSettings.cgs').expand_path
+
+  if config.exist?
+    config.write config.read
+                   .sub("autoSave\x00", "autoSave\x01")
+                   .sub("editorAutoSave\x00", "editorAutoSave\x01")
+  end
 end
