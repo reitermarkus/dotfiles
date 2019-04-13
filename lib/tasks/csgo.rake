@@ -19,7 +19,7 @@ task :csgo do
 
     // Matchmaking
     cl_color 2
-    mm_dedicated_search_maxping 350
+    mm_dedicated_search_maxping 100
 
     // HUD & Radar
     cl_radar_always_centered 0
