@@ -32,9 +32,7 @@ namespace :git do
     command 'git', 'config', '--global', 'diff.plist.binary', 'false'
     add_line_to_file git_attributes, '*.plist diff=plist'
 
-    command 'git', 'config', '--global', 'diff.strings.textconv', 'iconv -f utf-16 -t utf-8'
-    command 'git', 'config', '--global', 'diff.strings.binary', 'false'
-    add_line_to_file git_attributes, '*.strings diff=strings'
+    add_line_to_file git_attributes, '*.strings utf16 diff'
 
     # Always use SSH URLs for pushing to GitHub and for pulling from private repositories.
     command 'git', 'config', '--global', 'url.ssh://git@github.com/.pushInsteadOf', 'https://github.com/'
