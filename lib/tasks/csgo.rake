@@ -47,17 +47,17 @@ task :csgo do
     cl_crosshair_sniper_show_normal_inaccuracy 0
     cl_crosshair_sniper_width 2
     cl_crosshair_t 0
-    cl_crosshairalpha 255
+    cl_crosshairalpha 200
     cl_crosshaircolor 5
     cl_crosshaircolor_b 100
     cl_crosshaircolor_g 0
     cl_crosshaircolor_r 255
     cl_crosshairdot 0
-    cl_crosshairgap -3
+    cl_crosshairgap -1.5
     cl_crosshairgap_useweaponvalue 0
     cl_crosshairscale 0
-    cl_crosshairsize 2.0
-    cl_crosshairstyle 4
+    cl_crosshairsize 2.5
+    cl_crosshairstyle 5
     cl_crosshairthickness 0
     cl_crosshairusealpha 1
 
