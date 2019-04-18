@@ -47,7 +47,7 @@ namespace :screensaver do
           url = URI(video['url'])
 
           url = Net::HTTP.start(url.hostname) { |http|
-            URI(http.head(url.path)['location'])
+            URI(http.head(url.path).fetch('location', url))
           }
 
           size = Net::HTTP.start(url.hostname) { |http|
