@@ -194,7 +194,6 @@ namespace :brew do
     'itest' => { flags: ["--appdir=#{itach_dir}"] },
     'image2icon' => { flags: ["--appdir=#{converters_dir}"] },
     'imageoptim' => { flags: ["--appdir=#{converters_dir}"] },
-    'insomniax' => {},
     'java' => {},
     'kaleidoscope' => {},
     'keka' => {},
