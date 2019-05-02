@@ -87,7 +87,7 @@ namespace :dock do
       '/Applications/Utilities/Terminal.app',
       '/Applications/TextMate.app',
       '/Applications/MacDown.app',
-      '/Applications/Tower.app',
+      '/Applications/Fork.app',
       '/Applications/Adobe Photoshop CC 2015/Adobe Photoshop CC 2015.app',
       '/Applications/Adobe Illustrator CC 2015/Adobe Illustrator.app',
     ]
