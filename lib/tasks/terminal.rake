@@ -55,7 +55,7 @@ task :terminal do
         'DisableANSIColor' => false,
         'BackgroundBlur' => 1.0,
         'BackgroundSettingsForInactiveWindows' => true,
-        'BackgroundAlphaInactive' => 0.7,
+        'BackgroundAlphaInactive' => 0.85,
         'BackgroundBlurInactive' => true,
         'ShowActiveProcessInTitle' => true,
         'ShowActiveProcessArgumentsInTitle' => true,
