@@ -4,12 +4,17 @@ task :tex => [:'brew:casks_and_formulae'] do
   next unless (tlmgr = which 'tlmgr')
 
   launchd_name = 'tlmgr'
-  launchd_plist = "/Library/LaunchAgents/#{launchd_name}.plist"
+  launchd_plist = "/Library/LaunchDaemons/#{launchd_name}.plist"
 
   plist = {
     'Label' => launchd_name,
     'RunAtLoad' => true,
     'StartInterval' => 3600,
+    'KeepAlive' => {
+      'Crashed' => true,
+      'SuccessfulExit' => false,
+    },
+    'ThrottleInterval' => 60,
     'ProgramArguments' => [tlmgr, 'update', '--all', '--self'],
     'StandardOutPath' => "/var/log/#{launchd_name}.log",
     'StandardErrorPath' => "/var/log/#{launchd_name}.log",
