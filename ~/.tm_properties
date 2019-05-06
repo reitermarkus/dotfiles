@@ -14,13 +14,13 @@ tabSize        = 2
 # Includes
 
 include = {$include,.editorconfig,.latexmkrc,.buckconfig}                                          # Editor
-include = {$include,.gitattributes,.gitignore,.gitkeep,.github}                                    # Git
+include = {$include,.gitattributes,.gitignore,.gitmodules,.gitkeep,.github}                                    # Git
 include = {$include,.env*}                                                                         # DotEnv
 include = {$include,.gemrc,.bundle,.rspec,.rubocop*.yml,.ruby-version,.yardopts}                   # Ruby
 include = {$include,.travis.yml,.gitlab-ci.yml}                                                    # CI
 include = {$include,.simplecov,.resultset.json}                                                    # SimpleCov
 include = {$include,.codecov.yml}                                                                  # CodeCov
-include = {$include,.swiftlint.yml}                                                                # Swift
+include = {$include,.swiftlint.yml,.swift-version,.swiftformat}                                    # Swift
 include = {$include,.ocamlinit}                                                                    # OCaml
 include = {$include,.sencha,.babelrc,.markdownlint.json,.stylelintrc.yml,.eslintignore,.eslintrc*} # JavaScript
 
