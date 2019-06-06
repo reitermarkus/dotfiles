@@ -61,7 +61,7 @@ def install_gem(name, version = nil)
     # Do `gem install [...]` without having to spawn a separate process or
     # having to find the right `gem` binary for the running Ruby interpreter.
     Gem::Commands::InstallCommand.new.tap do |cmd|
-      install_args = ['--no-ri', '--no-rdoc', name]
+      install_args = [name, '--no-document']
       install_args += ['--version', version] unless version.nil?
 
       cmd.handle_options(install_args)
