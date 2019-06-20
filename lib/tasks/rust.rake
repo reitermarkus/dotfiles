@@ -96,8 +96,6 @@ task :rust => [:'brew:casks_and_formulae', :sccache] do
     puts ANSI.green { '`racer` already installed.' }
   else
     puts ANSI.blue { 'Installing `racer` …' }
-    command 'rustup', 'toolchain', 'install', 'nightly-2019-02-18'
-    command 'rustup', 'run', 'nightly-2019-02-18-x86_64-apple-darwin', 'cargo', 'install', 'racer'
-    command 'rustup', 'toolchain', 'uninstall', 'nightly-2019-02-18'
+    command 'cargo', '+nightly', 'install', 'racer'
   end
 end
