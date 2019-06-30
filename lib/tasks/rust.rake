@@ -70,10 +70,10 @@ task :rust => [:'brew:casks_and_formulae', :sccache] do
 
   installed_components = capture('rustup', 'component', 'list').lines.map { |line| line.split(/\s/).first }
 
-  components = [
-    'rust-src',
-    'rustfmt-preview',
-    'clippy-preview',
+  components = %w[
+    rust-src
+    rustfmt-preview
+    clippy-preview
   ]
 
   components = components.select { |component|
