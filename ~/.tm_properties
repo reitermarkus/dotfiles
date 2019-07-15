@@ -39,9 +39,10 @@ binary = true
 [ {README,INSTALL,LICENSE,TODO,CONFIGURATION} ]
 fileType = text.plain
 
-[ .git/COMMIT_EDITMSG ]
+[ COMMIT_EDITMSG ]
 spellChecking = true
 spellingLanguage = en
+fileType = text.git-commit
 
 [ .simplecov, Podfile ]
 fileType = source.ruby
@@ -54,3 +55,27 @@ softWrap = false
 
 [ source.makefile ]
 softTabs = false
+
+[ *.mk ]
+fileType = source.makefile
+
+[ .latexmkrc ]
+fileType = source.perl
+
+[ Podfile ]
+fileType = source.ruby
+
+[ *.crs ]
+fileType = source.rust
+
+[ *.rules.tpl ]
+fileType = source.openhab
+
+[ *.things.tpl ]
+fileType = source.openhab
+
+[ *.sitemap.tpl ]
+fileType = source.openhab
+
+[ source.openhab ]
+softWrap = false

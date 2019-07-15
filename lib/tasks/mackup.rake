@@ -13,6 +13,7 @@ task :mackup => [:'brew:casks_and_formulae'] do
     fisherman
     bettersnaptool
     terminal
+    textmate
   CFG
 
   command 'mackup', 'restore', '--force'
