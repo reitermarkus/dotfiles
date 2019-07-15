@@ -11,6 +11,8 @@ task :mackup => [:'brew:casks_and_formulae'] do
     [applications_to_ignore]
     fish
     fisherman
+    bettersnaptool
+    terminal
   CFG
 
   command 'mackup', 'restore', '--force'
