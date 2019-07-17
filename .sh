@@ -147,6 +147,7 @@
     transmission \
     locate_db \
     menubar \
+    mediathekview \
     deliveries \
     tower \
     bettersnaptool \

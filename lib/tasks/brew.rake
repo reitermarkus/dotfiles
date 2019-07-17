@@ -203,6 +203,7 @@ namespace :brew do
     'macdown' => {},
     'mactex-no-gui' => {},
     'makemkv' => { flags: ["--appdir=#{converters_dir}"] },
+    'mediathekview' => {},
     'netspot' => {},
     'osxfuse' => {},
     'otp-auth' => {},
