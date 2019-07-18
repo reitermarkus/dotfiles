@@ -16,6 +16,8 @@ task :mackup => [:'brew:casks_and_formulae'] do
     textmate
   CFG
 
+  Pathname('~/Library/Mobile\ Documents/com\~apple\~CloudDocs').expand_path.mkpath
+
   command 'mackup', 'restore', '--force'
   command 'mackup', 'backup', '--force'
 end
