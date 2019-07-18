@@ -51,6 +51,9 @@ task :textmate do
       },
     ], add: true
   end
+  
+  # Force bundles to be re-indexed.
+  FileUtils.rm_f File.expand_path('~/Library/Caches/com.macromates.TextMate/BundlesIndex.binary')
 
   capture '/usr/bin/killall', 'cfprefsd'
 end
