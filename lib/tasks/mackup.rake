@@ -5,8 +5,8 @@ task :mackup => [:'brew:casks_and_formulae'] do
 
   File.write mackup_cfg, <<~CFG
     [storage]
-    engine = dropbox
-    directory = Sync/~
+    engine = icloud
+    directory = ./
 
     [applications_to_ignore]
     fish
