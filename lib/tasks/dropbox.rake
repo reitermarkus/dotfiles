@@ -5,7 +5,7 @@ require 'pathname'
 require 'base64'
 require 'json'
 
-task :dropbox => [:'dropbox:init', :'dropbox:login_item', :'dropbox:link_directories']
+task :dropbox => [:'dropbox:init', :'dropbox:login_item']
 
 namespace :dropbox do
   DROPBOX_DIR = Pathname('~/Dropbox')
@@ -31,72 +31,5 @@ namespace :dropbox do
   desc 'Add Dropbox Login Item'
   task :login_item => [:'brew:casks_and_formulae'] do
     add_login_item 'com.getdropbox.dropbox', hidden: true
-  end
-
-  desc 'Create Dropbox Symlinks'
-  task :link_directories do
-    def link_directory(dir)
-      local_dirname = "~/#{dir}"
-      dropbox_dirname = "#{DROPBOX_DIR}/Sync/~/#{dir}"
-
-      local_dir = Pathname(local_dirname).expand_path
-      dropbox_dir = Pathname(dropbox_dirname).expand_path
-
-      if dropbox_dir.symlink?
-        puts "#{local_dirname} already linked to Dropbox."
-        return
-      end
-
-      puts "Linking #{local_dirname} to #{dropbox_dirname} …"
-
-      was_running = begin
-        capture '/usr/bin/killall', 'Dropbox'
-        true
-      rescue NonZeroExit
-        false
-      end
-
-      unless local_dir.directory?
-        FileUtils.rm_f local_dir
-        local_dir.mkpath
-      end
-
-      if dropbox_dir.directory?
-        FileUtils.rm_f dropbox_dir.join('.DS_Store')
-
-        dropbox_dir.children.each do |child|
-          FileUtils.mv child, local_dir, force: true
-        end
-
-        FileUtils.rmdir dropbox_dir
-      else
-        FileUtils.rm_f dropbox_dir
-      end
-
-      dropbox_dir.dirname.mkpath
-
-      FileUtils.ln_sf local_dir, dropbox_dir
-
-      command '/usr/bin/open', '-gja', 'Dropbox' if was_running
-    end
-
-    link_directory 'Desktop'
-
-    link_directory 'Library/Containers/com.apple.BKAgentService/Data/Documents/iBooks'
-    link_directory 'Library/Fonts'
-    link_directory 'Library/Desktop Pictures'
-    link_directory 'Library/User Pictures'
-
-    link_directory 'Documents/Arduino'
-    link_directory 'Documents/Backups'
-    link_directory 'Documents/Cinquecento'
-    link_directory 'Documents/Entwicklung'
-    link_directory 'Documents/Fonts'
-    link_directory 'Documents/Git-Repos'
-    link_directory 'Documents/Projekte'
-    link_directory 'Documents/Scans'
-    link_directory 'Documents/SketchUp'
-    link_directory 'Documents/Sonstiges'
-    link_directory 'Documents/Uni'
   end
 end
