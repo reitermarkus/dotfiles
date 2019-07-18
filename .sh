@@ -118,6 +118,7 @@
     python \
     mas \
     xcode:accept_license \
+    fonts \
     mackup \
     local_scripts \
     bash \

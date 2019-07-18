@@ -162,6 +162,7 @@ namespace :brew do
     'thefuck' => {},
     'trash' => {},
     'tree' => {},
+    'unison' => {},
     'yarn' => {},
   }.freeze
 
