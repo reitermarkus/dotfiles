@@ -118,7 +118,6 @@
     python \
     mas \
     xcode:accept_license \
-    dropbox \
     mackup \
     local_scripts \
     bash \
