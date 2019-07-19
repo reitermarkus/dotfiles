@@ -23,7 +23,7 @@ task :fonts do
       'SuccessfulExit' => false,
     },
     'ThrottleInterval' => 60,
-    'ProgramArguments' => [unison.to_s, '-auto', '-batch', icloud_fonts_dir.to_s, local_fonts_dir.to_s],
+    'ProgramArguments' => [unison.to_s, '-log=false', '-auto', '-batch', icloud_fonts_dir.to_s, local_fonts_dir.to_s],
     'StandardOutPath' => "/usr/local/var/log/#{launchd_name}.log",
     'StandardErrorPath' => "/usr/local/var/log/#{launchd_name}.log",
     'WatchPaths' => [icloud_fonts_dir.to_s, local_fonts_dir.to_s],
