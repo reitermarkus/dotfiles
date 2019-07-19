@@ -2,6 +2,7 @@
 
 require 'concurrent'
 require 'command'
+require 'json'
 
 task :screensaver => [:'screensaver:defaults', :'screensaver:apple_tv', :'screensaver:savehollywood']
 
