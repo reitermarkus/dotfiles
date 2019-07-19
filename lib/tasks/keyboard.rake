@@ -3,7 +3,7 @@
 require 'defaults'
 
 task :keyboard do
-  puts ANSI.blue { 'Switching to  “Austrian” keyboard layout …' }
+  puts ANSI.blue { 'Switching to Austrian keyboard layout …' }
   defaults 'com.apple.HIToolbox' do
     write 'AppleInputSourceHistory', []
     write 'AppleSavedCurrentInputSource', {}
