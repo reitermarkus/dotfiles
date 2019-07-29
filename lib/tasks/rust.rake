@@ -19,6 +19,12 @@ task :rust => [:'brew:casks_and_formulae', :sccache] do
   add_line_to_file fish_environment, 'mkdir -p "$CARGO_HOME/bin"; and set -x fish_user_paths "$CARGO_HOME/bin" $fish_user_paths'
   add_line_to_file bash_environment, 'mkdir -p "$CARGO_HOME/bin" && export PATH="$CARGO_HOME/bin:$PATH"'
 
+  FileUtils.mkdir_p ENV['CARGO_HOME']
+  File.write "#{ENV['CARGO_HOME']}/config", <<~TOML
+    [net]
+    git-fetch-with-cli = true
+  TOML
+
   defaults 'com.macromates.TextMate' do
     write 'environmentVariables', [
       {
