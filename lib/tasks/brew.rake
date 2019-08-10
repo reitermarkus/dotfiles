@@ -227,7 +227,7 @@ namespace :brew do
     'table-tool' => {},
     'telegram' => {},
     'tex-live-utility' => {},
-    'textmate' => {},
+    'textmate-preview' => {},
     'textmate-crystal' => {},
     'textmate-cucumber' => {},
     'textmate-editorconfig' => {},
