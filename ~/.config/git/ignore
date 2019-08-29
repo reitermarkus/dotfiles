@@ -20,6 +20,9 @@ Icon
 .Trashes
 .VolumeIcon.icns
 
+# iCloud
+*.icloud
+
 # Directories potentially created on remote AFP share
 .AppleDB
 .AppleDesktop
