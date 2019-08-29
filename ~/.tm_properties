@@ -31,6 +31,7 @@ fileBrowserGlob = {*,$include}
 
 excludeInFolderSearch = "{$excludeInFolderSearch,vendor/bundle}" # Bundler
 excludeInFolderSearch = "{$excludeInFolderSearch,node_modules}" # Node.js
+excludeInFolderSearch = "{$excludeInFolderSearch,target}" # Rust
 
 
 [ *.{icns,ico,jpg,jpeg,m4v,nib,pdf,png,psd,pyc,rtf,tif,tiff,xib} ]
