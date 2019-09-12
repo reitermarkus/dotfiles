@@ -22,8 +22,8 @@ task :tex => [:'brew:casks_and_formulae'] do
 
   capture sudo, '/usr/bin/tee', launchd_plist, input: plist.to_plist
 
-  command sudo, '/usr/sbin/chown', 'root:wheel', launchd_plist
-  command sudo, '/bin/chmod', '600', launchd_plist
+  command sudo, '/usr/sbin/chown', 'root:admin', launchd_plist
+  command sudo, '/bin/chmod', '=r,u+w', launchd_plist
 
   capture sudo, '/bin/launchctl', 'load', launchd_plist
 end

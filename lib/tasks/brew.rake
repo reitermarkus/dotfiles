@@ -389,7 +389,7 @@ namespace :brew do
     ].each do |dir|
       command sudo, '/bin/mkdir', '-p', dir
       command sudo, '/usr/sbin/chown', 'root:admin', dir
-      command sudo, '/bin/chmod', '-R', 'ug=rwx,o=rx', dir
+      command sudo, '/bin/chmod', '-R', '=rx,ug+w', dir
     end
 
     download_wait_pool = Concurrent::CachedThreadPool.new

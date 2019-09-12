@@ -77,7 +77,7 @@ namespace :loginwindow do
     command sudo, '/usr/bin/dscl', '.', 'append', HOME, 'Picture', user_picture
 
     command sudo, '/usr/sbin/chown', "#{USER}:staff", user_picture
-    command sudo, '/bin/chmod', 'a=r,u+w', user_picture
+    command sudo, '/bin/chmod', '=r,u+w', user_picture
   end
 
   desc 'Automatically log out the Guest account when idle.'
@@ -107,6 +107,6 @@ namespace :loginwindow do
     capture sudo, '/usr/bin/tee', launchd_plist, input: plist.to_plist
 
     command sudo, '/usr/sbin/chown', 'root:admin', launchd_plist
-    command sudo, '/bin/chmod', '755', launchd_plist
+    command sudo, '/bin/chmod', '=r,u+w', launchd_plist
   end
 end
