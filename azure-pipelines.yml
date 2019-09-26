@@ -10,6 +10,14 @@ jobs:
           set -u
           set -o pipefail
 
+          brew install shellcheck
+          shellcheck .sh
+        displayName: ShellCheck
+      - bash: |
+          set -e
+          set -u
+          set -o pipefail
+
           gem install rubocop
           rubocop --color
         displayName: RuboCop
