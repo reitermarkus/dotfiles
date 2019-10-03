@@ -34,6 +34,9 @@ task :csgo do
     cl_teamid_overhead_always 1
     bind tab "+score;+cl_show_team_equipment"
 
+    // Mute Enemies
+    cl_mute_enemy_team 1
+
     // “Damage Given” Messages
     developer 1
     con_enable "1"
