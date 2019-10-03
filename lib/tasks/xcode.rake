@@ -24,6 +24,11 @@ namespace :xcode do
         FileUtils.rm placeholder
       end
     end
+
+    pkg = '/Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg'
+    header = '/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/include/ruby-2.3.0/universal-darwin18/ruby/config.h'
+
+    command sudo, 'installer', '-pkg', pkg, '-target', '/' if File.exist?(pkg) && !File.exist?(header)
   end
 
   desc 'Accept the Xcode License Agreement'
