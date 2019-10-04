@@ -21,6 +21,9 @@ task :csgo do
     cl_color 2
     mm_dedicated_search_maxping 100
 
+    // Network
+    rate 786432
+
     // HUD & Radar
     cl_radar_always_centered 0
     cl_radar_scale 0.6
