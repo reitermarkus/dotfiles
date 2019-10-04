@@ -132,6 +132,7 @@ namespace :brew do
     'duti' => {},
     'gcc' => {},
     'git' => {},
+    'git-extras' => {},
     'git-lfs' => {},
     'ghc' => {},
     'imageoptim-cli' => {},
