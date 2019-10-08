@@ -127,7 +127,6 @@ namespace :brew do
     'clang-format' => {},
     'cmake' => {},
     'crystal-lang' => {},
-    'dockutil' => {},
     'dnsmasq' => {},
     'duti' => {},
     'gcc' => {},

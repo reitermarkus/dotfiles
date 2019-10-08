@@ -52,73 +52,43 @@ namespace :dock do
     capture '/usr/bin/killall', 'cfprefsd'
   end
 
-  task :icons => [:'brew:casks_and_formulae'] do
+  task :icons do
     puts ANSI.blue { 'Setting up Dock icons …' }
 
-    defaults_apps = [
-      ['System Preferences', 'Systemeinstellungen'],
-      ['App Store'],
-      ['Maps', 'Karten'],
-      ['Notes'],
-      ['Photos'],
-      ['Messages'],
-      ['Contacts', 'Kontakte'],
-      ['Calendar', 'Kalender'],
-      ['Reminders', 'Erinnerungen'],
-      ['FaceTime'],
-      ['Feedback Assistant', 'Feedback-Assistent'],
-      ['Siri'],
-    ].flatten
-
-    capture 'dockutil', '--no-restart', defaults_apps.flat_map { |app| ['--remove', app] }
-
     dock_items = [
-      '/Applications/Launchpad.app',
+      '/System/Applications/Launchpad.app',
       '/Applications/Safari.app',
-      '/Applications/Mail.app',
-      '/Applications/Reeder.app',
-      '/Applications/Notes.app',
-      '/Applications/Messages.app',
+      '/System/Applications/Mail.app',
+      '/System/Applications/Notes.app',
+      '/System/Applications/Messages.app',
       '/Applications/Telegram.app',
-      '/Applications/iTunes.app',
-      '/Applications/Photos.app',
-      '/Applications/iBooks.app',
+      '/System/Applications/Music.app',
+      '/System/Applications/Photos.app',
+      '/System/Applications/Books.app',
       '/Applications/Pages.app',
       '/Applications/Numbers.app',
       '/Applications/Parallels Desktop.app',
       '/Applications/Xcode.app',
-      '/Applications/Utilities/Terminal.app',
+      '/System/Applications/Utilities/Terminal.app',
       '/Applications/TextMate.app',
       '/Applications/MacDown.app',
       '/Applications/Fork.app',
-      '/Applications/Adobe Photoshop CC 2015/Adobe Photoshop CC 2015.app',
-      '/Applications/Adobe Illustrator CC 2015/Adobe Illustrator.app',
+      '/Applications/Affinity Photo.app',
+      '/Applications/Affinity Designer.app',
     ]
 
-    def name(path)
-      @name ||= {}
-      return @name[path] if @name.key?(path)
-
-      de_strings = "#{path}/Contents/Resources/de.lproj/InfoPlist.strings"
-
-      if File.exist?(de_strings)
-        plist = Plist.parse_xml(capture '/usr/bin/plutil', '-convert', 'xml1', '-o', '-', de_strings)
-        return @name[path] = plist['CFBundleDisplayName'] if plist.key?('CFBundleDisplayName')
-      end
-
-      @name[path] = File.basename(path, '.app')
-    end
-
-    [nil, *dock_items.select(&File.method(:exist?))].each_cons(2) do |previous_path, path|
-      position_args = if previous_path
-        ['--after', name(previous_path)]
-      else
-        ['--position', 'beginning']
-      end
-
-      puts name(path)
-
-      command 'dockutil', '--no-restart', '--add', path, '--label', name(path), '--replacing', name(path), position_args
+    defaults 'com.apple.dock' do
+      write 'persistent-apps', dock_items.map { |path|
+        {
+          'GUID': capture('uuidgen'),
+          'tile-data': {
+            'file-data': {
+              '_CFURLStringType': 0,
+              '_CFURLString': path,
+            },
+          },
+        }
+      }
     end
 
     capture '/usr/bin/killall', 'cfprefsd'
