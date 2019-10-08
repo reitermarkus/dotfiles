@@ -26,9 +26,9 @@ task :mas => [:'brew:casks_and_formulae'] do
     '497799835' => 'Xcode',
   }.freeze
 
-  installed_apps = capture('mas', 'list').lines.map { |line| line.split(/\s+/).first }
+  installed_apps = Pathname.glob('/Applications/*.app').map { |app| app.basename('.app').to_s }
 
-  apps = APPS.reject { |id, _| installed_apps.include?(id) }
+  apps = APPS.reject { |_, name| installed_apps.include?(name) }
 
   begin
     install_pool = Concurrent::FixedThreadPool.new(10)
