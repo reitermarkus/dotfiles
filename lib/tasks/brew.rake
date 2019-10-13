@@ -160,6 +160,7 @@ namespace :brew do
     'svgexport' => {},
     'terminal-notifier' => {},
     'thefuck' => {},
+    'telnet' => {},
     'trash' => {},
     'tree' => {},
     'unison' => {},
