@@ -12,33 +12,6 @@ require 'ansi'
 
 module Rake
   class Task
-    module Travis
-      def execute(*)
-        return super if @actions.empty?
-
-        travis_fold_id = name.tr(':', '.')
-        travis_timer_id = rand(2**32).to_s(16)
-
-        puts "travis_fold:start:#{travis_fold_id}"
-        puts "travis_time:start:#{travis_timer_id}"
-
-        start_time = Time.now
-
-        begin
-          super
-        ensure
-          end_time = Time.now
-
-          travis_start_time = (start_time.to_f * 1_000_000_000).to_i
-          travis_end_time = (end_time.to_f * 1_000_000_000).to_i
-          travis_duration = travis_end_time - travis_start_time
-
-          puts "travis_time:end:#{travis_timer_id},start=#{travis_start_time},finish=#{travis_end_time},duration=#{travis_duration}"
-          puts "travis_fold:end:#{travis_fold_id}"
-        end
-      end
-    end
-
     module PATH
       def invoke_with_call_chain(_, invocation_chain)
         current_path = ENV['PATH']&.split(File::PATH_SEPARATOR)
@@ -52,7 +25,6 @@ module Rake
     end
 
     prepend PATH
-    prepend Travis if travis?
   end
 end
 
