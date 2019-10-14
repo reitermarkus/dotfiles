@@ -10,16 +10,6 @@ Rake.add_rakelib 'lib/tasks'
 require 'concurrent-edge'
 require 'ansi'
 
-module Concurrent
-  class Promise
-    prepend Module.new {
-      def then(rescuer = nil, executor: @executor, &block)
-        super(rescuer, executor, &block)
-      end
-    }
-  end
-end
-
 module Rake
   class Task
     module Travis
