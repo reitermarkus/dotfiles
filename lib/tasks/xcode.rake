@@ -34,7 +34,7 @@ namespace :xcode do
   desc 'Accept the Xcode License Agreement'
   task :accept_license => [:mas] do
     installed = begin
-      capture('/usr/bin/xcode-select', '--print-path').include?('/Xcode.app/')
+      capture('xcode-select', '--print-path').include?('/Xcode.app/')
     rescue NonZeroExit
       false
     end
@@ -42,7 +42,7 @@ namespace :xcode do
     next unless installed
 
     ANSI.blue { 'Accepting Xcode License Agreement …' }
-    command sudo, '/usr/bin/xcodebuild', '-license', 'accept'
+    command sudo, 'xcodebuild', '-license', 'accept'
   end
 
   desc 'Configure Xcode Defaults'
