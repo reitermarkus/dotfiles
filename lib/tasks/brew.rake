@@ -172,6 +172,7 @@ namespace :brew do
 
   CASKS = {
     'a-better-finder-rename' => {},
+    'aerial' => {},
     'araxis-merge' => {},
     'arduino' => {},
     'bibdesk' => {},
@@ -211,7 +212,6 @@ namespace :brew do
     'qlstephen' => {},
     'rcdefaultapp' => {},
     'rocket' => {},
-    'save-hollywood' => {},
     'sequel-pro' => {},
     'sigil' => {},
     'slack' => {},
