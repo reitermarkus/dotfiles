@@ -180,7 +180,6 @@ namespace :brew do
     'cyberduck' => {},
     'daisydisk' => {},
     'detexify' => {},
-    'dropbox' => {},
     'docker' => {},
     'epub-services' => {},
     'evernote' => {},
