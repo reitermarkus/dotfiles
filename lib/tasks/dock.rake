@@ -3,6 +3,7 @@
 require 'command'
 require 'defaults'
 require 'plist'
+require 'macos_version'
 
 task :dock => [:'dock:defaults', :'dock:icons']
 
@@ -56,26 +57,26 @@ namespace :dock do
     puts ANSI.blue { 'Setting up Dock icons …' }
 
     dock_items = [
-      '/System/Applications/Launchpad.app',
+      '{/System,}/Applications/Launchpad.app',
       '/Applications/Safari.app',
-      '/System/Applications/Mail.app',
-      '/System/Applications/Notes.app',
-      '/System/Applications/Messages.app',
+      '{/System,}/Applications/Mail.app',
+      '{/System,}/Applications/Notes.app',
+      '{/System,}/Applications/Messages.app',
       '/Applications/Telegram.app',
-      '/System/Applications/Music.app',
-      '/System/Applications/Photos.app',
-      '/System/Applications/Books.app',
+      '{/System/Applications/Music,/Applications/iTunes}.app',
+      '{/System,}/Applications/Photos.app',
+      '{/System,}/Applications/Books.app',
       '/Applications/Pages.app',
       '/Applications/Numbers.app',
       '/Applications/Parallels Desktop.app',
       '/Applications/Xcode.app',
-      '/System/Applications/Utilities/Terminal.app',
+      '{/System,}/Applications/Utilities/Terminal.app',
       '/Applications/TextMate.app',
       '/Applications/MacDown.app',
       '/Applications/Fork.app',
       '/Applications/Affinity Photo.app',
       '/Applications/Affinity Designer.app',
-    ]
+    ].flat_map { |path| Pathname.glob(path) }
 
     defaults 'com.apple.dock' do
       write 'persistent-apps', dock_items.map { |path|
@@ -84,7 +85,7 @@ namespace :dock do
           'tile-data': {
             'file-data': {
               '_CFURLStringType': 0,
-              '_CFURLString': path,
+              '_CFURLString': path.to_path,
             },
           },
         }
