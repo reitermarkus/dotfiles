@@ -30,20 +30,49 @@ jobs:
           for gem in $(gem list --no-versions | grep -v \
                                                      -e 'bigdecimal' \
                                                      -e 'CFPropertyList' \
+                                                     -e 'cmath' \
+                                                     -e 'csv' \
+                                                     -e 'date' \
+                                                     -e 'dbm' \
                                                      -e 'did_you_mean' \
+                                                     -e 'e2mmap' \
+                                                     -e 'etc' \
+                                                     -e 'fcntl' \
+                                                     -e 'fiddle' \
+                                                     -e 'fileutils' \
+                                                     -e 'forwardable' \
                                                      -e 'io-console' \
+                                                     -e 'ipaddr' \
+                                                     -e 'irb' \
                                                      -e 'json' \
                                                      -e 'libxml-ruby' \
+                                                     -e 'logger' \
+                                                     -e 'matrix' \
                                                      -e 'minitest' \
+                                                     -e 'mutex_m' \
                                                      -e 'net-telnet' \
                                                      -e 'nokogiri' \
+                                                     -e 'openssl' \
+                                                     -e 'ostruct' \
                                                      -e 'power_assert' \
+                                                     -e 'prime' \
                                                      -e 'psych' \
                                                      -e 'rake' \
+                                                     -e 'rexml' \
                                                      -e 'rdoc' \
+                                                     -e 'rss' \
+                                                     -e 'scanf' \
+                                                     -e 'shell' \
                                                      -e 'sqlite3' \
+                                                     -e 'stringio' \
+                                                     -e 'strscan' \
+                                                     -e 'sync' \
                                                      -e 'test-unit' \
+                                                     -e 'thwait' \
+                                                     -e 'tracer' \
+                                                     -e 'webrick' \
                                                      -e 'xmlrpc' \
+                                                     -e 'zlib' \
           ); do
             sudo gem uninstall --force --all --ignore-dependencies --executables "$gem"
           done
