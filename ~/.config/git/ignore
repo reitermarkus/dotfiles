@@ -32,3 +32,7 @@ Temporary Items
 
 # Debugging Symbols
 *.dSYM
+
+# Editor Metadata
+.idea
+.vscode
