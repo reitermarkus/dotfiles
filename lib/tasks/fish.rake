@@ -20,7 +20,6 @@ task :fish => [:'brew:casks_and_formulae'] do
   plugins = %w[
     franciscolourenco/done
     reitermarkus/fish_prompt
-    daenney/rbenv
     omf/thefuck
     jethrokuan/z
   ]
