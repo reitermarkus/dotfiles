@@ -138,7 +138,7 @@ namespace :brew do
     'iperf3' => {},
     'node' => {},
     'fish' => {},
-    'fisherman' => {},
+    'fisher' => {},
     'llvm' => {},
     'lockscreen' => {},
     'mackup' => {},
