@@ -21,6 +21,11 @@ task :csgo do
     cl_color 2
     mm_dedicated_search_maxping 100
 
+    // Graphics
+    fps_max 0
+    mat_queue_mode 2
+    cl_forcepreload 1
+
     // Network
     rate 786432
 
