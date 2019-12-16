@@ -15,7 +15,7 @@ task :tex => [:'brew:casks_and_formulae'] do
       'SuccessfulExit' => false,
     },
     'ThrottleInterval' => 60,
-    'ProgramArguments' => [tlmgr, 'update', '--all', '--self'],
+    'ProgramArguments' => [tlmgr, 'update', '--all', '--self', '--reinstall-forcibly-removed'],
     'StandardOutPath' => "/var/log/#{launchd_name}.log",
     'StandardErrorPath' => "/var/log/#{launchd_name}.log",
   }
