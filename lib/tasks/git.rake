@@ -79,6 +79,9 @@ namespace :git do
     # Amend all changes to the last commit.
     command 'git', 'config', '--global', 'alias.amend', 'commit --amend --all --no-edit'
 
+    # Automatically update submodules according to `git checkout`.
+    command 'git', 'config', '--global', 'submodule.recurse', 'true'
+
     command 'git', 'config', '--global', 'alias.s', 'add -p'
     command 'git', 'config', '--global', 'alias.u', 'reset -p'
     command 'git', 'config', '--global', 'alias.d', 'checkout -p'
