@@ -239,7 +239,6 @@ namespace :brew do
     'textmate-rust' => {},
     'textmate-solarized' => {},
     'transmission' => {},
-    'tower2' => {},
     'unicodechecker' => {},
     'vagrant' => {},
     'vagrant-manager' => {},
