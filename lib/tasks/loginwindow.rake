@@ -27,7 +27,8 @@ namespace :loginwindow do
       end
 
       # Apply login text on FileVault pre-boot screen.
-      command sudo, '/bin/rm', '-f', '/System/Library/Caches/com.apple.corestorage/EFILoginLocalizations/preferences.efires'
+      command sudo, '/bin/rm', '-f',
+              '/System/Library/Caches/com.apple.corestorage/EFILoginLocalizations/preferences.efires'
 
       # Disable the Guest account.
       write 'GuestEnabled', false
@@ -71,7 +72,8 @@ namespace :loginwindow do
     else
       puts ANSI.blue { 'Setting user picture to Gravatar picture …' }
       gravatar_id = Digest::MD5.hexdigest('me@reitermark.us')
-      command sudo, '/usr/bin/curl', '-o', user_picture, '--silent', '--location', "https://gravatar.com/avatar/#{gravatar_id}.png?s=256"
+      command sudo, '/usr/bin/curl', '--silent', '--location', "https://gravatar.com/avatar/#{gravatar_id}.png?s=256",
+              '-o', user_picture
     end
 
     command sudo, '/usr/bin/dscl', '.', 'append', HOME, 'Picture', user_picture

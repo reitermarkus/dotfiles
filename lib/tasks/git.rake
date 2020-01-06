@@ -86,7 +86,8 @@ namespace :git do
     command 'git', 'config', '--global', 'alias.u', 'reset -p'
     command 'git', 'config', '--global', 'alias.d', 'checkout -p'
 
-    command 'git', 'config', '--global', 'alias.master', '! f() { git fetch ${1:-origin} master && git rebase --autostash ${1:-origin}/master; }; f'
+    command 'git', 'config', '--global', 'alias.master',
+            '! f() { git fetch ${1:-origin} master && git rebase --autostash ${1:-origin}/master; }; f'
 
     command 'git', 'config', '--global', 'alias.sync', '! f() { git pull --rebase ${@} && git push ${@}; }; f'
 

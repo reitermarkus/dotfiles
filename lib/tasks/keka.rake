@@ -10,7 +10,8 @@ task :keka => [:'brew:casks_and_formulae'] do
   repo = 'osx-archive-icons'
 
   Dir.mktmpdir do |dir|
-    command '/usr/bin/curl', '--silent', '--location', "https://github.com/reitermarkus/#{repo}/archive/master.zip", '-o', "#{dir}/master.zip"
+    command '/usr/bin/curl', '--silent', '--location', "https://github.com/reitermarkus/#{repo}/archive/master.zip",
+            '-o', "#{dir}/master.zip"
     command '/usr/bin/ditto', '-xk', "#{dir}/master.zip", dir
 
     command "#{dir}/#{repo}-master/_convert_iconsets"

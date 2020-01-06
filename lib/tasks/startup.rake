@@ -13,11 +13,15 @@ task :startup do
   capture sudo, 'nvram', 'boot-args=-v'
 
   # Restart on Power Failure or Freeze
-  capture sudo, 'systemsetup', '-setrestartpowerfailure', 'on' if capture(sudo, 'systemsetup', '-getrestartpowerfailure') !~ /Not supported on this machine./
+  if capture(sudo, 'systemsetup', '-getrestartpowerfailure') !~ /Not supported on this machine./
+    capture sudo, 'systemsetup', '-setrestartpowerfailure', 'on'
+  end
+
   capture sudo, 'systemsetup', '-setrestartfreeze', 'on'
 
   # Enable Remote Apple Events, Remote Login & Remote Management
   capture sudo, 'systemsetup', '-setremoteappleevents', 'on'
   capture sudo, 'systemsetup', '-setremotelogin', 'on'
-  capture sudo, '/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart', '-activate', '-configure', '-access', '-on', '-users', 'admin', '-privs', '-all', '-restart', '-agent', '-menu'
+  capture sudo, '/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart', '-activate',
+          '-configure', '-access', '-on', '-users', 'admin', '-privs', '-all', '-restart', '-agent', '-menu'
 end

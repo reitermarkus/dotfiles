@@ -269,8 +269,11 @@ namespace :brew do
     add_line_to_file fish_environment, 'set -x HOMEBREW_DEVELOPER 1'
     add_line_to_file bash_environment, "export HOMEBREW_DEVELOPER='1'"
 
-    add_line_to_file fish_environment, 'test -e ~/.config/github/token; and read -x HOMEBREW_GITHUB_API_TOKEN < ~/.config/github/token'
-    add_line_to_file bash_environment, '[ -e ~/.config/github/token ] && read HOMEBREW_GITHUB_API_TOKEN < ~/.config/github/token && export HOMEBREW_GITHUB_API_TOKEN'
+    add_line_to_file fish_environment,
+                     'test -e ~/.config/github/token; and read -x HOMEBREW_GITHUB_API_TOKEN < ~/.config/github/token'
+    add_line_to_file bash_environment,
+                     '[ -e ~/.config/github/token ] && ' \
+                     'read HOMEBREW_GITHUB_API_TOKEN < ~/.config/github/token && export HOMEBREW_GITHUB_API_TOKEN'
 
     installed_casks = capture('brew', 'cask', 'list').strip.split("\n")
     installed_formulae = capture('brew', 'list').strip.split("\n")
@@ -289,7 +292,9 @@ namespace :brew do
 
     dependency_graph = dependencies(all_keys)
 
-    dependency_graph[[:formula, 'sshfs']] << [:cask, 'osxfuse'] if dependency_graph.key?([:formula, 'sshfs']) && !installed_casks.include?('osxfuse')
+    if dependency_graph.key?([:formula, 'sshfs']) && !installed_casks.include?('osxfuse')
+      dependency_graph[[:formula, 'sshfs']] << [:cask, 'osxfuse']
+    end
 
     recursive_dependencies = lambda { |key|
       dependency_graph.fetch(key, []).flat_map { |dep|
@@ -430,10 +435,12 @@ namespace :brew do
       casks.map { |cask| [cask, CASKS[cask]] }.each do |cask, flags: [], **|
         key = [:cask, cask]
 
+        whitelist = ['konica-minolta-bizhub-c220-c280-c360-driver', 'virtualbox']
+
         installations[key] =
           wait_for_downloads.call(key)
             .then(executor: install_pool) {
-              safe_install(ignore_exception: ['konica-minolta-bizhub-c220-c280-c360-driver', 'virtualbox'].include?(cask)) do
+              safe_install(ignore_exception: whitelist.include?(cask)) do
                 capture 'brew', 'cask', 'install', cask, *flags, stdout_tty: true
               end
             }

@@ -6,5 +6,6 @@ task :pam => [:'brew:casks_and_formulae'] do
   next unless File.executable?(install_script)
 
   capture sudo, install_script
-  capture sudo, '/usr/bin/sed', '-i', '', '-E', 's/"reason=[^"]*"/"reason=einen Befehl als Administrator ausführen"/', '/etc/pam.d/sudo'
+  capture sudo, '/usr/bin/sed', '-i', '', '-E', 's/"reason=[^"]*"/"reason=einen Befehl als Administrator ausführen"/',
+          '/etc/pam.d/sudo'
 end

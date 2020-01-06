@@ -7,6 +7,9 @@ Layout/CaseIndentation:
 Layout/EndAlignment:
   EnforcedStyleAlignWith: start_of_line
 
+Layout/LineLength:
+  Max: 120
+
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented_relative_to_receiver
 
@@ -19,16 +22,16 @@ Lint/AmbiguousBlockAssociation:
 Lint/AmbiguousOperator:
   Enabled: false
 
-Lint/HandleExceptions:
+Lint/SuppressedException:
   Enabled: false
 
 Metrics:
   Enabled: false
 
-Naming/RescuedExceptionsVariableName:
+Naming/MethodParameterName:
   Enabled: false
 
-Naming/UncommunicativeMethodParamName:
+Naming/RescuedExceptionsVariableName:
   Enabled: false
 
 Style/AccessModifierDeclarations:

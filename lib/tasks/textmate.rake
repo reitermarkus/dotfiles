@@ -20,7 +20,8 @@ end
 
 task :textmate do
   # Ensure that Ruby 1.8 is downloaded.
-  download_tbz('https://archive.textmate.org/ruby/ruby_1.8.7.tbz', to: File.expand_path('~/Library/Application Support/TextMate/Ruby'))
+  ruby_path = File.expand_path('~/Library/Application Support/TextMate/Ruby')
+  download_tbz('https://archive.textmate.org/ruby/ruby_1.8.7.tbz', to: ruby_path)
 
   application_support = File.expand_path('~/Library/Application Support/TextMate')
 
