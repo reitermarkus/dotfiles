@@ -73,7 +73,7 @@ task :csgo do
     cl_crosshairusealpha 1
 
     // Mouse
-    sensitivity 0.9
+    sensitivity 0.7
     bind MWHEELUP +jump
     bind MWHEELDOWN invnext
     bind MOUSE4 +jumpthrow
