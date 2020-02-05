@@ -195,7 +195,7 @@ namespace :brew do
     'imageoptim' => { flags: ["--appdir=#{converters_dir}"] },
     'kaleidoscope' => {},
     'keka' => {},
-    'konica-minolta-bizhub-c220-c280-c360-driver' => {},
+    'konica-minolta-bizhub-c650i-c360i-c4050i-c4000i-c3320i-driver' => {},
     'launchrocket' => {},
     'latexit' => {},
     'macdown' => {},
@@ -435,7 +435,7 @@ namespace :brew do
       casks.map { |cask| [cask, CASKS[cask]] }.each do |cask, flags: [], **|
         key = [:cask, cask]
 
-        whitelist = ['konica-minolta-bizhub-c220-c280-c360-driver', 'virtualbox']
+        whitelist = ['virtualbox']
 
         installations[key] =
           wait_for_downloads.call(key)
