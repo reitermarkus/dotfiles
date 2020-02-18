@@ -35,7 +35,7 @@ namespace :ruby do
     command 'rbenv', 'rehash'
 
     add_line_to_file fish_environment, "set -x RBENV_ROOT #{rbenv_root}"
-    command 'fish', '-c', 'fisher add daenney/rbenv'
+    command 'fish', '-c', 'fisher add rbenv/fish-rbenv'
 
     add_line_to_file bash_environment, "export RBENV_ROOT=#{rbenv_root}"
     add_line_to_file bash_environment, 'eval "$(rbenv init -)"'
