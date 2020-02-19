@@ -45,9 +45,6 @@ Style/BlockDelimiters:
   FunctionalMethods:
     - blue
 
-Style/BracesAroundHashParameters:
-  Enabled: false
-
 Style/Documentation:
   Enabled: false
 
