@@ -129,6 +129,7 @@
     hazel \
     virtualbox \
     steam \
+    teamspeak \
     csgo \
     cities_skylines \
     tex \

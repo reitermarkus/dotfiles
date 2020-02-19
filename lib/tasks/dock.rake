@@ -39,7 +39,7 @@ namespace :dock do
       }
     end
 
-    command '/usr/bin/sqlite3', File.expand_path('~/Library/Application Support/Dock/desktoppicture.db'), <<~SQL
+    command 'sqlite3', File.expand_path('~/Library/Application Support/Dock/desktoppicture.db'), <<~SQL
       DELETE FROM data;
       DELETE FROM preferences;
       VACUUM;
