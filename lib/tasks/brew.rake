@@ -126,7 +126,7 @@ namespace :brew do
     'ccache' => {},
     'clang-format' => {},
     'cmake' => {},
-    'crystal-lang' => {},
+    'crystal' => {},
     'duti' => {},
     'gcc' => {},
     'git' => {},
