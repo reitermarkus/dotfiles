@@ -127,7 +127,6 @@ namespace :brew do
     'clang-format' => {},
     'cmake' => {},
     'crystal-lang' => {},
-    'dnsmasq' => {},
     'duti' => {},
     'gcc' => {},
     'git' => {},
@@ -161,7 +160,6 @@ namespace :brew do
     'telnet' => {},
     'trash' => {},
     'tree' => {},
-    'unison' => {},
     'yarn' => {},
   }.freeze
 
