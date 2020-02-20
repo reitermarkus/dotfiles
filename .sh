@@ -57,7 +57,10 @@
     fi
 
     # Ask for superuser password, and temporarily add it to the Keychain.
-    /usr/bin/security add-generic-password -U -s 'dotfiles' -a "${USER}" -w "$(read -r -s -p "Password: " P < /dev/tty && echo "${P}")"
+    (
+      builtin read -r -s -p "Password: "
+      builtin echo "add-generic-password -U -s 'dotfiles' -a '${USER}' -w '${REPLY}'"
+    ) | /usr/bin/security -i
     printf "\n"
 
     at_exit "
