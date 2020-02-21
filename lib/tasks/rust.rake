@@ -57,7 +57,7 @@ task :rust => [:'brew:casks_and_formulae', :sccache] do
 
   # Last nightly which supports all needed components.
   # https://rust-lang.github.io/rustup-components-history/x86_64-apple-darwin.html
-  nightly = 'nightly-2019-11-17'
+  nightly = 'nightly-2020-02-21'
 
   installed_toolchains = capture('rustup', 'toolchain', 'list').lines.map(&:chomp)
 
