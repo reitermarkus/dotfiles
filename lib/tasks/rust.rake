@@ -57,6 +57,13 @@ task :rust => [:'brew:casks_and_formulae', :sccache] do
 
   installed_toolchains = capture('rustup', 'toolchain', 'list').lines.map(&:chomp)
 
+  if installed_toolchains.include?('stable-x86_64-apple-darwin')
+    puts ANSI.green { 'Rust stable toolchain already installed.' }
+  else
+    puts ANSI.blue { 'Installing Rust stable toolchain …' }
+    command 'rustup', 'toolchain', 'install', 'stable'
+  end
+
   if installed_toolchains.include?('nightly-x86_64-apple-darwin')
     puts ANSI.green { 'Rust nightly toolchain already installed.' }
   else
