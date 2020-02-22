@@ -54,6 +54,15 @@ Style/NumericLiterals:
 Style/GlobalVars:
   AllowedVariables: ['$ansi']
 
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
 Style/HashSyntax:
   EnforcedStyle: no_mixed_keys
 
