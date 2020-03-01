@@ -34,6 +34,7 @@ AUTO_INSTALLED_GEMS = %w[
   concurrent-ruby-ext
   concurrent-ruby-edge
   plist
+  vdf
 ].freeze
 
 def install_gem(name, version = nil)
