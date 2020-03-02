@@ -27,9 +27,14 @@ jobs:
         displayName: RuboCop
   - job: Dotfiles
     timeoutInMinutes: 200
+    strategy:
+      matrix:
+        Mojave:
+          vmImage: 'macOS-10.14'
+        Catalina:
+          vmImage: 'macOS-10.15'
     pool:
-      demands:
-        - agent.os -equals Darwin
+      vmImage: $(vmImage)
     steps:
       - bash: |
           set -e
@@ -110,7 +115,7 @@ jobs:
 
           # Clean environment.
           for trash in ~/.DS_Store \
-                       ~/.Trash \
+                       ~/.Trash/* \
                        ~/.android \
                        ~/.azcopy \
                        ~/.azure \
