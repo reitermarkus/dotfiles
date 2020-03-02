@@ -1,6 +1,5 @@
 jobs:
-  - job: Dotfiles
-    timeoutInMinutes: 200
+  - job: Shellcheck
     pool:
       demands:
         - agent.os -equals Darwin
@@ -13,6 +12,11 @@ jobs:
           brew install shellcheck
           shellcheck .sh
         displayName: ShellCheck
+  - job: RuboCop
+    pool:
+      demands:
+        - agent.os -equals Darwin
+    steps:
       - bash: |
           set -e
           set -u
@@ -21,6 +25,12 @@ jobs:
           gem install rubocop
           rubocop --color
         displayName: RuboCop
+  - job: Dotfiles
+    timeoutInMinutes: 200
+    pool:
+      demands:
+        - agent.os -equals Darwin
+    steps:
       - bash: |
           set -e
           set -u
