@@ -17,7 +17,9 @@ namespace :xcode do
         out, = command '/usr/sbin/softwareupdate', '--list'
         name = out.scan(/^\s*\*\s*(Command Line Tools.*)\s+?$/).flatten.last
 
-        raise 'Command Line Tools are not available for download.' unless name
+        unless name
+          raise "Command Line Tools are not available for download.\n\n#{out}"
+        end
 
         command '/usr/sbin/softwareupdate', '--verbose', '--install', name
       ensure
