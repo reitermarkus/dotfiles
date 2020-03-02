@@ -75,7 +75,7 @@ namespace :brew do
       command 'brew', 'update', '--force'
     else
       puts ANSI.blue { 'Installing Homebrew …' }
-      command '/usr/bin/ruby', '-e', capture('/usr/bin/curl', '-fsSL', 'https://raw.githubusercontent.com/Homebrew/install/master/install')
+      command '/bin/bash', '-c', capture('/usr/bin/curl', '-fsSL', 'https://raw.githubusercontent.com/Homebrew/install/master/install.sh')
     end
   end
 
