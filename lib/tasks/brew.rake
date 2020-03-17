@@ -69,6 +69,8 @@ namespace :brew do
   task :install => [:'xcode:command_line_utilities'] do
     ENV['HOMEBREW_NO_AUTO_UPDATE'] = '1'
     ENV['HOMEBREW_NO_INSTALL_CLEANUP'] = '1'
+    ENV['HOMEBREW_VERBOSE'] = '1' if ci?
+    ENV['HOMEBREW_DEBUG'] = '1' if ci?
 
     if which 'brew'
       puts ANSI.blue { 'Updating Homebrew …' }
