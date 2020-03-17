@@ -420,7 +420,7 @@ namespace :brew do
       casks.map { |cask| [cask, CASKS[cask]] }.each do |cask, flags: [], **|
         key = [:cask, cask]
 
-        whitelist = ['virtualbox']
+        whitelist = ['virtualbox', 'rcdefaultapp']
 
         installations[key] =
           wait_for_downloads.call(key)
