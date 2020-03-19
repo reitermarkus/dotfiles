@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'macos_version'
+
 task :rust => [:'brew:casks_and_formulae', :sccache] do
   cargo_home = '~/.config/cargo'
   rustup_home = '~/.config/rustup'
@@ -100,11 +102,13 @@ task :rust => [:'brew:casks_and_formulae', :sccache] do
     end
   end
 
-  if which 'cargo-add'
-    puts ANSI.green { '`cargo-edit` already installed.' }
-  else
-    puts ANSI.blue { 'Installing `cargo-edit` …' }
-    command 'cargo', 'install', 'cargo-edit'
+  if macos_version >= Gem::Version.new('10.15')
+    if which 'cargo-add'
+      puts ANSI.green { '`cargo-edit` already installed.' }
+    else
+      puts ANSI.blue { 'Installing `cargo-edit` …' }
+      command 'cargo', 'install', 'cargo-edit'
+    end
   end
 
   if which 'racer'
