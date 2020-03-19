@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'macos_version'
+
 task :startup do
   # Startup Disk
   volume_name = capture('/usr/sbin/diskutil', 'info', '/').scan(/Volume Name:\s+(.*)/).first.first
@@ -20,8 +22,11 @@ task :startup do
   capture sudo, 'systemsetup', '-setrestartfreeze', 'on'
 
   # Enable Remote Apple Events, Remote Login & Remote Management
-  capture sudo, 'systemsetup', '-setremoteappleevents', 'on'
-  capture sudo, 'systemsetup', '-setremotelogin', 'on'
+  unless ci? && macos_version >= Gem::Version.new('10.15')
+    capture sudo, 'systemsetup', '-setremoteappleevents', 'on'
+    capture sudo, 'systemsetup', '-setremotelogin', 'on'
+  end
+
   capture sudo, '/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart', '-activate',
           '-configure', '-access', '-on', '-users', 'admin', '-privs', '-all', '-restart', '-agent', '-menu'
 end
