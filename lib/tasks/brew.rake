@@ -156,6 +156,7 @@ namespace :brew do
     'thefuck' => {},
     'telnet' => {},
     'tree' => {},
+    'unison' => {},
     'yarn' => {},
   }.freeze
 
