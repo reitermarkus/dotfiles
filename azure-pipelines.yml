@@ -151,6 +151,8 @@ jobs:
               rm "$exe"
             fi
           done
+
+          ls -al ~/
         displayName: Clean environment
       - bash: ./.sh
         displayName: Run `.sh`
