@@ -123,7 +123,9 @@ jobs:
                        ~/.bash_profile \
                        ~/.bash_sessions \
                        ~/.bashrc \
+                       ~/.cargo \
                        ~/.cocoapods \
+                       ~/.conda \
                        ~/.config \
                        ~/.dotnet \
                        ~/.fastlane \
@@ -136,7 +138,15 @@ jobs:
                        ~/.npmrc \
                        ~/.nvm \
                        ~/.oracle_jre_usage \
+                       ~/.packer.d \
+                       ~/.rustup \
+                       ~/.sh_history \
                        ~/.subversion \
+                       ~/.sqlite_history \
+                       ~/.vcpkg \
+                       ~/.viminfo \
+                       ~/.wget-hsts \
+                       ~/.yarn \
                        ~/Microsoft \
                        ~/hostedtoolcache \
                        ~/*.txt; do
