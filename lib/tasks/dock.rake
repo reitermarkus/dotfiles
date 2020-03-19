@@ -3,7 +3,6 @@
 require 'command'
 require 'defaults'
 require 'plist'
-require 'macos_version'
 
 task :dock => [:'dock:defaults', :'dock:icons']
 
