@@ -128,6 +128,7 @@ namespace :brew do
     'ccache' => {},
     'clang-format' => {},
     'cmake' => {},
+    'duti' => {},
     'gcc' => {},
     'git' => {},
     'git-extras' => {},
