@@ -201,7 +201,6 @@ namespace :brew do
     'postman' => {},
     'qlmarkdown' => {},
     'qlstephen' => {},
-    'rcdefaultapp' => {},
     'rocket' => {},
     'sequel-pro' => {},
     'sigil' => {},
@@ -422,7 +421,7 @@ namespace :brew do
       casks.map { |cask| [cask, CASKS[cask]] }.each do |cask, flags: [], **|
         key = [:cask, cask]
 
-        whitelist = ['virtualbox', 'rcdefaultapp']
+        whitelist = ['virtualbox']
 
         installations[key] =
           wait_for_downloads.call(key)
