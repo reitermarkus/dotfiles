@@ -39,6 +39,7 @@ namespace :git do
     # Always use SSH URLs for pushing to GitHub and for pulling from private repositories.
     command 'git', 'config', '--global', 'url.ssh://git@github.com/.pushInsteadOf', 'https://github.com/'
     command 'git', 'config', '--global', 'url.ssh://git@github.com/reitermarkus/.insteadOf', 'https://github.com/reitermarkus/'
+    command 'git', 'config', '--global', 'url.ssh://git@git.uibk.ac.at/.insteadOf', 'https://git.uibk.ac.at/'
 
     # Don't use SSH for Homebrew tap.
     command 'git', 'config', '--global', 'url.https://github.com/reitermarkus/homebrew-tap.insteadOf', 'https://github.com/reitermarkus/homebrew-tap'
