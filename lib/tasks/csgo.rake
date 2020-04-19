@@ -19,7 +19,7 @@ task :csgo do
 
     // Matchmaking
     cl_color 2
-    mm_dedicated_search_maxping 100
+    mm_dedicated_search_maxping 75
 
     // Graphics
     fps_max 0
@@ -71,6 +71,7 @@ task :csgo do
     cl_crosshairstyle 5
     cl_crosshairthickness 0
     cl_crosshairusealpha 1
+    cl_show_observer_crosshair 2
 
     // Mouse
     sensitivity 0.7
