@@ -1,5 +1,5 @@
 AllCops:
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.6
 
 Layout/CaseIndentation:
   EnforcedStyle: end
@@ -16,11 +16,20 @@ Layout/MultilineMethodCallIndentation:
 Layout/RescueEnsureAlignment:
   Enabled: false
 
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+
 Lint/AmbiguousBlockAssociation:
   Enabled: false
 
 Lint/AmbiguousOperator:
   Enabled: false
+
+Lint/RaiseException:
+  Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: true
 
 Lint/SuppressedException:
   Enabled: false
@@ -48,6 +57,9 @@ Style/BlockDelimiters:
 
 Style/Documentation:
   Enabled: false
+
+Style/ExponentialNotation:
+  Enabled: true
 
 Style/NumericLiterals:
   Enabled: false

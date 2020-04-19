@@ -92,24 +92,22 @@ def command(*args, silent: false, tries: 1, input: '', **opts)
         break if readers.all?(&:eof?)
 
         readers.reject(&:eof?).each do |reader|
-          begin
-            line = reader.readline_nonblock
+          line = reader.readline_nonblock
 
-            merged << line
+          merged << line
 
-            case reader
-            when stdout
-              out << line
-              yield [:stdout, line] if block_given?
-              $stdout.write line unless silent
-            when stderr
-              err << line
-              yield [:stderr, line] if block_given?
-              $stderr.write line unless silent
-            end
-          rescue IO::WaitReadable, EOFError
-            next
+          case reader
+          when stdout
+            out << line
+            yield [:stdout, line] if block_given?
+            $stdout.write line unless silent
+          when stderr
+            err << line
+            yield [:stderr, line] if block_given?
+            $stderr.write line unless silent
           end
+        rescue IO::WaitReadable, EOFError
+          next
         end
       end
 
