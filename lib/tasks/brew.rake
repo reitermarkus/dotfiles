@@ -180,7 +180,7 @@ namespace :brew do
     'evernote' => {},
     'fluor' => {},
     'fork' => {},
-    'font-meslo-nerd-font' => {},
+    'font-meslolg-nerd-font' => {},
     'handbrake' => { flags: ["--appdir=#{converters_dir}"] },
     'hazel' => {},
     'hex-fiend' => {},
