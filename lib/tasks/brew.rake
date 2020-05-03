@@ -234,7 +234,6 @@ namespace :brew do
     'vagrant-manager' => {},
     'virtualbox' => {},
     'vlc' => {},
-    'wineskin-winery' => {},
     'xld' => { flags: ["--appdir=#{converters_dir}"] },
     'xnconvert' => { flags: ["--appdir=#{converters_dir}"] },
     'xquartz' => {},
