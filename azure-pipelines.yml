@@ -29,8 +29,6 @@ jobs:
     timeoutInMinutes: 200
     strategy:
       matrix:
-        Mojave:
-          vmImage: 'macOS-10.14'
         Catalina:
           vmImage: 'macOS-10.15'
     pool:
