@@ -9,6 +9,7 @@ task :csgo do
 
   File.write "#{csgo_config_dir}/autoexec.cfg", <<~CFG
     gameinstructor_enable 0
+    ui_mainmenu_bkgnd_movie1 "blacksite"
     cl_autowepswitch 0
     alias +jumpthrow "+jump;-attack;-attack2"
     alias -jumpthrow "-jump"
