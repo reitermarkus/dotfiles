@@ -145,6 +145,7 @@ jobs:
                        ~/.viminfo \
                        ~/.wget-hsts \
                        ~/.yarn \
+                       ~/Library/Caches/Homebrew \
                        ~/Microsoft \
                        ~/hostedtoolcache \
                        ~/*.txt; do
