@@ -20,7 +20,7 @@ task :csgo do
 
     // Matchmaking
     cl_color 2
-    mm_dedicated_search_maxping 75
+    mm_dedicated_search_maxping 50
 
     // Graphics
     fps_max 0
