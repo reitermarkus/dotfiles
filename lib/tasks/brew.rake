@@ -132,7 +132,6 @@ namespace :brew do
     'gcc' => {},
     'git' => {},
     'git-extras' => {},
-    'ghc' => {},
     'imageoptim-cli' => {},
     'iperf3' => {},
     'fish' => {},
