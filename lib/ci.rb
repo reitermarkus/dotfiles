@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 def ci?
-  ENV.key?('CI')
+  ENV.key?('CI') || travis? || azure?
 end
 
 def travis?
@@ -9,5 +9,5 @@ def travis?
 end
 
 def azure?
-  ENV['USER'] == 'vsts'
+  ENV['TF_BUILD'] == 'True'
 end
