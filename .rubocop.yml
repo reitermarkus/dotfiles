@@ -4,6 +4,9 @@ AllCops:
 Layout/CaseIndentation:
   EnforcedStyle: end
 
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
+
 Layout/EndAlignment:
   EnforcedStyleAlignWith: start_of_line
 
@@ -24,6 +27,12 @@ Lint/AmbiguousBlockAssociation:
 
 Lint/AmbiguousOperator:
   Enabled: false
+
+Lint/DeprecatedOpenSSLConstant:
+  Enabled: true
+
+Lint/MixedRegexpCaptureTypes:
+  Enabled: true
 
 Lint/RaiseException:
   Enabled: true
@@ -84,6 +93,18 @@ Style/MultilineBlockChain:
 
 Style/NestedParenthesizedCalls:
   Enabled: false
+
+Style/RedundantFetchBlock:
+  Enabled: true
+
+Style/RedundantRegexpCharacterClass:
+  Enabled: true
+
+Style/RedundantRegexpEscape:
+  Enabled: true
+
+Style/SlicingWithRange:
+  Enabled: true
 
 Style/StderrPuts:
   Enabled: false
