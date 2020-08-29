@@ -17,6 +17,9 @@ task :csgo do
     alias +forwardjumpthrow "+forward;+jumpthrow"
     alias -forwardjumpthrow "-forward;-jumpthrow"
     bind h +forwardjumpthrow
+    alias +djump "+jump;+duck"
+    alias -djump "-jump;-duck"
+    bind ALT +djump
 
     // Matchmaking
     cl_color 2
@@ -43,8 +46,8 @@ task :csgo do
     cl_teamid_overhead_always 1
     bind tab "+score;+cl_show_team_equipment"
 
-    // Mute Enemies
-    cl_mute_enemy_team 1
+    // Don't Mute Enemies
+    cl_mute_enemy_team 0
 
     // “Damage Given” Messages
     developer 1
