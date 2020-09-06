@@ -22,7 +22,7 @@ include = {$include,.simplecov,.resultset.json}                                 
 include = {$include,.codecov.yml}                                                                  # CodeCov
 include = {$include,.swiftlint.yml,.swift-version,.swiftformat}                                    # Swift
 include = {$include,.ocamlinit}                                                                    # OCaml
-include = {$include,.sencha,.babelrc,.markdownlint.json,.stylelintrc.yml,.eslintignore,.eslintrc*} # JavaScript
+include = {$include,.sencha,.babelrc,.markdownlint.json,.stylelintrc.yml,.eslintignore,.eslintrc*,.prettier*} # JavaScript
 include = {$include,.cargo}                                                                        # Rust
 include = {$include,.dockerignore}                                                                 # Docker
 
