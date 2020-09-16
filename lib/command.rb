@@ -8,6 +8,8 @@ class NonZeroExit < RuntimeError
   attr_reader :command, :stdout, :stderr, :merged_output, :status
 
   def initialize(*command, stdout, stderr, merged_output, status)
+    super()
+
     @command = command.join(' ')
     @stdout = stdout
     @stderr = stderr
@@ -127,9 +129,7 @@ def command(*args, silent: false, tries: 1, input: '', **opts)
 
     status = thread.value
 
-    if signal.nil?
-      raise NonZeroExit.new(*args, out, err, merged, status) unless status.success?
-    end
+    raise NonZeroExit.new(*args, out, err, merged, status) if signal.nil? && !status.success?
 
     [out, err, merged, status]
   }

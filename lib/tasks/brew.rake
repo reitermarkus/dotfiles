@@ -47,13 +47,13 @@ def dependencies(keys, acc: TopologicalHash.new, pool: nil)
     [key, promise]
   }.compact
 
-  key_deps = promises.map { |key, promise| [key, promise.value!] }
+  key_deps = promises.map { |key, promise| [key, promise.value!] }.to_h
 
   key_deps.each do |key, deps|
     acc[key] = deps
   end
 
-  key_deps.each do |_, deps|
+  key_deps.each_value do |deps|
     dependencies(deps, acc: acc, pool: pool)
   end
 
@@ -83,7 +83,7 @@ namespace :brew do
 
   desc 'Install Taps'
   task :taps => [:'brew:install'] do
-    TAPS = %w[
+    wanted_taps = %w[
       homebrew/cask
       homebrew/cask-drivers
       homebrew/cask-fonts
@@ -96,7 +96,7 @@ namespace :brew do
       bfontaine/utils
     ].freeze
 
-    taps = TAPS - capture('brew', 'tap').strip.split("\n")
+    taps = wanted_taps - capture('brew', 'tap').strip.split("\n")
 
     if taps.empty?
       puts ANSI.green { 'All Homebrew Taps already installed.' }
@@ -121,7 +121,7 @@ namespace :brew do
     end
   end
 
-  FORMULAE = {
+  wanted_formulae = {
     'bash' => {},
     'bash-completion' => {},
     'carthage' => {},
@@ -163,7 +163,7 @@ namespace :brew do
   converters_dir = '/Applications/Converters.localized'
   itach_dir = '/Applications/iTach'
 
-  CASKS = {
+  wanted_casks = {
     'a-better-finder-rename' => {},
     'aerial' => {},
     'araxis-merge' => {},
@@ -266,8 +266,8 @@ namespace :brew do
     installed_casks = capture('brew', 'cask', 'list').strip.split("\n")
     installed_formulae = capture('brew', 'list').strip.split("\n")
 
-    casks = CASKS.keys - installed_casks
-    formulae = FORMULAE.keys - installed_formulae
+    casks = wanted_casks.keys - installed_casks
+    formulae = wanted_formulae.keys - installed_formulae
 
     if (casks + formulae).empty?
       puts ANSI.green { 'All Casks and Formulae already installed.' }
@@ -416,7 +416,7 @@ namespace :brew do
     end
 
     begin
-      casks.map { |cask| [cask, CASKS[cask]] }.each do |cask, flags: [], **|
+      casks.map { |cask| [cask, wanted_casks[cask]] }.each do |cask, flags: [], **|
         key = [:cask, cask]
 
         whitelist = ['virtualbox', 'netspot']
@@ -437,7 +437,7 @@ namespace :brew do
             }
       end
 
-      formulae.map { |formula| [formula, FORMULAE[formula]] }.each do |formula, **|
+      formulae.map { |formula| [formula, wanted_formulae[formula]] }.each do |formula, **|
         key = [:formula, formula]
 
         installations[key] =
@@ -456,13 +456,9 @@ namespace :brew do
             }
       end
 
-      sorted_dependencies.each do |key|
-        installations[key]&.execute
-      end
-
-      sorted_dependencies.each do |key|
-        installations[key]&.wait!
-      end
+      sorted_dependencies
+        .map { |key| installations[key] }.compact
+        .map(&:execute).each(&:wait!)
     ensure
       install_pool.shutdown
       install_finished_pool.shutdown

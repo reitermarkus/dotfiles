@@ -1,6 +1,9 @@
 AllCops:
   TargetRubyVersion: 2.6
 
+Layout/BeginEndAlignment:
+  Enabled: true
+
 Layout/CaseIndentation:
   EnforcedStyle: end
 
@@ -28,13 +31,49 @@ Lint/AmbiguousBlockAssociation:
 Lint/AmbiguousOperator:
   Enabled: false
 
+Lint/BinaryOperatorWithIdenticalOperands:
+  Enabled: true
+
+Lint/ConstantDefinitionInBlock:
+  Enabled: true
+
 Lint/DeprecatedOpenSSLConstant:
+  Enabled: true
+
+Lint/DuplicateElsifCondition:
+  Enabled: true
+
+Lint/DuplicateRequire:
+  Enabled: true
+
+Lint/DuplicateRescueException:
+  Enabled: true
+
+Lint/EmptyConditionalBody:
+  Enabled: true
+
+Lint/EmptyFile:
+  Enabled: true
+
+Lint/FloatComparison:
+  Enabled: true
+
+Lint/IdentityComparison:
+  Enabled: true
+
+Lint/MissingSuper:
   Enabled: true
 
 Lint/MixedRegexpCaptureTypes:
   Enabled: true
 
+Lint/OutOfRangeRegexpRef:
+  Enabled: true
+
 Lint/RaiseException:
+  Enabled: true
+
+Lint/SelfAssignment:
   Enabled: true
 
 Lint/StructNewOverride:
@@ -42,6 +81,21 @@ Lint/StructNewOverride:
 
 Lint/SuppressedException:
   Enabled: false
+
+Lint/TopLevelReturnWithArgument:
+  Enabled: true
+
+Lint/TrailingCommaInAttributeDeclaration:
+  Enabled: true
+
+Lint/UnreachableLoop:
+  Enabled: true
+
+Lint/UselessMethodDefinition:
+  Enabled: true
+
+Lint/UselessTimes:
+  Enabled: true
 
 Metrics:
   Enabled: false
@@ -55,8 +109,17 @@ Naming/RescuedExceptionsVariableName:
 Style/AccessModifierDeclarations:
   EnforcedStyle: inline
 
+Style/AccessorGrouping:
+  Enabled: true
+
+Style/ArrayCoercion:
+  Enabled: true
+
 Style/AsciiComments:
   Enabled: false
+
+Style/BisectedAttrAccessor:
+  Enabled: true
 
 Style/BlockDelimiters:
   EnforcedStyle: semantic
@@ -64,8 +127,17 @@ Style/BlockDelimiters:
     - blue
     - delete_if
 
+Style/CaseLikeIf:
+  Enabled: false
+
+Style/CombinableLoops:
+  Enabled: true
+
 Style/Documentation:
   Enabled: false
+
+Style/ExplicitBlockArgument:
+  Enabled: true
 
 Style/ExponentialNotation:
   Enabled: true
@@ -73,10 +145,19 @@ Style/ExponentialNotation:
 Style/NumericLiterals:
   Enabled: false
 
+Style/GlobalStdStream:
+  Enabled: true
+
 Style/GlobalVars:
   AllowedVariables: ['$ansi']
 
+Style/HashAsLastArrayItem:
+  Enabled: true
+
 Style/HashEachMethods:
+  Enabled: true
+
+Style/HashLikeCase:
   Enabled: true
 
 Style/HashTransformKeys:
@@ -88,13 +169,25 @@ Style/HashTransformValues:
 Style/HashSyntax:
   EnforcedStyle: no_mixed_keys
 
+Style/KeywordParametersOrder:
+  Enabled: true
+
 Style/MultilineBlockChain:
   Enabled: false
 
 Style/NestedParenthesizedCalls:
   Enabled: false
 
+Style/OptionalBooleanParameter:
+  Enabled: true
+
+Style/RedundantAssignment:
+  Enabled: true
+
 Style/RedundantFetchBlock:
+  Enabled: true
+
+Style/RedundantFileExtensionInRequire:
   Enabled: true
 
 Style/RedundantRegexpCharacterClass:
@@ -103,11 +196,23 @@ Style/RedundantRegexpCharacterClass:
 Style/RedundantRegexpEscape:
   Enabled: true
 
+Style/RedundantSelfAssignment:
+  Enabled: true
+
+Style/SingleArgumentDig:
+  Enabled: true
+
 Style/SlicingWithRange:
+  Enabled: true
+
+Style/SoleNestedConditional:
   Enabled: true
 
 Style/StderrPuts:
   Enabled: false
+
+Style/StringConcatenation:
+  Enabled: true
 
 Style/SymbolArray:
   EnforcedStyle: brackets

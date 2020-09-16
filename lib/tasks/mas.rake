@@ -7,7 +7,7 @@ task :mas => [:'brew:casks_and_formulae'] do
     raise 'Not signed in into App Store.' unless ci?
   end
 
-  APPS = {
+  wanted_apps = {
     '824171161' => 'Affinity Designer',
     '824183456' => 'Affinity Photo',
     '608292802' => 'Auction Sniper for eBay',
@@ -28,7 +28,7 @@ task :mas => [:'brew:casks_and_formulae'] do
 
   installed_apps = Pathname.glob('/Applications/*.app').map { |app| app.basename('.app').to_s }
 
-  apps = APPS.reject { |_, name| installed_apps.include?(name) }
+  apps = wanted_apps.reject { |_, name| installed_apps.include?(name) }
 
   begin
     install_pool = Concurrent::FixedThreadPool.new(10)
