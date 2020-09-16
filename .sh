@@ -110,7 +110,7 @@
   fi
 
   # Run scripts.
-  /usr/bin/rake
+  /usr/bin/rake macos
 
   at_exit 'echo "\033[0;30mDone.\033[0m"'
 
