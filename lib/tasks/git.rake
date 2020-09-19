@@ -41,6 +41,9 @@ namespace :git do
     command 'git', 'config', '--global', 'url.ssh://git@github.com/reitermarkus/.insteadOf', 'https://github.com/reitermarkus/'
     command 'git', 'config', '--global', 'url.ssh://git@git.uibk.ac.at/.insteadOf', 'https://git.uibk.ac.at/'
 
+    # Disallow pushing to `Homebrew/brew`.
+    command 'git', 'config', '--global', 'url.do-not-push', 'https://github.com/Homebrew/brew'
+
     # Don't use SSH for Homebrew tap.
     command 'git', 'config', '--global', 'url.https://github.com/reitermarkus/homebrew-tap.insteadOf', 'https://github.com/reitermarkus/homebrew-tap'
 
