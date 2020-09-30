@@ -45,9 +45,9 @@ def dependencies(keys, acc: TopologicalHash.new, pool: nil)
     end
 
     [key, promise]
-  }.compact
+  }.compact.to_h
 
-  key_deps = promises.map { |key, promise| [key, promise.value!] }.to_h
+  key_deps = promises.transform_values(&:value!)
 
   key_deps.each do |key, deps|
     acc[key] = deps
