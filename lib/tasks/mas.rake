@@ -39,7 +39,8 @@ task :mas => [:'brew:casks_and_formulae'] do
       Concurrent::Promise.execute(executor: install_pool) {
         # On CI, only check if the app ID is correct.
         if ci?
-          next if id == '463541543' # Still available, but only if previously purchased.
+          # Still available, but only if previously purchased.
+          next if ['463541543', '924726344'].include?(id)
 
           capture 'mas', 'info', id
           next
