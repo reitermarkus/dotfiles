@@ -24,6 +24,7 @@ include = {$include,.swiftlint.yml,.swift-version,.swiftformat}                 
 include = {$include,.ocamlinit}                                                                    # OCaml
 include = {$include,.sencha,.babelrc,.markdownlint.json,.stylelintrc.yml,.eslintignore,.eslintrc*,.prettier*} # JavaScript
 include = {$include,.cargo}                                                                        # Rust
+include = {$include,.clang-format}                                                                 # C
 include = {$include,.dockerignore}                                                                 # Docker
 
 fileBrowserGlob = {*,$include}
