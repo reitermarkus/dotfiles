@@ -3,9 +3,7 @@
 require 'tmpdir'
 
 task :keka => [:'brew:casks_and_formulae'] do
-  keka = capture('/usr/bin/mdfind', '-onlyin', '/', 'kMDItemCFBundleIdentifier == com.aone.keka').lines.first&.strip
-
-  keka_resources = Pathname(keka).join('Contents/Resources')
+  keka_resources = Pathname('/Applications/Keka.app/Contents/Resources')
 
   repo = 'osx-archive-icons'
 
