@@ -1,6 +1,8 @@
 function docker --wraps docker
   if contains -- -h $argv || contains -- --help $argv || test (count $argv) = 0; else
-    open -jga Docker
+    if ! pgrep Docker >&-
+      open -jga Docker
+    end
 
     while true
       set -l ping_status (curl --fail --unix-socket /var/run/docker.sock 'http://localhost/_ping' 2>&-)
