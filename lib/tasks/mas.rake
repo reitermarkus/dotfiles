@@ -8,6 +8,7 @@ task :mas => [:'brew:casks_and_formulae'] do
   end
 
   wanted_apps = {
+    # Apps
     '824171161' => 'Affinity Designer',
     '824183456' => 'Affinity Photo',
     '608292802' => 'Auction Sniper for eBay',
@@ -24,6 +25,12 @@ task :mas => [:'brew:casks_and_formulae'] do
     '419891002' => 'RapidClick',
     '443370764' => 'Repeater',
     '497799835' => 'Xcode',
+
+    # Safari Extensions
+    '1472432422' => 'Wayback Machine',
+    '1514164630' => 'Minimal Consent',
+    '1495193038' => 'SimplyJSON',
+    '1463298887' => 'UserScripts',
   }.freeze
 
   installed_apps = Pathname.glob('/Applications/*.app').map { |app| app.basename('.app').to_s }
