@@ -31,7 +31,10 @@ jobs:
         if: ${{ failure() }}
 
   macos:
-    runs-on: macos-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-10.14, macos-11.0]
     steps:
       - name: Clean environment
         run: |
