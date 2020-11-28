@@ -28,7 +28,7 @@ def dependencies(keys, acc: TopologicalHash.new, pool: nil)
     promise = case type
     when :cask
       Concurrent::Promise.execute(executor: pool) {
-        capture('brew', 'cask', 'cat', name).lines.reduce([]) do |a, line|
+        capture('brew', 'cat', '--cask', name).lines.reduce([]) do |a, line|
           if /depends_on\s+formula:\s*(?:"(?<formula>.*)"|'(?<formula>.*)')/ =~ line
             [*a, [:formula, formula]]
           elsif /depends_on\s+cask:\s*(?:"(?<cask>.*)"|'(?<cask>.*)')/ =~ line
@@ -263,8 +263,8 @@ namespace :brew do
                      '[ -e ~/.config/github/token ] && ' \
                      'read HOMEBREW_GITHUB_API_TOKEN < ~/.config/github/token && export HOMEBREW_GITHUB_API_TOKEN'
 
-    installed_casks = capture('brew', 'cask', 'list').strip.split("\n")
-    installed_formulae = capture('brew', 'list').strip.split("\n")
+    installed_casks = capture('brew', 'list', '--cask').strip.split("\n")
+    installed_formulae = capture('brew', 'list', '--formula').strip.split("\n")
 
     casks = wanted_casks.keys - installed_casks
     formulae = wanted_formulae.keys - installed_formulae
@@ -322,23 +322,11 @@ namespace :brew do
     sorted_dependencies.each do |key|
       type, name = key
 
-      downloads[key] = case type
-      when :cask
-        Concurrent::Promise.new(executor: download_pool) {
-          begin
-            command 'brew', 'cask', 'fetch', name, silent: true, tries: 3 do |stream, line|
-              throw :kill, 'INT' if stream == :stdout && line.include?('Verifying checksum')
-            end
-          rescue StandardError
-          end
-        }
-      when :formula
-        Concurrent::Promise.new(executor: download_pool) {
-          command 'brew', 'fetch', '--retry', name, silent: true, tries: 3 do |stream, line|
-            throw :kill, 'INT' if stream == :stdout && line.include?('/Library/Caches/')
-          end
-        }
-      end
+      downloads[key] = Concurrent::Promise.new(executor: download_pool) {
+        command 'brew', 'fetch', '--retry', "--#{type}", name, silent: true, tries: 3 do |stream, line|
+          throw :kill, 'INT' if stream == :stdout && line.include?('/Library/Caches/')
+        end
+      }
     end
 
     # Start MacTeX downloads first because it is by far the biggest.
@@ -425,7 +413,7 @@ namespace :brew do
           wait_for_downloads.call(key)
             .then(executor: install_pool) {
               safe_install(ignore_exception: whitelist.include?(cask)) do
-                capture 'brew', 'cask', 'install', cask, *flags, stdout_tty: true
+                capture 'brew', 'install', '--cask', cask, *flags, stdout_tty: true
               end
             }
             .then(executor: install_finished_pool) { |out, _| print out }
@@ -444,7 +432,7 @@ namespace :brew do
           wait_for_downloads.call(key)
             .then(executor: install_pool) {
               safe_install do
-                capture 'brew', 'install', formula, stdout_tty: true
+                capture 'brew', 'install', '--formula', formula, stdout_tty: true
               end
             }
             .then(executor: install_finished_pool) { |out, _| print out }
