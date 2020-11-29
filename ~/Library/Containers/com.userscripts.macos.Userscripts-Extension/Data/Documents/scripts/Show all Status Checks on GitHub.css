@@ -1,0 +1,14 @@
+// ==UserScript==
+// @name        Show all Status Checks on GitHub
+// @description Expands status check scroll-view to full height.
+// @match       https://github.com/*/*/pull/*
+// ==/UserScript==
+
+.branch-action-item.open > .merge-status-list, 
+.branch-action-item.open > .merge-status-list-wrapper > .merge-status-list {
+  max-height: 9999px
+}
+
+.merge-status-list {
+  max-height: 9999px
+}
