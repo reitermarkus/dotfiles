@@ -18,7 +18,9 @@ task :fish => [:'brew:casks_and_formulae'] do
 
   puts ANSI.blue { 'Installing Fish Plugins …' }
   plugins = %w[
+    edc/bass
     franciscolourenco/done
+    FabioAntunes/fish-nvm
     reitermarkus/fish_prompt
     omf/thefuck
     jethrokuan/z

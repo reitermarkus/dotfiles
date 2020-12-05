@@ -140,6 +140,7 @@ namespace :brew do
     'lockscreen' => {},
     'mackup' => {},
     'mas' => {},
+    'nvm' => {},
     'openjdk' => {},
     'pam-touch-id' => {},
     'pngout' => {},

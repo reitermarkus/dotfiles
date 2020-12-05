@@ -68,6 +68,7 @@ task :macos => [
   :files,
   :'xcode:command_line_utilities',
   :brew,
+  :node,
   :ruby,
   :rust,
   :python,
