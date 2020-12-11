@@ -14,7 +14,7 @@ task :fish => [:'brew:casks_and_formulae'] do
   end
 
   puts ANSI.blue { 'Updating Fish Plugins …' }
-  command 'fish', '-c', 'fisher', 'up'
+  command 'fish', '-c', 'fisher'
 
   puts ANSI.blue { 'Installing Fish Plugins …' }
   plugins = %w[
