@@ -14,7 +14,8 @@ alias pg-start 'pg_ctl start -D /usr/local/var/postgres -l /usr/local/var/postgr
 alias pg-stop 'pg_ctl stop -s -m fast -D /usr/local/var/postgres'
 
 # Editor
-export EDITOR='mate -w'
+set -x EDITOR mate -w
+set -x HOMEBREW_EDITOR mate
 alias edit="mate"
 
 # Finder
