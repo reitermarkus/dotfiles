@@ -51,6 +51,10 @@ task :textmate do
         'value' => '/usr/local/bin:$PATH',
       },
     ], add: true
+
+    delete 'themeAppearance'
+    write 'universalThemeUUID', '38E819D9-AE02-452F-9231-ECC3B204AFD7' # Solarized Light
+    write 'darkModeThemeUUID', 'A4299D9B-1DE5-4BC4-87F6-A757E71B1597' # Solarized Dark
   end
 
   # Force bundles to be re-indexed.

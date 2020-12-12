@@ -31,8 +31,10 @@ class Defaults
     command *@sudo, '/usr/bin/defaults', *@current_host, 'write', *app, *bundle_id, key, *args(value, add: add)
   end
 
-  def delete(*args)
-    command *@sudo, '/usr/bin/defaults', *@current_host, 'delete', *app, *bundle_id, *args
+  def delete(key = nil)
+    previous_value = read(key)
+    command *@sudo, '/usr/bin/defaults', *@current_host, 'delete', *app, *bundle_id, *key unless previous_value.nil?
+    previous_value
   end
 
   def format_number(n)
