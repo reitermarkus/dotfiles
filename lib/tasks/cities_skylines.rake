@@ -4,12 +4,14 @@ task :cities_skylines do
   mods = Pathname('~/Library/Application Support/Colossal Order/Cities_Skylines/Addons/Mods').expand_path
 
   Dir.mktmpdir do |tmpdir|
-    command '/usr/bin/curl', '--silent', '--location', 'https://github.com/crashdump/cities-skylines_force-res/archive/master.tar.gz',
-            '-o', "#{tmpdir}/master.tar.gz"
+    repo = 'cities-skylines_force-res'
 
-    dir = mods.join('cities-skylines_force-res')
+    command '/usr/bin/curl', '--silent', '--location', "https://github.com/crashdump/#{repo}/tarball/HEAD",
+            '-o', "#{tmpdir}/#{repo}.tar.gz"
+
+    dir = mods.join(repo)
     dir.mkpath
-    command '/usr/bin/tar', '-x', '--strip-components', '1', '-C', dir.to_s, '-f', "#{tmpdir}/master.tar.gz"
+    command '/usr/bin/tar', '-xf', "#{tmpdir}/#{repo}.tar.gz", '--strip-components', '1', '-C', dir.to_path
   end
 
   config = Pathname('~/Library/Application Support/Colossal Order/Cities_Skylines/gameSettings.cgs').expand_path

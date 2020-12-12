@@ -100,7 +100,7 @@ jobs:
             eval "$(brew cask list | xargs -I% echo '{ brew cask uninstall --force "%"; brew cask zap --force "%"; } &')"
             brew cask zap --force dotnet &
             wait
-            /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)" -- --force
+            /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)" -- --force
           fi
 
           # Uninstall Xcode and Command Line Tools

@@ -119,7 +119,7 @@
     }
     at_exit remove_dotfiles_dir
 
-    /usr/bin/curl --progress-bar --location 'https://github.com/reitermarkus/dotfiles/archive/master.tar.gz' | /usr/bin/tar -x --strip-components 1
+    /usr/bin/curl --progress-bar --location 'https://github.com/reitermarkus/dotfiles/tarball/HEAD' | /usr/bin/tar -x --strip-components 1
   fi
 
   # Run scripts.

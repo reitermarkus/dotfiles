@@ -8,13 +8,14 @@ task :keka => [:'brew:casks_and_formulae'] do
   repo = 'osx-archive-icons'
 
   Dir.mktmpdir do |dir|
-    command '/usr/bin/curl', '--silent', '--location', "https://github.com/reitermarkus/#{repo}/archive/master.zip",
-            '-o', "#{dir}/master.zip"
-    command '/usr/bin/ditto', '-xk', "#{dir}/master.zip", dir
+    command '/usr/bin/curl', '--silent', '--location', "https://github.com/reitermarkus/#{repo}/tarball/HEAD",
+            '-o', "#{dir}/#{repo}.tar.gz"
+    command '/usr/bin/tar', '-xf', "#{dir}/#{repo}.tar.gz", '--strip-components', '1', '-C', dir
 
-    command "#{dir}/#{repo}-master/_convert_iconsets"
+    FileUtils.rm "#{dir}/#{repo}.tar.gz"
+    command "#{dir}/_convert_iconsets"
 
-    FileUtils.cp Dir.glob("#{dir}/#{repo}-master/*.icns"), keka_resources
+    FileUtils.cp Dir.glob("#{dir}/*.icns"), keka_resources
     FileUtils.rm_f keka_resources.join('extract.png')
 
     dmg_icns = '/System/Library/CoreServices/DiskImageMounter.app/Contents/Resources/diskcopy-doc.icns'
@@ -35,7 +36,7 @@ task :keka => [:'brew:casks_and_formulae'] do
     }
 
     icons.each do |name, extension|
-      iconset = "#{dir}/#{repo}-master/#{extension}.iconset"
+      iconset = "#{dir}/#{extension}.iconset"
 
       FileUtils.cp "#{iconset}/icon_32x32.png", keka_resources.join("tab_#{name}.png")
       FileUtils.cp "#{iconset}/icon_32x32@2x.png", keka_resources.join("tab_#{name}@2x.png")
