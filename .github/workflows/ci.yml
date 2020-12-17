@@ -42,6 +42,18 @@ jobs:
           set -u
           set -o pipefail
 
+          set -x
+
+          mkdir -p /tmp/trash
+          for pkg in /var/db/receipts/*.plist; do
+            pkg_id="$(basename "${pkg}" .plist)"
+            volume="$(pkgutil --pkg-info "${pkg_id}" | sed -n -e 's/^volume: //p')"
+            location="$(pkgutil --pkg-info "${pkg_id}" | sed -n -e 's/^location: //p')"
+            pkgutil --only-files --files "${pkg_id}" | xargs -I% sudo rm -f "${volume}${location}/%" /tmp/trash
+            pkgutil --only-dirs --files "${pkg_id}" | xargs -I% sudo rmdir -p "${volume}${location}/%" || true
+            pkgutil --forget "${pkg_id}"
+          done
+
           # Uninstall Gems.
           for gem in $(gem list --no-versions | grep -v \
                                                      -e 'bigdecimal' \
@@ -97,13 +109,20 @@ jobs:
           sudo rm -rf /usr/local/miniconda &
           rm -rf /usr/local/lib/node_modules &
           rm -f /usr/local/bin/terminal-notifier
+          rm -f /usr/local/bin/change_hostname.sh
+          rm -f /usr/local/bin/azcopy
 
           if which brew &>/dev/null; then
-            eval "$(brew list | xargs -I% echo 'brew uninstall --force --ignore-dependencies "%" &')"
-            eval "$(brew cask list | xargs -I% echo '{ brew cask uninstall --force "%"; brew cask zap --force "%"; } &')"
-            brew cask zap --force dotnet &
+            eval "$(brew list --formula | xargs -I% echo 'brew uninstall --formula --force --ignore-dependencies "%" &')"
+            eval "$(brew list --cask | xargs -I% echo '{ brew uninstall --cask --force "%"; brew uninstall --cask --zap --force "%"; } &')"
+            brew uninstall --cask --zap --force dotnet &
+            brew uninstall --cask --zap --force adoptopenjdk/openjdk/adoptopenjdk8 &
+            brew uninstall --cask --zap --force mono-mdk &
+            brew uninstall --cask --zap --force xamarin-android &
+            brew uninstall --cask --zap --force xamarin-ios &
+            brew uninstall --cask --zap --force xamarin-mac &
             wait
-            /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)" -- --force
+            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)" -- --force
           fi
 
           # Uninstall Xcode and Command Line Tools
@@ -159,19 +178,26 @@ jobs:
                        ~/Microsoft \
                        ~/hostedtoolcache \
                        ~/*.txt; do
-            if [ -e "$trash" ]; then
+            if [[ -e "$trash" ]]; then
               mv "$trash" /tmp/trash/
             fi
           done
 
           # Delete broken symlinks.
           for exe in /usr/local/bin/*; do
-            if [ -L "$exe" ] && ! [ -e "$exe" ]; then
+            if [[ -L "$exe" ]] && ! [[ -e "$exe" ]]; then
               rm "$exe"
             fi
           done
 
           ls -al ~/
+
+          ls -al /usr/local/bin
+
+          ls /var/db/receipts
+
+          ls /var/db/receipts
+
       - name: Install dotfiles via `curl`
         run: |
           curl -sL git.io/.sh | sh
