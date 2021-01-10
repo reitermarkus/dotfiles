@@ -44,16 +44,6 @@ jobs:
 
           set -x
 
-          mkdir -p /tmp/trash
-          for pkg in /var/db/receipts/*.plist; do
-            pkg_id="$(basename "${pkg}" .plist)"
-            volume="$(pkgutil --pkg-info "${pkg_id}" | sed -n -e 's/^volume: //p')"
-            location="$(pkgutil --pkg-info "${pkg_id}" | sed -n -e 's/^location: //p')"
-            pkgutil --only-files --files "${pkg_id}" | xargs -I% sudo rm -f "${volume}${location}/%" /tmp/trash
-            pkgutil --only-dirs --files "${pkg_id}" | xargs -I% sudo rmdir -p "${volume}${location}/%" || true
-            pkgutil --forget "${pkg_id}"
-          done
-
           # Uninstall Gems.
           for gem in $(gem list --no-versions | grep -v \
                                                      -e 'bigdecimal' \
@@ -190,13 +180,15 @@ jobs:
             fi
           done
 
-          ls -al ~/
-
-          ls -al /usr/local/bin
-
-          ls /var/db/receipts
-
-          ls /var/db/receipts
+          mkdir -p /tmp/trash
+          for pkg in /var/db/receipts/*.plist; do
+            pkg_id="$(basename "${pkg}" .plist)"
+            volume="$(pkgutil --pkg-info "${pkg_id}" | sed -n -e 's/^volume: //p')"
+            location="$(pkgutil --pkg-info "${pkg_id}" | sed -n -e 's/^location: //p')"
+            pkgutil --only-files --files "${pkg_id}" | xargs -I% sudo mv -f "${volume}${location}/%" /tmp/trash/ || true
+            pkgutil --only-dirs --files "${pkg_id}" | xargs -I% sudo rmdir -p "${volume}${location}/%" || true
+            pkgutil --forget "${pkg_id}"
+          done
 
       - name: Install dotfiles via `curl`
         run: |
