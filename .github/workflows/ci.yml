@@ -42,8 +42,6 @@ jobs:
           set -u
           set -o pipefail
 
-          set -x
-
           # Uninstall Gems.
           for gem in $(gem list --no-versions | grep -v \
                                                      -e 'bigdecimal' \
