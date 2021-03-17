@@ -79,8 +79,8 @@ task :csgo do
 
     // Mouse
     sensitivity 0.7
-    bind MWHEELUP +jump
-    bind MWHEELDOWN invnext
+    unbind MWHEELUP
+    unbind MWHEELDOWN
     bind MOUSE4 +jumpthrow
 
     // Sound
