@@ -94,6 +94,7 @@ jobs:
           done
 
           # Uninstall Homebrew.
+          brew update
           sudo rm -rf /usr/local/miniconda &
           rm -rf /usr/local/lib/node_modules &
           rm -f /usr/local/bin/terminal-notifier
