@@ -81,6 +81,7 @@ task :macos => [
   :fish,
   :git,
   :github,
+  :gpg,
   :'xcode:defaults',
   :itunes,
   :rapidclick,
