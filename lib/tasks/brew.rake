@@ -196,7 +196,7 @@ namespace :brew do
     'makemkv' => { flags: ["--appdir=#{converters_dir}"] },
     'mediathekview' => {},
     'netspot' => {},
-    'osxfuse' => {},
+    'macfuse' => {},
     'otp-auth' => {},
     'playnow' => {},
     'prizmo' => {},
