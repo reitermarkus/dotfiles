@@ -189,7 +189,7 @@ namespace :brew do
     'image2icon' => { flags: ["--appdir=#{converters_dir}"] },
     'imageoptim' => { flags: ["--appdir=#{converters_dir}"] },
     'keka' => {},
-    'konica-minolta-bizhub-c750i-c650i-c360i-c4050i-c4000i-c3320i-driver' => {},
+    'konica-minolta-bizhub-c750i-driver' => {},
     'latexit' => {},
     'macdown' => {},
     'mactex-no-gui' => {},
