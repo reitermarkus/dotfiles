@@ -266,6 +266,8 @@ namespace :brew do
                      '[ -e ~/.config/github/token ] && ' \
                      'read HOMEBREW_GITHUB_API_TOKEN < ~/.config/github/token && export HOMEBREW_GITHUB_API_TOKEN'
 
+    command 'brew', 'pull', 'https://github.com/Homebrew/brew/pull/11230'
+
     installed_casks = capture('brew', 'list', '--cask').strip.split("\n")
     installed_formulae = capture('brew', 'list', '--formula').strip.split("\n")
 
