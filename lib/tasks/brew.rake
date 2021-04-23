@@ -79,6 +79,14 @@ namespace :brew do
       puts ANSI.blue { 'Installing Homebrew …' }
       command '/bin/bash', '-c', capture('/usr/bin/curl', '-fsSL', 'https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh')
     end
+
+    brew_repo_dir = capture('brew', '--repository').chomp
+    brew_repo_remotes = capture('git', '-C', brew_repo_dir, 'remote').lines.map(&:chomp)
+    if brew_repo_remotes.include?('reitermarkus')
+      command 'git', '-C', brew_repo_dir, 'remote', 'set-url', 'reitermarkus', 'https://github.com/reitermarkus/brew'
+    else
+      command 'git', '-C', brew_repo_dir, 'remote', 'add', 'reitermarkus', 'https://github.com/reitermarkus/brew'
+    end
   end
 
   desc 'Install Taps'
@@ -265,8 +273,6 @@ namespace :brew do
     add_line_to_file bash_environment,
                      '[ -e ~/.config/github/token ] && ' \
                      'read HOMEBREW_GITHUB_API_TOKEN < ~/.config/github/token && export HOMEBREW_GITHUB_API_TOKEN'
-
-    command 'brew', 'pull', 'https://github.com/Homebrew/brew/pull/11230'
 
     installed_casks = capture('brew', 'list', '--cask').strip.split("\n")
     installed_formulae = capture('brew', 'list', '--formula').strip.split("\n")
