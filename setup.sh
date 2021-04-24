@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# After running this script, set up a VNC password:
+# x11vnc -storepasswd ~/.vnc/passwd
+
 sudo pacman -Syu --noconfirm base-devel git sed
 
 sudo sed -i -E 's/^(GRUB_TIMEOUT=).*/\10/' /etc/default/grub
@@ -49,7 +52,7 @@ pacmd set-card-profile 0 output:hdmi-surround-extra3
 # pactl set-sink-formats 0 "pcm; ac3-iec61937; dts-iec61937; eac3-iec61937"
 
 if ! pgrep x11vnc; then
-  x11vnc -display :0 -auth guess -rfbauth ~/.vnc/passwd -forever -loop -repeat -nodpms -rfbport 5900 -rfbportv6 5900 &> /tmp/x11vnc.log &
+  x11vnc -display :0 -usepw -forever -loop -repeat -nodpms -rfbport 5900 -rfbportv6 5900 &> /tmp/x11vnc.log &
 fi
 
 exec plexmediaplayer
