@@ -19,16 +19,24 @@ popd
 sudo pacman -Syu --noconfirm pulseaudio
 systemctl --user enable --now pulseaudio
 
-sudo sed -i -E 's/^; (remixing-produce-lfe =).*/\1 yes/' /etc/pulse/daemon.conf
-sudo sed -i -E 's/^; (remixing-consume-lfe =).*/\1 yes/' /etc/pulse/daemon.conf
-sudo sed -i -E 's/^; (lfe-crossover-freq =).*/\1 120/' /etc/pulse/daemon.conf
-sudo sed -i -E 's/^; (default-sample-rate =).*/\1 48000/' /etc/pulse/daemon.conf
-sudo sed -i -E 's/^; (default-sample-channels =).*/\1 6/' /etc/pulse/daemon.conf
+sudo mkdir -p /etc/pulse/daemon.conf.d
+cat <<EOS | sudo tee /etc/pulse/daemon.conf.d/surround.conf
+remixing-produce-lfe = yes
+remixing-consume-lfe = yes
+lfe-crossover-freq = 120
+
+default-sample-rate = 48000
+default-sample-channels = 6
+EOS
 
 sudo pacman -Syu --noconfirm lightdm
 
-sudo sed -i -E 's/^#(autologin-user=).*/\1plex/' /etc/lightdm/lightdm.conf
-sudo sed -i -E 's/^#(autologin-session=).*/\1xinitrc/' /etc/lightdm/lightdm.conf
+sudo mkdir -p /etc/lightdm/lightdm.conf.d
+cat <<EOS | sudo tee /etc/lightdm/lightdm.conf.d/autologin.conf
+[Seat:*]
+autologin-user=plex
+autologin-session=xinitrc
+EOS
 
 sudo pacman -Syu --noconfirm x11vnc
 yay -Syu --noconfirm plex-media-player
