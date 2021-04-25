@@ -3,6 +3,25 @@
 # After running this script, set up a VNC password:
 # x11vnc -storepasswd ~/.vnc/passwd
 
+cat <<EOS | sudo tee /etc/systemd/network/20-wired.network
+[Match]
+Name=ens18
+
+[Network]
+DHCP=yes
+
+[DHCPv4]
+UseDomains=true
+
+[IPv6AcceptRA]
+UseDomains=yes
+EOS
+sudo systemctl enable --now systemd-networkd
+
+sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+sudo systemctl enable --now systemd-resolved
+sudo sed -i -E 's/^#(ResolveUnicastSingleLabel=).*/\1yes/' /etc/systemd/resolved.conf
+
 sudo pacman -Syu --noconfirm base-devel git sed
 
 sudo sed -i -E 's/^(GRUB_TIMEOUT=).*/\10/' /etc/default/grub
