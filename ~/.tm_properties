@@ -11,7 +11,7 @@ tabSize        = 2
 
 # Includes
 
-include = {$include,.editorconfig,.latexmkrc,.buckconfig}                                          # Editor
+include = {$include,.editorconfig,.latexmkrc,.buckconfig,.sops.*}                                  # Editor
 include = {$include,.gitattributes,.gitignore,.gitmodules,.gitkeep,.github}                        # Git
 include = {$include,.env*}                                                                         # DotEnv
 include = {$include,.gemrc,.bundle,.rspec,.rubocop*.yml,.ruby-version,.yardopts}                   # Ruby
