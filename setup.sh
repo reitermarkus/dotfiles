@@ -26,6 +26,13 @@ sudo pacman -Syu --noconfirm base-devel git sed
 
 sudo sed -i -E 's/^(GRUB_TIMEOUT=).*/\10/' /etc/default/grub
 sudo sed -i -E 's/^(GRUB_TIMEOUT_STYLE=).*/\1hidden/' /etc/default/grub
+sudo sed -i -E 's/^(GRUB_TERMINAL_INPUT=).*/\1"console serial"/' /etc/default/grub
+sudo sed -i -E 's/^(GRUB_TERMINAL_OUTPUT=).*/\1"console serial"/' /etc/default/grub
+sudo sed -i -E 's/^(GRUB_CMDLINE_LINUX_DEFAULT=).*/\1"loglevel=3 quiet console=tty0 console=ttyS0,115200"/' /etc/default/grub
+if ! grep -q GRUB_SERIAL_COMMAND /etc/default/grub; then
+  echo 'GRUB_SERIAL_COMMAND="serial --unit=0 --speed=115200"' | sudo tee -a /etc/default/grub
+fi
+sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 pushd /tmp
 git clone https://aur.archlinux.org/yay-bin.git
