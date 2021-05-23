@@ -13,9 +13,6 @@ task :fish => [:'brew:casks_and_formulae'] do
     command sudo, '/usr/bin/chsh', '-s', fish_executable, USER
   end
 
-  puts ANSI.blue { 'Updating Fish Plugins …' }
-  command 'fish', '-c', 'fisher'
-
   puts ANSI.blue { 'Installing Fish Plugins …' }
   plugins = %w[
     edc/bass
@@ -26,4 +23,7 @@ task :fish => [:'brew:casks_and_formulae'] do
     jethrokuan/z
   ]
   command 'fish', '-c', "fisher add #{plugins.join(' ')}"
+
+  puts ANSI.blue { 'Updating Fish Plugins …' }
+  command 'fish', '-c', 'fisher'
 end
