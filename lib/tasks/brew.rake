@@ -80,6 +80,15 @@ namespace :brew do
       command '/bin/bash', '-c', capture('/usr/bin/curl', '-fsSL', 'https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh')
     end
 
+    brew_prefix = capture('brew', '--prefix').chomp
+
+    [File.join(brew_prefix, 'bin'), File.join(brew_prefix, 'sbin')].map(&:shellescape).each do |bin|
+      add_line_to_file fish_environment, "contains #{bin} $PATH; " \
+                                         "or set -x fish_user_paths #{bin} $fish_user_paths"
+      add_line_to_file bash_environment, "[[ \":$PATH:\" =~ :#{bin}: ]] || " \
+                                         "export PATH=#{bin}:\"$PATH\""
+    end
+
     brew_repo_dir = capture('brew', '--repository').chomp
     brew_repo_remotes = capture('git', '-C', brew_repo_dir, 'remote').lines.map(&:chomp)
     if brew_repo_remotes.include?('reitermarkus')
@@ -149,6 +158,7 @@ namespace :brew do
     'lockscreen' => {},
     'mackup' => {},
     'mas' => {},
+    'mosh' => {},
     'nvm' => {},
     'openjdk' => {},
     'pam-touch-id' => {},
