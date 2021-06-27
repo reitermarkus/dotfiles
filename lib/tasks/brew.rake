@@ -159,6 +159,7 @@ namespace :brew do
     'mackup' => {},
     'mas' => {},
     'mosh' => {},
+    'ncdu' => {},
     'nvm' => {},
     'openjdk' => {},
     'pam-touch-id' => {},
