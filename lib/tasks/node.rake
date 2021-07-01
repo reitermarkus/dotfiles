@@ -11,7 +11,7 @@ namespace :node do
 
     ENV['NVM_DIR'] = File.expand_path(nvm_dir)
 
-    add_line_to_file fish_environment, 'set -x nvm_prefix (brew --prefix nvm ^&-)'
+    add_line_to_file fish_environment, 'set -x nvm_prefix (brew --prefix nvm 2>&-)'
 
     add_line_to_file fish_environment, "set -x NVM_DIR #{nvm_dir}"
     add_line_to_file bash_environment, "export NVM_DIR=#{nvm_dir}"

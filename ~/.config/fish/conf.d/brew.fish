@@ -1,6 +1,6 @@
 # This file was created automatically, do not edit it directly.
 
-if set -l brew_command_init (brew command-not-found-init 2>/dev/null)
+if set -l brew_command_init (brew command-not-found-init 2>&-)
   source "$brew_command_init"
 end
 

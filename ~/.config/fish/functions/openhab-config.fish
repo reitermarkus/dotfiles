@@ -5,7 +5,7 @@ function openhab-config
   set -l pass (security find-internet-password -wa "$USER" -s Server._smb._tcp.local)
 
   mkdir -p "$share"
-  mount -t smbfs "//$USER:$pass@server.local/Macintosh" "$share" ^ /dev/null
+  mount -t smbfs "//$USER:$pass@server.local/Macintosh" "$share" 2>&-
 
   cd  "$share/usr/local/etc/openhab/"; and \
   edit "$share/usr/local/etc/openhab/"
