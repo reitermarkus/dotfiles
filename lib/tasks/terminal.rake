@@ -151,7 +151,8 @@ task :terminal do
   launchd_name = 'com.apple.TerminalInterfaceModeSwitcher'
   launchd_plist = Pathname("~/Library/LaunchAgents/#{launchd_name}.plist").expand_path
 
-  interface_mode_switcher_path = File.expand_path('~/Library/Scripts/terminal_interface_mode_switcher.swift')
+  interface_mode_switcher_path = Pathname('~/Library/Scripts/terminal_interface_mode_switcher.swift').expand_path
+  interface_mode_switcher_path.dirname.mkpath
   FileUtils.cp "#{DOTFILES_DIR}/terminal_interface_mode_switcher.swift", interface_mode_switcher_path
 
   plist = {
@@ -160,7 +161,7 @@ task :terminal do
     'RunAtLoad' => true,
     'KeepAlive' => true,
     'ProgramArguments' => [
-      '/usr/bin/swift', interface_mode_switcher_path,
+      '/usr/bin/swift', interface_mode_switcher_path.to_s,
     ],
     'StandardOutPath' => "/tmp/#{launchd_name}.txt",
     'StandardErrorPath' => "/tmp/#{launchd_name}.txt",
