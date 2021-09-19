@@ -217,7 +217,6 @@ namespace :brew do
     'netspot' => {},
     'macfuse' => {},
     'otp-auth' => {},
-    'playnow' => {},
     'prizmo' => {},
     'postman' => {},
     'qlmarkdown' => {},
