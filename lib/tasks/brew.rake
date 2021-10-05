@@ -154,6 +154,7 @@ namespace :brew do
     'iperf3' => {},
     'fish' => {},
     'fisher' => {},
+    'jq' => {},
     'llvm' => {},
     'lockscreen' => {},
     'mackup' => {},
@@ -180,6 +181,7 @@ namespace :brew do
     'tree' => {},
     'unison' => {},
     'yarn' => {},
+    'yq' => {},
   }.freeze
 
   converters_dir = '/Applications/Converters.localized'
