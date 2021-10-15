@@ -79,6 +79,7 @@ task :macos => [
   :local_scripts,
   :bash,
   :fish,
+  :krew,
   :git,
   :github,
   :gpg,

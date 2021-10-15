@@ -155,6 +155,7 @@ namespace :brew do
     'fish' => {},
     'fisher' => {},
     'jq' => {},
+    'krew' => {},
     'llvm' => {},
     'lockscreen' => {},
     'mackup' => {},
