@@ -175,6 +175,7 @@ namespace :brew do
     'rfc' => {},
     'rustup-init' => {},
     'sccache' => {},
+    'sops' => {},
     'svgexport' => {},
     'terminal-notifier' => {},
     'thefuck' => {},
