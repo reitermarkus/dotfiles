@@ -25,6 +25,12 @@ task :rust => [:'brew:casks_and_formulae', :sccache] do
 
   FileUtils.mkdir_p ENV['CARGO_HOME']
   File.write "#{ENV['CARGO_HOME']}/config", <<~TOML
+    [unstable]
+    credential-process = true
+
+    [registry]
+    credential-process = "cargo:macos-keychain"
+
     [net]
     git-fetch-with-cli = true
   TOML
