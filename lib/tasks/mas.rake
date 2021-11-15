@@ -3,6 +3,7 @@
 require 'macos_version'
 
 task :mas => [:'brew:casks_and_formulae'] do
+  # https://github.com/mas-cli/mas/issues/417
   if macos_version < Gem::Version.new('12')
     begin
       capture 'mas', 'account'
