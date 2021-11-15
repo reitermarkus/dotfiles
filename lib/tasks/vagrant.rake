@@ -7,7 +7,7 @@ task :vagrant => [:'brew:casks_and_formulae'] do
                         .map { |line| line.split(/\s+/).first }
 
   [
-    'vagrant-hostsupdater',
+    'vagrant-hostmanager',
     'vagrant-parallels',
   ].each do |plugin|
     if installed_plugins.include?(plugin)
