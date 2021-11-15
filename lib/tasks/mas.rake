@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
+require 'macos_version'
+
 task :mas => [:'brew:casks_and_formulae'] do
-  begin
-    capture 'mas', 'account'
-  rescue NonZeroExit
-    raise 'Not signed in into App Store.' unless ci?
+  if macos_version < Gem::Version.new('12')
+    begin
+      capture 'mas', 'account'
+    rescue NonZeroExit
+      raise 'Not signed in into App Store.' unless ci?
+    end
   end
 
   wanted_apps = {
