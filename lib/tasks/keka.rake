@@ -21,25 +21,5 @@ task :keka => [:'brew:casks_and_formulae'] do
     dmg_icns = Dir.glob('/System/Library/CoreServices/DiskImageMounter.app/Contents/Resources/{diskcopy-doc,diskimage}.icns').first
     FileUtils.cp dmg_icns, keka_resources.join('dmg.icns')
     FileUtils.cp dmg_icns, keka_resources.join('iso.icns')
-
-    icons = {
-      '7z' => '7z',
-      'bzip' => 'bz',
-      'bzip2' => 'bz2',
-      'gzip' => 'gz',
-      'rar' => 'rar',
-      'tar' => 'tar',
-      'tbz2' => 'tbz2',
-      'tgz' => 'tgz',
-      'zip' => 'zip',
-      'xz' => 'xz',
-    }
-
-    icons.each do |name, extension|
-      iconset = "#{dir}/#{extension}.iconset"
-
-      FileUtils.cp "#{iconset}/icon_32x32.png", keka_resources.join("tab_#{name}.png")
-      FileUtils.cp "#{iconset}/icon_32x32@2x.png", keka_resources.join("tab_#{name}@2x.png")
-    end
   end
 end
