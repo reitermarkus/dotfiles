@@ -33,7 +33,6 @@ task :mas => [:'brew:casks_and_formulae'] do
 
     # Safari Extensions
     '1472432422' => 'Wayback Machine',
-    '1514164630' => 'Minimal Consent',
     '1495193038' => 'SimplyJSON',
     '1463298887' => 'UserScripts',
   }.freeze
