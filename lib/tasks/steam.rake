@@ -14,11 +14,11 @@ task :steam do
 
   command '/usr/bin/osascript', '-e', 'tell application "System Events" to delete login item "Steam"' if login_item
 
-  path = Pathname('~/Library/Application Support/Steam/userdata/46026291/config/localconfig.vdf').expand_path
-  path.dirname.mkpath
-  FileUtils.touch path
+  localconfig_path = Pathname('~/Library/Application Support/Steam/userdata/46026291/config/localconfig.vdf').expand_path
+  localconfig_path.dirname.mkpath
+  FileUtils.touch localconfig_path
 
-  vdf = VDF.parse(File.read(path))
+  vdf = VDF.parse(File.read(localconfig_path))
 
   vdf['UserLocalConfigStore'] ||= {}
   vdf['UserLocalConfigStore']['News'] ||= {}
@@ -26,5 +26,9 @@ task :steam do
   # Disable Steam news pop-up.
   vdf['UserLocalConfigStore']['News']['NotifyAvailableGames'] = 0
 
-  File.write path, VDF.generate(vdf)
+  File.write localconfig_path, VDF.generate(vdf)
+
+  steamapps_path = Pathname('~/Library/Application Support/Steam/steamapps').expand_path
+  steamapps_path.mkpath
+  capture 'tmutil', 'addexclusion', steamapps_path.to_path
 end
