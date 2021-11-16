@@ -483,7 +483,8 @@ namespace :brew do
   task :services => :'brew:casks_and_formulae' do
     wanted_services = ['asimov']
     services = capture(sudo, 'brew', 'services', 'list')
-      .each_line.map { |l| l.strip.split(/\s+/, 2) }.to_h
+                 .each_line
+                 .map { |l| l.strip.split(/\s+/, 2) }.to_h
 
     wanted_services.each do |service|
       capture sudo, 'brew', 'services', 'start', service if services.fetch(service) == 'stopped'
