@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
+require 'command'
 require 'defaults'
+require 'killall'
 
 task :terminal do
   defaults 'com.apple.Terminal' do
@@ -146,7 +148,7 @@ task :terminal do
     }
   end
 
-  capture '/usr/bin/killall', 'cfprefsd'
+  killall 'cfprefsd'
 
   launchd_name = 'com.apple.TerminalInterfaceModeSwitcher'
   launchd_plist = Pathname("~/Library/LaunchAgents/#{launchd_name}.plist").expand_path

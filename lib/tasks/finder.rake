@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+require 'command'
+require 'defaults'
+require 'killall'
+
 task :finder do
   # Hide “/opt” folder.
   command sudo, '/usr/bin/chflags', 'hidden', '/opt' if File.directory?('/opt')
@@ -50,7 +54,7 @@ task :finder do
       },
     }
 
-    capture '/usr/bin/killall', 'cfprefsd'
+    killall 'cfprefsd'
 
     # Disable warning when changing a extension.
     write 'FXEnableExtensionChangeWarning', false
@@ -93,7 +97,7 @@ task :finder do
       },
     }
 
-    capture '/usr/bin/killall', 'cfprefsd'
+    killall 'cfprefsd'
   end
 
   # Enable spring-loading directories and decrease default delay.
@@ -109,7 +113,7 @@ task :finder do
     write 'skip-verify-remote', true
   end
 
-  capture '/usr/bin/killall', 'cfprefsd'
+  killall 'cfprefsd'
 
   # Set default apps.
   command 'duti', '-s', 'at.eggerapps.tabletool', 'csv', 'all'

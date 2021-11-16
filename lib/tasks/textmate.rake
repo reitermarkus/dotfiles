@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
+require 'command'
 require 'defaults'
+require 'killall'
 require 'tmpdir'
 
 def extract_tbz(src, to:)
@@ -60,5 +62,5 @@ task :textmate do
   # Force bundles to be re-indexed.
   FileUtils.rm_f File.expand_path('~/Library/Caches/com.macromates.TextMate/BundlesIndex.binary')
 
-  capture '/usr/bin/killall', 'cfprefsd'
+  killall 'cfprefsd'
 end

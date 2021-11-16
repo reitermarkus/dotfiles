@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'defaults'
+require 'killall'
 
 task :safari do
   puts ANSI.blue { 'Configuring Safari …' }
@@ -31,5 +32,5 @@ task :safari do
     }
   end
 
-  capture '/usr/bin/killall', 'cfprefsd'
+  killall 'cfprefsd'
 end

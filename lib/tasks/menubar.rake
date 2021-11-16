@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'defaults'
+require 'killall'
+
 task :menubar do
   puts ANSI.blue { 'Configuring menu bar …' }
 
@@ -35,6 +38,6 @@ task :menubar do
     ]
   end
 
-  capture '/usr/bin/killall', 'cfprefsd'
-  capture '/usr/bin/killall', 'SystemUIServer'
+  killall 'cfprefsd'
+  killall 'SystemUIServer'
 end

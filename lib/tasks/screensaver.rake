@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'concurrent'
-require 'command'
+require 'defaults'
 require 'json'
+require 'killall'
 
 task :screensaver => [:'screensaver:defaults', :'screensaver:aerial']
 
@@ -26,8 +26,8 @@ namespace :screensaver do
       write 'showClock', false
     end
 
-    capture '/usr/bin/killall', 'cfprefsd'
-    capture '/usr/bin/killall', '-HUP', 'Dock'
+    killall 'cfprefsd'
+    killall 'Dock', signal: 'HUP'
   end
 
   task :aerial => [:'brew:casks_and_formulae'] do

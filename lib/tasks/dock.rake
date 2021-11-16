@@ -2,6 +2,7 @@
 
 require 'command'
 require 'defaults'
+require 'killall'
 require 'plist'
 
 task :dock => [:'dock:defaults', :'dock:icons']
@@ -49,7 +50,7 @@ namespace :dock do
       INSERT INTO preferences VALUES(1, 1, 4);
     SQL
 
-    capture '/usr/bin/killall', 'cfprefsd'
+    killall 'cfprefsd'
   end
 
   task :icons do
@@ -91,7 +92,7 @@ namespace :dock do
       }
     end
 
-    capture '/usr/bin/killall', 'cfprefsd'
-    capture '/usr/bin/killall', 'Dock'
+    killall 'cfprefsd'
+    killall 'Dock'
   end
 end

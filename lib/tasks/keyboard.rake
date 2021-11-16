@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'defaults'
+require 'killall'
 
 task :keyboard do
   puts ANSI.blue { 'Switching to Austrian keyboard layout …' }
@@ -20,5 +21,5 @@ task :keyboard do
     write 'NSAutomaticPeriodSubstitutionEnabled', false
   end
 
-  capture '/usr/bin/killall', 'cfprefsd'
+  killall 'cfprefsd'
 end

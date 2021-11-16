@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'defaults'
+require 'killall'
+
 task :mouse_trackpad do
   # Enable user preferences.
   defaults 'com.apple.AppleMultitouchTrackpad' do
@@ -228,5 +231,5 @@ task :mouse_trackpad do
     write 'TrackpadFiveFingerPinchGesture', 2
   end
 
-  capture '/usr/bin/killall', 'cfprefsd'
+  killall 'cfprefsd'
 end

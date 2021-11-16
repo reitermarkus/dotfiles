@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'killall'
+require 'defaults'
+
 task :bettersnaptool => [:'brew:casks_and_formulae'] do
   puts ANSI.blue { 'Configuring BetterSnapTool …' }
 
@@ -23,5 +26,5 @@ task :bettersnaptool => [:'brew:casks_and_formulae'] do
   puts ANSI.blue { 'Adding BetterSnapTool to login items …' }
   add_login_item 'com.hegenberg.BetterSnapTool', hidden: true
 
-  capture '/usr/bin/killall', 'cfprefsd'
+  killall 'cfprefsd'
 end
