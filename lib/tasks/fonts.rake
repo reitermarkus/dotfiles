@@ -12,7 +12,7 @@ task :fonts do
   raise unless (unison = which 'unison')
 
   launchd_name = 'fonts'
-  launchd_plist = File.expand_path("~/Library/LaunchAgents/#{launchd_name}.plist")
+  launchd_plist = Pathname("~/Library/LaunchAgents/#{launchd_name}.plist").expand_path
 
   plist = {
     'Label' => launchd_name,
@@ -29,7 +29,8 @@ task :fonts do
     'WatchPaths' => [icloud_fonts_dir.to_s, local_fonts_dir.to_s],
   }
 
-  File.write launchd_plist, plist.to_plist
+  launchd_plist.dirname.mkpath
+  launchd_plist.write plist.to_plist
 
-  capture '/bin/launchctl', 'load', launchd_plist
+  capture '/bin/launchctl', 'load', launchd_plist.to_path
 end
