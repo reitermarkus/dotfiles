@@ -9,10 +9,12 @@ task :mackup => [:'brew:casks_and_formulae'] do
     directory = ./
 
     [applications_to_ignore]
+    bettersnaptool
     bundler
     fish
     fisherman
-    bettersnaptool
+    git
+    rubocop
     terminal
     textmate
   CFG
