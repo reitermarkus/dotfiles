@@ -18,7 +18,8 @@ task :keka => [:'brew:casks_and_formulae'] do
     FileUtils.cp Dir.glob("#{dir}/*.icns"), keka_resources
     FileUtils.rm_f keka_resources.join('extract.png')
 
-    dmg_icns = Dir.glob('/System/Library/CoreServices/DiskImageMounter.app/Contents/Resources/{diskcopy-doc,diskimage}.icns').first
+    dmg_icns_glob = '/System/Library/CoreServices/DiskImageMounter.app/Contents/Resources/{diskcopy-doc,diskimage}.icns'
+    dmg_icns = Dir.glob(dmg_icns_glob).first
     FileUtils.cp dmg_icns, keka_resources.join('dmg.icns')
     FileUtils.cp dmg_icns, keka_resources.join('iso.icns')
   end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'command'
 
 def killall(process_name, signal: nil)

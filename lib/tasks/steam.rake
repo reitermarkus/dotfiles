@@ -14,7 +14,9 @@ task :steam do
 
   command '/usr/bin/osascript', '-e', 'tell application "System Events" to delete login item "Steam"' if login_item
 
-  localconfig_path = Pathname('~/Library/Application Support/Steam/userdata/46026291/config/localconfig.vdf').expand_path
+  steam_dir = Pathname('~/Library/Application Support/Steam').expand_path
+
+  localconfig_path = steam_dir.join('userdata/46026291/config/localconfig.vdf')
   localconfig_path.dirname.mkpath
   FileUtils.touch localconfig_path
 
@@ -28,7 +30,7 @@ task :steam do
 
   File.write localconfig_path, VDF.generate(vdf)
 
-  steamapps_path = Pathname('~/Library/Application Support/Steam/steamapps').expand_path
+  steamapps_path = steam_dir.join('steamapps')
   steamapps_path.mkpath
   capture 'tmutil', 'addexclusion', steamapps_path.to_path
 end
