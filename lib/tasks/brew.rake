@@ -430,41 +430,25 @@ namespace :brew do
     end
 
     begin
-      casks.map { |cask| [cask, wanted_casks[cask]] }.each do |cask, flags: [], **|
-        key = [:cask, cask]
+      packages = casks.map { |cask| [:cask, cask, wanted_casks[cask]] } +
+                 formulae.map { |formula| [:formula, formula, wanted_formulae[formula]] }
 
-        whitelist = ['virtualbox', 'netspot']
+      packages.each do |type, cask_or_formula, **|
+        key = [type, cask_or_formula]
+
+        ignored_exceptions = ['virtualbox', 'netspot']
 
         installations[key] =
           wait_for_downloads.call(key)
             .then(executor: install_pool) {
-              safe_install(ignore_exception: whitelist.include?(cask)) do
-                capture 'brew', 'install', '--cask', cask, *flags, stdout_tty: true
+              safe_install(ignore_exception: ignored_exceptions.include?(cask_or_formula)) do
+                capture 'brew', 'install', "--#{type}", cask_or_formula, stdout_tty: true
               end
             }
             .then(executor: install_finished_pool) { |out, _| print out }
             .then(executor: cleanup_pool) {
               begin
-                capture 'brew', 'cleanup', cask if ci?
-              rescue NonZeroExit
-              end
-            }
-      end
-
-      formulae.map { |formula| [formula, wanted_formulae[formula]] }.each do |formula, **|
-        key = [:formula, formula]
-
-        installations[key] =
-          wait_for_downloads.call(key)
-            .then(executor: install_pool) {
-              safe_install do
-                capture 'brew', 'install', '--formula', formula, stdout_tty: true
-              end
-            }
-            .then(executor: install_finished_pool) { |out, _| print out }
-            .then(executor: cleanup_pool) {
-              begin
-                capture 'brew', 'cleanup', formula if ci?
+                capture 'brew', 'cleanup', cask_or_formula if ci?
               rescue NonZeroExit
               end
             }
