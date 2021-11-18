@@ -170,7 +170,7 @@ task :terminal do
   }
 
   launchd_plist.write plist.to_plist
-  command '/bin/chmod', '=r,u+w', launchd_plist.to_path
+  command '/bin/chmod', '0644', launchd_plist.to_path
 
   capture '/bin/launchctl', 'load', '-w', launchd_plist.to_path
 end

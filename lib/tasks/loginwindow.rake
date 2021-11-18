@@ -108,7 +108,9 @@ namespace :loginwindow do
 
     capture sudo, '/usr/bin/tee', launchd_plist, input: plist.to_plist
 
-    command sudo, '/usr/sbin/chown', 'root:admin', launchd_plist
-    command sudo, '/bin/chmod', '=r,u+w', launchd_plist
+    command sudo, '/usr/sbin/chown', 'root:wheel', launchd_plist
+    command sudo, '/bin/chmod', '0644', launchd_plist
+
+    capture '/bin/launchctl', 'load', '-w', launchd_plist.to_path
   end
 end

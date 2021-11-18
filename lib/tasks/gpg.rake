@@ -12,7 +12,7 @@ task :gpg => [:'brew:casks_and_formulae'] do
   add_line_to_file bash_environment, "export GNUPGHOME=#{gnupg_home}"
 
   gnupg_home_path.mkpath
-  chmod_R 'go-rw', gnupg_home_path
+  chmod_R 'go-rw', gnupg_home_path.realpath
 
   raise if (pinentry = which('pinentry-mac')).nil?
 
@@ -20,4 +20,21 @@ task :gpg => [:'brew:casks_and_formulae'] do
   add_line_to_file gpg_agent_conf, "pinentry-program \"#{pinentry}\""
 
   command 'gpgconf', '--kill', 'gpg-agent'
+
+  launchd_name = 'org.gnupg.environment'
+  launchd_plist = "/Library/LaunchAgents/#{launchd_name}.plist"
+
+  plist = {
+    'Label' => launchd_name,
+    'RunAtLoad' => true,
+    'ProgramArguments' => [
+      '/bin/bash', '-c', "launchctl setenv GNUPGHOME #{gnupg_home}"
+    ],
+  }
+
+  capture sudo, '/usr/bin/tee', launchd_plist, input: plist.to_plist
+  command sudo, '/usr/sbin/chown', 'root:wheel', launchd_plist
+  command sudo, '/bin/chmod', '0644', launchd_plist
+
+  capture '/bin/launchctl', 'load', '-w', launchd_plist.to_path
 end
