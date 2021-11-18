@@ -34,10 +34,22 @@ task :finder => :'brew:casks_and_formulae' do
     write 'ShowStatusBar', true
     write 'ShowPreviewPane', true
 
+    write 'SidebarZoneOrder1', [
+      'icloud',
+      'favorites',
+      'devices',
+      'tags',
+    ]
+
     write 'ShowRecentTags', true
     write 'SidebarDevicesSectionDisclosedState', true
     write 'SidebarPlacesSectionDisclosedState', true
     write 'SidebariCloudDriveSectionDisclosedState', true
+    write 'SidebarShowingSignedIntoiCloud', true
+    write 'SidebarShowingiCloudDesktop', true
+    write 'FXICloudDriveEnabled', true
+    write 'FXICloudDriveDesktop', true
+    write 'FXICloudDriveDocuments', true
 
     # Desktop View Settings
     write 'DesktopViewSettings', {
