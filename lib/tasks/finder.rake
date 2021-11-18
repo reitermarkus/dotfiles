@@ -4,7 +4,7 @@ require 'command'
 require 'defaults'
 require 'killall'
 
-task :finder do
+task :finder => :'brew:casks_and_formulae' do
   # Hide “/opt” folder.
   command sudo, '/usr/bin/chflags', 'hidden', '/opt' if File.directory?('/opt')
 
@@ -33,6 +33,11 @@ task :finder do
     write 'ShowSidebar', true
     write 'ShowStatusBar', true
     write 'ShowPreviewPane', true
+
+    write 'ShowRecentTags', true
+    write 'SidebarDevicesSectionDisclosedState', true
+    write 'SidebarPlacesSectionDisclosedState', true
+    write 'SidebariCloudDriveSectionDisclosedState', true
 
     # Desktop View Settings
     write 'DesktopViewSettings', {
@@ -122,4 +127,17 @@ task :finder do
   command 'duti', '-s', 'com.macromates.TextMate', 'json', 'all'
   command 'duti', '-s', 'com.macromates.TextMate', 'yml', 'all'
   command 'duti', '-s', 'com.uranusjr.macdown', 'md', 'all'
+
+  # Add sidebar items.
+  command sudo, 'mysides', 'remove', 'all'
+  command sudo, 'mysides', 'add', 'Applications', 'file:///Applications/'
+  # command sudo, 'mysides', 'add', 'iCloud', 'x-apple-finder:icloud'
+  command sudo, 'mysides', 'add', 'Home', "file://#{File.expand_path('~/')}"
+  # command sudo, 'mysides', 'add', 'Desktop', "file://#{File.expand_path('~/Desktop/')}"
+  # command sudo, 'mysides', 'add', 'Documents', "file://#{File.expand_path('~/Documents/')}"
+  command sudo, 'mysides', 'add', 'Downloads', "file://#{File.expand_path('~/Downloads/')}"
+  command sudo, 'mysides', 'add', 'Music', "file://#{File.expand_path('~/Music/')}"
+  command sudo, 'mysides', 'add', 'Pictures', "file://#{File.expand_path('~/Pictures/')}"
+  command sudo, 'mysides', 'add', 'Movies', "file://#{File.expand_path('~/Movies/')}"
+  command sudo, 'mysides', 'add', 'Recently used', 'file:///System/Library/CoreServices/Finder.app/Contents/Resources/MyLibraries/myDocuments.cannedSearch/'
 end
