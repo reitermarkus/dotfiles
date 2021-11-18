@@ -152,5 +152,5 @@ task :finder => :'brew:casks_and_formulae' do
   command sudo, 'mysides', 'add', 'Pictures', "file://#{File.expand_path('~/Pictures/')}"
   command sudo, 'mysides', 'add', 'Movies', "file://#{File.expand_path('~/Movies/')}"
   command sudo, 'mysides', 'add', 'Recently used',
-    'file:///System/Library/CoreServices/Finder.app/Contents/Resources/MyLibraries/myDocuments.cannedSearch/'
+          'file:///System/Library/CoreServices/Finder.app/Contents/Resources/MyLibraries/myDocuments.cannedSearch/'
 end

@@ -28,7 +28,7 @@ task :gpg => [:'brew:casks_and_formulae'] do
     'Label' => launchd_name,
     'RunAtLoad' => true,
     'ProgramArguments' => [
-      '/bin/bash', '-c', "launchctl setenv GNUPGHOME #{gnupg_home}"
+      '/bin/bash', '-c', "launchctl setenv GNUPGHOME #{gnupg_home}",
     ],
   }
 
