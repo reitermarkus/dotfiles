@@ -111,6 +111,6 @@ namespace :loginwindow do
     command sudo, '/usr/sbin/chown', 'root:wheel', launchd_plist
     command sudo, '/bin/chmod', '0644', launchd_plist
 
-    capture '/bin/launchctl', 'load', '-w', launchd_plist.to_path
+    capture '/bin/launchctl', 'load', '-w', launchd_plist
   end
 end

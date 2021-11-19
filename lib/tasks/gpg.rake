@@ -12,7 +12,7 @@ task :gpg => [:'brew:casks_and_formulae'] do
   add_line_to_file bash_environment, "export GNUPGHOME=#{gnupg_home}"
 
   gnupg_home_path.mkpath
-  chmod_R 'go-rw', gnupg_home_path.realpath
+  chmod_R 'go-rwx', gnupg_home_path.realpath
 
   raise if (pinentry = which('pinentry-mac')).nil?
 
@@ -36,5 +36,5 @@ task :gpg => [:'brew:casks_and_formulae'] do
   command sudo, '/usr/sbin/chown', 'root:wheel', launchd_plist
   command sudo, '/bin/chmod', '0644', launchd_plist
 
-  capture '/bin/launchctl', 'load', '-w', launchd_plist.to_path
+  capture '/bin/launchctl', 'load', '-w', launchd_plist
 end
