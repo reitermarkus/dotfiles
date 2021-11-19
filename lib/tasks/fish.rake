@@ -19,11 +19,10 @@ task :fish => [:'brew:casks_and_formulae'] do
     franciscolourenco/done
     FabioAntunes/fish-nvm
     reitermarkus/fish_prompt
-    omf/thefuck
     jethrokuan/z
   ]
-  command 'fish', '-c', "fisher add #{plugins.join(' ')}"
+  command 'fish', '-c', "fisher install #{plugins.join(' ')}"
 
   puts ANSI.blue { 'Updating Fish Plugins …' }
-  command 'fish', '-c', 'fisher'
+  command 'fish', '-c', 'fisher update'
 end
