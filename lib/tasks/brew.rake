@@ -155,6 +155,7 @@ namespace :brew do
     'iperf3' => {},
     'fish' => {},
     'fisher' => {},
+    'helm' => {},
     'jq' => {},
     'krew' => {},
     'llvm' => {},
