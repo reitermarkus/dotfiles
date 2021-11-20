@@ -219,6 +219,7 @@ namespace :brew do
     'mactex-no-gui' => {},
     'makemkv' => { flags: ["--appdir=#{converters_dir}"] },
     'mediathekview' => {},
+    'monitorcontrol' => {},
     'mysides' => {},
     'netspot' => {},
     'macfuse' => {},

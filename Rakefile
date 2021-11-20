@@ -99,6 +99,7 @@ task :macos => [
   :pam,
   :keyboard,
   :ui,
+  :monitorcontrol,
   :rocket,
   :safari,
   :locale,
