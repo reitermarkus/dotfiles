@@ -20,6 +20,9 @@ task :safari do
     write 'IncludeDevelopMenu', true
     write 'WebKitDeveloperExtrasEnabledPreferenceKey', true
     write 'com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled', true
+
+    write 'SearchProviderShortName', 'DuckDuckGo'
+    write 'SearchProviderIdentifier', 'com.duckduckgo'
   end
 
   # Set “DuckDuckGo” as Default Search Provider.
