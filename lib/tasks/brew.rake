@@ -206,6 +206,7 @@ namespace :brew do
     'docker' => {},
     'epub-services' => {},
     'evernote' => {},
+    'firefox' => {},
     'fluor' => {},
     'fork' => {},
     'font-meslo-lg-nerd-font' => {},
