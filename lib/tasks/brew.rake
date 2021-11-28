@@ -218,6 +218,7 @@ namespace :brew do
     'keka' => {},
     'konica-minolta-bizhub-c750i-driver' => {},
     'latexit' => {},
+    'minecraft' => {},
     'macdown' => {},
     'mactex-no-gui' => {},
     'makemkv' => { flags: ["--appdir=#{converters_dir}"] },
