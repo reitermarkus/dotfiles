@@ -65,6 +65,7 @@ task :linux => [
 ]
 
 task :macos => [
+  :ansible,
   :files,
   :'xcode:command_line_utilities',
   :brew,
