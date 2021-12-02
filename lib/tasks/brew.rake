@@ -149,6 +149,7 @@ namespace :brew do
     'cmake' => {},
     'duti' => {},
     'gcc' => {},
+    'gcc-arm-unknown-linux-gnueabihf@8' => {},
     'git' => {},
     'git-extras' => {},
     'gnupg' => {},
