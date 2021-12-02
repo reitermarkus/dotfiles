@@ -23,6 +23,13 @@ task :rust => [:'brew:casks_and_formulae', :sccache] do
   add_line_to_file bash_environment,
                    'mkdir -p "$CARGO_HOME/bin" && export PATH="$CARGO_HOME/bin:$PATH"'
 
+  add_line_to_file fish_environment, 'set -x CARGO_TARGET_ARM_UNKNOWN_LINUX_GNUEABIHF_LINKER arm-unknown-linux-gnueabihf-gcc'
+  add_line_to_file bash_environment, 'export CARGO_TARGET_ARM_UNKNOWN_LINUX_GNUEABIHF_LINKER=arm-unknown-linux-gnueabihf-gcc'
+  add_line_to_file fish_environment, 'set -x CC_arm_unknown_linux_gnueabihf arm-unknown-linux-gnueabihf-gcc'
+  add_line_to_file bash_environment, 'export CC_arm_unknown_linux_gnueabihf=arm-unknown-linux-gnueabihf-gcc'
+  add_line_to_file fish_environment, 'set -x CXX_arm_unknown_linux_gnueabihf arm-unknown-linux-gnueabihf-gcc'
+  add_line_to_file bash_environment, 'export CXX_arm_unknown_linux_gnueabihf=arm-unknown-linux-gnueabihf-gcc'
+
   FileUtils.mkdir_p ENV['CARGO_HOME']
   File.write "#{ENV['CARGO_HOME']}/config", <<~TOML
     [unstable]
