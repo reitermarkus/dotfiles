@@ -69,8 +69,17 @@ task :rust => [:'brew:casks_and_formulae', :sccache] do
     puts ANSI.blue { 'Installing Rust …' }
     command 'rustup-init', '-y', '--no-modify-path'
   end
-
+  installed_targets = capture('rustup', 'target', 'list', '--installed').lines.map(&:chomp)
   installed_toolchains = capture('rustup', 'toolchain', 'list').lines.map(&:chomp)
+
+  ['arm-unknown-linux-gnueabihf'].each do |target|
+    if installed_targets.include?(target)
+      puts ANSI.green { "Rust #{target} target already installed." }
+    else
+      puts ANSI.blue { "Installing Rust #{target} target …" }
+      command 'rustup', 'target', 'add', target
+    end
+  end
 
   if installed_toolchains.include?('stable-x86_64-apple-darwin')
     puts ANSI.green { 'Rust stable toolchain already installed.' }
