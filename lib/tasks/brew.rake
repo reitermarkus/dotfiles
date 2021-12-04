@@ -186,6 +186,7 @@ namespace :brew do
     'telnet' => {},
     'tree' => {},
     'unison' => {},
+    'watch' => {},
     'yarn' => {},
     'yq' => {},
   }.freeze
