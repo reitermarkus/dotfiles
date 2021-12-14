@@ -102,6 +102,7 @@ task :macos => [
   :keyboard,
   :ui,
   :monitorcontrol,
+  :origin,
   :rocket,
   :safari,
   :locale,

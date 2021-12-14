@@ -1,18 +1,10 @@
 # frozen_string_literal: true
 
 require 'vdf'
+require 'login_item'
 
 task :steam do
-  login_item = begin
-    capture(
-      '/usr/bin/osascript', '-e',
-      'tell application "System Events" to get the name of every login item contains "Steam"',
-    ).strip == 'true'
-  rescue NonZeroExit
-    false
-  end
-
-  command '/usr/bin/osascript', '-e', 'tell application "System Events" to delete login item "Steam"' if login_item
+  remove_login_item 'com.valvesoftware.steam'
 
   steam_dir = Pathname('~/Library/Application Support/Steam').expand_path
 

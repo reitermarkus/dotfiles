@@ -229,6 +229,7 @@ namespace :brew do
     'mysides' => {},
     'netspot' => {},
     'macfuse' => {},
+    'origin' => {},
     'otp-auth' => {},
     'prizmo' => {},
     'postman' => {},

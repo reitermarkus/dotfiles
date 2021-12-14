@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'add_login_item'
+require 'login_item'
 require 'defaults'
 
 task :monitorcontrol => [:'brew:casks_and_formulae'] do
