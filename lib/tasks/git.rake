@@ -8,7 +8,7 @@ task :git => [:'git:config', :'git:commands', :'git:aliases']
 
 namespace :git do
   desc 'Set up Git Configuration'
-  task :config do
+  task :config => :commands do
     git_config_dir = File.expand_path('~/.config/git')
     git_config = "#{git_config_dir}/config"
     git_attributes = "#{git_config_dir}/attributes"
@@ -39,7 +39,10 @@ namespace :git do
     # GPG
     command 'git', 'config', '--global', 'user.signingKey', 'Markus Reiter <me@reitermark.us>'
     command 'git', 'config', '--global', 'commit.gpgSign', 'true'
-    command 'git', 'config', '--global', 'gpg.program', 'gpg'
+
+    git_gpg = which 'git-gpg'
+    raise if git_gpg.nil?
+    command 'git', 'config', '--global', 'gpg.program', git_gpg
 
     # Always use SSH URLs for pushing to GitHub and for pulling from private repositories.
     command 'git', 'config', '--global', 'url.ssh://git@github.com/.pushInsteadOf', 'https://github.com/'
@@ -63,10 +66,23 @@ namespace :git do
   end
 
   desc 'Install Git Commands'
-  task :commands do
-    bin = '~/.config/git/commands'
-    add_line_to_file fish_environment, "mkdir -p #{bin}; and set -x fish_user_paths #{bin} $fish_user_paths"
-    add_line_to_file bash_environment, "mkdir -p #{bin} && export PATH=#{bin}:\"$PATH\""
+  task :commands => :gpg do
+    git_bin = '~/.config/git/bin'
+    git_bin_path = Pathname(git_bin).expand_path
+    ENV['PATH'] = "#{git_bin_path}:#{ENV['PATH']}"
+    add_line_to_file fish_environment, "mkdir -p #{git_bin}; and set -x fish_user_paths #{git_bin} $fish_user_paths"
+    add_line_to_file bash_environment, "mkdir -p #{git_bin} && export PATH=#{git_bin}:\"$PATH\""
+
+    gpg = which 'gpg'
+    raise if gpg.nil?
+    git_gpg = git_bin_path/'git-gpg'
+    git_gpg.write <<~SH
+      #!/usr/bin/env bash
+
+      export GNUPGHOME=#{ENV.fetch('GNUPGHOME').shellescape}
+      exec #{gpg.shellescape} "${@}"
+    SH
+    chmod '+x', git_gpg
   end
 
   desc 'Install Git Aliases'
