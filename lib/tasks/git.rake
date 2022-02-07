@@ -32,9 +32,13 @@ namespace :git do
     command 'git', 'config', '--global', 'diff.plist.binary', 'false'
     add_line_to_file git_attributes, '*.plist diff=plist'
 
-    command 'git', 'config', '--global', 'diff.plist.textconv', 'iconv -t utf-8'
-    command 'git', 'config', '--global', 'diff.plist.binary', 'false'
-    add_line_to_file git_attributes, '*.strings utf16 diff'
+    command 'git', 'config', '--global', 'diff.strings.textconv', 'iconv -f utf-16 -t utf-8'
+    command 'git', 'config', '--global', 'diff.strings.binary', 'false'
+    add_line_to_file git_attributes, '*.strings utf16 diff=strings'
+
+    command 'git', 'config', '--global', 'diff.sops.textconv', 'sh -c "echo \'-----BEGIN SOPS ENCRYPTED CONTENT-----\' && sops -d \\"${@}\\" && echo \'-----END SOPS ENCRYPTED CONTENT-----\'"'
+    command 'git', 'config', '--global', 'diff.sops.binary', 'false'
+    add_line_to_file git_attributes, '*.enc.yml diff=sops'
 
     # GPG
     command 'git', 'config', '--global', 'user.signingKey', 'Markus Reiter <me@reitermark.us>'
