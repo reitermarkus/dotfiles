@@ -10,16 +10,24 @@ task :fluor => [:'brew:casks_and_formulae'] do
     write 'SUAutomaticallyUpdate', false
     write 'SUEnableAutomaticChecks', false
 
-    bundle_id = 'com.TexelRaptor.Parkitect'
-    path = path_by_bundle_id(bundle_id)
+    games = [
+      {
+        id: 'com.TexelRaptor.Parkitect',
+        path: '~/Library/Application Support/Steam/steamapps/common/Parkitect/Parkitect.app',
+      },
+      {
+        id: 'csgo_osx64',
+        path: '~/Library/Application Support/Steam/steamapps/common/Counter-Strike Global Offensive/csgo_osx64',
+      }
+    ]
 
-    write 'AppRules', [
+    write 'AppRules', games.map { |id:, path:|
       {
         'behaviour' => 2,
         'id' => bundle_id,
-        'path' => path,
+        'path' => File.expand_path(path),
       }
-    ]
+    }
   end
 
   puts ANSI.blue { 'Adding Fluor to login items …' }
