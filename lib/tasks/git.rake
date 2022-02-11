@@ -49,6 +49,8 @@ namespace :git do
     command 'git', 'config', '--global', 'gpg.program', git_gpg
 
     # Always use SSH URLs for pushing to GitHub and for pulling from private repositories.
+    command 'git', 'config', '--global', 'url.ssh://git@github.com/editiontirol/.insteadof', 'https://github.com/editiontirol/'
+    command 'git', 'config', '--global', 'url.ssh://git@github.com/oc-reith/.insteadof', 'https://github.com/oc-reith/'
     command 'git', 'config', '--global', 'url.ssh://git@github.com/.pushInsteadOf', 'https://github.com/'
     command 'git', 'config', '--global', 'url.ssh://git@github.com/reitermarkus/.insteadOf', 'https://github.com/reitermarkus/'
     command 'git', 'config', '--global', 'url.ssh://git@git.uibk.ac.at/.insteadOf', 'https://git.uibk.ac.at/'
