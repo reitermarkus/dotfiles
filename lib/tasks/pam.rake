@@ -1,11 +1,8 @@
 # frozen_string_literal: true
 
-task :pam => [:'brew:casks_and_formulae'] do
-  prefix = capture('brew', '--prefix', 'pam-touch-id').strip
-  install_script = "#{prefix}/bin/pam_touchid_install"
-  next unless File.executable?(install_script)
+task :pam do
+  next unless File.exist?('/usr/lib/pam/pam_tid.so.2')
+  next if File.read('/etc/pam.d/sudo').include?('pam_tid.so')
 
-  capture sudo, install_script
-  capture sudo, '/usr/bin/sed', '-i', '', '-E', 's/"reason=[^"]*"/"reason=einen Befehl als Administrator ausführen"/',
-          '/etc/pam.d/sudo'
+  capture sudo, '/usr/bin/sed', '-i', '', "2i\\\nauth       sufficient     pam_tid.so\\\n", '/etc/pam.d/sudo'
 end
