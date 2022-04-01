@@ -35,5 +35,5 @@ Temporary Items
 *.dSYM
 
 # Editor Metadata
-.idea
-.vscode
+.idea/*
+.vscode/*
