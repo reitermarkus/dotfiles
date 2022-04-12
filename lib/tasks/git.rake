@@ -36,7 +36,10 @@ namespace :git do
     command 'git', 'config', '--global', 'diff.strings.binary', 'false'
     add_line_to_file git_attributes, '*.strings utf16 diff=strings'
 
-    command 'git', 'config', '--global', 'diff.sops.textconv', 'sh -c "echo \'-----BEGIN SOPS ENCRYPTED CONTENT-----\' && sops -d \\"${@}\\" && echo \'-----END SOPS ENCRYPTED CONTENT-----\'"'
+    command 'git', 'config', '--global', 'diff.sops.textconv',
+            'sh -c "echo \'-----BEGIN SOPS ENCRYPTED CONTENT-----\' && ' \
+            'sops -d \\"${@}\\" && ' \
+            'echo \'-----END SOPS ENCRYPTED CONTENT-----\'"'
     command 'git', 'config', '--global', 'diff.sops.binary', 'false'
     add_line_to_file git_attributes, '*.enc.yml diff=sops'
 
@@ -46,6 +49,7 @@ namespace :git do
 
     git_gpg = which 'git-gpg'
     raise if git_gpg.nil?
+
     command 'git', 'config', '--global', 'gpg.program', git_gpg
 
     # Always use SSH URLs for pushing to GitHub and for pulling from private repositories.
@@ -82,7 +86,8 @@ namespace :git do
 
     gpg = which 'gpg'
     raise if gpg.nil?
-    git_gpg = git_bin_path/'git-gpg'
+
+    git_gpg = git_bin_path.join('git-gpg')
     git_gpg.write <<~SH
       #!/usr/bin/env bash
 

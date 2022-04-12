@@ -18,13 +18,13 @@ task :fluor => [:'brew:casks_and_formulae'] do
       {
         id: 'csgo_osx64',
         path: '~/Library/Application Support/Steam/steamapps/common/Counter-Strike Global Offensive/csgo_osx64',
-      }
+      },
     ]
 
     write 'AppRules', games.map { |id:, path:|
       {
         'behaviour' => 2,
-        'id' => bundle_id,
+        'id' => id,
         'path' => File.expand_path(path),
       }
     }

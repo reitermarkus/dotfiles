@@ -28,7 +28,7 @@ namespace :xcode do
     pkg = '/Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg'
 
     ruby_include_dir = Pathname('/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/include')
-    header = ruby_include_dir / 'ruby-2.3.0/universal-darwin18/ruby/config.h'
+    header = ruby_include_dir.join('ruby-2.3.0/universal-darwin18/ruby/config.h')
 
     command sudo, 'installer', '-pkg', pkg, '-target', '/' if File.exist?(pkg) && !header.exist?
   end

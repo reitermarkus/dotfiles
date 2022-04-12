@@ -5,9 +5,7 @@ require 'json'
 task :vscode do
   settings_path = Pathname('~/Library/Application Support/Code/User/settings.json').expand_path
 
-  settings = settings_path.exist? ? JSON.parse(settings_path.read) : {}
-
-  settings.merge!({
+  settings = {
     'trailing-spaces.trimOnSave' => true,
     'trailing-spaces.highlightCurrentLine' => false,
     # FIXME: https://github.com/shardulm94/vscode-trailingspaces/issues/55
@@ -20,7 +18,10 @@ task :vscode do
     'editor.cursorWidth' => 1,
     'editor.tabSize' => 2,
     'editor.fontSize' => 13,
-  })
+  }
+
+  # Combine wanted with existing settings.
+  settings = JSON.parse(settings_path.read).merge(settings) if settings_path.exist?
 
   settings_path.write JSON.pretty_generate(settings)
 
