@@ -2,8 +2,11 @@
 
 require 'json'
 
-task :vscode do
+task :vscode => [:'brew:casks_and_formulae', :rust] do
   settings_path = Pathname('~/Library/Application Support/Code/User/settings.json').expand_path
+
+  font_family = 'SauceCodePro Nerd Font Mono'
+  font_size = 13
 
   settings = {
     'trailing-spaces.trimOnSave' => true,
@@ -14,10 +17,18 @@ task :vscode do
     'workbench.preferredLightColorTheme' => 'Solarized Light',
     'workbench.preferredDarkColorTheme' => 'Solarized Dark',
     'window.autoDetectColorScheme' => true,
-    'editor.fontFamily' => 'SauceCodePro Nerd Font Mono',
     'editor.cursorWidth' => 1,
     'editor.tabSize' => 2,
-    'editor.fontSize' => 13,
+    'editor.fontFamily' => font_family,
+    'editor.fontSize' => font_size,
+    'terminal.integrated.fontFamily': font_family,
+    'terminal.integrated.fontSize': font_size,
+    'rust-analyzer.server.extraEnv': {
+      'CARGO_HOME' => ENV.fetch('CARGO_HOME'),
+      'RUSTUP_HOME' => ENV.fetch('RUSTUP_HOME'),
+      'CARGO' => which('cargo'),
+      'RUSTC' => which('rustc'),
+    },
   }
 
   # Combine wanted with existing settings.
@@ -28,6 +39,7 @@ task :vscode do
   extensions = [
     'EditorConfig.EditorConfig',
     'shardulm94.trailing-spaces',
+    'matklad.rust-analyzer',
   ]
 
   extensions.each do |extension|
