@@ -11,7 +11,8 @@ task :terminal do
     write 'Shell', ''
     write 'CopyAttributesProfile', ''
 
-    meslo = font('MesloLGSNerdFontComplete-Regular')
+    font_name = 'SauceCodeProNerdFontCompleteM-Regular'
+    font_size = 13
 
     base03 = color(0, 43, 54)
     base02 = color(7, 54, 66)
@@ -45,7 +46,7 @@ task :terminal do
         'BackgroundColor' => color(253, 246, 227, 0.98),
         'CursorColor' => base1,
         'SelectionColor' => base02,
-        'Font' => meslo,
+        'Font' => font(font_name, size: font_size),
         'TextColor' => base1,
         'TextBoldColor' => base01,
         'ANSIBlackColor' => base03,
@@ -101,7 +102,7 @@ task :terminal do
         'BackgroundColor' => color(0, 43, 54, 1),
         'CursorColor' => base01,
         'SelectionColor' => base02,
-        'Font' => meslo,
+        'Font' => font(font_name, size: font_size),
         'TextColor' => base01,
         'TextBoldColor' => base1,
         'ANSIBlackColor' => base2,

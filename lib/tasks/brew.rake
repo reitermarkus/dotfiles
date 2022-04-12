@@ -212,6 +212,7 @@ namespace :brew do
     'fluor' => {},
     'fork' => {},
     'font-meslo-lg-nerd-font' => {},
+    'font-sauce-code-pro-nerd-font' => {},
     'handbrake' => { flags: ["--appdir=#{converters_dir}"] },
     'hazel' => {},
     'hex-fiend' => {},

@@ -66,12 +66,12 @@ class Defaults
     )
   end
 
-  def font(name, size = 11.0)
+  def font(name, size:)
     wrap_data(
       {
         '$class' => { 'CF$UID' => 3 },
         'NSName' => { 'CF$UID' => 2 },
-        'NSSize' => size,
+        'NSSize' => size.to_f,
         'NSfFlags' => 16,
       },
       name,

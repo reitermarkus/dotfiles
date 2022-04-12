@@ -123,6 +123,7 @@ task :macos => [
   :dnsmasq,
   :loginwindow,
   :textmate,
+  :vscode,
   :dock,
   :softwareupdate,
   :terminal,
