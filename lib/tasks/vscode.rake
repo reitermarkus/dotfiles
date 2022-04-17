@@ -21,9 +21,9 @@ task :vscode => [:'brew:casks_and_formulae', :rust] do
     'editor.tabSize' => 2,
     'editor.fontFamily' => font_family,
     'editor.fontSize' => font_size,
-    'terminal.integrated.fontFamily': font_family,
-    'terminal.integrated.fontSize': font_size,
-    'rust-analyzer.server.extraEnv': {
+    'terminal.integrated.fontFamily' => font_family,
+    'terminal.integrated.fontSize' => font_size,
+    'rust-analyzer.server.extraEnv' => {
       'CARGO_HOME' => ENV.fetch('CARGO_HOME'),
       'RUSTUP_HOME' => ENV.fetch('RUSTUP_HOME'),
       'CARGO' => which('cargo'),
