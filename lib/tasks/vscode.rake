@@ -29,6 +29,10 @@ task :vscode => [:'brew:casks_and_formulae', :rust] do
       'CARGO' => which('cargo'),
       'RUSTC' => which('rustc'),
     },
+    'rust-analyzer.assist.importGranularity' => 'item',
+    'files.associations' => {
+      '*.x' => 'linkerscript',
+    },
   }
 
   # Combine wanted with existing settings.
@@ -40,6 +44,7 @@ task :vscode => [:'brew:casks_and_formulae', :rust] do
     'EditorConfig.EditorConfig',
     'shardulm94.trailing-spaces',
     'matklad.rust-analyzer',
+    'ZixuanWang.linkerscript',
   ]
 
   extensions.each do |extension|
