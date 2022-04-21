@@ -21,6 +21,7 @@ task :vscode => [:'brew:casks_and_formulae', :rust] do
     'editor.tabSize' => 2,
     'editor.fontFamily' => font_family,
     'editor.fontSize' => font_size,
+    'editor.minimap.enabled' => false,
     'terminal.integrated.fontFamily' => font_family,
     'terminal.integrated.fontSize' => font_size,
     'rust-analyzer.server.extraEnv' => {
