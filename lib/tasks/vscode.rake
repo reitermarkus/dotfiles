@@ -46,6 +46,7 @@ task :vscode => [:'brew:casks_and_formulae', :rust] do
     'shardulm94.trailing-spaces',
     'matklad.rust-analyzer',
     'ZixuanWang.linkerscript',
+    'bungcip.better-toml',
   ]
 
   extensions.each do |extension|
