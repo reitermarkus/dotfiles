@@ -11,6 +11,11 @@ task :finder => :'brew:casks_and_formulae' do
   # Show “Library” folder.
   command '/usr/bin/chflags', 'nohidden', File.expand_path('~/Library')
 
+  # Don't show eject notifications.
+  defaults '/Library/Preferences/SystemConfiguration/com.apple.DiskArbitration.diskarbitrationd.plist' do
+    write 'DADisableEjectNotification', true
+  end
+
   defaults 'com.apple.finder' do
     # Show drives and servers on desktop.
     write 'ShowHardDrivesOnDesktop', true
