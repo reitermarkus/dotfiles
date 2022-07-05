@@ -147,6 +147,7 @@ namespace :brew do
     'ccache' => {},
     'clang-format' => {},
     'cmake' => {},
+    'direnv' => {},
     'duti' => {},
     'gcc' => {},
     'gcc-arm-unknown-linux-gnueabihf@8' => {},

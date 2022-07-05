@@ -1,0 +1,5 @@
+[whitelist]
+prefix = [
+  "~/Documents",
+  "~/Repos",
+]

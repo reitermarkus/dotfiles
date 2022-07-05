@@ -82,6 +82,7 @@ task :macos => [
   :fish,
   :fork,
   :krew,
+  :direnv,
   :git,
   :github,
   :gpg,
