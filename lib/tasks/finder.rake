@@ -17,9 +17,9 @@ task :finder => :'brew:casks_and_formulae' do
 
     write 'DADisableEjectNotification', true
 
-    if previous_value != true
-      command sudo, '/bin/launchctl', 'kickstart', '-k', 'system/com.apple.diskarbitrationd'
-    end
+    next if previous_value == true
+
+    command sudo, '/bin/launchctl', 'kickstart', '-k', 'system/com.apple.diskarbitrationd'
   end
 
   defaults 'com.apple.finder' do
