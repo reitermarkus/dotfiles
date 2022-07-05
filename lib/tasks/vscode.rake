@@ -4,6 +4,7 @@ require 'json'
 
 task :vscode => [:'brew:casks_and_formulae', :rust] do
   settings_path = Pathname('~/Library/Application Support/Code/User/settings.json').expand_path
+  settings_path.dirname.mkpath
 
   font_family = 'SauceCodePro Nerd Font Mono'
   font_size = 13
