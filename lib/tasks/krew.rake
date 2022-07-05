@@ -19,4 +19,5 @@ task :krew => :fish do
   command 'kubectl-krew', 'update'
   command 'kubectl-krew', 'install', 'get-all'
   command 'kubectl-krew', 'install', 'pv-migrate'
+  command 'kubectl-krew', 'install', 'openebs'
 end
