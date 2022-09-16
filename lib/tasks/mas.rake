@@ -36,6 +36,7 @@ task :mas => [:'brew:casks_and_formulae'] do
     '1472432422' => 'Wayback Machine',
     '1495193038' => 'SimplyJSON',
     '1463298887' => 'UserScripts',
+    '1591303229' => 'Vinegar - Tube Cleaner',
   }.freeze
 
   installed_apps = Pathname.glob('/Applications/*.app').map { |app| app.basename('.app').to_s }
