@@ -268,6 +268,7 @@ namespace :brew do
     'unicodechecker' => {},
     'vagrant' => {},
     'vagrant-manager' => {},
+    'visual-studio-code' => {},
     'virtualbox' => {},
     'vlc' => {},
     'xld' => { flags: ["--appdir=#{converters_dir}"] },
