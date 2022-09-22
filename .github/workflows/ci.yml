@@ -43,7 +43,7 @@ jobs:
           set -o pipefail
 
           # Uninstall Gems.
-          for gem in $(gem list --no-versions | grep -v \
+          for gem in $(/usr/bin/gem list --no-versions | grep -v \
                                                      -e 'bigdecimal' \
                                                      -e 'CFPropertyList' \
                                                      -e 'cmath' \
@@ -90,7 +90,7 @@ jobs:
                                                      -e 'xmlrpc' \
                                                      -e 'zlib' \
           ); do
-            sudo gem uninstall --force --all --ignore-dependencies --executables "$gem"
+            sudo /usr/bin/gem uninstall --force --all --ignore-dependencies --executables "$gem"
           done
 
           # Uninstall Homebrew.
