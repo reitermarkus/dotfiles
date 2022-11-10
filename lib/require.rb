@@ -33,6 +33,7 @@ AUTO_INSTALLED_GEMS = %w[
   concurrent-edge
   concurrent-ruby-ext
   concurrent-ruby-edge
+  iniparse
   plist
   vdf
 ].freeze

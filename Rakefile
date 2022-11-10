@@ -86,6 +86,7 @@ task :macos => [
   :git,
   :github,
   :gpg,
+  :cura,
   :'xcode:defaults',
   :itunes,
   :rapidclick,

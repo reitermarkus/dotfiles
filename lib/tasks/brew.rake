@@ -266,6 +266,7 @@ namespace :brew do
     'textmate-solarized' => {},
     'transmission' => {},
     'unicodechecker' => {},
+    'ultimaker-cura' => {},
     'vagrant' => {},
     'vagrant-manager' => {},
     'visual-studio-code' => {},
