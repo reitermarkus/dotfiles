@@ -15,7 +15,6 @@ jobs:
       env:
         SHELLCHECK_OPTS: --format=gcc
 
-
   rubocop:
     runs-on: ubuntu-latest
     steps:
