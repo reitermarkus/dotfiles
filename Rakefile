@@ -136,4 +136,5 @@ task :macos => [
   :arduino,
   :mouse_trackpad,
   :userscripts,
+  :thangs,
 ]

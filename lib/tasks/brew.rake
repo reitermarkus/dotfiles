@@ -264,6 +264,7 @@ namespace :brew do
     'textmate-rubocop' => {},
     'textmate-rust' => {},
     'textmate-solarized' => {},
+    'thangs-sync' => {},
     'transmission' => {},
     'unicodechecker' => {},
     'ultimaker-cura' => {},
