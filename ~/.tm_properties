@@ -15,6 +15,7 @@ include = {$include,.editorconfig,.latexmkrc,.buckconfig,.sops.*}               
 include = {$include,.gitattributes,.gitignore,.gitmodules,.gitkeep,.github}                        # Git
 include = {$include,.env*}                                                                         # DotEnv
 include = {$include,.gemrc,.bundle,.rspec,.rubocop*.yml,.ruby-version,.yardopts}                   # Ruby
+include = {$include,.helmignore}                                                                   # Helm
 include = {$include,.travis.yml,.gitlab-ci.yml}                                                    # CI
 include = {$include,.simplecov,.resultset.json}                                                    # SimpleCov
 include = {$include,.codecov.yml}                                                                  # CodeCov
