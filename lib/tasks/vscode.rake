@@ -18,6 +18,8 @@ task :vscode => [:'brew:casks_and_formulae', :rust] do
     'workbench.preferredLightColorTheme' => 'Solarized Light',
     'workbench.preferredDarkColorTheme' => 'Solarized Dark',
     'window.autoDetectColorScheme' => true,
+    # Don't change focus to VS Code when debugger breaks.
+    'debug.focusWindowOnBreak' => false,
     'editor.cursorWidth' => 1,
     'editor.tabSize' => 2,
     'editor.fontFamily' => font_family,
