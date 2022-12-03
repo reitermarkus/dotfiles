@@ -5,6 +5,7 @@ require 'command'
 require 'fileutils'
 require 'which'
 require 'shellwords'
+require 'tsort'
 
 class TopologicalHash < Hash
   include TSort
