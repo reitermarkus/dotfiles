@@ -31,7 +31,7 @@ task :textmate do
 
   updates_default = "#{application_support}/Managed/Cache/org.textmate.updates.default"
   plist = Plist.parse_xml(File.read(updates_default))
-  bundles = plist['bundles'].map { |bundle| [bundle['name'], bundle] }.to_h
+  bundles = plist.fetch('bundles').to_h { |bundle| [bundle['name'], bundle] }
 
   [
     'Arduino',

@@ -16,7 +16,7 @@ task :rust => [:'brew:casks_and_formulae', :sccache] do
   add_line_to_file fish_environment, "set -x RUSTUP_HOME #{rustup_home}"
   add_line_to_file bash_environment, "export RUSTUP_HOME=#{rustup_home}"
 
-  ENV['PATH'] = "#{ENV['CARGO_HOME']}/bin:#{ENV['PATH']}"
+  ENV['PATH'] = "#{ENV.fetch('CARGO_HOME')}/bin:#{ENV.fetch('PATH')}"
 
   add_line_to_file fish_environment,
                    'mkdir -p "$CARGO_HOME/bin"; and set -x fish_user_paths "$CARGO_HOME/bin" $fish_user_paths'
@@ -32,8 +32,8 @@ task :rust => [:'brew:casks_and_formulae', :sccache] do
   add_line_to_file fish_environment, 'set -x CXX_arm_unknown_linux_gnueabihf arm-unknown-linux-gnueabihf-gcc'
   add_line_to_file bash_environment, 'export CXX_arm_unknown_linux_gnueabihf=arm-unknown-linux-gnueabihf-gcc'
 
-  FileUtils.mkdir_p ENV['CARGO_HOME']
-  File.write "#{ENV['CARGO_HOME']}/config", <<~TOML
+  FileUtils.mkdir_p ENV.fetch('CARGO_HOME')
+  File.write "#{ENV.fetch('CARGO_HOME')}/config", <<~TOML
     [unstable]
     credential-process = true
 

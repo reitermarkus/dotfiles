@@ -81,11 +81,11 @@ namespace :dock do
     defaults 'com.apple.dock' do
       write 'persistent-apps', dock_items.map { |path|
         {
-          'GUID': capture('uuidgen'),
+          GUID: capture('uuidgen'),
           'tile-data': {
             'file-data': {
-              '_CFURLStringType': 0,
-              '_CFURLString': path.to_path,
+              _CFURLStringType: 0,
+              _CFURLString: path.to_path,
             },
           },
         }

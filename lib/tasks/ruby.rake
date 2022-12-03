@@ -31,7 +31,7 @@ namespace :ruby do
     rbenv_root = '~/.config/rbenv'
 
     ENV['RBENV_ROOT'] = File.expand_path(rbenv_root)
-    ENV['PATH'] = "#{ENV['RBENV_ROOT']}/shims:#{ENV['PATH']}"
+    ENV['PATH'] = "#{ENV.fetch('RBENV_ROOT')}/shims:#{ENV.fetch('PATH')}"
 
     command 'rbenv', 'rehash'
 

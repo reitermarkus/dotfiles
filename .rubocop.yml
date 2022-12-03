@@ -32,6 +32,9 @@ Lint/AmbiguousBlockAssociation:
 Lint/AmbiguousOperator:
   Enabled: false
 
+Lint/AmbiguousOperatorPrecedence:
+  Enabled: false
+
 Lint/BinaryOperatorWithIdenticalOperands:
   Enabled: true
 

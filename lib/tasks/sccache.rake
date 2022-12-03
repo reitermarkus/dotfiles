@@ -14,7 +14,7 @@ task :sccache => [:'brew:casks_and_formulae'] do
       {
         'enabled' => true,
         'name' => 'RUSTC_WRAPPER',
-        'value' => ENV['RUSTC_WRAPPER'],
+        'value' => ENV.fetch('RUSTC_WRAPPER'),
       },
     ], add: true
   end

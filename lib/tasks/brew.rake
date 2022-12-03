@@ -291,8 +291,8 @@ namespace :brew do
       '--screen_saverdir=/Library/Screen Savers',
     ].shelljoin.gsub(/\\=/, '=')
 
-    add_line_to_file fish_environment, "set -x HOMEBREW_CASK_OPTS '#{ENV['HOMEBREW_CASK_OPTS']}'"
-    add_line_to_file bash_environment, "export HOMEBREW_CASK_OPTS='#{ENV['HOMEBREW_CASK_OPTS']}'"
+    add_line_to_file fish_environment, "set -x HOMEBREW_CASK_OPTS '#{ENV.fetch('HOMEBREW_CASK_OPTS')}'"
+    add_line_to_file bash_environment, "export HOMEBREW_CASK_OPTS='#{ENV.fetch('HOMEBREW_CASK_OPTS')}'"
 
     add_line_to_file fish_environment, 'set -x HOMEBREW_DEVELOPER 1'
     add_line_to_file bash_environment, "export HOMEBREW_DEVELOPER='1'"
@@ -482,7 +482,7 @@ namespace :brew do
     wanted_services = ['asimov']
     services = capture(sudo, 'brew', 'services', 'list')
                  .each_line
-                 .map { |l| l.strip.split(/\s+/, 2) }.to_h
+                 .to_h { |l| l.strip.split(/\s+/, 2) }
 
     wanted_services.each do |service|
       capture sudo, 'brew', 'services', 'start', service if services.fetch(service) == 'stopped'

@@ -7,7 +7,7 @@ task :krew => :fish do
   krew_root = '~/.config/krew'
 
   ENV['KREW_ROOT'] = File.expand_path(krew_root)
-  ENV['PATH'] = "#{ENV['KREW_ROOT']}/bin:#{ENV['PATH']}"
+  ENV['PATH'] = "#{ENV.fetch('KREW_ROOT')}/bin:#{ENV.fetch('PATH')}"
 
   add_line_to_file fish_environment, "set -x KREW_ROOT #{krew_root}; " \
                                      'contains "$KREW_ROOT/bin" $PATH; ' \
