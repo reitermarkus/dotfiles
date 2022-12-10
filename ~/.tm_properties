@@ -11,20 +11,22 @@ tabSize        = 2
 
 # Includes
 
-include = {$include,.editorconfig,.latexmkrc,.buckconfig,.sops.*}                                  # Editor
-include = {$include,.gitattributes,.gitignore,.gitmodules,.gitkeep,.github}                        # Git
-include = {$include,.env*}                                                                         # DotEnv
-include = {$include,.gemrc,.bundle,.rspec,.rubocop*.yml,.ruby-version,.yardopts}                   # Ruby
-include = {$include,.helmignore}                                                                   # Helm
-include = {$include,.travis.yml,.gitlab-ci.yml}                                                    # CI
-include = {$include,.simplecov,.resultset.json}                                                    # SimpleCov
-include = {$include,.codecov.yml}                                                                  # CodeCov
-include = {$include,.swiftlint.yml,.swift-version,.swiftformat}                                    # Swift
-include = {$include,.ocamlinit}                                                                    # OCaml
-include = {$include,.sencha,.babelrc,.markdownlint.json,.stylelintrc.yml,.eslintignore,.eslintrc*,.prettier*,.nvmrc} # JavaScript
-include = {$include,.cargo}                                                                        # Rust
-include = {$include,.clang-format,.clang-tidy}                                                                 # C
-include = {$include,.dockerignore}                                                                 # Docker
+include = {$include,.editorconfig,.latexmkrc,.buckconfig,.sops.*}                        # Editor
+include = {$include,.gitattributes,.gitignore,.gitmodules,.gitkeep,.github}              # Git
+include = {$include,.env*}                                                               # DotEnv
+include = {$include,.gemrc,.bundle,.rspec,.ruby-lint*,.rubocop*,.ruby-version,.yardopts} # Ruby
+include = {$include,.helmignore}                                                         # Helm
+include = {$include,.travis.yml,.gitlab-ci.yml}                                          # CI
+include = {$include,.simplecov,.resultset.json}                                          # SimpleCov
+include = {$include,.codecov.yml}                                                        # CodeCov
+include = {$include,.swiftlint.yml,.swift-version,.swiftformat}                          # Swift
+include = {$include,.ocamlinit}                                                          # OCaml
+include = {$include,.sencha,.babelrc,.stylelintrc*,.eslint*,.prettier*,.nvmrc}           # JavaScript
+include = {$include,.markdownlint}                                                       # MarkDown
+include = {$include,.yamllint*}                                                          # YAML
+include = {$include,.cargo}                                                              # Rust
+include = {$include,.clang-format,.clang-tidy}                                           # C
+include = {$include,.dockerignore}                                                       # Docker
 
 fileBrowserGlob = {*,$include}
 
