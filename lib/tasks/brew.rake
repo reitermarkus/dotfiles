@@ -109,9 +109,10 @@ namespace :brew do
       homebrew/command-not-found
       homebrew/services
 
+      bfontaine/utils
+      fluxcd/tap
       jonof/kenutils
       reitermarkus/tap
-      bfontaine/utils
     ].freeze
 
     taps = wanted_taps - capture('brew', 'tap').strip.split("\n")
@@ -159,9 +160,12 @@ namespace :brew do
     'iperf3' => {},
     'fish' => {},
     'fisher' => {},
+    'flux' => {},
     'helm' => {},
     'jq' => {},
     'krew' => {},
+    'kubeconform' => {},
+    'kubernetes-cli' => {},
     'llvm' => {},
     'lockscreen' => {},
     'mackup' => {},
