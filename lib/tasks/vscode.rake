@@ -54,6 +54,6 @@ task :vscode => [:'brew:casks_and_formulae', :rust] do
   ]
 
   extensions.each do |extension|
-    command 'code', '--install-extension', extension
+    command 'code', '--install-extension', extension, '--force'
   end
 end
