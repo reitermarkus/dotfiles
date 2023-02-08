@@ -302,6 +302,9 @@ namespace :brew do
     add_line_to_file fish_environment, 'set -x HOMEBREW_DEVELOPER 1'
     add_line_to_file bash_environment, "export HOMEBREW_DEVELOPER='1'"
 
+    add_line_to_file fish_environment, 'set -x HOMEBREW_NO_INSTALL_FROM_API 1'
+    add_line_to_file bash_environment, "export HOMEBREW_NO_INSTALL_FROM_API='1'"
+
     add_line_to_file fish_environment,
                      'test -e ~/.config/github/token; and read -x HOMEBREW_GITHUB_API_TOKEN < ~/.config/github/token'
     add_line_to_file bash_environment,
