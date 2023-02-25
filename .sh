@@ -75,7 +75,7 @@
       # Accessibility Access
       if test -z "$(/usr/bin/sqlite3 '/Library/Application Support/com.apple.TCC/TCC.db' \
                       "SELECT * FROM access WHERE client = 'com.apple.Terminal' AND allowed = 1")"; then
-        echo "\033[0;31mPlease enable Accessibility Access for 'Terminal.app' in System Preferences.\033[0m" 1>&2
+        printf "\033[0;31mPlease enable Accessibility Access for 'Terminal.app' in System Preferences.\033[0m\n" 1>&2
         /usr/bin/open 'x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility'
         /usr/bin/open -R /Applications/Utilities/Terminal.app
         exit 1
@@ -97,7 +97,7 @@
     SUDO_ASKPASS="$(/usr/bin/mktemp)"
 
     at_exit "
-      echo '\033[0;31mDeleting SUDO_ASKPASS script …\033[0m'
+      printf '\033[0;31mDeleting SUDO_ASKPASS script …\033[0m\n'
       /bin/rm -f '${SUDO_ASKPASS}'
     "
 
@@ -111,7 +111,7 @@
     export SUDO_ASKPASS
 
     if ! /usr/bin/sudo -A -kv 2>/dev/null; then
-      echo '\033[0;31mIncorrect password.\033[0m' 1>&2
+      printf '\033[0;31mIncorrect password.\033[0m\n' 1>&2
       exit 1
     fi
   fi
@@ -120,13 +120,13 @@
   if [ "$(/usr/bin/basename "${0}")" = '.sh' ]; then
     cd "$(/usr/bin/dirname "$0")"
   else
-    echo '\033[0;34mDownloading Github Repository …\033[0m'
+    printf '\033[0;34mDownloading Github Repository …\033[0m\n'
 
     dotfiles_dir="$(/usr/bin/mktemp -d)"
     pushd "${dotfiles_dir}" >/dev/null
 
     remove_dotfiles_dir() {
-      echo '\033[0;31mRemoving Dotfiles directory …\033[0m'
+      printf '\033[0;31mRemoving Dotfiles directory …\033[0m\n'
       popd >/dev/null
       /bin/rm -rf "${dotfiles_dir}"
     }
@@ -138,6 +138,6 @@
   # Run scripts.
   /usr/bin/rake macos
 
-  at_exit 'echo "\033[0;30mDone.\033[0m"'
+  at_exit 'printf "\033[0;30mDone.\033[0m\n"'
 
 }
