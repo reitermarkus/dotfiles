@@ -53,7 +53,14 @@ task :mas => [:'brew:casks_and_formulae'] do
         # On CI, only check if the app ID is correct.
         if ci?
           # Still available, but only if previously purchased.
-          next if %w[463541543 924726344 608292802 1514164630].include?(id)
+          next if %w[
+            824171161
+            824183456
+            463541543
+            924726344
+            608292802
+            1514164630
+          ].include?(id)
 
           capture 'mas', 'info', id
           next
