@@ -103,7 +103,6 @@ namespace :brew do
   task :taps => [:'brew:install'] do
     wanted_taps = %w[
       homebrew/cask
-      homebrew/cask-drivers
       homebrew/cask-fonts
       homebrew/cask-versions
       homebrew/command-not-found
