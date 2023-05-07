@@ -29,9 +29,15 @@ task :cura => [:'brew:casks_and_formulae'] do
   cura_version = cura_version.match(/\A(\d+\.\d+)\.\d+\Z/)[1]
 
   config_dir = Pathname("~/Library/Application Support/cura/#{cura_version}").expand_path
+  config_dir.mkpath
   config_path = config_dir / 'cura.cfg'
 
-  config = IniParse.parse(config_path.read)
+  ini_content = if config_path.exist?
+    config_path.read
+  else
+    ''
+  end
+  config = IniParse.parse(ini_content)
 
   general_config = config.section('general')
   general_config['accepted_user_agreement'] = true
