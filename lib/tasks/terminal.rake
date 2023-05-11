@@ -11,7 +11,7 @@ task :terminal do
     write 'Shell', ''
     write 'CopyAttributesProfile', ''
 
-    font_name = 'SauceCodeProNerdFontCompleteM-Regular'
+    font_name = 'SauceCodeProNFM'
     font_size = 13
 
     base03 = color(0, 43, 54)
