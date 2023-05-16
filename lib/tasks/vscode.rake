@@ -51,6 +51,7 @@ task :vscode => [:'brew:casks_and_formulae', :rust] do
     'rust-lang.rust-analyzer',
     'ZixuanWang.linkerscript',
     'bungcip.better-toml',
+    'vadimcn.vscode-lldb',
   ]
 
   extensions.each do |extension|
