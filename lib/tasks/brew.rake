@@ -190,6 +190,7 @@ namespace :brew do
     'telnet' => {},
     'tree' => {},
     'unison' => {},
+    'velero' => {},
     'watch' => {},
     'yarn' => {},
     'yq' => {},
