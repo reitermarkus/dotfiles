@@ -158,7 +158,7 @@ namespace :brew do
     'iperf3' => {},
     'fish' => {},
     'fisher' => {},
-    'fluxcd/tap7flux' => {},
+    'fluxcd/tap/flux' => {},
     'helm' => {},
     'jq' => {},
     'krew' => {},
