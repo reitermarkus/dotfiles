@@ -5,7 +5,7 @@ function docker --wraps docker
     end
 
     while true
-      set -l ping_status (curl --fail --unix-socket /var/run/docker.sock 'http://localhost/_ping' 2>&-)
+      set -l ping_status (curl --fail --unix-socket ~/.docker/run/docker.sock 'http://localhost/_ping' 2>&-)
 
       if test "$ping_status" = OK
         break
