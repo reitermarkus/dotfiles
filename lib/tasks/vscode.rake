@@ -38,6 +38,7 @@ task :vscode => [:'brew:casks_and_formulae', :rust] do
     'files.associations' => {
       '*.x' => 'linkerscript',
     },
+    'files.insertFinalNewline' => true,
   }
 
   # Combine wanted with existing settings.
@@ -52,6 +53,9 @@ task :vscode => [:'brew:casks_and_formulae', :rust] do
     'ZixuanWang.linkerscript',
     'bungcip.better-toml',
     'vadimcn.vscode-lldb',
+    'github.vscode-github-actions',
+    'ms-vsliveshare.vsliveshare',
+    'samverschueren.final-newline',
   ]
 
   extensions.each do |extension|
