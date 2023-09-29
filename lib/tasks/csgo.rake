@@ -33,6 +33,10 @@ task :csgo do
     // Network
     rate 786432
 
+    // Chat
+    bind z messagemode
+    bind u messagemode2
+
     // HUD & Radar
     cl_radar_always_centered 0
     cl_radar_scale 0.6
