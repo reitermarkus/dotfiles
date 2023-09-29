@@ -44,7 +44,9 @@ task :csgo do
 
     // Show Teammates
     cl_teamid_overhead_always 1
-    bind tab "+score;+cl_show_team_equipment"
+    alias +scoreinfo "+showscores;+cl_show_team_equipment;cl_showfps 1;cq_netgraph 1"
+    alias -scoreinfo "-showscores;-cl_show_team_equipment;cl_showfps 0;cq_netgraph 0"
+    bind tab +scoreinfo
 
     // Don't Mute Enemies
     cl_mute_enemy_team 0
