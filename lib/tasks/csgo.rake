@@ -110,13 +110,14 @@ task :csgo do
 
   File.write "#{csgo_config_dir}/training.cfg", <<~CFG
     sv_cheats 1
-    mp_maxmoney 50000
-    mp_startmoney 50000
+    mp_maxmoney 100000
+    mp_startmoney 100000
+    mp_afterroundmoney 100000
     mp_freezetime 1
     mp_roundtime_defuse 60
     mp_roundtime_hostage 60
     mp_buy_anywhere 1
-    mp_buytime 1000
+    mp_buytime 60000
     sv_infinite_ammo 2
     mp_warmup_end
     bot_kick all
