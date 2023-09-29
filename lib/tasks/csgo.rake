@@ -36,6 +36,7 @@ task :csgo do
     // Chat
     bind z messagemode
     bind u messagemode2
+    bind k +voicerecord
 
     // HUD & Radar
     cl_radar_always_centered 0
