@@ -82,7 +82,7 @@ task :csgo do
     sensitivity 0.7
     unbind MWHEELUP
     unbind MWHEELDOWN
-    alias +jumpthrow "+jump;-attack;-attack2"
+    alias +jumpthrow "exec jumpthrow"
     alias -jumpthrow "-jump"
     bind j "exec jumpthrow"
     alias +forwardjumpthrow "+forward;+jumpthrow"
@@ -122,7 +122,7 @@ task :csgo do
     bot_kick all
     mp_solid_teammates 1
     god
-    sv_grenade_trajectory 1
+    sv_grenade_trajectory_prac_pipreview true
     bind n noclip
   CFG
 
