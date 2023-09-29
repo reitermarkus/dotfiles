@@ -11,12 +11,6 @@ task :csgo do
     gameinstructor_enable 0
     ui_mainmenu_bkgnd_movie1 "blacksite"
     cl_autowepswitch 0
-    alias +jumpthrow "+jump;-attack;-attack2"
-    alias -jumpthrow "-jump"
-    bind j +jumpthrow
-    alias +forwardjumpthrow "+forward;+jumpthrow"
-    alias -forwardjumpthrow "-forward;-jumpthrow"
-    bind h +forwardjumpthrow
     alias +djump "+jump;+duck"
     alias -djump "-jump;-duck"
     bind ALT +djump
@@ -88,6 +82,12 @@ task :csgo do
     sensitivity 0.7
     unbind MWHEELUP
     unbind MWHEELDOWN
+    alias +jumpthrow "+jump;-attack;-attack2"
+    alias -jumpthrow "-jump"
+    bind j "exec jumpthrow"
+    alias +forwardjumpthrow "+forward;+jumpthrow"
+    alias -forwardjumpthrow "-forward;-jumpthrow"
+    bind h +forwardjumpthrow
     bind MOUSE4 +jumpthrow
 
     // Sound
@@ -102,6 +102,10 @@ task :csgo do
     snd_mute_losefocus 0
 
     host_writeconfig
+  CFG
+
+  File.write "#{csgo_config_dir}/jumpthrow.cfg", <<~CFG
+    -attack;-attack2;+jump;-jump
   CFG
 
   File.write "#{csgo_config_dir}/training.cfg", <<~CFG
