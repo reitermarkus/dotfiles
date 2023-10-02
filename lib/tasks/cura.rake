@@ -52,6 +52,7 @@ task :cura => [:'brew:casks_and_formulae'] do
   config_path.write config.to_ini
 
   printer_config_path = config_dir/'definition_changes/Longer+LK5+Pro_settings.inst.cfg'
+  printer_config_path.dirname.mkpath
   printer_config_path.write <<~INI
     [general]
     version = 4
