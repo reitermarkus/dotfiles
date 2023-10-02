@@ -196,8 +196,7 @@ namespace :brew do
     'yq' => {},
   }.freeze
 
-  converters_dir = '/Applications/Converters.localized'
-  itach_dir = '/Applications/iTach'
+  converters_dir = Pathname('/Applications/Converters.localized')
 
   wanted_casks = {
     'a-better-finder-rename' => {},
@@ -391,7 +390,7 @@ namespace :brew do
       downloads[key].execute
     end
 
-    FileUtils.mkdir_p [itach_dir, "#{converters_dir}/.localized"]
+    (converters_dir/'.localized').mkpath
 
     File.write "#{converters_dir}/.localized/de.strings", <<~STRINGS
       "Converters" = "Konvertierungswerkzeuge";
