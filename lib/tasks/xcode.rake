@@ -51,14 +51,14 @@ namespace :xcode do
   task :defaults do
     puts ANSI.blue { 'Configuring Xcode …' }
 
-    defaults 'com.apple.dt.xcode' do
-      write 'DVTTextIndentUsingTabs', false
-      write 'DVTTextIndentTabWidth', 2
-      write 'DVTTextIndentWidth', 2
-      write 'DVTTextShowLineNumbers', true
-      write 'DVTTextEditorTrimTrailingWhitespace', true
-      write 'DVTTextEditorTrimWhitespaceOnlyLines', true
-      write 'NSNavPanelExpandedStateForSaveMode', true
-    end
+    # defaults 'com.apple.dt.xcode' do
+    #   write 'DVTTextIndentUsingTabs', false
+    #   write 'DVTTextIndentTabWidth', 2
+    #   write 'DVTTextIndentWidth', 2
+    #   write 'DVTTextShowLineNumbers', true
+    #   write 'DVTTextEditorTrimTrailingWhitespace', true
+    #   write 'DVTTextEditorTrimWhitespaceOnlyLines', true
+    #   write 'NSNavPanelExpandedStateForSaveMode', true
+    # end
   end
 end
