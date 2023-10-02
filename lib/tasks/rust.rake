@@ -134,15 +134,4 @@ task :rust => [:'brew:casks_and_formulae', :sccache] do
       command 'cargo', 'install', 'cargo-edit'
     end
   end
-
-  if which 'racer'
-    puts ANSI.green { '`racer` already installed.' }
-  else
-    puts ANSI.blue { 'Installing `racer` …' }
-    begin
-      command 'cargo', '+nightly', 'install', 'racer'
-    rescue NonZeroExit
-      nil
-    end
-  end
 end
