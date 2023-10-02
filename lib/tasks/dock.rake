@@ -21,7 +21,7 @@ namespace :dock do
 
       # Increase Mission Control animation speed.
       write 'expose-animation-duration', 0.125
-      write 'expose-group-apps',  true
+      write 'expose-group-apps', true
 
       # Don't rearrange Spaces based on most recent use.
       write 'mru-spaces', false
