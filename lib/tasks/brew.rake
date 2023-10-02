@@ -295,7 +295,7 @@ namespace :brew do
       '--servicedir=/Library/Services',
       '--screen_saverdir=/Library/Screen Savers',
       '--no-quarantine',
-    ].shelljoin.gsub(/\\=/, '=')
+    ].shelljoin.gsub('\=', '=')
 
     add_line_to_file fish_environment, "set -x HOMEBREW_CASK_OPTS '#{ENV.fetch('HOMEBREW_CASK_OPTS')}'"
     add_line_to_file bash_environment, "export HOMEBREW_CASK_OPTS='#{ENV.fetch('HOMEBREW_CASK_OPTS')}'"
