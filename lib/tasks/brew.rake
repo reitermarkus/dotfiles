@@ -4,6 +4,7 @@ require 'ci'
 require 'command'
 require 'fileutils'
 require 'which'
+require 'pathname'
 require 'shellwords'
 require 'tsort'
 
