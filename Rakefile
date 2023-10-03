@@ -65,7 +65,7 @@ task :linux => [
 ]
 
 task :windows = [
-  :csgo,
+  :cs2,
 ]
 
 task :macos => [
@@ -98,7 +98,7 @@ task :macos => [
   :virtualbox,
   :steam,
   :teamspeak,
-  :csgo,
+  :cs2,
   :cities_skylines,
   :tex,
   :skim,
