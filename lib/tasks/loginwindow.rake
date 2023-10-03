@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'laptop?'
+require 'laptop'
 require 'user'
 require 'plist'
 require 'digest'
