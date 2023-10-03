@@ -18,6 +18,7 @@ task :mackup => [:'brew:casks_and_formulae'] do
     hazel
     jupyter
     rubocop
+    rocket
     terminal
     textmate
     xcode
