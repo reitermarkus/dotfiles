@@ -26,6 +26,9 @@ Layout/RescueEnsureAlignment:
 Layout/SpaceAroundMethodCallOperator:
   Enabled: true
 
+Layout/SpaceAroundOperators:
+  Enabled: false
+
 Lint/AmbiguousBlockAssociation:
   Enabled: false
 
