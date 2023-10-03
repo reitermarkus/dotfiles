@@ -29,7 +29,7 @@ try {
 
   . (Join-Path $dotfilesDir (Join-Path 'settings' 'default_apps.ps1'))
   . (Join-Path $dotfilesDir (Join-Path 'settings' 'disable_uac.ps1'))
-  Copy-Item -Path (Join-Path $dotfilesDir (Join-Path 'settings' 'magic-keyboard.ahk')) -Destination "%appdata%\Microsoft\Windows\Start Menu\Programs\Startup\magic-keyboard.ahk"
+  Copy-Item -Path (Join-Path $dotfilesDir (Join-Path 'settings' 'magic-keyboard.ahk')) -Destination "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\magic-keyboard.ahk"
 
   # . (Join-Path $dotfilesDir (Join-Path 'install' 'chocolatey.ps1'))
   # . (Join-Path $dotfilesDir (Join-Path 'install' 'bootcamp.ps1'))
