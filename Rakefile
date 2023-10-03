@@ -97,6 +97,7 @@ task :macos => [
   :csgo,
   :cities_skylines,
   :tex,
+  :skim,
   :ccache,
   :sccache,
   :make,
