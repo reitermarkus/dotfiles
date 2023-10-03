@@ -7,3 +7,4 @@ winget install --accept-package-agreements --accept-source-agreements -e --id Au
 winget install --accept-package-agreements --accept-source-agreements -e --id TeamSpeakSystems.TeamSpeakClient
 winget install --accept-package-agreements --accept-source-agreements -e --id Mumble.Mumble.Client
 winget install --accept-package-agreements --accept-source-agreements -e --id Valve.Steam
+winget install --accept-package-agreements --accept-source-agreements -e --id RubyInstallerTeam.Ruby.3.1
