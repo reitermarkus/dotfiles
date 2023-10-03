@@ -2,7 +2,7 @@
 
 require 'windows?'
 
-task :csgo do
+task :cs2 do
   puts ANSI.blue { 'Setting up CS:GO configuration …' }
 
   csgo_config_dir = if windows?
