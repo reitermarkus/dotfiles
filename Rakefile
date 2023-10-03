@@ -64,7 +64,7 @@ task :linux => [
   :files,
 ]
 
-task :windows = [
+task :windows => [
   :cs2,
 ]
 
