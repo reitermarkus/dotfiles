@@ -42,10 +42,12 @@ def install_gem(name, version = nil)
   raise unless AUTO_INSTALLED_GEMS.include?(name)
 
   if name == 'concurrent-edge'
-    begin
-      install_gem 'concurrent-ruby-ext'
-    rescue StandardError
-      # Allow to fail when Xcode Command Line Tools are missing.
+    unless Gem.win_platform?
+      begin
+        install_gem 'concurrent-ruby-ext'
+      rescue StandardError
+        # Allow to fail when Xcode Command Line Tools are missing.
+      end
     end
     name = 'concurrent-ruby-edge'
   end
