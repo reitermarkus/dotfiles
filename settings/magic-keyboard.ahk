@@ -21,27 +21,25 @@ $#l::Send "^l"             ; Jump to address bar
 LWin & Tab::AltTab         ; Switch application
 RWin & Tab::AltTab         ; Switch application
  
-$LWin::Return              ; Don't open start menu
-$RWin::Return              ; Don't open start menu
-LWin & RWin::Return        ; Don't open start menu
-$#Space::LWin              ; Open start menu
+$~LWin::vkE8                ; Don't open start menu
+$~RWin::vkE8                ; Don't open start menu
+$#Space::LWin               ; Open start menu
 
 $!Left::Send "^{Left}"     ; Move one word left
 $!Right::Send "^{Right}"   ; Move one word right
 $!+Left::Send "^+{Left}"   ; Select one word left
 $!+Right::Send "^+{Right}" ; Select one word right
 
-; Disable in Counter Strike
-#HotIf not WinActive("ahk_class" "SDL_app")
-$^a::Send "{Home}"         ; Jump to beginning of line
-#HotIf not WinActive("ahk_class" "SDL_app")
-$^e::Send "{End}"          ; Jump to beginning of line
-#HotIf not WinActive("ahk_class" "SDL_app")
-$^+a::Send "+{Home}"       ; Select to beginning of line
-#HotIf not WinActive("ahk_class" "SDL_app")
-$^+e::Send "+{End}"        ; Select to end of line
-#HotIf not WinActive("ahk_class" "SDL_app")
-$^k::Send "{ShiftDown}{End}{ShiftUp}{Del}" ; Delete rest of line
+#HotIf not WinActive("ahk_class" "SDL_app") ; Disable in Counter Strike
+$^a::Send "{Home}"                          ; Jump to beginning of line
+#HotIf not WinActive("ahk_class" "SDL_app") ; Disable in Counter Strike
+$^e::Send "{End}"                           ; Jump to beginning of line
+#HotIf not WinActive("ahk_class" "SDL_app") ; Disable in Counter Strike
+$^+a::Send "+{Home}"                        ; Select to beginning of line
+#HotIf not WinActive("ahk_class" "SDL_app") ; Disable in Counter Strike
+$^+e::Send "+{End}"                         ; Select to end of line
+#HotIf not WinActive("ahk_class" "SDL_app") ; Disable in Counter Strike
+$^k::Send "{ShiftDown}{End}{ShiftUp}{Del}"  ; Delete rest of line
 
 $#^q::DllCall("LockWorkStation") ; Lock screen
 
