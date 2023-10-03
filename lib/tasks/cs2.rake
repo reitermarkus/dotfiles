@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'windows?'
+require 'windows'
 
 task :cs2 do
   puts ANSI.blue { 'Setting up CS:GO configuration …' }
