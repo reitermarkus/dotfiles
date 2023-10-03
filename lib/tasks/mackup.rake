@@ -14,9 +14,11 @@ task :mackup => [:'brew:casks_and_formulae'] do
     fish
     fisherman
     git
+    jupyter
     rubocop
     terminal
     textmate
+    xcode
   CFG
 
   Pathname('~/Library/Mobile Documents/com~apple~CloudDocs').expand_path.mkpath
