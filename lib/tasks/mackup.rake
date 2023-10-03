@@ -21,6 +21,7 @@ task :mackup => [:'brew:casks_and_formulae'] do
     rocket
     terminal
     textmate
+    transmission
     xcode
   CFG
 
