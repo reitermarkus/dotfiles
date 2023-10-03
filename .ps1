@@ -29,10 +29,11 @@ try {
 
   . (Join-Path $dotfilesDir (Join-Path 'settings' 'default_apps.ps1'))
   . (Join-Path $dotfilesDir (Join-Path 'settings' 'disable_uac.ps1'))
-  . (Join-Path $dotfilesDir (Join-Path 'settings' 'natural_scrolling.ps1'))
+  Copy-Item -Path (Join-Path $dotfilesDir (Join-Path 'settings' 'magic-keyboard.ahk')) -Destination "%appdata%\Microsoft\Windows\Start Menu\Programs\Startup\magic-keyboard.ahk"
 
-  . (Join-Path $dotfilesDir (Join-Path 'install' 'chocolatey.ps1'))
-  . (Join-Path $dotfilesDir (Join-Path 'install' 'bootcamp.ps1'))
+  # . (Join-Path $dotfilesDir (Join-Path 'install' 'chocolatey.ps1'))
+  # . (Join-Path $dotfilesDir (Join-Path 'install' 'bootcamp.ps1'))
+  . (Join-Path $dotfilesDir (Join-Path 'install' 'winget.ps1'))
 } finally {
   If ($cleanup) {
     Remove-Item $dotfilesDir -Force -Recurse
