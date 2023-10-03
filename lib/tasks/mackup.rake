@@ -9,6 +9,7 @@ task :mackup => [:'brew:casks_and_formulae'] do
     directory =
 
     [applications_to_ignore]
+    ansible
     bettersnaptool
     bundler
     fish
