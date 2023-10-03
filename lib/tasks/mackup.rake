@@ -20,6 +20,7 @@ task :mackup => [:'brew:casks_and_formulae'] do
     rubocop
     rocket
     skim
+    telegram
     terminal
     textmate
     tower-2
