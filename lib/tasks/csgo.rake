@@ -1,13 +1,19 @@
 # frozen_string_literal: true
 
+require 'windows?'
+
 task :csgo do
   puts ANSI.blue { 'Setting up CS:GO configuration …' }
 
-  csgo_config_dir = File.expand_path('~/Library/Application Support/Steam/userdata/46026291/730/local/cfg')
+  csgo_config_dir = if windows?
+    Pathname('C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg')
+  else
+    Pathname('~/Library/Application Support/Steam/userdata/46026291/730/local/cfg').expand_path
+  end
 
-  FileUtils.mkdir_p csgo_config_dir
+  csgo_config_dir.mkpath
 
-  File.write "#{csgo_config_dir}/autoexec.cfg", <<~CFG
+  (csgo_config_dir/'autoexec.cfg').write <<~CFG
     gameinstructor_enable 0
     ui_mainmenu_bkgnd_movie1 "blacksite"
     cl_autowepswitch 0
@@ -102,11 +108,11 @@ task :csgo do
     host_writeconfig
   CFG
 
-  File.write "#{csgo_config_dir}/jumpthrow.cfg", <<~CFG
+  (csgo_config_dir/'jumpthrow.cfg').write <<~CFG
     -attack;-attack2;+jump;-jump
   CFG
 
-  File.write "#{csgo_config_dir}/training.cfg", <<~CFG
+  (csgo_config_dir/'training.cfg').write <<~CFG
     sv_cheats 1
     mp_maxmoney 100000
     mp_startmoney 100000
@@ -125,6 +131,8 @@ task :csgo do
     bind n noclip
   CFG
 
+  next if windows?
+
   output, = capture 'system_profiler', 'SPDisplaysDataType'
 
   vendor_id = output.scan(/Vendor: [^\s]+ \(0x(\h+)\)/).first&.first&.to_i(16)
@@ -133,7 +141,7 @@ task :csgo do
 
   next if [vendor_id, device_id, width, height].any?(&:nil?)
 
-  File.write "#{csgo_config_dir}/video.txt", <<~CFG
+  (csgo_config_dir/'video.txt').write <<~CFG
     "VideoConfig" {
       "setauto.cpu_level"                "2"
       "setauto.gpu_level"                "3"
@@ -157,7 +165,7 @@ task :csgo do
     }
   CFG
 
-  File.write "#{csgo_config_dir}/videodefaults.txt", <<~CFG
+  (csgo_config_dir/'videodefaults.txt').write <<~CFG
     "config" {
       "setting.csm_quality_level"             "3"
       "setting.mat_software_aa_strength"      "1"
