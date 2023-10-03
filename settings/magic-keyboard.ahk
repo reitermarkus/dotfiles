@@ -11,12 +11,18 @@ $#x::Send "^x"             ; Cut
 $#s::Send "^s"             ; Save
 $#o::Send "^o"             ; Open
 $#p::Send "^p"             ; Print
-$#w::Send "^w"             ; Close window
 $#z::Send "^z"             ; Undo
 $#+z::Send "^y"            ; Redo
 $#q::Send "!{f4}"          ; Close application
+$#r::Send "^r"             ; Close application
 $#f::Send "^f"             ; Find
+#HotIf WinActive("ahk_exe WindowsTerminal.exe")
+$#t::Send "^+t"            ; New tab
+$#w::Send "^+w"            ; Close window or tab
+#HotIf
 $#t::Send "^t"             ; New tab
+$#w::Send "^w"             ; Close window or tab
+
 $#l::Send "^l"             ; Jump to address bar
 LWin & Tab::AltTab         ; Switch application
 RWin & Tab::AltTab         ; Switch application
@@ -32,14 +38,11 @@ $!+Right::Send "^+{Right}" ; Select one word right
 
 #HotIf not WinActive("ahk_class" "SDL_app") ; Disable in Counter Strike
 $^a::Send "{Home}"                          ; Jump to beginning of line
-#HotIf not WinActive("ahk_class" "SDL_app") ; Disable in Counter Strike
 $^e::Send "{End}"                           ; Jump to beginning of line
-#HotIf not WinActive("ahk_class" "SDL_app") ; Disable in Counter Strike
 $^+a::Send "+{Home}"                        ; Select to beginning of line
-#HotIf not WinActive("ahk_class" "SDL_app") ; Disable in Counter Strike
 $^+e::Send "+{End}"                         ; Select to end of line
-#HotIf not WinActive("ahk_class" "SDL_app") ; Disable in Counter Strike
 $^k::Send "{ShiftDown}{End}{ShiftUp}{Del}"  ; Delete rest of line
+#HotIf
 
 $#^q::DllCall("LockWorkStation") ; Lock screen
 
