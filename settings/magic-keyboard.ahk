@@ -17,9 +17,10 @@ $#q::Send !{f4}          ; Close application
 $#f::Send ^f             ; Find
 $#t::Send ^t             ; New tab
 $#l::Send ^l             ; Jump to address bar
+$#r::Send ^r             ; Reload page
 LWin & Tab::AltTab       ; Switch application
 RWin & Tab::AltTab       ; Switch application
- 
+
 $LWin::Return            ; Don't open start menu
 $RWin::Return            ; Don't open start menu
 LWin & RWin::Return      ; Don't open start menu
@@ -50,6 +51,7 @@ $!4::Send ¢
 $!5::Send [
 $!6::Send ]
 $!7::Send |
+$!+7::Send \
 $!8::Send {{}
 $!9::Send {}}
 $!0::Send ≠
