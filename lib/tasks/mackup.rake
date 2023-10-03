@@ -19,6 +19,7 @@ task :mackup => [:'brew:casks_and_formulae'] do
     jupyter
     rubocop
     rocket
+    skim
     terminal
     textmate
     transmission
