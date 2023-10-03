@@ -22,6 +22,7 @@ task :mackup => [:'brew:casks_and_formulae'] do
     skim
     terminal
     textmate
+    tower-2
     transmission
     xcode
   CFG
