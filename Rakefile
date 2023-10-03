@@ -64,6 +64,10 @@ task :linux => [
   :files,
 ]
 
+task :windows = [
+  :csgo,
+]
+
 task :macos => [
   :ansible,
   :files,
