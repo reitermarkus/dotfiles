@@ -4,6 +4,19 @@
 
 SetWorkingDir A_ScriptDir  ; Ensures a consistent starting directory.
 
+$#1::Send "^1" ; Switch to tab 1
+$#2::Send "^2" ; Switch to tab 2
+$#3::Send "^3" ; Switch to tab 3
+$#4::Send "^4" ; Switch to tab 4
+$#5::Send "^5" ; Switch to tab 5
+$#6::Send "^6" ; Switch to tab 6
+$#7::Send "^7" ; Switch to tab 7
+$#8::Send "^8" ; Switch to tab 8
+$#9::Send "^9" ; Switch to tab 9
+$#0::Send "^0" ; Switch to tab 10
+
+$#LButton::Send "^{LButton}" ; Open Link in new tab
+
 $#a::Send "^a"             ; Select all
 $#c::Send "^c"             ; Copy
 $#v::Send "^v"             ; Paste
