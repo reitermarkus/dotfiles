@@ -15,6 +15,7 @@ task :mackup => [:'brew:casks_and_formulae'] do
     fish
     fisherman
     git
+    hazel
     jupyter
     rubocop
     terminal
