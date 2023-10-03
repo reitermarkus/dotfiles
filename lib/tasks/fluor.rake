@@ -16,7 +16,7 @@ task :fluor => [:'brew:casks_and_formulae'] do
         path: '~/Library/Application Support/Steam/steamapps/common/Parkitect/Parkitect.app',
       },
       {
-        id: 'csgo_osx64',
+        id: 'cs2_osx64',
         path: '~/Library/Application Support/Steam/steamapps/common/Counter-Strike Global Offensive/csgo_osx64',
       },
     ]
