@@ -8,6 +8,7 @@ task :repos => [:'brew:casks_and_formulae'] do
   repos_dir.mkpath
 
   raise unless (tag = which 'tag')
+  raise unless (git = which 'git')
 
   launchd_name = 'repos'
   launchd_plist = Pathname("~/Library/LaunchAgents/#{launchd_name}.plist").expand_path
@@ -26,10 +27,14 @@ task :repos => [:'brew:casks_and_formulae'] do
         pushd #{repos_dir.to_s.shellescape}
 
         for repo in *; do
-          porcelain_status="$(git -C "${repo}" status --porcelain)" || continue
+          porcelain_status="$(#{git.shellescape} -C "${repo}" status --porcelain)" || continue
 
           if [ -z "${porcelain_status}" ]; then
-            #{tag.shellescape} --set "Grün" "${repo}"
+            if [[ "$(#{git.shellescape} -C "${repo}" rev-list --count --left-right "@{upstream}...HEAD")" == $'0\t0' ]]; then
+              #{tag.shellescape} --set "Grün" "${repo}"
+            else
+              #{tag.shellescape} --set "Orange" "${repo}"
+            fi
           else
             #{tag.shellescape} --set "Rot" "${repo}"
           fi
