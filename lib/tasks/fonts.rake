@@ -2,7 +2,7 @@
 
 require 'pathname'
 
-task :fonts do
+task :fonts => [:'brew:casks_and_formulae'] do
   icloud_fonts_dir = Pathname('~/Library/Mobile Documents/com~apple~CloudDocs/Library/Fonts').expand_path
   icloud_fonts_dir.mkpath
 

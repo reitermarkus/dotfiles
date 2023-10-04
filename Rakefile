@@ -80,6 +80,7 @@ task :macos => [
   :mas,
   :'xcode:accept_license',
   :fonts,
+  :repos,
   :mackup,
   :local_scripts,
   :bash,

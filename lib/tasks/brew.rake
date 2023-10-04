@@ -187,6 +187,7 @@ namespace :brew do
     'sccache' => {},
     'sops' => {},
     'svgexport' => {},
+    'tag' => {},
     'talosctl' => {},
     'terminal-notifier' => {},
     'thefuck' => {},
