@@ -113,6 +113,7 @@ namespace :brew do
       fluxcd/tap
       jonof/kenutils
       reitermarkus/tap
+      siderolabs/talos
     ].freeze
 
     taps = wanted_taps - capture('brew', 'tap').strip.split("\n")
@@ -186,6 +187,7 @@ namespace :brew do
     'sccache' => {},
     'sops' => {},
     'svgexport' => {},
+    'talosctl' => {},
     'terminal-notifier' => {},
     'thefuck' => {},
     'telnet' => {},
