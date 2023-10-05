@@ -23,7 +23,7 @@ task :repos => [:'brew:casks_and_formulae'] do
     },
     'ThrottleInterval' => 60,
     'ProgramArguments' => [
-      '/bin/bash', '-c', <<-SH
+      '/bin/bash', '-c', <<-SH,
         pushd #{repos_dir.to_s.shellescape}
 
         for repo in *; do
