@@ -1,0 +1,35 @@
+<deviceMapping backends="rawInput;directInput;macosXSdl">
+  <productKey productId="0B05" vendorId="045E" /> <!-- Xbox One Series X wireless -->
+  <productName vendorId="045E">
+    <keyword text="xbox" />
+    <keyword text="series x" />
+    <keyword text="wireless" />
+    <keyword text="controller" />
+  </productName>
+  <category>gamepad</category> <!-- gamepad, wheel, joystick, farmWheel, farmSidePanel -->
+  <buttonMappings>
+    <buttonMapping physical="0" logical="1" label="A" />
+    <buttonMapping physical="1" logical="2" label="B" />
+    <buttonMapping physical="2" logical="0" label="X" />
+    <buttonMapping physical="3" logical="3" label="Y" />
+    <buttonMapping physical="9" logical="4" label="LB" />
+    <buttonMapping physical="10" logical="5" label="RB" />
+    <buttonMapping physical="7" logical="10" label="LS" />
+    <buttonMapping physical="8" logical="11" label="RS" />
+    <buttonMapping physical="6" logical="9" label="Start" />
+    <buttonMapping physical="4" logical="8" label="Back" />
+    <buttonMapping physical="5" logical="12" label="PS" />
+    <buttonMapping physical="11" logical="16" label="DP-Up"/>
+    <buttonMapping physical="12" logical="18" label="DP-Down"/>
+    <buttonMapping physical="13" logical="19" label="DP-Left"/>
+    <buttonMapping physical="14" logical="17" label="DP-Right"/>
+  </buttonMappings>
+  <axisMappings>
+    <axisMapping physical="Z" logical="11" scale="-1" offset="0" label="LT" />
+    <axisMapping physical="RZ" logical="10" scale="-1" offset="0" label="RT" />
+    <axisMapping physical="X" logical="0" scale="1" offset="0" label="LS-X" />
+    <axisMapping physical="Y" logical="1" scale="1" offset="0" label="LS-Y" />
+    <axisMapping physical="RX" logical="2" scale="1" offset="0" label="RS-X" />
+    <axisMapping physical="RY" logical="3" scale="1" offset="0" label="RS-Y" />
+  </axisMappings>
+</deviceMapping>
