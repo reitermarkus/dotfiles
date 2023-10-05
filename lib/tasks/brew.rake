@@ -495,12 +495,14 @@ namespace :brew do
 
   task :services => :'brew:casks_and_formulae' do
     wanted_services = ['asimov']
-    services = capture(sudo, 'brew', 'services', 'list')
-                 .each_line
-                 .to_h { |l| l.strip.split(/\s+/, 2) }
 
-    wanted_services.each do |service|
-      capture sudo, 'brew', 'services', 'start', service if services.fetch(service) == 'stopped'
+    services = JSON.parse(capture(sudo, 'brew', 'services', 'list', '--json'))
+                 .to_h { |service| [service.fetch('name'), service] }
+
+    services.values_at(*wanted_services).each do |service|
+      next if ['started', 'scheduled'].include?(service.fetch('status'))
+
+      capture sudo, 'brew', 'services', 'start', service.fetch('name')
     end
   end
 end
