@@ -95,4 +95,24 @@ task :cura => [:'brew:casks_and_formulae'] do
     \tG1 Z2.0 F3000 ; Move Z Axis up little to prevent scratching of Heat Bed
     \tG1 X5 Y20 Z0.3 F5000.0 ; Move over to prevent blob squish
   INI
+
+  extra_nozzle_sizes = ["0.6"]
+  extra_nozzle_sizes.each do |nozzle_size|
+    nozzle_variant = (config_dir/"variants/longer/longer_lk5pro_#{nozzle_size}.inst.cfg")
+    nozzle_variant.dirname.mkpath
+    nozzle_variant.write <<~INI
+      [general]
+      name = 0.6mm Nozzle
+      version = 4
+      definition = longer_lk5pro
+
+      [metadata]
+      setting_version = 16
+      type = variant
+      hardware_type = nozzle
+
+      [values]
+      machine_nozzle_size = 0.6
+    INI
+  end
 end
