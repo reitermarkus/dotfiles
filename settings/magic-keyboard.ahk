@@ -88,6 +88,9 @@ $!$+::Send "±"
 $!a::Send "å"
 $!+a::Send "Å"
 
+$#+3::Send "#{PrintScreen}" ; Fullscreen screenshot
+$#+4::Send "#+S"            ; Selection screenshot
+
 <::^
 >::°
 ^::<
