@@ -89,10 +89,11 @@ task :cs2 do
     alias +jumpthrow "exec jumpthrow"
     alias -jumpthrow "-jump"
     bind j "exec jumpthrow"
+    bind MOUSE4 +jumpthrow
     alias +forwardjumpthrow "+forward;+jumpthrow"
     alias -forwardjumpthrow "-forward;-jumpthrow"
     bind h +forwardjumpthrow
-    bind MOUSE4 +jumpthrow
+    bind MOUSE5 +forwardjumpthrow
 
     // Sound
     snd_mapobjective_volume 0.0
