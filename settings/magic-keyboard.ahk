@@ -12,8 +12,7 @@ $#5::Send "^5" ; Switch to tab 5
 $#6::Send "^6" ; Switch to tab 6
 $#7::Send "^7" ; Switch to tab 7
 $#8::Send "^8" ; Switch to tab 8
-$#9::Send "^9" ; Switch to tab 9
-$#0::Send "^0" ; Switch to tab 10
+$#9::Send "^9" ; Switch to last tab
 
 $#LButton::Send "^{LButton}" ; Open Link in new tab
 
