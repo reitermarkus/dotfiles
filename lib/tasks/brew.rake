@@ -236,6 +236,7 @@ namespace :brew do
     'makemkv' => { flags: ["--appdir=#{converters_dir}"] },
     'mediathekview' => {},
     'monitorcontrol' => {},
+    'mumble' => {},
     'mysides' => {},
     'netspot' => {},
     'macfuse' => {},

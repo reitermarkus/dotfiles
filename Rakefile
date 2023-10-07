@@ -98,6 +98,7 @@ task :macos => [
   :hazel,
   :virtualbox,
   :steam,
+  :mumble,
   :teamspeak,
   :cs2,
   :cities_skylines,
