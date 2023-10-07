@@ -214,6 +214,7 @@ namespace :brew do
     'daisydisk' => {},
     'detexify' => {},
     'docker' => {},
+    'element' => {},
     'epub-services' => {},
     'evernote' => {},
     'firefox' => {},
