@@ -254,6 +254,7 @@ namespace :brew do
     'steam' => {},
     'steermouse' => {},
     'db-browser-for-sqlite' => {},
+    'segger-jlink' => {},
     'svgcleaner' => {},
     'table-tool' => {},
     'telegram' => {},
