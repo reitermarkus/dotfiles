@@ -77,7 +77,7 @@ task :cs2 do
     cl_crosshairgap_useweaponvalue 0
     cl_crosshairscale 0
     cl_crosshairsize 2.5
-    cl_crosshairstyle 5
+    cl_crosshairstyle 4
     cl_crosshairthickness 0
     cl_crosshairusealpha 1
     cl_show_observer_crosshair 2
