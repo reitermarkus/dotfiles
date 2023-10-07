@@ -51,7 +51,7 @@ task :vscode => [:'brew:casks_and_formulae', :rust] do
     'shardulm94.trailing-spaces',
     'rust-lang.rust-analyzer',
     'ZixuanWang.linkerscript',
-    'bungcip.better-toml',
+    'tamasfe.even-better-toml',
     'vadimcn.vscode-lldb',
     'github.vscode-github-actions',
     'ms-vsliveshare.vsliveshare',
