@@ -499,6 +499,9 @@ namespace :brew do
   task :services => :'brew:casks_and_formulae' do
     wanted_services = ['asimov']
 
+    # FIXME: Remove once https://github.com/Homebrew/homebrew-services/pull/595 is merged.
+    ENV.delete('HOMEBREW_DEBUG')
+
     services = JSON.parse(capture(sudo, 'brew', 'services', 'list', '--json'))
                  .to_h { |service| [service.fetch('name'), service] }
 
