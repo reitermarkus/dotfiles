@@ -60,6 +60,7 @@ task :mas => [:'brew:casks_and_formulae'] do
             924726344
             608292802
             1514164630
+            482898991
           ].include?(id)
 
           capture 'mas', 'info', id
