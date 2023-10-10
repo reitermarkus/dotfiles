@@ -125,20 +125,23 @@ task :cura => [:'brew:casks_and_formulae'] do
   INI
 
   printer_user_path = config_dir/'user/Longer+LK5+Pro_user.inst.cfg'
-  printer_user_path.dirname.mkpath
-  printer_user_path.write <<~INI
-    [general]
-    version = 4
-    name = Longer LK5 Pro_user
-    definition = longer_lk5pro
 
-    [metadata]
-    type = user
-    setting_version = 22
-    machine = Longer LK5 Pro
+  unless printer_user_path.exist?
+    printer_user_path.dirname.mkpath
+    printer_user_path.write <<~INI
+      [general]
+      version = 4
+      name = Longer LK5 Pro_user
+      definition = longer_lk5pro
 
-    [values]
-  INI
+      [metadata]
+      type = user
+      setting_version = 22
+      machine = Longer LK5 Pro
+
+      [values]
+    INI
+  end
 
   extruder_config_path = config_dir/'extruders/longer_base_extruder_0+%232.extruder.cfg'
   extruder_config_path.dirname.mkpath
@@ -182,20 +185,22 @@ task :cura => [:'brew:casks_and_formulae'] do
   INI
 
   extruder_user_path = config_dir/'user/longer_base_extruder_0+%232_user.inst.cfg'
-  extruder_user_path.dirname.mkpath
-  extruder_user_path.write <<~INI
-    [general]
-    version = 4
-    name = longer_base_extruder_0 #2_user
-    definition = longer_lk5pro
+  unless extruder_user_path.exist?
+    extruder_user_path.dirname.mkpath
+    extruder_user_path.write <<~INI
+      [general]
+      version = 4
+      name = longer_base_extruder_0 #2_user
+      definition = longer_lk5pro
 
-    [metadata]
-    type = user
-    setting_version = 22
-    extruder = longer_base_extruder_0 #2
+      [metadata]
+      type = user
+      setting_version = 22
+      extruder = longer_base_extruder_0 #2
 
-    [values]
-  INI
+      [values]
+    INI
+  end
 
   extra_nozzle_sizes = ['0.6']
   extra_nozzle_sizes.each do |nozzle_size|
