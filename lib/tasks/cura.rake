@@ -4,7 +4,7 @@ require 'iniparse'
 require 'json'
 
 MOONRAKER_INSTANCES = {
-  'Longer LK5 Pro': {
+  'Longer LK5 Pro' => {
     api_key: '',
     camera_url: '',
     frontend_url: '',
@@ -30,7 +30,7 @@ task :cura => [:'brew:casks_and_formulae'] do
 
   config_dir = Pathname("~/Library/Application Support/cura/#{cura_version}").expand_path
   config_dir.mkpath
-  config_path = config_dir / 'cura.cfg'
+  config_path = config_dir/'cura.cfg'
 
   ini_content = if config_path.exist?
     config_path.read
@@ -49,11 +49,39 @@ task :cura => [:'brew:casks_and_formulae'] do
   moonraker_instances.merge!(MOONRAKER_INSTANCES)
   moonraker_config['instances'] = moonraker_instances.to_json
 
+  cura_config = config.section('cura')
+  cura_config['active_machine'] = 'Longer LK5 Pro'
+
   config_path.write config.to_ini
 
-  printer_config_path = config_dir/'definition_changes/Longer+LK5+Pro_settings.inst.cfg'
+  printer_config_path = config_dir/'machine_instances/Longer+LK5+Pro.global.cfg'
   printer_config_path.dirname.mkpath
   printer_config_path.write <<~INI
+    [general]
+    version = 5
+    name = Longer LK5 Pro
+    id = Longer LK5 Pro
+
+    [metadata]
+    setting_version = 22
+    type = machine
+    group_id = 1d892dcb-533f-42a7-99ed-d710aa8f7e5d
+    group_name = Longer LK5 Pro
+
+    [containers]
+    0 = Longer LK5 Pro_user
+    1 = empty_quality_changes
+    2 = empty_intent
+    3 = longer_global_standard
+    4 = empty_material
+    5 = empty_variant
+    6 = Longer LK5 Pro_settings
+    7 = longer_lk5pro
+  INI
+
+  printer_changes_path = config_dir/'definition_changes/Longer+LK5+Pro_settings.inst.cfg'
+  printer_changes_path.dirname.mkpath
+  printer_changes_path.write <<~INI
     [general]
     version = 4
     name = Longer LK5 Pro_settings
@@ -61,7 +89,7 @@ task :cura => [:'brew:casks_and_formulae'] do
 
     [metadata]
     type = definition_changes
-    setting_version = 21
+    setting_version = 22
 
     [values]
     extruders_enabled_count = 1
@@ -96,6 +124,79 @@ task :cura => [:'brew:casks_and_formulae'] do
     \tG1 X5 Y20 Z0.3 F5000.0 ; Move over to prevent blob squish
   INI
 
+  printer_user_path = config_dir/'user/Longer+LK5+Pro_user.inst.cfg'
+  printer_user_path.dirname.mkpath
+  printer_user_path.write <<~INI
+    [general]
+    version = 4
+    name = Longer LK5 Pro_user
+    definition = longer_lk5pro
+
+    [metadata]
+    type = user
+    setting_version = 22
+    machine = Longer LK5 Pro
+
+    [values]
+  INI
+
+  extruder_config_path = config_dir/'extruders/longer_base_extruder_0+%232.extruder.cfg'
+  extruder_config_path.dirname.mkpath
+  extruder_config_path.write <<~INI
+    [general]
+    version = 5
+    name = Extruder 1
+    id = longer_base_extruder_0 #2
+
+    [metadata]
+    setting_version = 22
+    type = extruder_train
+    position = 0
+    machine = Longer LK5 Pro
+    enabled = True
+
+    [containers]
+    0 = longer_base_extruder_0 #2_user
+    1 = empty_quality_changes
+    2 = empty_intent
+    3 = longer_0.4_PLA_standard
+    4 = generic_pla_175
+    5 = longer_lk5pro_0.4
+    6 = longer_base_extruder_0 #2_settings
+    7 = longer_base_extruder_0
+  INI
+
+  extruder_changes_path = config_dir/'definition_changes/longer_base_extruder_0+%232_settings.inst.cfg'
+  extruder_changes_path.dirname.mkpath
+  extruder_changes_path.write <<~INI
+    [general]
+    version = 4
+    name = longer_base_extruder_0 #2_settings
+    definition = longer_base_extruder_0
+
+    [metadata]
+    type = definition_changes
+    setting_version = 22
+
+    [values]
+  INI
+
+  extruder_user_path = config_dir/'user/longer_base_extruder_0+%232_user.inst.cfg'
+  extruder_user_path.dirname.mkpath
+  extruder_user_path.write <<~INI
+    [general]
+    version = 4
+    name = longer_base_extruder_0 #2_user
+    definition = longer_lk5pro
+
+    [metadata]
+    type = user
+    setting_version = 22
+    extruder = longer_base_extruder_0 #2
+
+    [values]
+  INI
+
   extra_nozzle_sizes = ['0.6']
   extra_nozzle_sizes.each do |nozzle_size|
     nozzle_variant = (config_dir/"variants/longer/longer_lk5pro_#{nozzle_size}.inst.cfg")
@@ -114,5 +215,20 @@ task :cura => [:'brew:casks_and_formulae'] do
       [values]
       machine_nozzle_size = #{nozzle_size}
     INI
+  end
+
+  plugins = {
+    'MoonrakerConnection' => 'https://github.com/emtrax-ltd/Cura2MoonrakerPlugin/archive/refs/tags/v1.7.1.tar.gz',
+  }
+
+  plugins.each do |name, url|
+    Dir.mktmpdir do |tmpdir|
+      command '/usr/bin/curl', '--silent', '--location', url,
+              '-o', "#{tmpdir}/#{name}.tar.gz"
+
+      plugin_dir = config_dir/'plugins'/name
+      plugin_dir.mkpath
+      command '/usr/bin/tar', '-xf', "#{tmpdir}/#{name}.tar.gz", '--strip-components', '1', '-C', plugin_dir.to_path
+    end
   end
 end
