@@ -19,7 +19,6 @@ namespace :ruby do
 
     task :config do
       command 'bundle', 'config', '--global', 'bin', '.bundle/bin'
-      command 'bundle', 'config', '--global', 'force_ruby_platform', 'true'
 
       processors = capture('/usr/sbin/sysctl', '-n', 'hw.ncpu').strip
       puts ANSI.blue { "Configuring Bundler with #{processors} processors …" }
