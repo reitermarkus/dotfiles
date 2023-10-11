@@ -125,6 +125,13 @@ jobs:
           sudo pkgutil --forget com.apple.pkg.CLTools_Executables
           sudo xcode-select --reset
 
+          sudo rm -rf '/Applications/Google Chrome for Testing.app'
+          sudo rm -rf '/Applications/Julia-1.9.app'
+          sudo rm -rf '/Applications/Python 2.7'
+          sudo rm -rf '/Applications/Python 3.11'
+          sudo rm -rf '/Applications/Visual Studio 2019.app'
+          sudo rm -rf '/Applications/Visual Studio.app'
+
           # Clean environment.
           for trash in ~/.DS_Store \
                        ~/.Trash/* \
@@ -193,7 +200,10 @@ jobs:
           done
 
       - name: Check installed apps
-        run: ls -al /Applications
+        run: |
+          ls -al /Applications
+          ls -al /Applications/Utilities
+          ls -al ~/
 
       - name: Install dotfiles via `curl`
         run: |
