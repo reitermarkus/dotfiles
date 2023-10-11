@@ -192,6 +192,9 @@ jobs:
             pkgutil --forget "${pkg_id}"
           done
 
+      - name: Check installed apps
+        run: ls -al /Applications
+
       - name: Install dotfiles via `curl`
         run: |
           curl -sL git.io/.sh | sh
