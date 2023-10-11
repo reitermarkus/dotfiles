@@ -122,19 +122,25 @@ jobs:
             wait
             /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)" -- --force
           fi
-      - name: Clean environment
+
+      - name: Uninstall Xcode and Command-Line Tools
         run: |
           set -e
           set -u
           set -o pipefail
 
-          # Uninstall Xcode and Command Line Tools
           mkdir -p /tmp/trash
           for trash in /Applications/Xcode*.app /Library/Developer/CommandLineTools; do
             sudo mv "$trash" /tmp/trash/
           done
           sudo pkgutil --forget com.apple.pkg.CLTools_Executables
           sudo xcode-select --reset
+
+      - name: Clean environment
+        run: |
+          set -e
+          set -u
+          set -o pipefail
 
           sudo rm -rf '/Applications/Google Chrome for Testing.app'
           sudo rm -rf '/Applications/Python 2.7'
