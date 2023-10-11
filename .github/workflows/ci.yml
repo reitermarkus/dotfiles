@@ -136,18 +136,54 @@ jobs:
           sudo pkgutil --forget com.apple.pkg.CLTools_Executables
           sudo xcode-select --reset
 
-      - name: Clean environment
+      - name: Uninstall leftover packages
         run: |
           set -e
           set -u
           set -o pipefail
 
-          sudo rm -rf '/Applications/Google Chrome for Testing.app'
-          sudo rm -rf '/Applications/Python 2.7'
-          sudo rm -rf '/Applications/Python 3.11'
-          sudo rm -rf '/Applications/Visual Studio 2019.app'
+          mkdir -p /tmp/trash
+          for pkg in /var/db/receipts/*.plist; do
+            pkg_id="$(basename "${pkg}" .plist)"
+            volume="$(pkgutil --pkg-info "${pkg_id}" | sed -n -e 's/^volume: //p')"
+            location="$(pkgutil --pkg-info "${pkg_id}" | sed -n -e 's/^location: //p')"
+            pkgutil --only-files --files "${pkg_id}" | xargs -I% sudo mv -f "${volume}${location}/%" /tmp/trash/ || true
+            pkgutil --only-dirs --files "${pkg_id}" | xargs -I% sudo rmdir -p "${volume}${location}/%" || true
+            pkgutil --forget "${pkg_id}"
+          done
 
-          # Clean environment.
+      - name: Delete broken symlinks
+        run: |
+          set -e
+          set -u
+          set -o pipefail
+
+          for exe in /usr/local/bin/*; do
+            if [[ -L "$exe" ]] && ! [[ -e "$exe" ]]; then
+              rm "$exe"
+            fi
+          done
+
+      - name: Delete leftover applications
+        run: |
+          set -e
+          set -u
+          set -o pipefail
+
+          sudo rm -rf '/Applications/Google Chrome for Testing.app' &
+          sudo rm -rf '/Applications/Python 2.7' &
+          sudo rm -rf '/Applications/Python 3.11' &
+          sudo rm -rf '/Applications/Visual Studio 2019.app' &
+          wait
+
+          ls -al /Applications /Applications/Utilities
+
+      - name: Clean user directory
+        run: |
+          set -e
+          set -u
+          set -o pipefail
+
           for trash in ~/.DS_Store \
                        ~/.Trash/* \
                        ~/.aliyun \
@@ -195,23 +231,6 @@ jobs:
             if [[ -e "$trash" ]]; then
               mv "$trash" /tmp/trash/
             fi
-          done
-
-          # Delete broken symlinks.
-          for exe in /usr/local/bin/*; do
-            if [[ -L "$exe" ]] && ! [[ -e "$exe" ]]; then
-              rm "$exe"
-            fi
-          done
-
-          mkdir -p /tmp/trash
-          for pkg in /var/db/receipts/*.plist; do
-            pkg_id="$(basename "${pkg}" .plist)"
-            volume="$(pkgutil --pkg-info "${pkg_id}" | sed -n -e 's/^volume: //p')"
-            location="$(pkgutil --pkg-info "${pkg_id}" | sed -n -e 's/^location: //p')"
-            pkgutil --only-files --files "${pkg_id}" | xargs -I% sudo mv -f "${volume}${location}/%" /tmp/trash/ || true
-            pkgutil --only-dirs --files "${pkg_id}" | xargs -I% sudo rmdir -p "${volume}${location}/%" || true
-            pkgutil --forget "${pkg_id}"
           done
 
       - name: Check installed apps
