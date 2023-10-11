@@ -18,5 +18,6 @@ namespace :node do
 
     command 'fish', '-c', 'nvm install node'
     command 'fish', '-c', 'nvm install --lts'
+    command 'fish', '-c', 'nvm cache clear'
   end
 end
