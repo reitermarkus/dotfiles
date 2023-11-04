@@ -93,7 +93,7 @@ task :macos => [
   :gpg,
   :cura,
   :'xcode:defaults',
-  :itunes,
+  :music,
   :rapidclick,
   :hazel,
   :virtualbox,

@@ -10,6 +10,7 @@ task :mackup => [:'brew:casks_and_formulae'] do
 
     [applications_to_ignore]
     ansible
+    apple-music
     bettersnaptool
     bundler
     fish
