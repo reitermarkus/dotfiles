@@ -252,6 +252,7 @@ namespace :brew do
     'sigil' => {},
     'slack' => {},
     'skim' => {},
+    'stats' => {},
     'steam' => {},
     'steermouse' => {},
     'db-browser-for-sqlite' => {},
