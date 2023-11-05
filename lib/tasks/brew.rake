@@ -216,7 +216,6 @@ namespace :brew do
     'docker' => {},
     'element' => {},
     'epub-services' => {},
-    'evernote' => {},
     'firefox' => {},
     'fluor' => {},
     'fork' => {},
