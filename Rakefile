@@ -97,6 +97,7 @@ task :macos => [
   :rapidclick,
   :hazel,
   :virtualbox,
+  :element,
   :steam,
   :mumble,
   :teamspeak,
