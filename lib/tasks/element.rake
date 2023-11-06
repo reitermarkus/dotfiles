@@ -11,5 +11,6 @@ task :element do
 
   config['warnBeforeExit'] = false
 
+  element_electron_config.dirname.mkpath
   element_electron_config.write JSON.pretty_generate(config)
 end
