@@ -113,6 +113,7 @@ jobs:
             eval "$(brew list --cask | xargs -I% echo '{ brew uninstall --cask --force "%"; brew uninstall --cask --zap --force "%"; } &')"
             brew uninstall --cask --zap --force adoptopenjdk/openjdk/adoptopenjdk8 &
             brew uninstall --cask --zap --force dotnet &
+            brew uninstall --cask --zap --force firefox &
             brew uninstall --cask --zap --force julia &
             brew uninstall --cask --zap --force mono-mdk &
             brew uninstall --cask --zap --force xamarin-android &
