@@ -3,6 +3,7 @@
 require 'ci'
 require 'command'
 require 'fileutils'
+require 'macos'
 require 'which'
 require 'pathname'
 require 'shellwords'
@@ -103,9 +104,6 @@ namespace :brew do
   desc 'Install Taps'
   task :taps => [:'brew:install'] do
     wanted_taps = %w[
-      homebrew/cask
-      homebrew/cask-fonts
-      homebrew/cask-versions
       homebrew/command-not-found
       homebrew/services
 
@@ -115,6 +113,11 @@ namespace :brew do
       reitermarkus/tap
       siderolabs/talos
     ].freeze
+
+    wanted_taps = (wanted_taps + %w[
+      homebrew/cask
+      homebrew/cask-fonts
+    ]).freeze if macos?
 
     taps = wanted_taps - capture('brew', 'tap').strip.split("\n")
 
@@ -146,12 +149,10 @@ namespace :brew do
     'asimov' => {},
     'bash' => {},
     'bash-completion' => {},
-    'carthage' => {},
     'ccache' => {},
     'clang-format' => {},
     'cmake' => {},
     'direnv' => {},
-    'duti' => {},
     'gcc' => {},
     'git' => {},
     'git-extras' => {},
@@ -174,8 +175,6 @@ namespace :brew do
     'ncdu' => {},
     'nvm' => {},
     'openjdk' => {},
-    'pam-touch-id' => {},
-    'pinentry-mac' => {},
     'pngout' => {},
     'python' => {},
     'rbenv' => {},
@@ -187,9 +186,7 @@ namespace :brew do
     'sccache' => {},
     'sops' => {},
     'svgexport' => {},
-    'tag' => {},
     'talosctl' => {},
-    'terminal-notifier' => {},
     'thefuck' => {},
     'telnet' => {},
     'tree' => {},
@@ -200,94 +197,106 @@ namespace :brew do
     'yq' => {},
   }.freeze
 
+  wanted_formulae = (wanted_formulae.merge({
+    'duti' => {},
+    'pam-touch-id' => {},
+    'pinentry-mac' => {},
+    'tag' => {},
+    'terminal-notifier' => {},
+  )).freeze if macos?
+
   converters_dir = Pathname('/Applications/Converters.localized')
 
-  wanted_casks = {
-    'a-better-finder-rename' => {},
-    'aerial' => {},
-    'araxis-merge' => {},
-    'arduino' => {},
-    'bibdesk' => {},
-    'calibre' => {},
-    'chromium' => {},
-    'cyberduck' => {},
-    'daisydisk' => {},
-    'detexify' => {},
-    'docker' => {},
-    'element' => {},
-    'epub-services' => {},
-    'firefox' => {},
-    'fluor' => {},
-    'fork' => {},
-    'font-meslo-lg-nerd-font' => {},
-    'font-sauce-code-pro-nerd-font' => {},
-    'gcc-arm-embedded' => {},
-    'handbrake' => { flags: ["--appdir=#{converters_dir}"] },
-    'hazel' => {},
-    'hex-fiend' => {},
-    'image2icon' => { flags: ["--appdir=#{converters_dir}"] },
-    'imageoptim' => { flags: ["--appdir=#{converters_dir}"] },
-    'keka' => {},
-    'konica-minolta-bizhub-c750i-driver' => {},
-    'latexit' => {},
-    'minecraft' => {},
-    'macdown' => {},
-    'mactex-no-gui' => {},
-    'makemkv' => { flags: ["--appdir=#{converters_dir}"] },
-    'mediathekview' => {},
-    'monitorcontrol' => {},
-    'mumble' => {},
-    'mysides' => {},
-    'netspot' => {},
-    'macfuse' => {},
-    'origin' => {},
-    'otp-auth' => {},
-    'prizmo' => {},
-    'postman' => {},
-    'qlmarkdown' => {},
-    'qlstephen' => {},
-    'rocket' => {},
-    'sequel-pro' => {},
-    'sigil' => {},
-    'slack' => {},
-    'skim' => {},
-    'stats' => {},
-    'steam' => {},
-    'steermouse' => {},
-    'db-browser-for-sqlite' => {},
-    'segger-jlink' => {},
-    'svgcleaner' => {},
-    'table-tool' => {},
-    'telegram' => {},
-    'tex-live-utility' => {},
-    'textmate' => {},
-    'textmate-crystal' => {},
-    'textmate-cucumber' => {},
-    'textmate-editorconfig' => {},
-    'textmate-elixir' => {},
-    'textmate-fish' => {},
-    'textmate-glsl' => {},
-    'textmate-javascript-babel' => {},
-    'textmate-javascript-eslint' => {},
-    'textmate-onsave' => {},
-    'textmate-opencl' => {},
-    'textmate-openhab' => {},
-    'textmate-rubocop' => {},
-    'textmate-rust' => {},
-    'textmate-solarized' => {},
-    'thangs-sync' => {},
-    'transmission' => {},
-    'unicodechecker' => {},
-    'ultimaker-cura' => {},
-    'vagrant' => {},
-    'vagrant-manager' => {},
-    'visual-studio-code' => {},
-    'virtualbox' => {},
-    'vlc' => {},
-    'xld' => { flags: ["--appdir=#{converters_dir}"] },
-    'xnconvert' => { flags: ["--appdir=#{converters_dir}"] },
-    'xquartz' => {},
-  }.freeze
+  wanted_casks = if macos?
+    {
+      'a-better-finder-rename' => {},
+      'aerial' => {},
+      'araxis-merge' => {},
+      'arduino' => {},
+      'bibdesk' => {},
+      'calibre' => {},
+      'chromium' => {},
+      'cyberduck' => {},
+      'daisydisk' => {},
+      'detexify' => {},
+      'docker' => {},
+      'element' => {},
+      'epub-services' => {},
+      'firefox' => {},
+      'fluor' => {},
+      'fork' => {},
+      'font-meslo-lg-nerd-font' => {},
+      'font-sauce-code-pro-nerd-font' => {},
+      'gcc-arm-embedded' => {},
+      'handbrake' => { flags: ["--appdir=#{converters_dir}"] },
+      'hazel' => {},
+      'hex-fiend' => {},
+      'image2icon' => { flags: ["--appdir=#{converters_dir}"] },
+      'imageoptim' => { flags: ["--appdir=#{converters_dir}"] },
+      'keka' => {},
+      'konica-minolta-bizhub-c750i-driver' => {},
+      'latexit' => {},
+      'minecraft' => {},
+      'macdown' => {},
+      'mactex-no-gui' => {},
+      'makemkv' => { flags: ["--appdir=#{converters_dir}"] },
+      'mediathekview' => {},
+      'monitorcontrol' => {},
+      'mumble' => {},
+      'mysides' => {},
+      'netspot' => {},
+      'macfuse' => {},
+      'origin' => {},
+      'otp-auth' => {},
+      'prizmo' => {},
+      'postman' => {},
+      'qlmarkdown' => {},
+      'qlstephen' => {},
+      'rocket' => {},
+      'sequel-pro' => {},
+      'sigil' => {},
+      'slack' => {},
+      'skim' => {},
+      'stats' => {},
+      'steam' => {},
+      'steermouse' => {},
+      'db-browser-for-sqlite' => {},
+      'segger-jlink' => {},
+      'svgcleaner' => {},
+      'table-tool' => {},
+      'telegram' => {},
+      'tex-live-utility' => {},
+      'textmate' => {},
+      'textmate-crystal' => {},
+      'textmate-cucumber' => {},
+      'textmate-editorconfig' => {},
+      'textmate-elixir' => {},
+      'textmate-fish' => {},
+      'textmate-glsl' => {},
+      'textmate-javascript-babel' => {},
+      'textmate-javascript-eslint' => {},
+      'textmate-onsave' => {},
+      'textmate-opencl' => {},
+      'textmate-openhab' => {},
+      'textmate-rubocop' => {},
+      'textmate-rust' => {},
+      'textmate-solarized' => {},
+      'thangs-sync' => {},
+      'transmission' => {},
+      'unicodechecker' => {},
+      'ultimaker-cura' => {},
+      'vagrant' => {},
+      'vagrant-manager' => {},
+      'visual-studio-code' => {},
+      'virtualbox' => {},
+      'vlc' => {},
+      'xld' => { flags: ["--appdir=#{converters_dir}"] },
+      'xnconvert' => { flags: ["--appdir=#{converters_dir}"] },
+      'xquartz' => {},
+    }.freeze
+  else
+    {}.freeze
+  end
 
   desc 'Install Casks and Formulae'
   task :casks_and_formulae => [:'brew:taps'] do
