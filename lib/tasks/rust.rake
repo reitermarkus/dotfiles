@@ -44,24 +44,26 @@ task :rust => [:'brew:casks_and_formulae', :sccache] do
     git-fetch-with-cli = true
   TOML
 
-  defaults 'com.macromates.TextMate' do
-    write 'environmentVariables', [
-      {
-        'enabled' => true,
-        'name' => 'CARGO_HOME',
-        'value' => '$HOME/.config/cargo',
-      },
-      {
-        'enabled' => true,
-        'name' => 'PATH',
-        'value' => '$CARGO_HOME/bin:$PATH',
-      },
-      {
-        'enabled' => true,
-        'name' => 'RUSTUP_HOME',
-        'value' => '$HOME/.config/rustup',
-      },
-    ], add: true
+  if macos?
+    defaults 'com.macromates.TextMate' do
+      write 'environmentVariables', [
+        {
+          'enabled' => true,
+          'name' => 'CARGO_HOME',
+          'value' => '$HOME/.config/cargo',
+        },
+        {
+          'enabled' => true,
+          'name' => 'PATH',
+          'value' => '$CARGO_HOME/bin:$PATH',
+        },
+        {
+          'enabled' => true,
+          'name' => 'RUSTUP_HOME',
+          'value' => '$HOME/.config/rustup',
+        },
+      ], add: true
+    end
   end
 
   if which 'rustup'
