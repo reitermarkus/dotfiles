@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'macos'
-require 'macos_version'
 
 task :rust => [:'brew:casks_and_formulae', :sccache] do
   cargo_home = '~/.config/cargo'
@@ -126,15 +125,6 @@ task :rust => [:'brew:casks_and_formulae', :sccache] do
       rescue NonZeroExit
         nil
       end
-    end
-  end
-
-  if macos_version >= Gem::Version.new('10.15')
-    if which 'cargo-add'
-      puts ANSI.green { '`cargo-edit` already installed.' }
-    else
-      puts ANSI.blue { 'Installing `cargo-edit` …' }
-      command 'cargo', 'install', 'cargo-edit'
     end
   end
 end
