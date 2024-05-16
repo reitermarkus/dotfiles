@@ -219,7 +219,7 @@ namespace :brew do
 
   converters_dir = Pathname('/Applications/Converters.localized')
 
-  wanted_casks = ({
+  wanted_casks = {
     'a-better-finder-rename' => {},
     'aerial' => {},
     'araxis-merge' => {},
@@ -302,7 +302,7 @@ namespace :brew do
     'xld' => { flags: ["--appdir=#{converters_dir}"] },
     'xnconvert' => { flags: ["--appdir=#{converters_dir}"] },
     'xquartz' => {},
-  } + wanted_fonts).freeze
+  }.merge(wanted_fonts).freeze
 
   desc 'Install Casks and Formulae'
   task :casks_and_formulae => [:'brew:taps'] do
