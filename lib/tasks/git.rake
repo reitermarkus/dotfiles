@@ -3,6 +3,7 @@
 require 'add_line_to_file'
 require 'ansi'
 require 'command'
+require 'macos'
 
 task :git => [:'git:config', :'git:commands', :'git:aliases']
 
@@ -19,7 +20,7 @@ namespace :git do
     command 'git', 'config', '--global', 'user.name', 'Markus Reiter'
     command 'git', 'config', '--global', 'user.email', 'me@reitermark.us'
 
-    command 'git', 'config', '--global', 'credential.helper', 'osxkeychain'
+    command 'git', 'config', '--global', 'credential.helper', 'osxkeychain' if macos?
 
     command 'git', 'config', '--global', 'color.ui', 'auto'
 
@@ -75,6 +76,10 @@ namespace :git do
       command 'git', 'config', '--global', 'difftool.araxis.path', 'araxiscompare'
       command 'git', 'config', '--global', 'diff.tool', 'araxis'
     end
+
+    git_config_private = "#{git_config_dir}/config-private"
+    command 'git', 'config', '--global', 'include.path', git_config_private
+    FileUtils.touch git_config_private
   end
 
   desc 'Install Git Commands'
