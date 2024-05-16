@@ -3,6 +3,7 @@
 require 'ci'
 require 'command'
 require 'fileutils'
+require 'linux'
 require 'macos'
 require 'which'
 require 'pathname'
