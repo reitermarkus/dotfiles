@@ -406,29 +406,31 @@ namespace :brew do
       downloads[key].execute
     end
 
-    (converters_dir/'.localized').mkpath
-
-    File.write "#{converters_dir}/.localized/de.strings", <<~STRINGS
-      "Converters" = "Konvertierungswerkzeuge";
-    STRINGS
-
-    File.write "#{converters_dir}/.localized/en.strings", <<~STRINGS
-      "Converters" = "Conversion Tools";
-    STRINGS
-
-    # Ensure directories exist and have correct permissions.
-    [
-      '/Library/LaunchAgents',
-      '/Library/LaunchDaemons',
-      '/Library/Dictionaries',
-      '/Library/PreferencePanes',
-      '/Library/QuickLook',
-      '/Library/Services',
-      '/Library/Screen Savers',
-    ].each do |dir|
-      command sudo, '/bin/mkdir', '-p', dir
-      command sudo, '/usr/sbin/chown', 'root:admin', dir
-      command sudo, '/bin/chmod', '-R', '=rx,ug+w', dir
+    if macos?
+      (converters_dir/'.localized').mkpath
+  
+      File.write "#{converters_dir}/.localized/de.strings", <<~STRINGS
+        "Converters" = "Konvertierungswerkzeuge";
+      STRINGS
+  
+      File.write "#{converters_dir}/.localized/en.strings", <<~STRINGS
+        "Converters" = "Conversion Tools";
+      STRINGS
+  
+      # Ensure directories exist and have correct permissions.
+      [
+        '/Library/LaunchAgents',
+        '/Library/LaunchDaemons',
+        '/Library/Dictionaries',
+        '/Library/PreferencePanes',
+        '/Library/QuickLook',
+        '/Library/Services',
+        '/Library/Screen Savers',
+      ].each do |dir|
+        command sudo, '/bin/mkdir', '-p', dir
+        command sudo, '/usr/sbin/chown', 'root:admin', dir
+        command sudo, '/bin/chmod', '-R', '=rx,ug+w', dir
+      end
     end
 
     download_wait_pool = Concurrent::CachedThreadPool.new
