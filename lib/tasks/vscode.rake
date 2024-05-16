@@ -36,6 +36,7 @@ task :vscode => [:'brew:casks_and_formulae', :rust] do
     'editor.find.seedSearchStringFromSelection' => 'never',
     'terminal.integrated.fontFamily' => font_family,
     'terminal.integrated.fontSize' => font_size,
+    'terminal.integrated.allowChords' => false,
     'rust-analyzer.server.extraEnv' => {
       'CARGO_HOME' => ENV.fetch('CARGO_HOME'),
       'RUSTUP_HOME' => ENV.fetch('RUSTUP_HOME'),
