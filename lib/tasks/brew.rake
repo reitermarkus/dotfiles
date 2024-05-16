@@ -69,7 +69,7 @@ task :brew => [:'brew:install', :'brew:taps', :'brew:casks_and_formulae', :'brew
 
 namespace :brew do
   desc 'Install Homebrew'
-  task :install => [:'xcode:command_line_utilities'] do
+  task :install => [*(:'xcode:command_line_utilities' if macos?)] do
     ENV['HOMEBREW_NO_AUTO_UPDATE'] = '1'
     ENV['HOMEBREW_NO_INSTALL_CLEANUP'] = '1'
     ENV['HOMEBREW_VERBOSE'] = '1' if ci?
