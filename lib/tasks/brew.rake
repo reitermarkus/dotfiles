@@ -188,7 +188,6 @@ namespace :brew do
     'svgexport' => {},
     'talosctl' => {},
     'thefuck' => {},
-    'telnet' => {},
     'tree' => {},
     'unison' => {},
     'velero' => {},
@@ -205,6 +204,7 @@ namespace :brew do
     'pam-touch-id' => {},
     'pinentry-mac' => {},
     'tag' => {},
+    'telnet' => {},
     'terminal-notifier' => {},
   }).freeze if macos?
 
