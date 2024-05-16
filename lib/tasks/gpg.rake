@@ -14,27 +14,33 @@ task :gpg => [:'brew:casks_and_formulae'] do
   gnupg_home_path.mkpath
   chmod_R 'go-rwx', gnupg_home_path.realpath
 
-  raise if (pinentry = which('pinentry-mac')).nil?
+  if macos?
+    raise if (pinentry = which('pinentry-mac')).nil?
 
-  gpg_agent_conf = gnupg_home_path.join('gpg-agent.conf')
-  add_line_to_file gpg_agent_conf, "pinentry-program \"#{pinentry}\""
+    gpg_agent_conf = gnupg_home_path.join('gpg-agent.conf')
+    add_line_to_file gpg_agent_conf, "pinentry-program \"#{pinentry}\""
 
-  command 'gpgconf', '--kill', 'gpg-agent'
+    command 'gpgconf', '--kill', 'gpg-agent'
 
-  launchd_name = 'org.gnupg.environment'
-  launchd_plist = "/Library/LaunchAgents/#{launchd_name}.plist"
+    launchd_name = 'org.gnupg.environment'
+    launchd_plist = "/Library/LaunchAgents/#{launchd_name}.plist"
 
-  plist = {
-    'Label' => launchd_name,
-    'RunAtLoad' => true,
-    'ProgramArguments' => [
-      '/bin/bash', '-c', "launchctl setenv GNUPGHOME #{gnupg_home}",
-    ],
-  }
+    plist = {
+      'Label' => launchd_name,
+      'RunAtLoad' => true,
+      'ProgramArguments' => [
+        '/bin/bash', '-c', "launchctl setenv GNUPGHOME #{gnupg_home}",
+      ],
+    }
 
-  capture sudo, '/usr/bin/tee', launchd_plist, input: plist.to_plist
-  command sudo, '/usr/sbin/chown', 'root:wheel', launchd_plist
-  command sudo, '/bin/chmod', '0644', launchd_plist
+    capture sudo, '/usr/bin/tee', launchd_plist, input: plist.to_plist
+    command sudo, '/usr/sbin/chown', 'root:wheel', launchd_plist
+    command sudo, '/bin/chmod', '0644', launchd_plist
 
-  capture '/bin/launchctl', 'load', '-w', launchd_plist
+    capture '/bin/launchctl', 'load', '-w', launchd_plist
+  end
+
+  if linux?
+    capture sudo, '/usr/bin/tee', '/etc/environment.d/90gpg.conf', input: "GNUPGHOME=#{gnupg_home}"
+  end
 end
