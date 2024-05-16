@@ -68,11 +68,13 @@ namespace :git do
     command 'git', 'config', '--global', 'instaweb.httpd', 'webrick'
     command 'git', 'config', '--global', 'instaweb.browser', 'open'
 
-    command 'git', 'config', '--global', 'mergetool.araxis.path', 'araxiscompare'
-    command 'git', 'config', '--global', 'merge.tool', 'araxis'
+    unless linux?
+      command 'git', 'config', '--global', 'mergetool.araxis.path', 'araxiscompare'
+      command 'git', 'config', '--global', 'merge.tool', 'araxis'
 
-    command 'git', 'config', '--global', 'difftool.araxis.path', 'araxiscompare'
-    command 'git', 'config', '--global', 'diff.tool', 'araxis'
+      command 'git', 'config', '--global', 'difftool.araxis.path', 'araxiscompare'
+      command 'git', 'config', '--global', 'diff.tool', 'araxis'
+    end
   end
 
   desc 'Install Git Commands'
