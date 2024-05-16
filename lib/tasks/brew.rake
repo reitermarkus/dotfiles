@@ -160,7 +160,6 @@ namespace :brew do
     'git' => {},
     'git-extras' => {},
     'gnupg' => {},
-    'imageoptim-cli' => {},
     'iperf3' => {},
     'fish' => {},
     'fisher' => {},
@@ -202,6 +201,7 @@ namespace :brew do
 
   wanted_formulae = wanted_formulae.merge({
     'duti' => {},
+    'imageoptim-cli' => {},
     'pam-touch-id' => {},
     'pinentry-mac' => {},
     'tag' => {},
