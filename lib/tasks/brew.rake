@@ -197,7 +197,7 @@ namespace :brew do
     'yq' => {},
   }.freeze
 
-  wanted_formulae = (wanted_formulae.merge({
+  wanted_formulae = wanted_formulae.merge({
     'duti' => {},
     'pam-touch-id' => {},
     'pinentry-mac' => {},
