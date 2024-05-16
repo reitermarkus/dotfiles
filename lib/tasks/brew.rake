@@ -74,6 +74,8 @@ namespace :brew do
     ENV['HOMEBREW_NO_INSTALL_CLEANUP'] = '1'
     ENV['HOMEBREW_VERBOSE'] = '1' if ci?
     ENV['HOMEBREW_DEBUG'] = '1' if ci?
+    ENV['PATH'] = "/opt/homebrew/bin:#{ENV.fetch('PATH')}" if macos?
+    ENV['PATH'] = "/home/linuxbrew/.linuxbrew/bin:#{ENV.fetch('PATH')}" if linux?
 
     if which 'brew'
       puts ANSI.blue { 'Updating Homebrew …' }
