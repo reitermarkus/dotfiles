@@ -33,16 +33,16 @@ task :rust => [:'brew:casks_and_formulae', :sccache] do
   add_line_to_file bash_environment, 'export CXX_arm_unknown_linux_gnueabihf=arm-unknown-linux-gnueabihf-gcc'
 
   FileUtils.mkdir_p ENV.fetch('CARGO_HOME')
-  File.write "#{ENV.fetch('CARGO_HOME')}/config", <<~TOML
-    [unstable]
-    credential-process = true
-
-    [registry]
-    credential-process = "cargo:macos-keychain"
-
+  cargo_config = <<~TOML
     [net]
     git-fetch-with-cli = true
   TOML
+  cargo_config += <<~TOML if macos?
+
+    [registry]
+    credential-process = "cargo:macos-keychain"
+  TOML
+  File.write "#{ENV.fetch('CARGO_HOME')}/config", cargo_config
 
   if macos?
     defaults 'com.macromates.TextMate' do
