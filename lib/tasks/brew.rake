@@ -94,6 +94,14 @@ namespace :brew do
       add_line_to_file bash_environment, "[[ \":$PATH:\" =~ :#{bin}: ]] || " \
                                          "export PATH=#{bin}:\"$PATH\""
     end
+    { 
+      'MANPATH' => File.join(brew_prefix, 'share/man'),
+      'INFOPATH' => File.join(brew_prefix, 'share/info'),
+    }.transform_values(&:shellescape).each do |var, path|
+      add_line_to_file fish_environment, "set -q #{var}; and set #{var} ''; " \
+                                         "contains #{path} $#{var}; " \
+                                         "or set -x #{var} #{path} $#{var}"
+    end
 
     brew_repo_dir = capture('brew', '--repository').chomp
     brew_repo_remotes = capture('git', '-C', brew_repo_dir, 'remote').lines.map(&:chomp)
