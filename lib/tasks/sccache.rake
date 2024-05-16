@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'environment'
+require 'macos'
 
 task :sccache => [:'brew:casks_and_formulae'] do
   puts ANSI.blue { 'Setting RUSTC_WRAPPER to `sccache` …' }
@@ -9,13 +10,15 @@ task :sccache => [:'brew:casks_and_formulae'] do
 
   ENV['RUSTC_WRAPPER'] = 'sccache'
 
-  defaults 'com.macromates.TextMate' do
-    write 'environmentVariables', [
-      {
-        'enabled' => true,
-        'name' => 'RUSTC_WRAPPER',
-        'value' => ENV.fetch('RUSTC_WRAPPER'),
-      },
-    ], add: true
+  if macos?
+    defaults 'com.macromates.TextMate' do
+      write 'environmentVariables', [
+        {
+          'enabled' => true,
+          'name' => 'RUSTC_WRAPPER',
+          'value' => ENV.fetch('RUSTC_WRAPPER'),
+        },
+      ], add: true
+    end
   end
 end
