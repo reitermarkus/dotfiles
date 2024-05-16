@@ -47,7 +47,14 @@ task :vscode => [:'brew:casks_and_formulae', :rust] do
       '*.x' => 'linkerscript',
     },
     'files.insertFinalNewline' => true,
+    'security.workspace.trust.untrustedFiles' => 'open',
   }
+
+  if linux?
+    settings['window.enableMenuBarMnemonics'] = false
+    settings['window.titleBarStyle'] = 'custom'
+    settings['window.customMenuBarAltFocus'] = false
+  end
 
   # Combine wanted with existing settings.
   settings = JSON.parse(settings_path.read).merge(settings) if settings_path.exist?
