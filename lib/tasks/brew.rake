@@ -203,7 +203,7 @@ namespace :brew do
     'pinentry-mac' => {},
     'tag' => {},
     'terminal-notifier' => {},
-  )).freeze if macos?
+  }).freeze if macos?
 
   converters_dir = Pathname('/Applications/Converters.localized')
 
