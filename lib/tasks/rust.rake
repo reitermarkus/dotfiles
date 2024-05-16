@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'macos'
 require 'macos_version'
 
 task :rust => [:'brew:casks_and_formulae', :sccache] do
