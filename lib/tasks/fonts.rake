@@ -37,7 +37,7 @@ task :fonts => [:'brew:casks_and_formulae'] do
   end
 
   if linux?
-    command 'sudo', 'ln', '-sfn', '/home/linuxbrew/.linuxbrew/share/fonts', '/usr/local/fonts'
+    command 'sudo', 'ln', '-sfn', '/home/linuxbrew/.linuxbrew/share/fonts', '/usr/local/share/fonts'
     command 'sudo', 'fc-cache', '-fv'
   end
 end
