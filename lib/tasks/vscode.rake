@@ -3,10 +3,18 @@
 require 'json'
 
 task :vscode => [:'brew:casks_and_formulae', :rust] do
-  settings_path = Pathname('~/Library/Application Support/Code/User/settings.json').expand_path
+  settings_path = if macos?
+    Pathname('~/Library/Application Support/Code/User/settings.json').expand_path
+  else
+    Pathname('~/.config/Code/User/settings.json').expand_path
+  end
   settings_path.dirname.mkpath
 
-  font_family = 'SauceCodeProNFM'
+  font_family = if macos?
+    'SauceCodeProNFM'
+  else
+    'SauceCodePro NFM'
+  end
   font_size = 13
 
   settings = {
