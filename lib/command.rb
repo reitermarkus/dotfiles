@@ -2,6 +2,7 @@
 
 require 'English'
 require 'open3'
+require 'macos'
 require 'windows'
 require 'pty' unless windows?
 
@@ -30,10 +31,10 @@ def popen(*args, stdout_tty: false, stderr_tty: false, **opts)
   opts[:in] = in_r
   in_w.sync = true
 
-  out_r, out_w = stdout_tty && !windows? ? PTY.open : IO.pipe
+  out_r, out_w = stdout_tty && macos? ? PTY.open : IO.pipe
   opts[:out] = out_w
 
-  err_r, err_w = stderr_tty && !windows? ? PTY.open : IO.pipe
+  err_r, err_w = stderr_tty && macos? ? PTY.open : IO.pipe
   opts[:err] = err_w
 
   parent_io = [in_w, out_r, err_r]
