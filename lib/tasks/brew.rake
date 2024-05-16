@@ -170,7 +170,6 @@ namespace :brew do
     'kubeconform' => {},
     'kubernetes-cli' => {},
     'llvm' => {},
-    'lockscreen' => {},
     'mackup' => {},
     'mas' => {},
     'mosh' => {},
@@ -202,6 +201,7 @@ namespace :brew do
   wanted_formulae = wanted_formulae.merge({
     'duti' => {},
     'imageoptim-cli' => {},
+    'lockscreen' => {},
     'pam-touch-id' => {},
     'pinentry-mac' => {},
     'tag' => {},
