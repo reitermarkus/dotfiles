@@ -122,6 +122,8 @@ namespace :brew do
       homebrew/cask-fonts
     ]).freeze if macos?
 
+    wanted_taps = (wanted_taps + %w[homebrew/linux-fonts]).freeze if linux?
+
     taps = wanted_taps - capture('brew', 'tap').strip.split("\n")
 
     if taps.empty?
@@ -146,6 +148,11 @@ namespace :brew do
       download_pool.shutdown
     end
   end
+
+  wanted_fonts = {
+    'font-meslo-lg-nerd-font' => {},
+    'font-sauce-code-pro-nerd-font' => {},
+  }.freeze
 
   wanted_formulae = {
     'ansible' => {},
@@ -208,9 +215,11 @@ namespace :brew do
     'terminal-notifier' => {},
   }).freeze if macos?
 
+  wanted_formulae = wanted_formulae.merge(wanted_fonts).freeze if linux?
+
   converters_dir = Pathname('/Applications/Converters.localized')
 
-  wanted_casks = {
+  wanted_casks = ({
     'a-better-finder-rename' => {},
     'aerial' => {},
     'araxis-merge' => {},
@@ -227,8 +236,6 @@ namespace :brew do
     'firefox' => {},
     'fluor' => {},
     'fork' => {},
-    'font-meslo-lg-nerd-font' => {},
-    'font-sauce-code-pro-nerd-font' => {},
     'gcc-arm-embedded' => {},
     'handbrake' => { flags: ["--appdir=#{converters_dir}"] },
     'hazel' => {},
@@ -295,7 +302,7 @@ namespace :brew do
     'xld' => { flags: ["--appdir=#{converters_dir}"] },
     'xnconvert' => { flags: ["--appdir=#{converters_dir}"] },
     'xquartz' => {},
-  }.freeze
+  } + wanted_fonts).freeze
 
   desc 'Install Casks and Formulae'
   task :casks_and_formulae => [:'brew:taps'] do
