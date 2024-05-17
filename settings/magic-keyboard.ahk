@@ -87,6 +87,10 @@ $!$+::Send "±"
 $!a::Send "å"
 $!+a::Send "Å"
 
+$#$+::Send "^{+}" ; Zoom in
+$#$-::Send "^{-}" ; Zoom out
+$#0::Send "^0"    ; Reset zoom
+
 $#+3::Send "#{PrintScreen}" ; Fullscreen screenshot
 $#+4::Send "#+S"            ; Selection screenshot
 
