@@ -211,7 +211,7 @@ namespace :brew do
     'yq' => {},
   }.freeze
 
-  wanted_formulae = wanted_formulae.merge({
+  wanted_formulae = wanted_formulae.merge(
     'duti' => {},
     'imageoptim-cli' => {},
     'lockscreen' => {},
@@ -221,7 +221,7 @@ namespace :brew do
     'tag' => {},
     'telnet' => {},
     'terminal-notifier' => {},
-  }).freeze if macos?
+  ).freeze if macos?
 
   wanted_formulae = wanted_formulae.merge(wanted_fonts).freeze if linux?
 
@@ -372,7 +372,7 @@ namespace :brew do
       }.uniq
     }
 
-    dependency_graph.each do |key, _|
+    dependency_graph.each_key do |key|
       dependency_graph[key] = recursive_dependencies.call(key)
     end
 

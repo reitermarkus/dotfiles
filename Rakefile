@@ -18,8 +18,8 @@ module Rake
         default_path = Dir.glob('/etc/paths{,.d/*}')
                          .flat_map { |f| File.read(f).strip.split("\n") }
 
-        if File.exist?('/etc/environment')
-          default_path += File.read('/etc/environment')[/PATH=(?:"([^"]+)"|'([^']+)')/, 1]&.split(File::PATH_SEPARATOR) || []
+        if File.exist?('/etc/environment') && (path = File.read('/etc/environment')[/PATH=(?:"([^"]+)"|'([^']+)')/, 1])
+          default_path += path.split(File::PATH_SEPARATOR)
         end
 
         if default_path.empty?
