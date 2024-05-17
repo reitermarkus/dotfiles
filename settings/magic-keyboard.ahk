@@ -25,8 +25,8 @@ $#o::Send "^o"             ; Open
 $#p::Send "^p"             ; Print
 $#z::Send "^z"             ; Undo
 $#+z::Send "^y"            ; Redo
-$#q::Send "!{f4}"          ; Close application
-$#r::Send "^r"             ; Close application
+$#q::Send "!{f4}"          ; Quit
+$#r::Send "^r"             ; Reload
 $#f::Send "^f"             ; Find
 #HotIf WinActive("ahk_exe WindowsTerminal.exe")
 $#t::Send "^+t"            ; New tab
