@@ -94,7 +94,7 @@ namespace :brew do
       add_line_to_file bash_environment, "[[ \":$PATH:\" =~ :#{bin}: ]] || " \
                                          "export PATH=#{bin}:\"$PATH\""
     end
-    { 
+    {
       'MANPATH' => File.join(brew_prefix, 'share/man'),
       'INFOPATH' => File.join(brew_prefix, 'share/info'),
     }.transform_values(&:shellescape).each do |var, path|
@@ -310,6 +310,7 @@ namespace :brew do
     'xld' => { flags: ["--appdir=#{converters_dir}"] },
     'xnconvert' => { flags: ["--appdir=#{converters_dir}"] },
     'xquartz' => {},
+    'zed' => {},
   }.merge(wanted_fonts).freeze
 
   desc 'Install Casks and Formulae'
@@ -426,15 +427,15 @@ namespace :brew do
 
     if macos?
       (converters_dir/'.localized').mkpath
-  
+
       File.write "#{converters_dir}/.localized/de.strings", <<~STRINGS
         "Converters" = "Konvertierungswerkzeuge";
       STRINGS
-  
+
       File.write "#{converters_dir}/.localized/en.strings", <<~STRINGS
         "Converters" = "Conversion Tools";
       STRINGS
-  
+
       # Ensure directories exist and have correct permissions.
       [
         '/Library/LaunchAgents',

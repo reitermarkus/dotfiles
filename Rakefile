@@ -70,6 +70,7 @@ task :linux => [
   :git,
   :gpg,
   :vscode,
+  :zed,
 ]
 
 task :windows => [
@@ -153,4 +154,5 @@ task :macos => [
   :mouse_trackpad,
   :userscripts,
   :thangs,
+  :zed,
 ]
