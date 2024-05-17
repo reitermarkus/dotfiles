@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'user'
+require 'ci'
 
 task :mediathekview do
   mediathekview_config_dir = Pathname('~/.mediathek3').expand_path
@@ -24,7 +25,9 @@ task :mediathekview do
   XML
 
   output, = capture 'system_profiler', 'SPDisplaysDataType'
-  width, height = output.scan(/Resolution: (\d+) x (\d+)/).first.map(&:to_i)
+  width, height = output.scan(/Resolution: (\d+) x (\d+)/).first&.map(&:to_i)
+  width ||= 1920 if ci?
+  height ||= 1080 if ci?
 
   mediathek_xml.write <<~XML
     <?xml version="1.0" encoding="UTF-8"?>
