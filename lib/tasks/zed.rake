@@ -8,7 +8,7 @@ task :zed => [:'brew:casks_and_formulae'] do
   zed_config.write JSON.pretty_generate(
     'theme' => 'Solarized Dark',
     'telemetry' => {
-      'metrics' => false
+      'metrics' => false,
     },
     'buffer_font_size' => 13,
     'buffer_font_family' => 'SauceCodePro Nerd Font Mono',
