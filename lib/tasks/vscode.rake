@@ -3,12 +3,14 @@
 require 'json'
 
 task :vscode => [:'brew:casks_and_formulae', :rust] do
-  settings_path = if macos?
-    Pathname('~/Library/Application Support/Code/User/settings.json').expand_path
+  config_dir = if macos?
+    Pathname('~/Library/Application Support/Code/User').expand_path
   else
     Pathname('~/.config/Code/User/settings.json').expand_path
   end
-  settings_path.dirname.mkpath
+  keybindings_path = config_dir/'keybindings.json'
+  settings_path = config_dir/'settings.json'
+  config_dir.mkpath
 
   font_family = if macos?
     'SauceCodeProNFM'
@@ -61,6 +63,54 @@ task :vscode => [:'brew:casks_and_formulae', :rust] do
   settings = JSON.parse(settings_path.read).merge(settings) if settings_path.exist?
 
   settings_path.write JSON.pretty_generate(settings)
+
+  keybindings = [
+    {
+      'key' => 'home',
+      'command' => 'cursorLineStart',
+    },
+    {
+      'key' => 'home',
+      'command' => '-cursorHome',
+    },
+    {
+      'key' => 'end',
+      'command' => 'cursorLineEnd',
+    },
+    {
+      'key' => 'end',
+      'command' => '-cursorEnd',
+    },
+    {
+      'key' => 'shift+home',
+      'command' => 'cursorLineStartSelect',
+    },
+    {
+      'key' => 'shift+end',
+      'command' => 'cursorLineEndSelect',
+    },
+    {
+      'key' => 'shift+end',
+      'command' => '-cursorEndSelect',
+      'when' => 'textInputFocus',
+    },
+    {
+      'key' => 'ctrl+k',
+      'command' => 'deleteAllRight',
+    },
+  ]
+
+  if linux?
+    keybindings += [
+      {
+        'key' => 'shift+meta+k',
+        'command' => 'workbench.action.terminal.clear',
+        'when' => 'terminalFocus',
+      },
+    ]
+  end
+
+  keybindings_path.write JSON.pretty_generate(keybindings)
 
   extensions = [
     'EditorConfig.EditorConfig',
