@@ -40,7 +40,5 @@ task :gpg => [:'brew:casks_and_formulae'] do
     capture '/bin/launchctl', 'load', '-w', launchd_plist
   end
 
-  if linux?
-    capture sudo, '/usr/bin/tee', '/etc/environment.d/90gpg.conf', input: "GNUPGHOME=#{gnupg_home}"
-  end
+  capture sudo, '/usr/bin/tee', '/etc/environment.d/90gpg.conf', input: "GNUPGHOME=#{gnupg_home}" if linux?
 end
