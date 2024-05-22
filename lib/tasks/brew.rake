@@ -125,10 +125,12 @@ namespace :brew do
       siderolabs/talos
     ].freeze
 
-    wanted_taps = (wanted_taps + %w[
-      homebrew/cask
-      homebrew/cask-fonts
-    ]).freeze if macos?
+    if macos?
+      wanted_taps = (wanted_taps + %w[
+        homebrew/cask
+        homebrew/cask-fonts
+      ]).freeze
+    end
 
     wanted_taps = (wanted_taps + %w[homebrew/linux-fonts]).freeze if linux?
 
@@ -212,17 +214,19 @@ namespace :brew do
     'yq' => {},
   }.freeze
 
-  wanted_formulae = wanted_formulae.merge(
-    'duti' => {},
-    'imageoptim-cli' => {},
-    'lockscreen' => {},
-    'mas' => {},
-    'pam-touch-id' => {},
-    'pinentry-mac' => {},
-    'tag' => {},
-    'telnet' => {},
-    'terminal-notifier' => {},
-  ).freeze if macos?
+  if macos?
+    wanted_formulae = wanted_formulae.merge(
+      'duti' => {},
+      'imageoptim-cli' => {},
+      'lockscreen' => {},
+      'mas' => {},
+      'pam-touch-id' => {},
+      'pinentry-mac' => {},
+      'tag' => {},
+      'telnet' => {},
+      'terminal-notifier' => {},
+    ).freeze
+  end
 
   wanted_formulae = wanted_formulae.merge(wanted_fonts).freeze if linux?
 
