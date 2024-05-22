@@ -125,13 +125,6 @@ namespace :brew do
       siderolabs/talos
     ].freeze
 
-    if macos?
-      wanted_taps = (wanted_taps + %w[
-        homebrew/cask
-        homebrew/cask-fonts
-      ]).freeze
-    end
-
     wanted_taps = (wanted_taps + %w[homebrew/linux-fonts]).freeze if linux?
 
     taps = wanted_taps - capture('brew', 'tap').strip.split("\n")
