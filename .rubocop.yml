@@ -120,7 +120,7 @@ Style/AccessorGrouping:
   Enabled: true
 
 Style/ArrayCoercion:
-  Enabled: true
+  Enabled: false
 
 Style/AsciiComments:
   Enabled: false
