@@ -107,6 +107,15 @@ task :vscode => [:'brew:casks_and_formulae', :rust] do
         'command' => 'workbench.action.terminal.clear',
         'when' => 'terminalFocus',
       },
+      {
+        'key' => 'ctrl+shift+c',
+        'command' => '-workbench.action.terminal.openNativeConsole',
+        'when' => '!terminalFocus',
+      },
+      {
+        'key' => 'ctrl+shift+c',
+        'command' => 'editor.action.clipboardCopyAction',
+      }
     ]
   end
 
