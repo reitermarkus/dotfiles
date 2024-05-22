@@ -164,6 +164,7 @@ namespace :brew do
 
   wanted_formulae = {
     'ansible' => {},
+    'asdf' => {},
     'asimov' => {},
     'bash' => {},
     'bash-completion' => {},
