@@ -98,6 +98,37 @@ task :vscode => [:'brew:casks_and_formulae', :rust] do
       'key' => 'ctrl+k',
       'command' => 'deleteAllRight',
     },
+    {
+      'key' => 'ctrl+[BracketRight]',
+      'command' => 'editor.action.fontZoomIn',
+      'when' => 'textInputFocus',
+    },
+    {
+      'key' => 'ctrl+-',
+      'command' => 'editor.action.fontZoomOut',
+      'when' => 'textInputFocus',
+  
+    },
+    {
+      'key' => 'ctrl+numpad0',
+      'command' => 'editor.action.fontZoomReset',
+      'when' => 'textInputFocus',
+    },
+    {
+      'key' => 'ctrl+[BracketRight]',
+      'command' => 'workbench.action.terminal.fontZoomIn',
+      'when' => 'terminalFocus',
+    },
+    {
+      'key' => 'ctrl+-',
+      'command' => 'workbench.action.terminal.fontZoomOut',
+      'when' => 'terminalFocus',
+    },
+    {
+      'key' => 'ctrl+numpad0',
+      'command' => 'workbench.action.terminal.fontZoomReset',
+      'when' => 'terminalFocus',
+    }
   ]
 
   if linux?
