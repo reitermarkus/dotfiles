@@ -107,7 +107,6 @@ task :vscode => [:'brew:casks_and_formulae', :rust] do
       'key' => 'ctrl+-',
       'command' => 'editor.action.fontZoomOut',
       'when' => 'textInputFocus',
-  
     },
     {
       'key' => 'ctrl+numpad0',
@@ -128,7 +127,7 @@ task :vscode => [:'brew:casks_and_formulae', :rust] do
       'key' => 'ctrl+numpad0',
       'command' => 'workbench.action.terminal.fontZoomReset',
       'when' => 'terminalFocus',
-    }
+    },
   ]
 
   if linux?
@@ -146,7 +145,7 @@ task :vscode => [:'brew:casks_and_formulae', :rust] do
       {
         'key' => 'ctrl+shift+c',
         'command' => 'editor.action.clipboardCopyAction',
-      }
+      },
     ]
   end
 
