@@ -67,10 +67,12 @@ ENV.delete_if { |k, _|
 task :linux => [
   :files,
   :fonts,
+  :fish,
   :git,
   :gpg,
   :vscode,
   :zed,
+  :z,
 ]
 
 task :windows => [
