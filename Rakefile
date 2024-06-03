@@ -70,6 +70,7 @@ task :linux => [
   :fish,
   :git,
   :gpg,
+  :kinto,
   :vscode,
   :zed,
   :z,
