@@ -4,6 +4,7 @@ require 'json'
 
 task :zed => [:'brew:casks_and_formulae'] do
   zed_config = Pathname('~/.config/zed/settings.json').expand_path
+  zed_config.dirname.mkpath
 
   zed_config.write JSON.pretty_generate(
     'theme' => 'Solarized Dark',
