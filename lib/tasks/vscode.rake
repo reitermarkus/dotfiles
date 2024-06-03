@@ -6,7 +6,7 @@ task :vscode => [:'brew:casks_and_formulae', :rust] do
   config_dir = if macos?
     Pathname('~/Library/Application Support/Code/User').expand_path
   else
-    Pathname('~/.config/Code/User/settings.json').expand_path
+    Pathname('~/.config/Code/User').expand_path
   end
   keybindings_path = config_dir/'keybindings.json'
   settings_path = config_dir/'settings.json'
