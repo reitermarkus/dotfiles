@@ -7,7 +7,7 @@ require 'ci'
 
 Rake.add_rakelib 'lib/tasks'
 
-require 'concurrent-edge'
+require 'concurrent'
 require 'ansi'
 
 module Rake
