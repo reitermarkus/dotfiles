@@ -30,7 +30,7 @@ end
 
 AUTO_INSTALLED_GEMS = %w[
   ansi
-  concurrent-ruby
+  concurrent
   concurrent-ruby-ext
   iniparse
   plist
