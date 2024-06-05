@@ -30,9 +30,8 @@ end
 
 AUTO_INSTALLED_GEMS = %w[
   ansi
-  concurrent-edge
+  concurrent-ruby
   concurrent-ruby-ext
-  concurrent-ruby-edge
   iniparse
   plist
   vdf
@@ -41,7 +40,7 @@ AUTO_INSTALLED_GEMS = %w[
 def install_gem(name, version = nil)
   raise unless AUTO_INSTALLED_GEMS.include?(name)
 
-  if name == 'concurrent-edge'
+  if name == 'concurrent'
     unless Gem.win_platform?
       begin
         install_gem 'concurrent-ruby-ext'
@@ -49,7 +48,7 @@ def install_gem(name, version = nil)
         # Allow to fail when Xcode Command Line Tools are missing.
       end
     end
-    name = 'concurrent-ruby-edge'
+    name = 'concurrent-ruby'
   end
 
   begin
