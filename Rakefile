@@ -58,6 +58,11 @@ ALLOWED_VARIABLES = [
   'USER',
   'XPC_FLAGS',
   'XPC_SERVICE_NAME',
+  'XDG_SESSION_TYPE',
+  'XDG_SESSION_DESKTOP',
+  'XDG_CURRENT_DESKTOP',
+  'DBUS_SESSION_BUS_ADDRESS',
+  'XDG_RUNTIME_DIR',
 ].freeze
 
 ENV.delete_if { |k, _|
@@ -70,7 +75,7 @@ task :linux => [
   :fish,
   :git,
   :gpg,
-  :kinto,
+  :toshy,
   :vscode,
   :zed,
   :z,
