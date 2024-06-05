@@ -8,15 +8,13 @@ task :toshy do
   Dir.mktmpdir do |tmpdir|
     repo = 'toshy'
 
-    command '/usr/bin/curl', '--fail', '--silent', '--location', "https://github.com/RedBearAK/#{repo}/archive/refs/tags/Toshy_v24.03.tar.gz",
+    command '/usr/bin/curl', '--fail', '--silent', '--location', "https://github.com/RedBearAK/toshy/archive/25ae5e5c3a9678177e34dc42af83340738924c42.tar.gz",
             '-o', "#{tmpdir}/#{repo}.tar.gz"
 
     command '/usr/bin/tar', '-xf', "#{tmpdir}/#{repo}.tar.gz", '--strip-components', '1', '-C', tmpdir
 
-    Dir.chdir tmpdir do
-      File.write  './setup_toshy.py', File.read('./setup_toshy.py').sub('  ask_is_distro_updated()', '')
-      command './setup_toshy.py', 'install', input: "n\n"
-    end
+    File.write "#{tmpdir}/setup_toshy.py", File.read("#{tmpdir}/setup_toshy.py").sub('  ask_is_distro_updated()', '')
+    command "#{tmpdir}/setup_toshy.py", 'install', input: "n\ny\n"
   end
 
   config_dir = Pathname('~/.config/toshy').expand_path
