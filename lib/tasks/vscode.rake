@@ -109,7 +109,7 @@ task :vscode => [:'brew:casks_and_formulae', :rust] do
       'when' => 'textInputFocus',
     },
     {
-      'key' => 'ctrl+numpad0',
+      'key' => 'ctrl+0',
       'command' => 'editor.action.fontZoomReset',
       'when' => 'textInputFocus',
     },
@@ -124,7 +124,7 @@ task :vscode => [:'brew:casks_and_formulae', :rust] do
       'when' => 'terminalFocus',
     },
     {
-      'key' => 'ctrl+numpad0',
+      'key' => 'ctrl+0',
       'command' => 'workbench.action.terminal.fontZoomReset',
       'when' => 'terminalFocus',
     },
