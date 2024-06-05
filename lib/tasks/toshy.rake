@@ -23,7 +23,7 @@ task :toshy do
 
   config_dir.mkpath
 
-  config.write <<~PYTHON
+  config.write <<~'PYTHON'
     # -*- coding: utf-8 -*-
 
     import re
