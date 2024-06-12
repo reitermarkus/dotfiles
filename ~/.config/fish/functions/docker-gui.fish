@@ -3,8 +3,6 @@
 function docker-gui
   open -a XQuartz
 
-  set -l hostname (hostname)
-
   xhost - "$hostname"
 
   set -x DISPLAY "$hostname:0"
