@@ -10,11 +10,11 @@ task :git => [:'git:config', :'git:commands', :'git:aliases']
 namespace :git do
   desc 'Set up Git Configuration'
   task :config => :commands do
-    git_config_dir = File.expand_path('~/.config/git')
-    git_config = "#{git_config_dir}/config"
-    git_attributes = "#{git_config_dir}/attributes"
+    git_config_dir = '~/.config/git'
+    git_config = Pathname("#{git_config_dir}/config").expand_path
+    git_attributes = Pathname("#{git_config_dir}/attributes").expand_path
 
-    FileUtils.mkdir_p git_config_dir
+    git_config.dirname.mkpath
     FileUtils.touch git_config
 
     command 'git', 'config', '--global', 'user.name', 'Markus Reiter'
@@ -79,7 +79,7 @@ namespace :git do
 
     git_config_private = "#{git_config_dir}/config-private"
     command 'git', 'config', '--global', 'include.path', git_config_private
-    FileUtils.touch git_config_private
+    FileUtils.touch File.expand_path(git_config_private)
   end
 
   desc 'Install Git Commands'
