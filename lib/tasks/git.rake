@@ -88,8 +88,8 @@ namespace :git do
     git_bin_path = Pathname(git_bin).expand_path
     git_bin_path.mkpath
     ENV['PATH'] = "#{git_bin_path}:#{ENV.fetch('PATH')}"
-    add_line_to_file fish_environment, "mkdir -p #{git_bin}; and set -x fish_user_paths #{git_bin} $fish_user_paths"
-    add_line_to_file bash_environment, "mkdir -p #{git_bin} && export PATH=#{git_bin}:\"$PATH\""
+    add_line_to_file fish_environment, "test -d #{git_bin}; and set -x fish_user_paths #{git_bin} $fish_user_paths"
+    add_line_to_file bash_environment, "test -d #{git_bin} && export PATH=#{git_bin}:\"$PATH\""
 
     gpg = which 'gpg'
     raise if gpg.nil?
