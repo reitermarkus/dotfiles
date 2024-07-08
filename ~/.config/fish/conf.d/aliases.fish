@@ -13,11 +13,6 @@ alias plistbuddy='/usr/libexec/PlistBuddy'
 alias pg-start 'pg_ctl start -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log'
 alias pg-stop 'pg_ctl stop -s -m fast -D /usr/local/var/postgres'
 
-# Editor
-set -x EDITOR mate -w
-set -x HOMEBREW_EDITOR mate
-alias edit="mate"
-
 # Finder
 alias finder 'open -R'
 abbr --add .DS_Store 'find . -name .DS_Store'
