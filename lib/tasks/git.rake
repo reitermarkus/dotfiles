@@ -69,6 +69,8 @@ namespace :git do
     command 'git', 'config', '--global', 'instaweb.httpd', 'webrick'
     command 'git', 'config', '--global', 'instaweb.browser', 'open'
 
+    command 'git', 'config', '--global', 'sequence.editor', 'interactive-rebase-tool'
+
     unless linux?
       command 'git', 'config', '--global', 'mergetool.araxis.path', 'araxiscompare'
       command 'git', 'config', '--global', 'merge.tool', 'araxis'

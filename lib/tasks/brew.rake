@@ -176,6 +176,7 @@ namespace :brew do
     'fisher' => {},
     'fluxcd/tap/flux' => {},
     'helm' => {},
+    'interactive-rebase-tool' => {},
     'jq' => {},
     'krew' => {},
     'kubeconform' => {},
