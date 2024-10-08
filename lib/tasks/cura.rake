@@ -26,7 +26,7 @@ task :cura => [:'brew:casks_and_formulae'] do
   cura_version = JSON.parse(
     capture('brew', 'info', '--json=v2', '--cask', 'ultimaker-cura'),
   ).fetch('casks').fetch(0).fetch('installed')[/\A(\d+\.\d+)\.\d+/, 1]
-  raise "Failed to get Cura version." if cura_version.nil?
+  raise 'Failed to get Cura version.' if cura_version.nil?
 
   config_dir = Pathname("~/Library/Application Support/cura/#{cura_version}").expand_path
   config_dir.mkpath
