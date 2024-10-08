@@ -19,7 +19,7 @@ task :finder => :'brew:casks_and_formulae' do
 
     next if previous_value == true
 
-    command sudo, '/bin/launchctl', 'kickstart', '-k', 'system/com.apple.diskarbitrationd'
+    command sudo, '/usr/bin/killall', 'diskarbitrationd'
   end
 
   defaults 'com.apple.finder' do
