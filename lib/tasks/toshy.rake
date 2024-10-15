@@ -3681,7 +3681,7 @@ task :toshy do
         C("Shift-Super-e"): C("Shift-End"),   # Select until end of line
         C("Super-k"): C("Ctrl-k"),            # Delete until end of line
 
-        C("Ctrl-k"): C("Shift-Super-k"),      # Reset terminal
+        C("Ctrl-k"): C("Super-k"),            # Reset terminal
     }, when = matchProps(lst=vscodes_lod))
 
     # Keybindings for Sublime Text
