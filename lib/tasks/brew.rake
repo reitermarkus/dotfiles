@@ -239,7 +239,6 @@ namespace :brew do
     'firefox' => {},
     'fluor' => {},
     'fork' => {},
-    'gcc-arm-embedded' => {},
     'handbrake' => { flags: ["--appdir=#{converters_dir}"] },
     'hazel' => {},
     'hex-fiend' => {},
