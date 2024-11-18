@@ -208,7 +208,6 @@ namespace :brew do
   if macos?
     wanted_formulae = wanted_formulae.merge(
       'duti' => {},
-      'imageoptim-cli' => {},
       'lockscreen' => {},
       'mas' => {},
       'pam-touch-id' => {},
