@@ -66,13 +66,13 @@ task :rust => [:'brew:casks_and_formulae', :sccache] do
     end
   end
 
-  if which 'rustup'
-    puts ANSI.blue { 'Updating Rust …' }
-    command 'rustup', 'update'
-  else
-    puts ANSI.blue { 'Installing Rust …' }
-    command 'rustup-init', '-y', '--no-modify-path'
+  begin
+    capture('rustup', 'default')
+  rescue NonZeroExit
+    puts ANSI.blue { 'Setting default Rust toolchain …' }
+    command 'rustup', 'default', 'stable'
   end
+
   installed_targets = capture('rustup', 'target', 'list', '--installed').lines.map(&:chomp)
   installed_toolchains = capture('rustup', 'toolchain', 'list').lines.map(&:chomp)
 
@@ -85,14 +85,14 @@ task :rust => [:'brew:casks_and_formulae', :sccache] do
     end
   end
 
-  if installed_toolchains.include?('stable-x86_64-apple-darwin')
+  if installed_toolchains.any? { |toolchain| toolchain.match?(/^stable-(aarch64|x86_64)-apple-darwin$/) }
     puts ANSI.green { 'Rust stable toolchain already installed.' }
   else
     puts ANSI.blue { 'Installing Rust stable toolchain …' }
     command 'rustup', 'toolchain', 'install', 'stable'
   end
 
-  if installed_toolchains.include?('nightly-x86_64-apple-darwin')
+  if installed_toolchains.any? { |toolchain| toolchain.match?(/^nightly-(aarch64|x86_64)-apple-darwin$/) }
     puts ANSI.green { 'Rust nightly toolchain already installed.' }
   else
     puts ANSI.blue { 'Installing Rust nightly toolchain …' }
