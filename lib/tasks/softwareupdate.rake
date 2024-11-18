@@ -6,7 +6,7 @@ namespace :softwareupdate do
   task :rosetta do
     next unless arm?
 
-    capture sudo, '/usr/sbin/softwareupdate', '--install-rosetta'
+    capture sudo, '/usr/sbin/softwareupdate', '--install-rosetta', '--agree-to-license'
   end
 end
 
