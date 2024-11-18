@@ -12,5 +12,5 @@ task :monitorcontrol => [:'brew:casks_and_formulae'] do
   end
 
   puts ANSI.blue { 'Adding MonitorControl to login items …' }
-  add_login_item 'me.guillaumeb.MonitorControl', hidden: true
+  add_login_item 'app.monitorcontrol.MonitorControl', hidden: true
 end
