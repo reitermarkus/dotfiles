@@ -32,19 +32,16 @@ def dependencies(keys, acc: TopologicalHash.new, pool: nil)
     promise = case type
     when :cask
       Concurrent::Promise.execute(executor: pool) {
-        capture('brew', 'cat', '--cask', name).lines.reduce([]) do |a, line|
-          if /depends_on\s+formula:\s*(?:"(?<formula>.*)"|'(?<formula>.*)')/ =~ line
-            [*a, [:formula, formula]]
-          elsif /depends_on\s+cask:\s*(?:"(?<cask>.*)"|'(?<cask>.*)')/ =~ line
-            [*a, [:cask, cask]]
-          else
-            a
-          end
-        end
+        json = JSON.parse(capture('brew', 'info', '--json=v2', '--cask', name))
+        cask = json.fetch('casks').fetch(0)
+        cask.fetch('depends_on', {}).fetch('casks', []).map { |dep| [:cask, dep] } +
+          cask.fetch('depends_on', {}).fetch('formulae', []).map { |dep| [:formula, dep] }
       }
     when :formula
       Concurrent::Promise.execute(executor: pool) {
-        capture('brew', 'deps', name).lines.map { |line| [:formula, line.strip] }
+        json = JSON.parse(capture('brew', 'info', '--json=v2', '--formula', name))
+        formula = json.fetch('formulae').fetch(0)
+        formula.fetch('dependencies', {}).map { |dep| [:formula, dep] }
       }
     end
 
