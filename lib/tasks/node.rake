@@ -10,6 +10,7 @@ namespace :node do
     nvm_dir = '~/.config/nvm'
 
     ENV['NVM_DIR'] = File.expand_path(nvm_dir)
+    FileUtils.mkdir_p ENV.fetch('NVM_DIR')
 
     add_line_to_file fish_environment, 'set -x nvm_prefix (brew --prefix nvm 2>&-)'
 
