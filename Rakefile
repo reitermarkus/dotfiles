@@ -89,6 +89,7 @@ task :macos => [
   :ansible,
   :files,
   :'xcode:command_line_utilities',
+  :'softwareupdate:rosetta',
   :brew,
   :node,
   :ruby,

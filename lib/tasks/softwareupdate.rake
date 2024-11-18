@@ -1,5 +1,15 @@
 # frozen_string_literal: true
 
+require 'macos'
+
+namespace :softwareupdate do
+  task :rosetta do
+    next unless arm?
+
+    capture sudo, '/usr/sbin/softwareupdate', '--install-rosetta'
+  end
+end
+
 task :softwareupdate do
   puts ANSI.blue { 'Enabling automatic software updates …' }
 
