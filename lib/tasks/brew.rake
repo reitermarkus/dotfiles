@@ -477,7 +477,7 @@ namespace :brew do
       begin
         yield
       rescue NonZeroExit => e
-        if e.stderr =~ /Another active Homebrew process/ || e.stderr =~ /is not there/
+        if e.stderr =~ /process has already locked/ || e.stderr =~ /is not there/
           tries -= 1
 
           if tries.positive?
