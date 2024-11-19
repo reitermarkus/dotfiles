@@ -164,4 +164,5 @@ task :macos => [
   :userscripts,
   :thangs,
   :zed,
+  :asdf,
 ]
