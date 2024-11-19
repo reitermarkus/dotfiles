@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 task :asdf => [:'brew:casks_and_formulae'] do
   asdf_data_dir = Pathname('~/.config/asdf')
   ENV['ASDF_DATA_DIR'] = asdf_data_dir.expand_path.to_s
