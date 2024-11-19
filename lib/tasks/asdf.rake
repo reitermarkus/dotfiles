@@ -1,4 +1,4 @@
-task :asdf do
+task :asdf => [:'brew:casks_and_formulae'] do
   asdf_data_dir = Pathname('~/.config/asdf')
   ENV['ASDF_DATA_DIR'] = asdf_data_dir.expand_path.to_s
   asdf_data_dir.expand_path.mkpath
@@ -13,6 +13,7 @@ task :asdf do
   add_line_to_file asdf_config_file.expand_path, 'legacy_version_file = yes'
 
   command 'asdf', 'plugin', 'add', 'ruby'
+  command 'asdf', 'global', 'ruby', 'system'
   command 'asdf', 'plugin', 'add', 'rust'
 
   defaults 'com.macromates.TextMate' do
