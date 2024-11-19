@@ -41,7 +41,8 @@ namespace :dock do
 
     capture(
       '/usr/bin/osascript', '-e',
-      "tell application \"System Events\" to tell every desktop to set picture to POSIX file \"#{desktop_pictures_dir}/current\""
+      "tell application \"System Events\" to tell every desktop to " \
+      "set picture to POSIX file \"#{desktop_pictures_dir}/current\"",
     )
     killall 'cfprefsd'
   end
