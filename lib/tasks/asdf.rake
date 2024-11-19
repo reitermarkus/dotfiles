@@ -10,8 +10,28 @@ task :asdf do
   add_line_to_file fish_environment, "set -x ASDF_CONFIG_FILE #{asdf_config_file}"
   add_line_to_file bash_environment, "export ASDF_CONFIG_FILE=#{asdf_config_file}"
 
+  add_line_to_file asdf_config_file.expand_path, 'legacy_version_file = yes'
+
   command 'asdf', 'plugin', 'add', 'ruby'
   command 'asdf', 'plugin', 'add', 'rust'
 
-  add_line_to_file asdf_config_file.expand_path, 'legacy_version_file = yes'
+  defaults 'com.macromates.TextMate' do
+    write 'environmentVariables', [
+      {
+        'enabled' => true,
+        'name' => 'ASDF_DATA_DIR',
+        'value' => '$HOME/.config/asdf',
+      },
+      {
+        'enabled' => true,
+        'name' => 'ASDF_CONFIG_FILE',
+        'value' => '$HOME/.config/asdf/config',
+      },
+      {
+        'enabled' => true,
+        'name' => 'PATH',
+        'value' => '$ASDF_DATA_DIR/shims:$PATH',
+      },
+    ], add: true
+  end
 end
