@@ -106,7 +106,9 @@ task :finder => :'brew:casks_and_formulae' do
   end
 
   # Disable Gatekeeper.
-  command sudo, '/usr/sbin/spctl', '--master-disable'
+  unless capture('spctl', '--status').match?(/disabled/)
+    command sudo, '/usr/sbin/spctl', '--master-disable'
+  end
 
   # Show drives and servers in sidebar.
   defaults 'com.apple.sidebarlists' do
