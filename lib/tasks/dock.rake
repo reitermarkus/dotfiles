@@ -39,17 +39,10 @@ namespace :dock do
       }
     end
 
-    command 'sqlite3', File.expand_path('~/Library/Application Support/Dock/desktoppicture.db'), <<~SQL
-      DELETE FROM data;
-      DELETE FROM preferences;
-      VACUUM;
-      INSERT INTO data VALUES('#{desktop_pictures_dir}/current');
-      INSERT INTO preferences VALUES(1, 1, 1);
-      INSERT INTO preferences VALUES(1, 1, 2);
-      INSERT INTO preferences VALUES(1, 1, 3);
-      INSERT INTO preferences VALUES(1, 1, 4);
-    SQL
-
+    capture(
+      '/usr/bin/osascript', '-e',
+      "tell application \"System Events\" to tell every desktop to set picture to POSIX file \"#{desktop_pictures_dir}/current\""
+    )
     killall 'cfprefsd'
   end
 
