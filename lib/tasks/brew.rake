@@ -185,7 +185,6 @@ namespace :brew do
     'nvm' => {},
     'openjdk' => {},
     'pngout' => {},
-    'python' => {},
     'rfc' => {},
     'rustup-init' => {},
     'sccache' => {},

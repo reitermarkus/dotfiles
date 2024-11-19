@@ -12,6 +12,8 @@ task :asdf => [:'brew:casks_and_formulae'] do
 
   add_line_to_file asdf_config_file.expand_path, 'legacy_version_file = yes'
 
+  command 'asdf', 'plugin', 'add', 'python'
+  command 'asdf', 'global', 'python', 'system'
   command 'asdf', 'plugin', 'add', 'ruby'
   command 'asdf', 'global', 'ruby', 'system'
   command 'asdf', 'plugin', 'add', 'rust'
