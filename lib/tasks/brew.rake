@@ -186,7 +186,7 @@ namespace :brew do
     'openjdk' => {},
     'pngout' => {},
     'rfc' => {},
-    'rustup-init' => {},
+    'rustup' => {},
     'sccache' => {},
     'sops' => {},
     'svgexport' => {},

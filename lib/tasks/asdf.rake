@@ -16,7 +16,6 @@ task :asdf => [:'brew:casks_and_formulae'] do
   command 'asdf', 'global', 'python', 'system'
   command 'asdf', 'plugin', 'add', 'ruby'
   command 'asdf', 'global', 'ruby', 'system'
-  command 'asdf', 'plugin', 'add', 'rust'
 
   defaults 'com.macromates.TextMate' do
     write 'environmentVariables', [
