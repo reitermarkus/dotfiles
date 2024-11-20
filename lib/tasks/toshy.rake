@@ -8,12 +8,12 @@ task :toshy do
   Dir.mktmpdir do |tmpdir|
     repo = 'toshy'
 
-    command '/usr/bin/curl', '--fail', '--silent', '--location', 'https://github.com/RedBearAK/toshy/archive/25ae5e5c3a9678177e34dc42af83340738924c42.tar.gz',
+    command '/usr/bin/curl', '--fail', '--silent', '--location', 'https://github.com/RedBearAK/toshy/archive/refs/tags/Toshy_v24.10.1.tar.gz',
             '-o', "#{tmpdir}/#{repo}.tar.gz"
 
     command '/usr/bin/tar', '-xf', "#{tmpdir}/#{repo}.tar.gz", '--strip-components', '1', '-C', tmpdir
 
-    File.write "#{tmpdir}/setup_toshy.py", File.read("#{tmpdir}/setup_toshy.py").sub('  ask_is_distro_updated()', '')
+    File.write "#{tmpdir}/setup_toshy.py", File.read("#{tmpdir}/setup_toshy.py").sub(/\s{2,}ask_is_distro_updated\(\)/, '')
     command "#{tmpdir}/setup_toshy.py", 'install', input: "n\ny\n"
   end
 
