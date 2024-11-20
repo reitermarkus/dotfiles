@@ -14,6 +14,8 @@ task :toshy do
     command '/usr/bin/tar', '-xf', "#{tmpdir}/#{repo}.tar.gz", '--strip-components', '1', '-C', tmpdir
 
     File.write "#{tmpdir}/setup_toshy.py", File.read("#{tmpdir}/setup_toshy.py").sub(/\s{2,}ask_is_distro_updated\(\)/, '')
+
+    ENV['XDG_SESSION_TYPE'] = 'tty' if ci?
     command "#{tmpdir}/setup_toshy.py", 'install', input: "n\ny\n"
   end
 
