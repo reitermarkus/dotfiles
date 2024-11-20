@@ -159,7 +159,7 @@ namespace :brew do
     'asdf' => {},
     'asimov' => {},
     'bash' => {},
-    'bash-completion' => {},
+    'bash-completion@2' => {},
     'ccache' => {},
     'clang-format' => {},
     'cmake' => {},
