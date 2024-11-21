@@ -19,6 +19,7 @@ task :toshy do
                File.read("#{tmpdir}/setup_toshy.py").sub(/\s{2,}ask_is_distro_updated\(\)/, '')
 
     next if ci? # Installation requires a window session.
+
     command "#{tmpdir}/setup_toshy.py", 'install', input: "n\ny\n"
   end
 

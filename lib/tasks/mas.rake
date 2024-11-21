@@ -38,9 +38,7 @@ task :mas => [:'brew:casks_and_formulae'] do
     '1591303229' => 'Vinegar - Tube Cleaner',
   }.freeze
 
-  if macos_version < Gem::Version.new('15')
-    wanted_apps['417375580'] = 'BetterSnapTool'
-  end
+  wanted_apps['417375580'] = 'BetterSnapTool' if macos_version < Gem::Version.new('15')
 
   installed_apps = Pathname.glob('/Applications/*.app').map { |app| app.basename('.app').to_s }
 

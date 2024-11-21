@@ -5,8 +5,6 @@ require 'macos'
 task :docker => :'brew:formulae_and_casks' do
   puts ANSI.blue { 'Configuring Docker …' }
 
-  docker_dir = File.expand_path('~/.docker')
-
   if macos?
     fish_function = Pathname('~/.config/fish/functions/docker.fish').expand_path
     fish_function.dirname.mkpath
