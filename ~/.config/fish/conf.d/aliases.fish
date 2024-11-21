@@ -25,8 +25,8 @@ alias safari 'open -a Safari'
 abbr --add rsync-up 'rsync --progress -auv --exclude .git'
 
 # Development
-alias dotfiles 'cd ~/Documents/Git-Repos/dotfiles/'
-alias website 'cd ~/Documents/Git-Repos/reitermarkus.github.com/'
+alias dotfiles 'cd ~/Repos/dotfiles/'
+alias website 'cd ~/Repos/reitermarkus.github.com/'
 
 # Maintenance
 alias syncsettings 'mackup --force restore; and mackup --force restore; and mackup --force backup'
