@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 task :ansible do
+  puts ANSI.blue { 'Configuring Ansible …' }
+
   # Ensure SSH control path does not have spaces.
   ansible_ssh_control_path_dir = '~/.cache/ansible/cp'
 

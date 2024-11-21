@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 task :asdf => [:'brew:casks_and_formulae'] do
+  puts ANSI.blue { 'Configuring asdf …' }
+
   asdf_data_dir = Pathname('~/.config/asdf')
   ENV['ASDF_DATA_DIR'] = asdf_data_dir.expand_path.to_s
   asdf_data_dir.expand_path.mkpath

@@ -5,6 +5,8 @@ require 'linux'
 task :toshy do
   next unless linux?
 
+  puts ANSI.blue { 'Configuring Toshy …' }
+
   Dir.mktmpdir do |tmpdir|
     repo = 'toshy'
 

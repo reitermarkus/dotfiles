@@ -3,6 +3,8 @@
 require 'json'
 
 task :zed => [:'brew:casks_and_formulae'] do
+  puts ANSI.blue { 'Configuring Zed …' }
+
   zed_config = Pathname('~/.config/zed/settings.json').expand_path
   zed_config.dirname.mkpath
 

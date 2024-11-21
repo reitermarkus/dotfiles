@@ -3,6 +3,8 @@
 require 'add_line_to_file'
 
 task :bash => [:'brew:casks_and_formulae'] do
+  puts ANSI.blue { 'Configuring Bash …' }
+
   add_line_to_file '/etc/shells', (which 'bash')
 
   add_line_to_file '~/.bash_profile', 'test -f ~/.bashrc && source ~/.bashrc'
