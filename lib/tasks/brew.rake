@@ -240,6 +240,7 @@ namespace :brew do
     'image2icon' => { flags: ["--appdir=#{converters_dir}"] },
     'imageoptim' => { flags: ["--appdir=#{converters_dir}"] },
     'keka' => {},
+    'kicad' => {},
     'konica-minolta-bizhub-c750i-driver' => {},
     'latexit' => {},
     'minecraft' => {},

@@ -3,7 +3,7 @@
 task :kicad => [:'brew:casks_and_formulae'] do
   puts ANSI.blue { 'Configuring KiCad …' }
 
-  kicad_version = JSON.parse(capture('brew', 'info', '--json=v2', '--cask', 'kicad')).fetch('casks')[0].fetch('installed')
+  kicad_version = JSON.parse(capture('brew', 'info', '--json=v2', '--cask', 'kicad')).dig('casks', 0, 'installed')
   kicad_major_minor_version = kicad_version[/(\d+\.\d+)/, 1]
 
   raise unless kicad_major_minor_version
