@@ -17,7 +17,6 @@ task :mas => [:'brew:casks_and_formulae'] do
     '824171161' => 'Affinity Designer',
     '824183456' => 'Affinity Photo',
     '608292802' => 'Auction Sniper for eBay',
-    '417375580' => 'BetterSnapTool',
     '425264550' => 'Blackmagic Disk Speed Test',
     '420212497' => 'Byword',
     '924726344' => 'Deliveries',
@@ -38,6 +37,10 @@ task :mas => [:'brew:casks_and_formulae'] do
     '1463298887' => 'UserScripts',
     '1591303229' => 'Vinegar - Tube Cleaner',
   }.freeze
+
+  if macos_version < Gem::Version.new('15')
+    wanted_apps['417375580'] = 'BetterSnapTool'
+  end
 
   installed_apps = Pathname.glob('/Applications/*.app').map { |app| app.basename('.app').to_s }
 

@@ -2,8 +2,11 @@
 
 require 'killall'
 require 'defaults'
+require 'macos_version'
 
 task :bettersnaptool => [:'brew:casks_and_formulae'] do
+  next if macos_version >= Gem::Version.new('15')
+
   puts ANSI.blue { 'Configuring BetterSnapTool …' }
 
   defaults 'com.hegenberg.BetterSnapTool' do
