@@ -27,6 +27,11 @@ namespace :dock do
       write 'mru-spaces', false
     end
 
+    # Disable window tiling margin.
+    defaults 'com.apple.WindowManager' do
+      write 'EnableTiledWindowMargins', false
+    end
+
     # Disable Dashboard.
     defaults 'com.apple.dashboard' do
       write 'enabled-state', 1
