@@ -8,7 +8,7 @@ task :vscode => [:'brew:casks_and_formulae', :rust] do
       command '/usr/bin/curl', '-fsSL', 'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64',
               '-o', "#{tmpdir}/vscode.deb"
       command sudo, 'debconf-set-selections', input: 'code code/add-microsoft-repo boolean true'
-      command sudo, 'apt', 'install', '--yes', './vscode.deb'
+      command sudo, 'apt', 'install', '--yes', "#{tmpdir}/vscode.deb"
     end
   end
 
