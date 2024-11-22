@@ -6,7 +6,7 @@ task :cities_skylines do
   Dir.mktmpdir do |tmpdir|
     repo = 'cities-skylines_force-res'
 
-    command '/usr/bin/curl', '--silent', '--location', "https://github.com/crashdump/#{repo}/tarball/HEAD",
+    command '/usr/bin/curl', '-fsSL', "https://github.com/crashdump/#{repo}/tarball/HEAD",
             '-o', "#{tmpdir}/#{repo}.tar.gz"
 
     dir = mods.join(repo)

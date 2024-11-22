@@ -10,7 +10,7 @@ task :toshy do
   Dir.mktmpdir do |tmpdir|
     repo = 'toshy'
 
-    command '/usr/bin/curl', '--fail', '--silent', '--location', 'https://github.com/RedBearAK/toshy/archive/refs/tags/Toshy_v24.10.1.tar.gz',
+    command '/usr/bin/curl', '-fsSL', 'https://github.com/RedBearAK/toshy/archive/refs/tags/Toshy_v24.10.1.tar.gz',
             '-o', "#{tmpdir}/#{repo}.tar.gz"
 
     command '/usr/bin/tar', '-xf', "#{tmpdir}/#{repo}.tar.gz", '--strip-components', '1', '-C', tmpdir

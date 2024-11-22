@@ -15,7 +15,7 @@ def download_tbz(url, to:)
   dst = to
 
   Dir.mktmpdir do |dir|
-    command '/usr/bin/curl', '-sL', '--fail', url, '-o', "#{dir}/#{File.basename(dst)}"
+    command '/usr/bin/curl', '-fsSL', url, '-o', "#{dir}/#{File.basename(dst)}"
     extract_tbz "#{dir}/#{File.basename(dst)}", to: dst
   end
 end

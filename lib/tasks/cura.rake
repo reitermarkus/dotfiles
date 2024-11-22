@@ -234,7 +234,7 @@ task :cura => [:'brew:casks_and_formulae'] do
 
   plugins.each do |name, url|
     Dir.mktmpdir do |tmpdir|
-      command '/usr/bin/curl', '--silent', '--location', url,
+      command '/usr/bin/curl', '-fsSL', url,
               '-o', "#{tmpdir}/#{name}.tar.gz"
 
       plugin_dir = config_dir/'plugins'/name

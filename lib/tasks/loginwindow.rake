@@ -72,7 +72,7 @@ namespace :loginwindow do
     else
       puts ANSI.blue { 'Setting user picture to Gravatar picture …' }
       gravatar_id = Digest::MD5.hexdigest('me@reitermark.us')
-      command sudo, '/usr/bin/curl', '--silent', '--location', "https://gravatar.com/avatar/#{gravatar_id}.png?s=256",
+      command sudo, '/usr/bin/curl', '-fsSL', "https://gravatar.com/avatar/#{gravatar_id}.png?s=256",
               '-o', user_picture
     end
 

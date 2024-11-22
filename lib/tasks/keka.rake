@@ -8,7 +8,7 @@ task :keka => [:'brew:casks_and_formulae'] do
   repo = 'osx-archive-icons'
 
   Dir.mktmpdir do |dir|
-    command '/usr/bin/curl', '--silent', '--location', "https://github.com/reitermarkus/#{repo}/tarball/HEAD",
+    command '/usr/bin/curl', '-fsSL', "https://github.com/reitermarkus/#{repo}/tarball/HEAD",
             '-o', "#{dir}/#{repo}.tar.gz"
     command '/usr/bin/tar', '-xf', "#{dir}/#{repo}.tar.gz", '--strip-components', '1', '-C', dir
 
