@@ -3,6 +3,14 @@
 require 'json'
 
 task :vscode => [:'brew:casks_and_formulae', :rust] do
+  if linux?
+    Dir.mktmpdir do |tmpdir|
+      command '/usr/bin/curl', '--silent', '--location', 'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64',
+              '-o', "#{tmpdir}/vscode.deb"
+      command sudo, 'apt', 'install', '--yes', './vscode.deb'
+    end
+  end
+
   config_dir = if macos?
     Pathname('~/Library/Application Support/Code/User').expand_path
   else
