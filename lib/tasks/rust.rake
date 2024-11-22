@@ -23,6 +23,12 @@ task :rust => [:'brew:casks_and_formulae', :sccache] do
   add_line_to_file bash_environment,
                    'mkdir -p "$CARGO_HOME/bin" && export PATH="$CARGO_HOME/bin:$PATH"'
 
+  rustup_prefix = capture('brew', '--prefix', 'rustup').chomp
+  add_line_to_file fish_environment,
+                   "set -x fish_user_paths \"#{rustup_prefix}/bin\" $fish_user_paths"
+  add_line_to_file bash_environment,
+                   "export PATH=\"#{rustup_prefix}/bin:$PATH\""
+
   add_line_to_file fish_environment,
                    'set -x CARGO_TARGET_ARM_UNKNOWN_LINUX_GNUEABIHF_LINKER arm-unknown-linux-gnueabihf-gcc'
   add_line_to_file bash_environment,
