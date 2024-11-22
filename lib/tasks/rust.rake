@@ -48,7 +48,7 @@ task :rust => [:'brew:casks_and_formulae', :sccache] do
     [registry]
     credential-process = "cargo:macos-keychain"
   TOML
-  File.write "#{ENV.fetch('CARGO_HOME')}/config", cargo_config
+  File.write "#{ENV.fetch('CARGO_HOME')}/config.toml", cargo_config
 
   if macos?
     defaults 'com.macromates.TextMate' do
