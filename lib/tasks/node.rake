@@ -3,22 +3,16 @@
 require 'environment'
 require 'add_line_to_file'
 
-task :node => :'node:nvm'
+task :node => :'node:asdf'
 
 namespace :node do
-  task :nvm => [:'brew:casks_and_formulae', :fish] do
-    nvm_dir = '~/.config/nvm'
+  task :asdf => [:asdf] do
+    ENV['ASDF_NODEJS_LEGACY_FILE_DYNAMIC_STRATEGY'] = 'latest_available'
+    add_line_to_file fish_environment, "set -x ASDF_NODEJS_LEGACY_FILE_DYNAMIC_STRATEGY latest_available"
+    add_line_to_file bash_environment, "export ASDF_NODEJS_LEGACY_FILE_DYNAMIC_STRATEGY=latest_available"
 
-    ENV['NVM_DIR'] = File.expand_path(nvm_dir)
-    FileUtils.mkdir_p ENV.fetch('NVM_DIR')
-
-    add_line_to_file fish_environment, 'set -x nvm_prefix (brew --prefix nvm 2>&-)'
-
-    add_line_to_file fish_environment, "set -x NVM_DIR #{nvm_dir}"
-    add_line_to_file bash_environment, "export NVM_DIR=#{nvm_dir}"
-
-    command 'fish', '-c', 'nvm install node'
-    command 'fish', '-c', 'nvm install --lts'
-    command 'fish', '-c', 'nvm cache clear'
+    command 'asdf', 'plugin', 'add', 'nodejs'
+    command 'asdf', 'install', 'nodejs', 'lts'
+    command 'asdf', 'global', 'nodejs', 'lts'
   end
 end

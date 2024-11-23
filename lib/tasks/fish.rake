@@ -27,7 +27,6 @@ task :fish => [:'brew:casks_and_formulae'] do
   plugins = %w[
     edc/bass
     franciscolourenco/done
-    FabioAntunes/fish-nvm
     reitermarkus/fish_prompt
     jethrokuan/z
   ]

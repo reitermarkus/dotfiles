@@ -182,7 +182,6 @@ namespace :brew do
     'mackup' => {},
     'mosh' => {},
     'ncdu' => {},
-    'nvm' => {},
     'openjdk' => {},
     'pngout' => {},
     'rfc' => {},
