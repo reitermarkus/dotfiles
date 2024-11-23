@@ -36,7 +36,7 @@ task :mas => [:'brew:casks_and_formulae'] do
     '1495193038' => 'SimplyJSON',
     '1463298887' => 'UserScripts',
     '1591303229' => 'Vinegar - Tube Cleaner',
-  }.freeze
+  }
 
   wanted_apps['417375580'] = 'BetterSnapTool' if macos_version < Gem::Version.new('15')
 
