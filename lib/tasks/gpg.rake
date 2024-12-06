@@ -18,7 +18,9 @@ task :gpg => [:'brew:casks_and_formulae'] do
     raise if (pinentry = which('pinentry-mac')).nil?
 
     gpg_agent_conf = gnupg_home_path.join('gpg-agent.conf')
-    add_line_to_file gpg_agent_conf, "pinentry-program \"#{pinentry}\""
+    gpg_agent_conf.write <<~CFG
+      pinentry-program \"#{pinentry}\"
+    CFG
 
     command 'gpgconf', '--kill', 'gpg-agent'
 
