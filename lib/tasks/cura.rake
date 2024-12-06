@@ -14,11 +14,12 @@ MOONRAKER_INSTANCES = {
     trans_input: '',
     trans_output: '',
     trans_remove: '',
-    upload_autohide_messagebox: false,
-    upload_dialog: true,
-    upload_remember_state: false,
-    upload_start_print_job: false,
-    url: 'http://lk5-pro.reiter.ooo/',
+    upload_autohide_messagebox: true,
+    upload_dialog: false,
+    upload_remember_state: true,
+    upload_start_print_job: true,
+    url: 'http://lk5-pro.reiter.ooo',
+    frontent_url: 'http://lk5-pro.reiter.ooo',
   },
 }.freeze
 
@@ -224,10 +225,10 @@ task :cura => [:'brew:casks_and_formulae'] do
 
   plugins = {
     'ArcWelderPlugin' => 'https://github.com/fieldOfView/Cura-ArcWelderPlugin/archive/refs/tags/v3.6.0.tar.gz',
-    'AutoTowersGenerator' => 'https://github.com/kartchnb/AutoTowersGenerator/archive/refs/tags/v2.7.1.tar.gz',
+    'AutoTowersGenerator' => 'https://github.com/kartchnb/AutoTowersGenerator/archive/refs/tags/v2.7.2.tar.gz',
     'CalibrationShapes' => 'https://github.com/5axes/Calibration-Shapes/archive/refs/tags/V2.2.4.tar.gz',
     'CustomSupportCylinder' => 'https://github.com/5axes/CustomSupportCylinder/archive/refs/tags/V2.8.0.tar.gz',
-    'MoonrakerConnection' => 'https://github.com/emtrax-ltd/Cura2MoonrakerPlugin/archive/refs/tags/v1.7.1.tar.gz',
+    'MoonrakerConnection' => 'https://github.com/emtrax-ltd/Cura2MoonrakerPlugin/archive/refs/tags/v1.9.1.tar.gz',
     'OrientationPlugin' => 'https://github.com/nallath/CuraOrientationPlugin/archive/refs/tags/v3.7.0.tar.gz',
     'PauseBackendPlugin' => 'https://github.com/fieldOfView/Cura-PauseBackendPlugin/archive/refs/tags/v3.6.0.tar.gz',
   }
