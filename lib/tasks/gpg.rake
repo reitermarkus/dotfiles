@@ -19,7 +19,7 @@ task :gpg => [:'brew:casks_and_formulae'] do
 
     gpg_agent_conf = gnupg_home_path.join('gpg-agent.conf')
     gpg_agent_conf.write <<~CFG
-      pinentry-program \"#{pinentry}\"
+      pinentry-program "#{pinentry}"
     CFG
 
     command 'gpgconf', '--kill', 'gpg-agent'
