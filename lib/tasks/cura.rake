@@ -95,34 +95,8 @@ task :cura => [:'brew:casks_and_formulae'] do
     [values]
     extruders_enabled_count = 1
     machine_head_with_fans_polygon = [[-22, 39], [-22, -34], [58, 39], [58, -34]]
-    machine_start_gcode = ; LONGER Start G-code
-    \t
-    \tM140 S{material_bed_temperature_layer_0} ; set bed temperature
-    \tM104 S{material_standby_temperature} ; set extruder temperature
-    \t
-    \tG21 ; metric values
-    \tG90 ; absolute positioning
-    \tM82 ; set extruder to absolute mode
-    \tM107 ; start with the fan off
-    \tG92 E0 ; Reset Extruder
-    \t
-    \tM190 S{material_bed_temperature_layer_0} ; set bed temperature and wait
-    \tM104 S{material_print_temperature_layer_0} ; set extruder temperature
-    \t
-    \tG28 ; home all axes
-    \tG1 Z2.0 F3000 ; Move Z Axis up little to prevent scratching of Heat Bed
-    \tG1 X0.1 Y10 Z0.3 F5000.0 ; Move to start position
-    \t
-    \tM109 S{material_print_temperature_layer_0} ; set extruder temperature and wait
-    \t
-    \tSKEW_PROFILE LOAD=default
-    \t
-    \tG1 X0.1 Y200.0 Z0.3 F1500.0 E15 ; Draw the first line
-    \tG1 X0.4 Y200.0 Z0.3 F5000.0 ; Move to side a little
-    \tG1 X0.4 Y20 Z0.3 F1500.0 E30 ; Draw the second line
-    \tG92 E0 ; Reset Extruder
-    \tG1 Z2.0 F3000 ; Move Z Axis up little to prevent scratching of Heat Bed
-    \tG1 X5 Y20 Z0.3 F5000.0 ; Move over to prevent blob squish
+    machine_start_gcode = START_PRINT BED_TEMPERATURE={material_bed_temperature_layer_0} EXTRUDER_TEMPERATURE_STANDBY={material_standby_temperature} EXTRUDER_TEMPERATURE={material_print_temperature_layer_0}
+    machine_end_gcode = END_PRINT
   INI
 
   printer_user_path = config_dir/'user/Longer+LK5+Pro_user.inst.cfg'
