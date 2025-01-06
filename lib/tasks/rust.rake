@@ -3,6 +3,8 @@
 require 'macos'
 
 task :rust => [:'brew:casks_and_formulae', :sccache] do
+  puts ANSI.blue { 'Configuring Rust …' }
+
   cargo_home = '~/.config/cargo'
   rustup_home = '~/.config/rustup'
 

@@ -14,14 +14,9 @@ task :asdf => [:'brew:casks_and_formulae'] do
   add_line_to_file fish_environment, "set -x ASDF_CONFIG_FILE #{asdf_config_file}"
   add_line_to_file bash_environment, "export ASDF_CONFIG_FILE=#{asdf_config_file}"
 
-  ENV['PATH'] = "#{asdf_data_dir}/shims:#{ENV.fetch('PATH')}"
+  ENV['PATH'] = "#{ENV.fetch('ASDF_DATA_DIR')}/shims:#{ENV.fetch('PATH')}"
 
   add_line_to_file asdf_config_file.expand_path, 'legacy_version_file = yes'
-
-  command 'asdf', 'plugin', 'add', 'python'
-  command 'asdf', 'global', 'python', 'system'
-  command 'asdf', 'plugin', 'add', 'ruby'
-  command 'asdf', 'global', 'ruby', 'system'
 
   defaults 'com.macromates.TextMate' do
     write 'environmentVariables', [
