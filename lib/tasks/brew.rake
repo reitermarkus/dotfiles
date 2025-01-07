@@ -220,7 +220,6 @@ namespace :brew do
     'a-better-finder-rename' => {},
     'aerial' => {},
     'araxis-merge' => {},
-    'arduino' => {},
     'bibdesk' => {},
     'calibre' => {},
     'chromium' => {},
