@@ -258,6 +258,7 @@ namespace :brew do
     'qlmarkdown' => {},
     'qlstephen' => {},
     'rocket' => {},
+    'sequel-ace' => {},
     'sigil' => {},
     'slack' => {},
     'skim' => {},
