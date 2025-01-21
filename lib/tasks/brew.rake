@@ -32,14 +32,22 @@ def dependencies(keys, acc: TopologicalHash.new, pool: nil)
     promise = case type
     when :cask
       Concurrent::Promise.execute(executor: pool) {
-        json = JSON.parse(capture('brew', 'info', '--json=v2', '--cask', name))
+        json = begin
+          JSON.parse(capture('brew', 'info', '--json=v2', '--cask', name))
+        rescue JSON::ParserError
+          raise "Failed to get info for cask `#{name}`."
+        end
         cask = json.fetch('casks').fetch(0)
         cask.fetch('depends_on', {}).fetch('casks', []).map { |dep| [:cask, dep] } +
           cask.fetch('depends_on', {}).fetch('formulae', []).map { |dep| [:formula, dep] }
       }
     when :formula
       Concurrent::Promise.execute(executor: pool) {
-        json = JSON.parse(capture('brew', 'info', '--json=v2', '--formula', name))
+        json = begin
+          JSON.parse(capture('brew', 'info', '--json=v2', '--formula', name))
+        rescue JSON::ParserError
+          raise "Failed to get info for formula `#{name}`."
+        end
         formula = json.fetch('formulae').fetch(0)
         formula.fetch('dependencies', {}).map { |dep| [:formula, dep] }
       }
