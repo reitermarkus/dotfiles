@@ -14,6 +14,15 @@ task :asdf => [:'brew:casks_and_formulae'] do
   add_line_to_file fish_environment, "set -x ASDF_CONFIG_FILE #{asdf_config_file}"
   add_line_to_file bash_environment, "export ASDF_CONFIG_FILE=#{asdf_config_file}"
 
+  prefix = capture('brew', '--prefix', 'asdf').chomp
+  fish_function = Pathname('~/.config/fish/conf.d/asdf.fish').expand_path
+  fish_function.dirname.mkpath
+  fish_function.write <<~FISH
+    # This file was created automatically, do not edit it directly.
+
+    source "#{prefix}/libexec/asdf.fish"
+  FISH
+
   ENV['PATH'] = "#{ENV.fetch('ASDF_DATA_DIR')}/shims:#{ENV.fetch('PATH')}"
 
   add_line_to_file asdf_config_file.expand_path, 'legacy_version_file = yes'
