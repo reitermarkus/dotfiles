@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'macos'
+
 task :asdf => [:'brew:casks_and_formulae'] do
   puts ANSI.blue { 'Configuring asdf …' }
 
@@ -26,6 +28,8 @@ task :asdf => [:'brew:casks_and_formulae'] do
   ENV['PATH'] = "#{ENV.fetch('ASDF_DATA_DIR')}/shims:#{ENV.fetch('PATH')}"
 
   add_line_to_file asdf_config_file.expand_path, 'legacy_version_file = yes'
+
+  next unless macos?
 
   defaults 'com.macromates.TextMate' do
     write 'environmentVariables', [
