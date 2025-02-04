@@ -79,6 +79,7 @@ task :linux => [
   :vscode,
   :zed,
   :z,
+  :asdf,
 ]
 
 task :windows => [
@@ -157,12 +158,12 @@ task :macos => [
   :terminal,
   :rfc,
   :x11,
-  :z,
   :keka,
   :arduino,
   :mouse_trackpad,
   :userscripts,
   :thangs,
   :zed,
+  :z,
   :asdf,
 ]
