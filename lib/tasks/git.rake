@@ -44,9 +44,11 @@ namespace :git do
     command 'git', 'config', '--global', 'diff.sops.binary', 'false'
     add_line_to_file git_attributes, '*.enc.yml diff=sops'
 
-    # GPG
-    command 'git', 'config', '--global', 'user.signingKey', 'Markus Reiter <me@reitermark.us>'
+    # Commit Signing
+    command 'git', 'config', '--global', 'gpg.format', 'ssh'
+    command 'git', 'config', '--global', 'user.signingKey', '~/.ssh/github_ed25519'
     command 'git', 'config', '--global', 'commit.gpgSign', 'true'
+    command 'git', 'config', '--global', 'tag.gpgSign', 'true'
 
     git_gpg = which 'git-gpg'
     raise if git_gpg.nil?
