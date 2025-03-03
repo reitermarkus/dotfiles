@@ -130,8 +130,6 @@ namespace :brew do
       siderolabs/talos
     ].freeze
 
-    wanted_taps = (wanted_taps + %w[homebrew/linux-fonts]).freeze if linux?
-
     taps = wanted_taps - capture('brew', 'tap').strip.split("\n")
 
     if taps.empty?
@@ -156,11 +154,6 @@ namespace :brew do
       download_pool.shutdown
     end
   end
-
-  wanted_fonts = {
-    'font-meslo-lg-nerd-font' => {},
-    'font-sauce-code-pro-nerd-font' => {},
-  }.freeze
 
   wanted_formulae = {
     'ansible' => {},
@@ -220,93 +213,98 @@ namespace :brew do
     ).freeze
   end
 
-  wanted_formulae = wanted_formulae.merge(wanted_fonts).freeze if linux?
-
   converters_dir = Pathname('/Applications/Converters.localized')
 
   wanted_casks = {
-    'a-better-finder-rename' => {},
-    'aerial' => {},
-    'araxis-merge' => {},
-    'bibdesk' => {},
-    'calibre' => {},
-    'chromium' => {},
-    'cyberduck' => {},
-    'daisydisk' => {},
-    'detexify' => {},
-    'docker' => {},
-    'element' => {},
-    'epub-services' => {},
-    'firefox' => {},
-    'fluor' => {},
-    'fork' => {},
-    'handbrake' => { flags: ["--appdir=#{converters_dir}"] },
-    'hazel' => {},
-    'hex-fiend' => {},
-    'image2icon' => { flags: ["--appdir=#{converters_dir}"] },
-    'imageoptim' => { flags: ["--appdir=#{converters_dir}"] },
-    'keka' => {},
-    'kicad' => {},
-    'konica-minolta-bizhub-c750i-driver' => {},
-    'latexit' => {},
-    'minecraft' => {},
-    'macdown' => {},
-    'mactex-no-gui' => {},
-    'makemkv' => { flags: ["--appdir=#{converters_dir}"] },
-    'mediathekview' => {},
-    'monitorcontrol' => {},
-    'mumble' => {},
-    'mysides' => {},
-    'netspot' => {},
-    'macfuse' => {},
-    'origin' => {},
-    'otp-auth' => {},
-    'prizmo' => {},
-    'postman' => {},
-    'qlmarkdown' => {},
-    'qlstephen' => {},
-    'rocket' => {},
-    'sequel-ace' => {},
-    'sigil' => {},
-    'slack' => {},
-    'skim' => {},
-    'stats' => {},
-    'steam' => {},
-    'steermouse' => {},
-    'db-browser-for-sqlite' => {},
-    'segger-jlink' => {},
-    'table-tool' => {},
-    'telegram' => {},
-    'tex-live-utility' => {},
-    'textmate' => {},
-    'textmate-crystal' => {},
-    'textmate-cucumber' => {},
-    'textmate-editorconfig' => {},
-    'textmate-elixir' => {},
-    'textmate-fish' => {},
-    'textmate-glsl' => {},
-    'textmate-javascript-babel' => {},
-    'textmate-javascript-eslint' => {},
-    'textmate-onsave' => {},
-    'textmate-opencl' => {},
-    'textmate-openhab' => {},
-    'textmate-rubocop' => {},
-    'textmate-rust' => {},
-    'textmate-solarized' => {},
-    'thangs-sync' => {},
-    'transmission' => {},
-    'unicodechecker' => {},
-    'ultimaker-cura' => {},
-    'vagrant' => {},
-    'vagrant-manager' => {},
-    'visual-studio-code' => {},
-    'virtualbox' => {},
-    'vlc' => {},
-    'xld' => { flags: ["--appdir=#{converters_dir}"] },
-    'xnconvert' => { flags: ["--appdir=#{converters_dir}"] },
-    'xquartz' => {},
-    'zed' => {},
-  }.merge(wanted_fonts).freeze
+    'font-meslo-lg-nerd-font' => {},
+    'font-sauce-code-pro-nerd-font' => {},
+  }.freeze
+
+  if macos?
+    wanted_casks = wanted_casks.merge({
+      'a-better-finder-rename' => {},
+      'aerial' => {},
+      'araxis-merge' => {},
+      'bibdesk' => {},
+      'calibre' => {},
+      'chromium' => {},
+      'cyberduck' => {},
+      'daisydisk' => {},
+      'detexify' => {},
+      'docker' => {},
+      'element' => {},
+      'epub-services' => {},
+      'firefox' => {},
+      'fluor' => {},
+      'fork' => {},
+      'handbrake' => { flags: ["--appdir=#{converters_dir}"] },
+      'hazel' => {},
+      'hex-fiend' => {},
+      'image2icon' => { flags: ["--appdir=#{converters_dir}"] },
+      'imageoptim' => { flags: ["--appdir=#{converters_dir}"] },
+      'keka' => {},
+      'kicad' => {},
+      'konica-minolta-bizhub-c750i-driver' => {},
+      'latexit' => {},
+      'minecraft' => {},
+      'macdown' => {},
+      'mactex-no-gui' => {},
+      'makemkv' => { flags: ["--appdir=#{converters_dir}"] },
+      'mediathekview' => {},
+      'monitorcontrol' => {},
+      'mumble' => {},
+      'mysides' => {},
+      'netspot' => {},
+      'macfuse' => {},
+      'origin' => {},
+      'otp-auth' => {},
+      'prizmo' => {},
+      'postman' => {},
+      'qlmarkdown' => {},
+      'qlstephen' => {},
+      'rocket' => {},
+      'sequel-ace' => {},
+      'sigil' => {},
+      'slack' => {},
+      'skim' => {},
+      'stats' => {},
+      'steam' => {},
+      'steermouse' => {},
+      'db-browser-for-sqlite' => {},
+      'segger-jlink' => {},
+      'table-tool' => {},
+      'telegram' => {},
+      'tex-live-utility' => {},
+      'textmate' => {},
+      'textmate-crystal' => {},
+      'textmate-cucumber' => {},
+      'textmate-editorconfig' => {},
+      'textmate-elixir' => {},
+      'textmate-fish' => {},
+      'textmate-glsl' => {},
+      'textmate-javascript-babel' => {},
+      'textmate-javascript-eslint' => {},
+      'textmate-onsave' => {},
+      'textmate-opencl' => {},
+      'textmate-openhab' => {},
+      'textmate-rubocop' => {},
+      'textmate-rust' => {},
+      'textmate-solarized' => {},
+      'thangs-sync' => {},
+      'transmission' => {},
+      'unicodechecker' => {},
+      'ultimaker-cura' => {},
+      'vagrant' => {},
+      'vagrant-manager' => {},
+      'visual-studio-code' => {},
+      'virtualbox' => {},
+      'vlc' => {},
+      'xld' => { flags: ["--appdir=#{converters_dir}"] },
+      'xnconvert' => { flags: ["--appdir=#{converters_dir}"] },
+      'xquartz' => {},
+      'zed' => {},
+    }).freeze
+  end
 
   desc 'Install Casks and Formulae'
   task :casks_and_formulae => [:'brew:taps'] do
@@ -340,11 +338,9 @@ namespace :brew do
                      '[ -e ~/.config/github/token ] && ' \
                      'read HOMEBREW_GITHUB_API_TOKEN < ~/.config/github/token && export HOMEBREW_GITHUB_API_TOKEN'
 
-    casks = if macos?
+    casks = begin
       installed_casks = capture('brew', 'list', '--cask').strip.split("\n")
       wanted_casks.keys - installed_casks
-    else
-      []
     end
 
     installed_formulae = capture('brew', 'list', '--formula').strip.split("\n")
