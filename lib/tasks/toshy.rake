@@ -487,9 +487,6 @@ task :toshy do
     vscodes                         = [x.casefold() for x in vscodes]
     vscodeStr                       = toRgxStr(vscodes)
 
-    zed = "zed"
-    zedStr = toRgxStr([zed])
-
     # DEPRECATED: Converted back to simple list
     # This is only for use with 'vscodes_and_remotes_lod', otherwise regex pattern string is used.
     vscodes_lod = create_list_of_dicts(vscodes)
@@ -4053,7 +4050,7 @@ task :toshy do
         C("Ctrl-k"): C("Ctrl-Shift-l"),            # Reset terminal
     }, when = lambda ctx:
         cnfg.screen_has_focus and
-        matchProps(clas='^dev.zed.Zed$')(ctx)
+        matchProps(clas='^dev.zed.Zed\\b')(ctx)
     )
 
     # Keybindings for Sublime Text
