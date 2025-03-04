@@ -33,6 +33,7 @@ task :zed => [:'brew:casks_and_formulae'] do
       'helm': true,
       'ruby': true,
     },
+    'tab_size': 2,
     'lsp': {
       # TOML
       'taplo': {
