@@ -6,7 +6,7 @@ task :ruby => [:asdf] do
   puts ANSI.blue { 'Configuring Ruby …' }
 
   command 'asdf', 'plugin', 'add', 'ruby'
-  command 'asdf', 'global', 'ruby', 'system'
+  command 'asdf', 'set', '--home', 'ruby', 'system'
 
   if capture('gem', 'list', '--no-versions', 'bundler').strip == 'bundler'
     puts ANSI.green { 'Bundler is already installed.' }
