@@ -92,12 +92,8 @@ namespace :brew do
     end
 
     brew = which('brew')
-    brew_prefix = capture('brew', '--prefix').chomp
-
-    [File.join(brew_prefix, 'bin'), File.join(brew_prefix, 'sbin')].map(&:shellescape).each do |bin|
-      add_line_to_file fish_environment('brew'), "eval $(#{brew} shellenv)"
-      add_line_to_file bash_environment, "eval \"$(#{brew} shellenv)\""
-    end
+    add_line_to_file fish_environment('brew'), "eval $(#{brew} shellenv)"
+    add_line_to_file bash_environment, "eval \"$(#{brew} shellenv)\""
 
     brew_repo_dir = capture('brew', '--repository').chomp
     brew_repo_remotes = capture('git', '-C', brew_repo_dir, 'remote').lines.map(&:chomp)

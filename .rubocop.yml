@@ -29,6 +29,12 @@ Layout/SpaceAroundMethodCallOperator:
 Layout/SpaceAroundOperators:
   Enabled: false
 
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
+
+Layout/FirstArrayElementIndentation:
+  EnforcedStyle: consistent
+
 Lint/AmbiguousBlockAssociation:
   Enabled: false
 
