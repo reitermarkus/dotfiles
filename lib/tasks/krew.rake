@@ -9,9 +9,9 @@ task :krew => :fish do
   ENV['KREW_ROOT'] = File.expand_path(krew_root)
   ENV['PATH'] = "#{ENV.fetch('KREW_ROOT')}/bin:#{ENV.fetch('PATH')}"
 
-  add_line_to_file fish_environment, "set -x KREW_ROOT #{krew_root}; " \
-                                     'contains "$KREW_ROOT/bin" $PATH; ' \
-                                     'or set -x fish_user_paths "$KREW_ROOT/bin" $fish_user_paths'
+  add_line_to_file fish_environment('krew'),
+                   "set -x KREW_ROOT #{krew_root}; " \
+                   'fish_add_path --global --move --path "$KREW_ROOT/bin"'
   add_line_to_file bash_environment, "export KREW_ROOT=#{krew_root}; " \
                                      '[[ ":$PATH:" =~ ":$KREW_ROOT/bin:" ]] || ' \
                                      'export PATH="${KREW_ROOT}/bin:$PATH"'

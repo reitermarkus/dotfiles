@@ -8,7 +8,7 @@ task :gpg => [:'brew:casks_and_formulae'] do
   gnupg_home_path = Pathname(gnupg_home).expand_path
 
   ENV['GNUPGHOME'] = gnupg_home_path.to_path
-  add_line_to_file fish_environment, "set -x GNUPGHOME #{gnupg_home}"
+  add_line_to_file fish_environment('gpg'), "set -x GNUPGHOME #{gnupg_home}"
   add_line_to_file bash_environment, "export GNUPGHOME=#{gnupg_home}"
 
   gnupg_home_path.mkpath

@@ -2,8 +2,9 @@
 
 require 'shellwords'
 
-def fish_environment
-  File.expand_path('~/.config/fish/conf.d/00-env.fish')
+def fish_environment(suffix = nil)
+  suffix = suffix ? "-#{suffix}" : ''
+  File.expand_path("~/.config/fish/conf.d/00-env#{suffix}.fish")
 end
 
 def bash_environment

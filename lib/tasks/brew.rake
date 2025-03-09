@@ -80,7 +80,7 @@ namespace :brew do
     ENV['HOMEBREW_NO_INSTALL_CLEANUP'] = '1'
     ENV['HOMEBREW_VERBOSE'] = '1' if ci?
     ENV['HOMEBREW_DEBUG'] = '1' if ci?
-    ENV['PATH'] = "/opt/homebrew/bin:#{ENV.fetch('PATH')}" if macos?
+    ENV['PATH'] = "/opt/homebrew/bin:#{ENV.fetch('PATH')}" if macos? && arm?
     ENV['PATH'] = "/home/linuxbrew/.linuxbrew/bin:#{ENV.fetch('PATH')}" if linux?
 
     if which 'brew'
@@ -91,21 +91,12 @@ namespace :brew do
       command '/bin/bash', '-c', capture('/usr/bin/curl', '-fsSL', 'https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh')
     end
 
+    brew = which('brew')
     brew_prefix = capture('brew', '--prefix').chomp
 
     [File.join(brew_prefix, 'bin'), File.join(brew_prefix, 'sbin')].map(&:shellescape).each do |bin|
-      add_line_to_file fish_environment, "contains #{bin} $PATH; " \
-                                         "or set -x fish_user_paths #{bin} $fish_user_paths"
-      add_line_to_file bash_environment, "[[ \":$PATH:\" =~ :#{bin}: ]] || " \
-                                         "export PATH=#{bin}:\"$PATH\""
-    end
-    {
-      'MANPATH' => File.join(brew_prefix, 'share/man'),
-      'INFOPATH' => File.join(brew_prefix, 'share/info'),
-    }.transform_values(&:shellescape).each do |var, path|
-      add_line_to_file fish_environment, "set -q #{var}; and set #{var} ''; " \
-                                         "contains #{path} $#{var}; " \
-                                         "or set -x #{var} #{path} $#{var}"
+      add_line_to_file fish_environment('brew'), "eval $(#{brew} shellenv)"
+      add_line_to_file bash_environment, "eval \"$(#{brew} shellenv)\""
     end
 
     brew_repo_dir = capture('brew', '--repository').chomp
@@ -320,19 +311,20 @@ namespace :brew do
       '--no-quarantine',
     ].shelljoin.gsub('\=', '=')
 
-    add_line_to_file fish_environment, "set -x HOMEBREW_CASK_OPTS '#{ENV.fetch('HOMEBREW_CASK_OPTS')}'"
+    add_line_to_file fish_environment('brew'),
+                     "set -x HOMEBREW_CASK_OPTS '#{ENV.fetch('HOMEBREW_CASK_OPTS')}'"
     add_line_to_file bash_environment, "export HOMEBREW_CASK_OPTS='#{ENV.fetch('HOMEBREW_CASK_OPTS')}'"
 
-    add_line_to_file fish_environment, 'set -x HOMEBREW_DEVELOPER 1'
+    add_line_to_file fish_environment('brew'), 'set -x HOMEBREW_DEVELOPER 1'
     add_line_to_file bash_environment, "export HOMEBREW_DEVELOPER='1'"
 
-    add_line_to_file fish_environment, 'set -x HOMEBREW_BAT 1'
+    add_line_to_file fish_environment('brew'), 'set -x HOMEBREW_BAT 1'
     add_line_to_file bash_environment, "export HOMEBREW_BAT='1'"
 
-    add_line_to_file fish_environment, 'set -x HOMEBREW_NO_INSTALL_FROM_API 1'
+    add_line_to_file fish_environment('brew'), 'set -x HOMEBREW_NO_INSTALL_FROM_API 1'
     add_line_to_file bash_environment, "export HOMEBREW_NO_INSTALL_FROM_API='1'"
 
-    add_line_to_file fish_environment,
+    add_line_to_file fish_environment('brew'),
                      'test -e ~/.config/github/token; and read -x HOMEBREW_GITHUB_API_TOKEN < ~/.config/github/token'
     add_line_to_file bash_environment,
                      '[ -e ~/.config/github/token ] && ' \

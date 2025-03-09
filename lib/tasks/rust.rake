@@ -10,34 +10,35 @@ task :rust => [:'brew:casks_and_formulae', :sccache] do
 
   ENV['CARGO_HOME'] = File.expand_path(cargo_home)
 
-  add_line_to_file fish_environment, "set -x CARGO_HOME #{cargo_home}"
+  add_line_to_file fish_environment('rust'), "set -x CARGO_HOME #{cargo_home}"
   add_line_to_file bash_environment, "export CARGO_HOME=#{cargo_home}"
 
   ENV['RUSTUP_HOME'] = File.expand_path(rustup_home)
 
-  add_line_to_file fish_environment, "set -x RUSTUP_HOME #{rustup_home}"
+  add_line_to_file fish_environment('rust'), "set -x RUSTUP_HOME #{rustup_home}"
   add_line_to_file bash_environment, "export RUSTUP_HOME=#{rustup_home}"
 
   ENV['PATH'] = "#{ENV.fetch('CARGO_HOME')}/bin:#{ENV.fetch('PATH')}"
 
-  add_line_to_file fish_environment,
-                   'mkdir -p "$CARGO_HOME/bin"; and set -x fish_user_paths "$CARGO_HOME/bin" $fish_user_paths'
+  add_line_to_file fish_environment('rust'),
+                   'mkdir -p "$CARGO_HOME/bin"; and ' \
+                   'fish_add_path --global --move --path "$CARGO_HOME/bin"'
   add_line_to_file bash_environment,
                    'mkdir -p "$CARGO_HOME/bin" && export PATH="$CARGO_HOME/bin:$PATH"'
 
   rustup_prefix = capture('brew', '--prefix', 'rustup').chomp
-  add_line_to_file fish_environment,
-                   "set -x fish_user_paths \"#{rustup_prefix}/bin\" $fish_user_paths"
+  add_line_to_file fish_environment('rust'),
+                   "fish_add_path --global --move --path \"#{rustup_prefix}/bin\""
   add_line_to_file bash_environment,
                    "export PATH=\"#{rustup_prefix}/bin:$PATH\""
 
-  add_line_to_file fish_environment,
+  add_line_to_file fish_environment('rust'),
                    'set -x CARGO_TARGET_ARM_UNKNOWN_LINUX_GNUEABIHF_LINKER arm-unknown-linux-gnueabihf-gcc'
   add_line_to_file bash_environment,
                    'export CARGO_TARGET_ARM_UNKNOWN_LINUX_GNUEABIHF_LINKER=arm-unknown-linux-gnueabihf-gcc'
-  add_line_to_file fish_environment, 'set -x CC_arm_unknown_linux_gnueabihf arm-unknown-linux-gnueabihf-gcc'
+  add_line_to_file fish_environment('rust'), 'set -x CC_arm_unknown_linux_gnueabihf arm-unknown-linux-gnueabihf-gcc'
   add_line_to_file bash_environment, 'export CC_arm_unknown_linux_gnueabihf=arm-unknown-linux-gnueabihf-gcc'
-  add_line_to_file fish_environment, 'set -x CXX_arm_unknown_linux_gnueabihf arm-unknown-linux-gnueabihf-gcc'
+  add_line_to_file fish_environment('rust'), 'set -x CXX_arm_unknown_linux_gnueabihf arm-unknown-linux-gnueabihf-gcc'
   add_line_to_file bash_environment, 'export CXX_arm_unknown_linux_gnueabihf=arm-unknown-linux-gnueabihf-gcc'
 
   FileUtils.mkdir_p ENV.fetch('CARGO_HOME')
