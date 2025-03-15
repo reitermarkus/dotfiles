@@ -11,7 +11,11 @@ task :zed => [:'brew:casks_and_formulae'] do
   zed_keymap = zed_config_dir.join('keymap.json')
 
   zed_settings.write JSON.pretty_generate(
-    theme: 'Zed Legacy: Solarized Dark',
+    theme: {
+      mode: 'system',
+      light: 'Zed Legacy: Solarized Light',
+      dark: 'Zed Legacy: Solarized Dark',
+    },
     telemetry: {
       metrics: false,
     },
