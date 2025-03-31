@@ -152,6 +152,7 @@ namespace :brew do
     'clang-format' => {},
     'cmake' => {},
     'direnv' => {},
+    'easyeda2kicad' => {},
     'gcc' => {},
     'git' => {},
     'git-extras' => {},
