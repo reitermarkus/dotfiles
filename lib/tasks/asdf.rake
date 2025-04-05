@@ -17,7 +17,7 @@ task :asdf => [:'brew:casks_and_formulae'] do
   add_line_to_file bash_environment, "export ASDF_CONFIG_FILE=#{asdf_config_file}"
 
   prefix = capture('brew', '--prefix', 'asdf').chomp
-  fish_function = Pathname('~/.config/fish/conf.d/asdf.fish').expand_path
+  fish_function = Pathname('~/.config/fish/conf.d/99-asdf.fish').expand_path
   fish_function.dirname.mkpath
   fish_function.write <<~FISH
     # This file was created automatically, do not edit it directly.
