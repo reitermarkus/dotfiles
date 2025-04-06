@@ -79,7 +79,7 @@ task :linux => [
   :vscode,
   :zed,
   :z,
-  :asdf,
+  :mise,
 ]
 
 task :windows => [
@@ -165,5 +165,5 @@ task :macos => [
   :thangs,
   :zed,
   :z,
-  :asdf,
+  :mise,
 ]

@@ -2,11 +2,8 @@
 
 require 'defaults'
 
-task :ruby => [:asdf] do
+task :ruby do
   puts ANSI.blue { 'Configuring Ruby …' }
-
-  command 'asdf', 'plugin', 'add', 'ruby'
-  command 'asdf', 'set', '--home', 'ruby', 'system'
 
   if capture('gem', 'list', '--no-versions', 'bundler').strip == 'bundler'
     puts ANSI.green { 'Bundler is already installed.' }

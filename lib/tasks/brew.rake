@@ -144,7 +144,6 @@ namespace :brew do
 
   wanted_formulae = {
     'ansible' => {},
-    'asdf' => {},
     'asimov' => {},
     'bash' => {},
     'bash-completion@2' => {},
@@ -169,6 +168,7 @@ namespace :brew do
     'kubernetes-cli' => {},
     'llvm' => {},
     'mackup' => {},
+    'mise' => {},
     'mosh' => {},
     'ncdu' => {},
     'openjdk' => {},
