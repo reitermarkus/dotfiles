@@ -73,7 +73,10 @@ namespace :git do
 
     command 'git', 'config', '--global', 'sequence.editor', 'interactive-rebase-tool'
 
-    unless linux?
+    if linux?
+      command 'git', 'config', '--global', 'mergetool.meld.path', 'meld'
+      command 'git', 'config', '--global', 'merge.tool', 'meld'
+    else
       command 'git', 'config', '--global', 'mergetool.araxis.path', 'araxiscompare'
       command 'git', 'config', '--global', 'merge.tool', 'araxis'
 
