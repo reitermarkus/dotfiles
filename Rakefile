@@ -160,7 +160,6 @@ task :macos => [
   :keka,
   :arduino,
   :mouse_trackpad,
-  :userscripts,
   :thangs,
   :zed,
   :z,
