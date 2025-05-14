@@ -70,6 +70,7 @@ ENV.delete_if { |k, _|
 }
 
 task :linux => [
+  :curl,
   :files,
   :fonts,
   :fish,
@@ -88,6 +89,7 @@ task :windows => [
 
 task :macos => [
   :ansible,
+  :curl,
   :files,
   :'xcode:command_line_utilities',
   :'softwareupdate:rosetta',
