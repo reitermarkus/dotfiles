@@ -63,6 +63,7 @@ task :zed => [:'brew:casks_and_formulae'] do
         'ctrl-shift-c': 'editor::Copy',
         'ctrl-shift-v': 'editor::Paste',
         'ctrl-shift-x': 'editor::Cut',
+        'ctrl-k': 'editor::DeleteToEndOfLine',
       },
     },
     {
