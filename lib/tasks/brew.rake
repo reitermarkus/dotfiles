@@ -107,8 +107,6 @@ namespace :brew do
   desc 'Install Taps'
   task :taps => [:'brew:install'] do
     wanted_taps = %w[
-      homebrew/command-not-found
-
       bfontaine/utils
       fluxcd/tap
       jonof/kenutils
