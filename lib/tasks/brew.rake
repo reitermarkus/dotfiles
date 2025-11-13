@@ -279,8 +279,6 @@ namespace :brew do
       'transmission' => {},
       'unicodechecker' => {},
       'ultimaker-cura' => {},
-      'vagrant' => {},
-      'vagrant-manager' => {},
       'visual-studio-code' => {},
       'virtualbox' => {},
       'vlc' => {},

@@ -146,7 +146,6 @@ task :macos => [
   :bettersnaptool,
   :screensaver,
   :parallels,
-  :vagrant,
   :telegram,
   :finder,
   :crash_reporter,
