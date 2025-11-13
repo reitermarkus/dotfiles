@@ -1,7 +1,7 @@
 # This file was created automatically, do not edit it directly.
 
-if set -l brew_command_init (brew command-not-found-init 2>&-)
-  source "$brew_command_init"
+if set -l HOMEBREW_COMMAND_NOT_FOUND_HANDLER (brew --repository)/Library/Homebrew/command-not-found/handler.fish
+  source "$HOMEBREW_COMMAND_NOT_FOUND_HANDLER"
 end
 
 if test (type -t brew) = function
