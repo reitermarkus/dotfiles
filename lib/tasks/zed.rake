@@ -50,7 +50,20 @@ task :zed => [:'brew:casks_and_formulae'] do
     },
   )
 
-  next unless linux?
+  editor_bindings = if linux?
+    {
+      'ctrl-shift-c': 'editor::Copy',
+      'ctrl-shift-v': 'editor::Paste',
+      'ctrl-shift-x': 'editor::Cut',
+      'ctrl-k': 'editor::DeleteToEndOfLine',
+    }
+  elsif macos?
+    {
+      'cmd-shift-7': ['editor::ToggleComments', { advance_downwards: false }],
+    }
+  else
+    {}
+  end
 
   zed_keymap.write JSON.pretty_generate([
     {
@@ -59,12 +72,7 @@ task :zed => [:'brew:casks_and_formulae'] do
     },
     {
       context: 'Editor',
-      bindings: {
-        'ctrl-shift-c': 'editor::Copy',
-        'ctrl-shift-v': 'editor::Paste',
-        'ctrl-shift-x': 'editor::Cut',
-        'ctrl-k': 'editor::DeleteToEndOfLine',
-      },
+      bindings: editor_bindings,
     },
     {
       context: 'Terminal',
