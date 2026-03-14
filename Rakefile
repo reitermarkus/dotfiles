@@ -151,7 +151,6 @@ task :macos => [
   :crash_reporter,
   :dnsmasq,
   :loginwindow,
-  :textmate,
   :vscode,
   :dock,
   :softwareupdate,

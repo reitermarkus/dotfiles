@@ -53,28 +53,6 @@ task :rust => [:'brew:casks_and_formulae', :sccache] do
   TOML
   File.write "#{ENV.fetch('CARGO_HOME')}/config.toml", cargo_config
 
-  if macos?
-    defaults 'com.macromates.TextMate' do
-      write 'environmentVariables', [
-        {
-          'enabled' => true,
-          'name' => 'CARGO_HOME',
-          'value' => '$HOME/.config/cargo',
-        },
-        {
-          'enabled' => true,
-          'name' => 'PATH',
-          'value' => '$CARGO_HOME/bin:$PATH',
-        },
-        {
-          'enabled' => true,
-          'name' => 'RUSTUP_HOME',
-          'value' => '$HOME/.config/rustup',
-        },
-      ], add: true
-    end
-  end
-
   begin
     capture('rustup', 'default')
   rescue NonZeroExit

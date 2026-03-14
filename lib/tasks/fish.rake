@@ -14,11 +14,11 @@ task :fish => [:'brew:casks_and_formulae'] do
     command sudo, '/usr/bin/chsh', '-s', fish_executable, USER
   end
 
-  editor = macos? ? 'mate' : 'code'
+  editor = 'zed'
 
   fish_conf_dir = Pathname('~/.config/fish/conf.d').expand_path
   (fish_conf_dir/'editor.fish').write <<~FISH
-    set -x EDITOR '#{editor} -w'
+    set -x EDITOR '#{editor} --new --wait'
     set -x HOMEBREW_EDITOR '#{editor}'
     alias edit='#{editor}'
   FISH

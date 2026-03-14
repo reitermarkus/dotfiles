@@ -9,16 +9,4 @@ task :sccache => [:'brew:casks_and_formulae'] do
   add_line_to_file bash_environment, 'which sccache 2>&1 >/dev/null && export RUSTC_WRAPPER="sccache"'
 
   ENV['RUSTC_WRAPPER'] = 'sccache'
-
-  if macos?
-    defaults 'com.macromates.TextMate' do
-      write 'environmentVariables', [
-        {
-          'enabled' => true,
-          'name' => 'RUSTC_WRAPPER',
-          'value' => ENV.fetch('RUSTC_WRAPPER'),
-        },
-      ], add: true
-    end
-  end
 end
