@@ -232,7 +232,7 @@ namespace :brew do
       'konica-minolta-bizhub-c750i-driver' => {},
       'latexit' => {},
       'minecraft' => {},
-      'macdown' => {},
+      'macdown-3000' => {},
       'mactex-no-gui' => {},
       'makemkv' => { flags: ["--appdir=#{converters_dir}"] },
       'mediathekview' => {},

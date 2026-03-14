@@ -150,7 +150,7 @@ task :finder => :'brew:casks_and_formulae' do
 
   # Set default apps.
   command 'duti', '-s', 'at.eggerapps.tabletool', 'csv', 'all'
-  command 'duti', '-s', 'com.uranusjr.macdown', 'md', 'all'
+  command 'duti', '-s', 'app.macdown.macdown3000', 'md', 'all'
 
   # Add sidebar items.
   command sudo, 'mysides', 'remove', 'all'
