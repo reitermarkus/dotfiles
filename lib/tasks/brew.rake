@@ -147,6 +147,7 @@ namespace :brew do
     'ccache' => {},
     'clang-format' => {},
     'cmake' => {},
+    'colima' => {},
     'direnv' => {},
     'easyeda2kicad' => {},
     'gcc' => {},
