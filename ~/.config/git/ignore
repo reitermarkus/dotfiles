@@ -6,7 +6,8 @@
 .LSOverride
 
 # Icon?
-Icon
+Icon
+
 # Icon? (must end with two carriage returns)
 
 # Thumbnails
@@ -37,3 +38,4 @@ Temporary Items
 # Editor Metadata
 .idea/*
 .vscode/*
+.zed/*
