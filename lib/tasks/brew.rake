@@ -110,8 +110,9 @@ namespace :brew do
       bfontaine/utils
       fluxcd/tap
       jonof/kenutils
+      probe-rs/probe-rs
       reitermarkus/tap
-      siderolabs/talos
+      siderolabs/tap
     ].freeze
 
     taps = wanted_taps - capture('brew', 'tap').strip.split("\n")
@@ -129,6 +130,7 @@ namespace :brew do
       taps.map { |tap|
         Concurrent::Promise.execute(executor: download_pool) {
           capture 'brew', 'tap', tap, stdout_tty: true
+          capture 'brew', 'trust', tap
         }.then(executor: output_pool) { |out|
           print out
         }
